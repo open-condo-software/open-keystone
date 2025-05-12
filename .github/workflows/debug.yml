@@ -1,0 +1,16 @@
+name: Debug CI Trigger
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hello
+        run: echo "CI is working!"
