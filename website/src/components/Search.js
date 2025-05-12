@@ -50,9 +50,9 @@ export const Search = () => {
           algoliaOptions: {
             facetFilters: ['tags:v5'],
           },
-          transformData: (results) => {
+          transformData: results => {
             if (window.location.hostname == 'v5.keystonejs.com') return results;
-            return results.map((result) => {
+            return results.map(result => {
               result.url = result.url.replace('https://v5.keystonejs.com', window.location.origin);
               navigate(result.url);
             });
