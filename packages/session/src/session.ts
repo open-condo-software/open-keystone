@@ -46,7 +46,11 @@ export class SessionManager {
     this._sessionStore = sessionStore;
   }
 
-  getSessionMiddleware({ keystone }: { keystone: _Keystone }) {
+  getSessionMiddleware({
+    keystone,
+  }: {
+    keystone: _Keystone;
+  }): Array<(req: Request, res: Response, next: NextFunction) => Promise<void> | void> {
     const COOKIE_NAME = 'keystone.sid';
 
     // We have at least one auth strategy

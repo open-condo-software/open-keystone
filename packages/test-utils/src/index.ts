@@ -2,6 +2,7 @@ import path from 'path';
 import crypto from 'crypto';
 import { ServerResponse } from 'http';
 import express from 'express';
+import type { Express } from 'express';
 // @ts-ignore
 import supertest from 'supertest-light';
 import MongoDBMemoryServer from 'mongodb-memory-server-core';
@@ -58,7 +59,7 @@ async function setupServer({
   createLists: (args: Keystone<string>) => void;
   keystoneOptions: Record<string, any>; // FIXME: should match args of Keystone constructor
   graphqlOptions: Record<string, any>; // FIXME: should match args of GraphQLApp constuctor
-}) {
+}): Promise<{ keystone: Keystone; app: Express }> {
   const Adapter = {
     mongoose: MongooseAdapter,
     knex: KnexAdapter,

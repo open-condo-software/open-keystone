@@ -2,9 +2,7 @@
   "name": "create-keystone-5-app",
   "description": "Generate starter apps for Keystone 5",
   "version": "4.0.2",
-  "bin": {
-    "create-keystone-5-app": "bin/cli.js"
-  },
+  "bin": "bin/cli.js",
   "files": [
     "bin",
     "lib"

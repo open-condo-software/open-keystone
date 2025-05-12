@@ -57,7 +57,7 @@
     "@changesets/cli": "^2.16.0",
     "@jest/test-sequencer": "^26.6.3",
     "@manypkg/cli": "^0.18.0",
-    "@preconstruct/cli": "2.1.0",
+    "@preconstruct/cli": "^2.8.12",
     "@types/jest": "^26.0.23",
     "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@typescript-eslint/parser": "^4.28.0",
@@ -217,5 +217,6 @@
   },
   "engines": {
     "node": ">=10.0.0"
-  }
+  },
+  "packageManager": "yarn@3.8.7"
 }
