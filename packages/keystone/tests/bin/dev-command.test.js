@@ -1,6 +1,7 @@
 const fs = require('fs');
 const tmp = require('tmp');
 const http = require('http');
+const net = require('net');
 const devCommand = require('../../bin/commands/dev');
 const constants = require('../../constants');
 
@@ -11,6 +12,20 @@ const mockSpinner = {
   fail: () => {},
   info: () => {},
 };
+
+async function getFreePort() {
+  return await new Promise((resolve, reject) => {
+    const server = net.createServer();
+    server.unref(); // prevents keeping the Node process alive
+
+    server.on('error', reject);
+
+    server.listen(0, () => {
+      const { port } = server.address();
+      server.close(() => resolve(port));
+    });
+  });
+}
 
 async function expectServerResponds({ port, host = 'localhost', path = '/' }) {
   // A quick and dirty request for response code + headers (but no body)
@@ -93,7 +108,7 @@ describe('dev command', () => {
       }`
     );
 
-    const port = 5000;
+    const port = await getFreePort();
 
     const { server } = await localDevCommand.exec(
       {
