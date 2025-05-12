@@ -66,6 +66,9 @@ jobs:
       - name: Install Dependencies
         run: yarn --immutable
         if: needs.should_run_tests.outputs.shouldRunTests == 'true'
+      - name: Build packages
+        run: yarn build
+        if: needs.should_run_tests.outputs.shouldRunTests == 'true'
       - name: Unit tests
         if: needs.should_run_tests.outputs.shouldRunTests == 'true'
         run: yarn jest --ci --maxWorkers=1 api-tests
@@ -112,6 +115,8 @@ jobs:
 
       - name: Install Dependencies
         run: yarn --immutable
+      - name: Build packages
+        run: yarn build
       - name: Unit tests
         run: yarn jest --ci --maxWorkers=1 --testPathIgnorePatterns=api-tests --forceExit
         env:
