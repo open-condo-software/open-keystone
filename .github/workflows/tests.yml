@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-22.04
     services:
       postgres:
-        image: postgres:12
+        image: postgres:16.8
         env:
           POSTGRES_USER: keystone5
           POSTGRES_PASSWORD: k3yst0n3
@@ -87,7 +87,7 @@ jobs:
     runs-on: ubuntu-22.04
     services:
       postgres:
-        image: postgres:12
+        image: postgres:16.8
         env:
           POSTGRES_USER: keystone5
           POSTGRES_PASSWORD: k3yst0n3
@@ -113,7 +113,7 @@ jobs:
       - name: Install Dependencies
         run: yarn --immutable
       - name: Unit tests
-        run: yarn jest --ci --maxWorkers=1 --testPathIgnorePatterns=api-tests
+        run: yarn jest --ci --maxWorkers=1 --testPathIgnorePatterns=api-tests --forceExit
         env:
           CLOUDINARY_CLOUD_NAME: keystone-cloudinary
           CLOUDINARY_KEY: 758252673115372
@@ -154,7 +154,7 @@ jobs:
     runs-on: ubuntu-22.04
     services:
       postgres:
-        image: postgres:12
+        image: postgres:16.8
         env:
           POSTGRES_USER: keystone5
           POSTGRES_PASSWORD: k3yst0n3
