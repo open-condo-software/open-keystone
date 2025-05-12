@@ -12,19 +12,22 @@ export const escapeRegExp = (str: string) =>
   (str || '').replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
 
 // { key: value, ... } => { key: mapFn(value, key), ... }
-export const mapKeys = <T, R>(obj: T, func: (value: T[keyof T], key: keyof T, obj: T) => R) =>
+export const mapKeys = <T extends Record<string, unknown>, R>(
+  obj: T,
+  func: (value: T[keyof T], key: keyof T, obj: T) => R
+) =>
   Object.entries(obj).reduce(
-    (acc, [key, value]) => ({ ...acc, [key]: func(value, key as keyof T, obj) }),
+    (acc, [key, value]) => ({ ...acc, [key]: func(value as T[keyof T], key as keyof T, obj) }),
     {} as Record<keyof T, R>
   );
 
 // { key: value, ... } => { mapFn(key, value): value, ... }
-export const mapKeyNames = <T, R extends string>(
+export const mapKeyNames = <T extends Record<string, unknown>, R extends string>(
   obj: T,
   func: (key: keyof T, value: T[keyof T], obj: T) => R
 ) =>
   Object.entries(obj).reduce(
-    (acc, [key, value]) => ({ ...acc, [func(key as keyof T, value, obj)]: value }),
+    (acc, [key, value]) => ({ ...acc, [func(key as keyof T, value as T[keyof T], obj)]: value }),
     {} as Record<R, T[keyof T]>
   );
 
@@ -71,19 +74,22 @@ export const unique = <T>(arr: T[]): T[] => [...new Set(arr)];
 export const intersection = <T>(array1: T[], array2: T[]) =>
   unique(array1.filter(value => array2.includes(value)));
 
-export const pick = <T, K extends keyof T>(obj: T, keys: K[]) =>
+export const pick = <T extends Record<string, unknown>, K extends keyof T>(obj: T, keys: K[]) =>
   keys.reduce(
     (acc, key) => (key in obj ? { ...acc, [key]: obj[key] } : acc),
     {} as { [P in K]: T[P] }
   );
 
-export const omitBy = <T>(obj: T, func: (key: keyof T) => boolean) =>
+export const omitBy = <T extends Record<string, unknown>>(
+  obj: T,
+  func: (key: keyof T) => boolean
+) =>
   pick(
     obj,
     (Object.keys(obj) as (keyof T)[]).filter(key => !func(key))
   ) as Partial<T>;
 
-export const omit = <T, K extends keyof T>(obj: T, keys: K[]) =>
+export const omit = <T extends Record<string, unknown>, K extends keyof T>(obj: T, keys: K[]) =>
   omitBy(obj, value => keys.includes(value as K)) as Omit<T, K>;
 
 // [{ k1: v1, k2: v2, ...}, { k3: v3, k4: v4, ...}, ...] => { k1: v1, k2: v2, k3: v3, k4, v4, ... }
@@ -100,9 +106,12 @@ export const objMerge = <T extends any[]>(objs: [...T]) =>
 export const defaultObj = <T, K extends string>(keys: K[], val: T) =>
   keys.reduce((acc, key) => ({ ...acc, [key]: val }), {} as Record<K, T>);
 
-export const filterValues = <T>(obj: T, predicate: (value: T[keyof T]) => boolean) =>
+export const filterValues = <T extends Record<string, unknown>>(
+  obj: T,
+  predicate: (value: T[keyof T]) => boolean
+) =>
   Object.entries(obj).reduce(
-    (acc, [key, value]) => (predicate(value) ? { ...acc, [key]: value } : acc),
+    (acc, [key, value]) => (predicate(value as T[keyof T]) ? { ...acc, [key]: value } : acc),
     {} as Partial<T>
   );
 
