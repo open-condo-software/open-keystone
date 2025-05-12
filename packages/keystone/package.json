@@ -7,9 +7,7 @@
   "engines": {
     "node": ">=10.0.0"
   },
-  "bin": {
-    "keystone": "bin/cli.js"
-  },
+  "bin": "bin/cli.js",
   "dependencies": {
     "@keystonejs/access-control": "^7.1.2",
     "@keystonejs/app-version": "^2.1.2",
