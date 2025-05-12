@@ -49,16 +49,19 @@ jobs:
       matrix:
         index: [0, 1, 2, 3, 4, 5, 6, 7, 8]
         adapter: ['mongoose', 'knex', 'prisma_postgresql']
+        node-version: [16.x]
+
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         if: needs.should_run_tests.outputs.shouldRunTests == 'true'
 
-      - name: Setup Node.js 14.x
-        uses: actions/setup-node@main
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         if: needs.should_run_tests.outputs.shouldRunTests == 'true'
         with:
-          node-version: 14.x
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
 
       - name: Get yarn cache directory path
         if: needs.should_run_tests.outputs.shouldRunTests == 'true'
@@ -77,7 +80,7 @@ jobs:
             ${{ runner.os }}-yarn-v4-
 
       - name: Install Dependencies
-        run: yarn
+        run: yarn --immutable
         if: needs.should_run_tests.outputs.shouldRunTests == 'true'
       - name: Unit tests
         if: needs.should_run_tests.outputs.shouldRunTests == 'true'
@@ -111,31 +114,20 @@ jobs:
       DATABASE_URL: 'postgres://keystone5:k3yst0n3@localhost:5432/test_db'
     strategy:
       fail-fast: false
+      matrix:
+        node-version: [16.x]
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Setup Node.js 14.x
-        uses: actions/setup-node@main
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 14.x
-
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            ${{ steps.yarn-cache-dir-path.outputs.dir }}
-            node_modules
-          key: ${{ runner.os }}-yarn-v4-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-v4-
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
 
       - name: Install Dependencies
-        run: yarn
+        run: yarn --immutable
       - name: Unit tests
         run: yarn jest --ci --maxWorkers=1 --testPathIgnorePatterns=api-tests
         env:
@@ -146,31 +138,21 @@ jobs:
   linting:
     name: Linting
     runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        node-version: [ 16.x ]
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Setup Node.js 14.x
-        uses: actions/setup-node@main
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 14.x
-
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            ${{ steps.yarn-cache-dir-path.outputs.dir }}
-            node_modules
-          key: ${{ runner.os }}-yarn-v4-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-v4-
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
 
       - name: Install Dependencies
-        run: yarn
+        run: yarn --immutable
       - name: Prettier
         run: yarn lint:prettier
       - name: TypeScript
@@ -209,34 +191,20 @@ jobs:
           - test-projects/login
           - test-projects/access-control
           - test-projects/client-validation
+        node-version: [16.x]
     steps:
       - name: Checkout Repo
         if: needs.should_run_tests.outputs.shouldRunTests == 'true'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node.js 14.x
-        uses: actions/setup-node@main
+        uses: actions/setup-node@v3
         if: needs.should_run_tests.outputs.shouldRunTests == 'true'
         with:
-          node-version: 14.x
-
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        if: needs.should_run_tests.outputs.shouldRunTests == 'true'
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - uses: actions/cache@v2
-        id: yarn-cache
-        if: needs.should_run_tests.outputs.shouldRunTests == 'true'
-        with:
-          path: |
-            ${{ steps.yarn-cache-dir-path.outputs.dir }}
-            node_modules
-          key: ${{ runner.os }}-yarn-v4-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-v4-
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
 
       - name: Install Dependencies
-        run: yarn
+        run: yarn --immutable
         if: needs.should_run_tests.outputs.shouldRunTests == 'true'
       - run: yarn --cwd tests/${{ matrix.project }} cypress install
         if: needs.should_run_tests.outputs.shouldRunTests == 'true'
