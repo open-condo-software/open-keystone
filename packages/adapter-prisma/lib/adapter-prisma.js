@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 const cuid = require('cuid');
-const { getGenerators, formatSchema } = require('@prisma/sdk');
 const { BaseKeystoneAdapter, BaseListAdapter, BaseFieldAdapter } = require('@keystonejs/keystone');
 const { defaultObj, mapKeys, identity, flatten } = require('@keystonejs/utils');
 
@@ -51,7 +50,7 @@ class PrismaAdapter extends BaseKeystoneAdapter {
   async deploy(rels) {
     // Apply any migrations which haven't already been applied
     await this._prepareSchema(rels);
-    this._runPrismaCmd(`migrate deploy --preview-feature`);
+    this._runPrismaCmd(`migrate deploy`);
   }
 
   async _connect({ rels }) {
@@ -100,13 +99,13 @@ class PrismaAdapter extends BaseKeystoneAdapter {
   async _runMigrations() {
     if (this.migrationMode === 'prototype') {
       // Sync the database directly, without generating any migration
-      this._runPrismaCmd(`db push --force --preview-feature`);
+      this._runPrismaCmd(`db push --force`);
     } else if (this.migrationMode === 'createOnly') {
       // Generate a migration, but do not apply it
-      this._runPrismaCmd(`migrate dev --create-only --name keystone-${cuid()} --preview-feature`);
+      this._runPrismaCmd(`migrate dev --create-only --name keystone-${cuid()}`);
     } else if (this.migrationMode === 'dev') {
       // Generate and apply a migration if required.
-      this._runPrismaCmd(`migrate dev --name keystone-${cuid()} --preview-feature`);
+      this._runPrismaCmd(`migrate dev --name keystone-${cuid()}`);
     } else if (this.migrationMode === 'none') {
       // Explicitly disable running any migrations
     } else {
@@ -123,9 +122,7 @@ class PrismaAdapter extends BaseKeystoneAdapter {
   }
 
   async _generatePrismaClient() {
-    const generator = (await getGenerators({ schemaPath: this.schemaPath }))[0];
-    await generator.generate();
-    generator.stop();
+    this._runPrismaCmd('generate');
   }
 
   async _generatePrismaSchema({ rels, clientDir }) {
@@ -209,9 +206,12 @@ class PrismaAdapter extends BaseKeystoneAdapter {
       generator client {
         provider = "prisma-client-js"
         output = "${clientDir}"
-        previewFeatures = ["nativeTypes"]
       }`;
-    return await formatSchema({ schema: header + models.join('\n') + '\n' + enums.join('\n') });
+
+    const schema = header + models.join('\n') + '\n' + enums.join('\n');
+    fs.writeSync(fs.openSync(this.schemaPath, 'w'), schema);
+    this._runPrismaCmd('format');
+    return fs.readFileSync(this.schemaPath).toString();
   }
 
   async postConnect({ rels }) {
@@ -248,11 +248,11 @@ class PrismaAdapter extends BaseKeystoneAdapter {
         }
       } else {
         // If we're in prototype mode then we need to rebuild the tables after a reset
-        this._runPrismaCmd(`migrate reset --force --preview-feature`);
-        this._runPrismaCmd(`db push --force --preview-feature`);
+        this._runPrismaCmd(`migrate reset --force`);
+        this._runPrismaCmd(`db push --force`);
       }
     } else {
-      this._runPrismaCmd(`migrate reset --force --preview-feature`);
+      this._runPrismaCmd(`migrate reset --force`);
     }
   }
 
