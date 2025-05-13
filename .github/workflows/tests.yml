@@ -194,6 +194,8 @@ jobs:
 
       - name: Install Dependencies
         run: yarn --immutable
+      - name: Build packages
+        run: yarn build
         if: needs.should_run_tests.outputs.shouldRunTests == 'true'
       - run: yarn --cwd tests/${{ matrix.project }} cypress install
         if: needs.should_run_tests.outputs.shouldRunTests == 'true'
