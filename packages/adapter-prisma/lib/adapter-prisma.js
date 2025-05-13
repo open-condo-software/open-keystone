@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 const cuid = require('cuid');
-const { getGenerators, formatSchema } = require('@prisma/sdk');
 const { BaseKeystoneAdapter, BaseListAdapter, BaseFieldAdapter } = require('@keystonejs/keystone');
 const { defaultObj, mapKeys, identity, flatten } = require('@keystonejs/utils');
 
@@ -28,7 +27,13 @@ class PrismaAdapter extends BaseKeystoneAdapter {
     this.schemaPath = path.join(prismaPath, 'schema.prisma');
     this.clientPath = path.resolve(`${prismaPath}/${clientDir}`);
     this.dbSchemaName = this.getDbSchemaName({ prismaSchema });
-    return { prismaSchema };
+
+    fs.mkdirSync(path.dirname(this.schemaPath), { recursive: true });
+    fs.writeFileSync(this.schemaPath, prismaSchema);
+    this._runPrismaCmd('format');
+    const formattedSchema = fs.readFileSync(this.schemaPath, { encoding: 'utf-8' });
+
+    return { prismaSchema: formattedSchema };
   }
 
   _url() {
@@ -42,7 +47,7 @@ class PrismaAdapter extends BaseKeystoneAdapter {
   }
 
   _runPrismaCmd(cmd) {
-    return execSync(`yarn prisma ${cmd} --schema ${this.schemaPath}`, {
+    return execSync(`npx prisma ${cmd} --schema ${this.schemaPath}`, {
       env: { ...process.env, DATABASE_URL: this._url() },
       encoding: 'utf-8',
     });
@@ -58,7 +63,7 @@ class PrismaAdapter extends BaseKeystoneAdapter {
     await this._generateClient(rels);
     const { PrismaClient } = require(this.clientPath);
     this.prisma = new PrismaClient({
-      log: this.enableLogging && ['query'],
+      log: this.enableLogging ? ['query'] : undefined,
       datasources: { [this.provider]: { url: this._url() } },
     });
     await this.prisma.$connect();
@@ -68,39 +73,19 @@ class PrismaAdapter extends BaseKeystoneAdapter {
     // 1. Generate a formatted schema
     const { prismaSchema } = await this._prepareSchema(rels);
 
-    // 2. Check for existing schema
-    // 2a1. If they're the same, we're golden
-    // 2a2. If they're different, generate and run a migration
-    // 2b. If it doesn't exist, generate and run a migration
+    await this._writePrismaSchema({ prismaSchema });
 
-    // // If any of our critical directories are missing, or if the schema has changed, then
-    // // we've got things to do.
-    if (
-      !fs.existsSync(this.clientPath) ||
-      !fs.existsSync(this.schemaPath) ||
-      fs.readFileSync(this.schemaPath, { encoding: 'utf-8' }) !== prismaSchema
-    ) {
-      if (fs.existsSync(this.clientPath)) {
-        const existing = fs.readFileSync(this.schemaPath, { encoding: 'utf-8' });
-        if (existing === prismaSchema) {
-          // If they're the same, we're golden
-          return;
-        }
-      }
-      this._writePrismaSchema({ prismaSchema });
+    // Generate prisma client
+    await this._generatePrismaClient();
 
-      // Generate prisma client
-      await this._generatePrismaClient();
-
-      // Run prisma migrations
-      await this._runMigrations();
-    }
+    // Run prisma migrations
+    await this._runMigrations();
   }
 
   async _runMigrations() {
     if (this.migrationMode === 'prototype') {
       // Sync the database directly, without generating any migration
-      this._runPrismaCmd(`db push --force --preview-feature`);
+      this._runPrismaCmd(`db push --accept-data-loss`);
     } else if (this.migrationMode === 'createOnly') {
       // Generate a migration, but do not apply it
       this._runPrismaCmd(`migrate dev --create-only --name keystone-${cuid()} --preview-feature`);
@@ -123,9 +108,7 @@ class PrismaAdapter extends BaseKeystoneAdapter {
   }
 
   async _generatePrismaClient() {
-    const generator = (await getGenerators({ schemaPath: this.schemaPath }))[0];
-    await generator.generate();
-    generator.stop();
+    this._runPrismaCmd('generate');
   }
 
   async _generatePrismaSchema({ rels, clientDir }) {
@@ -143,7 +126,7 @@ class PrismaAdapter extends BaseKeystoneAdapter {
               const isLeft = r.left === f;
               if (r.cardinality === 'N:N') {
                 const relName = r.tableName;
-                return [`${f.path} ${f.refListKey}[] @relation("${relName}", references: [id])`];
+                return [`${f.path} ${f.refListKey}[] @relation("${relName}")`];
               } else {
                 const relName = `${r.tableName}${r.columnName}`;
                 if (
@@ -151,10 +134,11 @@ class PrismaAdapter extends BaseKeystoneAdapter {
                   (r.cardinality === '1:N' && !isLeft) ||
                   (r.cardinality === '1:1' && isLeft)
                 ) {
+                  const isOneToOne = r.cardinality === '1:1';
                   // We're the owner of the foreign key column
                   return [
                     `${f.path} ${f.refListKey}? @relation("${relName}", fields: [${f.path}Id], references: [id])`,
-                    `${f.path}Id Int? @map("${r.columnName}")`,
+                    `${f.path}Id Int? @map("${r.columnName}")${isOneToOne ? ' @unique' : ''}`,
                   ];
                 } else if (r.cardinality === '1:1') {
                   return [`${f.path} ${f.refListKey}? @relation("${relName}")`];
@@ -170,7 +154,7 @@ class PrismaAdapter extends BaseKeystoneAdapter {
             .filter(({ left }) => left.refListKey === listAdapter.key)
             .filter(({ cardinality }) => cardinality === 'N:N')
             .map(({ left: { path, listKey }, tableName }) => [
-              `from_${listKey}_${path} ${listKey}[] @relation("${tableName}", references: [id])`,
+              `from_${listKey}_${path} ${listKey}[] @relation("${tableName}")`,
             ])
         ),
         ...flatten(
@@ -209,9 +193,8 @@ class PrismaAdapter extends BaseKeystoneAdapter {
       generator client {
         provider = "prisma-client-js"
         output = "${clientDir}"
-        previewFeatures = ["nativeTypes"]
       }`;
-    return await formatSchema({ schema: header + models.join('\n') + '\n' + enums.join('\n') });
+    return header + models.join('\n') + '\n' + enums.join('\n');
   }
 
   async postConnect({ rels }) {
@@ -232,19 +215,17 @@ class PrismaAdapter extends BaseKeystoneAdapter {
         // Special fast path to drop data from a postgres database.
         // This is an optimization which is particularly crucial in a unit testing context.
         // This code path takes milliseconds, vs ~7 seconds for a migrate reset + db push
-        for (const { tablename } of await this.prisma.$queryRaw(
-          `SELECT tablename FROM pg_tables WHERE schemaname='${this.dbSchemaName}'`
-        )) {
-          await this.prisma.$queryRaw(
-            `TRUNCATE TABLE \"${this.dbSchemaName}\".\"${tablename}\" CASCADE;`
+        for (const { tablename } of await this.prisma.$queryRaw`
+          SELECT tablename FROM pg_tables WHERE schemaname = ${this.dbSchemaName}
+        `) {
+          await this.prisma.$queryRawUnsafe(
+            `TRUNCATE TABLE "${this.dbSchemaName}"."${tablename}" CASCADE;`
           );
         }
-        for (const { relname } of await this.prisma.$queryRaw(
-          `SELECT c.relname FROM pg_class AS c JOIN pg_namespace AS n ON c.relnamespace = n.oid WHERE c.relkind='S' AND n.nspname='${this.dbSchemaName}';`
-        )) {
-          await this.prisma.$queryRaw(
-            `ALTER SEQUENCE \"${this.dbSchemaName}\".\"${relname}\" RESTART WITH 1;`
-          );
+        for (const { relname } of await this.prisma
+          .$queryRaw`SELECT c.relname FROM pg_class AS c JOIN pg_namespace AS n ON c.relnamespace = n.oid WHERE c.relkind='S' AND n.nspname='${this.dbSchemaName}';`) {
+          await this.prisma
+            .$queryRaw`ALTER SEQUENCE \"${this.dbSchemaName}\".\"${relname}\" RESTART WITH 1;`;
         }
       } else {
         // If we're in prototype mode then we need to rebuild the tables after a reset
