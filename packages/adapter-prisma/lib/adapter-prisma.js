@@ -18,6 +18,7 @@ class PrismaAdapter extends BaseKeystoneAdapter {
     this.getDbSchemaName = this.config.getDbSchemaName || (() => 'public');
     this.enableLogging = this.config.enableLogging || false;
     this.url = this.config.url || process.env.DATABASE_URL;
+    this.binariesReady = false;
   }
 
   async _prepareSchema(rels) {
@@ -128,7 +129,18 @@ class PrismaAdapter extends BaseKeystoneAdapter {
     generator.stop();
   }
 
+  // SRC: https://github.com/keystonejs/keystone/discussions/7461#discussioncomment-2888039
+  async ensureBinariesExists() {
+    if (this.binariesReady) return;
+
+    // eslint-disable-next-line import/no-extraneous-dependencies
+    const engines = require('@prisma/engines');
+    await engines.ensureBinariesExist();
+    this.binariesReady = true;
+  }
+
   async _generatePrismaSchema({ rels, clientDir }) {
+    await this.ensureBinariesExists();
     const models = Object.values(this.listAdapters).map(listAdapter => {
       const scalarFields = flatten(
         listAdapter.fieldAdapters.filter(f => !f.field.isRelationship).map(f => f.getPrismaSchema())
@@ -211,6 +223,7 @@ class PrismaAdapter extends BaseKeystoneAdapter {
         output = "${clientDir}"
         previewFeatures = ["nativeTypes"]
       }`;
+
     return await formatSchema({ schema: header + models.join('\n') + '\n' + enums.join('\n') });
   }
 
