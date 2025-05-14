@@ -61,11 +61,12 @@ class PrismaAdapter extends BaseKeystoneAdapter {
 
   async _connect({ rels }) {
     await this._generateClient(rels);
-    const { PrismaClient } = require(this.clientPath);
+    const { PrismaClient, Prisma } = require(this.clientPath);
     this.prisma = new PrismaClient({
       log: this.enableLogging ? ['query'] : undefined,
       datasources: { [this.provider]: { url: this._url() } },
     });
+    this.prisma.DbNull = Prisma.DbNull;
     await this.prisma.$connect();
   }
 
@@ -335,6 +336,8 @@ class PrismaListAdapter extends BaseListAdapter {
           ? value === null
             ? { disconnect: true }
             : { connect: { id: Number(value) } }
+          : this.fieldAdaptersByPath[path] && this.fieldAdaptersByPath[path].gqlToPrisma
+          ? this.fieldAdaptersByPath[path].gqlToPrisma(value)
           : value;
       }),
       include,
