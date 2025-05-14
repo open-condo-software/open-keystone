@@ -192,4 +192,12 @@ export class PrismaFileInterface extends CommonFileInterface(PrismaFieldAdapter)
   getPrismaSchema() {
     return [this._schemaField({ type: 'Json' })];
   }
+
+  gqlToPrisma(value) {
+    if (value === null && this.listAdapter?.parentAdapter?.prisma?.DbNull) {
+      return this.listAdapter.parentAdapter.prisma.DbNull;
+    }
+
+    return value;
+  }
 }
