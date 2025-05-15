@@ -40,7 +40,8 @@
     "heroku-postbuild": "yarn build && yarn workspace @keystonejs/demo-project-blog build",
     "npm-tag": "manypkg npm-tag",
     "update": "manypkg upgrade",
-    "no-cypress-install": "cross-env CYPRESS_INSTALL_BINARY=0 yarn"
+    "no-cypress-install": "cross-env CYPRESS_INSTALL_BINARY=0 yarn",
+    "postinstall": "node tests/test-projects/hoist-cypress.js"
   },
   "dependencies": {
     "@babel/core": "^7.14.6",
