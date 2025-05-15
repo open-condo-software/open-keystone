@@ -194,10 +194,24 @@ export class PrismaFileInterface extends CommonFileInterface(PrismaFieldAdapter)
   }
 
   gqlToPrisma(value) {
-    if (value === null && this.listAdapter?.parentAdapter?.prisma?.DbNull) {
+    if (value === null && this?.listAdapter?.parentAdapter?.prisma?.DbNull) {
       return this.listAdapter.parentAdapter.prisma.DbNull;
     }
 
     return value;
+  }
+
+  getQueryConditions(dbPath) {
+    const dbNull = this?.listAdapter?.parentAdapter?.prisma?.DbNull || null;
+
+    function replaceNull(value) {
+      if (value === null) return dbNull;
+      return value;
+    }
+
+    return {
+      ...this.equalityConditions(dbPath, replaceNull),
+      ...this.inConditions(dbPath, replaceNull),
+    };
   }
 }

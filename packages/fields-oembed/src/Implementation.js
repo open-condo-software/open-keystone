@@ -328,4 +328,18 @@ export class PrismaOEmbedInterface extends CommonOEmbedInterface(PrismaFieldAdap
 
     return value;
   }
+
+  getQueryConditions(dbPath) {
+    const dbNull = this?.listAdapter?.parentAdapter?.prisma?.DbNull || null;
+
+    function replaceNull(value) {
+      if (value === null) return dbNull;
+      return value;
+    }
+
+    return {
+      ...this.equalityConditions(dbPath, replaceNull),
+      ...this.inConditions(dbPath, replaceNull),
+    };
+  }
 }
