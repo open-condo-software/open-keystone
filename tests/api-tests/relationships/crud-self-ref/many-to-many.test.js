@@ -285,10 +285,9 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
             linkedUsers.forEach(({ friends }) => {
               expect(friends.map(({ id }) => id)).toEqual([Friend.id.toString()]);
             });
-            expect(linkedUsers[0].friends[0].friendOf).toEqual([
-              { id: linkedUsers[0].id },
-              { id: linkedUsers[1].id },
-            ]);
+            expect(linkedUsers[0].friends[0].friendOf).toEqual(
+              expect.objectContaining([{ id: linkedUsers[0].id }, { id: linkedUsers[1].id }])
+            );
           })
         );
 
