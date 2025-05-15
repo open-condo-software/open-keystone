@@ -223,10 +223,13 @@ class PrismaAdapter extends BaseKeystoneAdapter {
             `TRUNCATE TABLE "${this.dbSchemaName}"."${tablename}" CASCADE;`
           );
         }
-        for (const { relname } of await this.prisma
-          .$queryRaw`SELECT c.relname FROM pg_class AS c JOIN pg_namespace AS n ON c.relnamespace = n.oid WHERE c.relkind='S' AND n.nspname='${this.dbSchemaName}';`) {
-          await this.prisma
-            .$queryRaw`ALTER SEQUENCE \"${this.dbSchemaName}\".\"${relname}\" RESTART WITH 1;`;
+
+        for (const { relname } of await this.prisma.$queryRawUnsafe(
+          `SELECT c.relname FROM pg_class AS c JOIN pg_namespace AS n ON c.relnamespace = n.oid WHERE c.relkind='S' AND n.nspname='${this.dbSchemaName}';`
+        )) {
+          await this.prisma.$queryRawUnsafe(
+            `ALTER SEQUENCE \"${this.dbSchemaName}\".\"${relname}\" RESTART WITH 1;`
+          );
         }
       } else {
         // If we're in prototype mode then we need to rebuild the tables after a reset
