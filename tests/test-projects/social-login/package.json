@@ -8,6 +8,9 @@
   "engines": {
     "node": ">=10.0.0"
   },
+  "installConfig": {
+    "hoistingLimits": "workspaces"
+  },
   "scripts": {
     "start": "node -r dotenv-safe/config server.js | sed -l -e 's/:\\s*undefined\\s*,/:null,/g' | tee out.log | pino-colada",
     "start:debug": "node --inspect-brk -r dotenv-safe/config server.js | sed -l -e 's/:\\s*undefined\\s*,/:null,/g' | tee out.log | pino-colada",
