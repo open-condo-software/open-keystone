@@ -13,12 +13,8 @@ const saveValue = value => {
     cy.get(oembedInputSelector).type(value, { force: true });
   }
   const alias = cuid.slug();
-  // Setup to track XHR requests
-  cy.server();
-  // Alias the graphql request route
-  cy.route('post', '**/admin/api').as(alias);
-  // Avoid accidentally mocking routes
-  cy.server({ enable: false });
+
+  cy.intercept('post', '**/admin/api').as(alias);
   cy.get('#item-page-save-button').click({ force: true });
   return cy.wait(`@${alias}`);
 };

@@ -2,8 +2,7 @@ describe('Search', () => {
   before(() => cy.visit('/reset-db'));
 
   beforeEach(() => {
-    cy.server();
-    cy.route('POST', '**/admin/api').as('graphqlPost');
+    cy.intercept('POST', '**/admin/api').as('graphqlPost');
   });
 
   const scenarios = [

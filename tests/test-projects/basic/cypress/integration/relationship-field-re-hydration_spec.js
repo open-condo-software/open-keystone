@@ -23,7 +23,10 @@ describe('Testing re-hydration', () => {
 
     clickCategoriesSelect();
 
-    cy.get('div[role="option"]').should('not.contain', 'New Category');
+    cy.get('div[id^="react-select-ks-input-categories-option-"]').should(
+      'not.contain',
+      'New Category'
+    );
 
     cy.visit('/admin/post-categories');
     cy.get('#list-page-create-button').click({ force: true });
