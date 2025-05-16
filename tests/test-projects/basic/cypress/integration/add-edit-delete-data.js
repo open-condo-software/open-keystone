@@ -176,6 +176,9 @@ describe('Deleting data', () => {
       cy.get(`a:contains("${item}"):first`).click({ force: true });
       cy.get('button:contains("Delete"):first').click({ force: true });
       cy.get('body:last footer button:first').click({ force: true });
+
+      cy.wait(500);
+      cy.get(`nav a:contains("${section}")`).click({ force: true });
       cy.get('#ks-list-table').should('not.contain', item);
     });
   });

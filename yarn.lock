@@ -4783,7 +4783,7 @@ __metadata:
     "@keystonejs/server-side-graphql-client": ^2.1.2
     "@keystonejs/utils": ^6.1.2
     cross-env: ^7.0.3
-    cypress: ^5.6.0
+    cypress: ^6
     cypress-multi-reporters: ^1.5.0
     dotenv-safe: ^8.2.0
     execa: ^5.1.1
@@ -4817,7 +4817,7 @@ __metadata:
     "@keystonejs/keystone": ^19.3.3
     "@keystonejs/server-side-graphql-client": ^2.1.2
     cross-env: ^7.0.3
-    cypress: ^5.6.0
+    cypress: ^6
     cypress-file-upload: ^5.0.7
     cypress-multi-reporters: ^1.5.0
     date-fns: ^2.22.1
@@ -4847,7 +4847,7 @@ __metadata:
     "@keystonejs/keystone": ^19.3.3
     "@keystonejs/server-side-graphql-client": ^2.1.2
     cross-env: ^7.0.3
-    cypress: ^5.6.0
+    cypress: ^6
     cypress-multi-reporters: ^1.5.0
     dotenv-safe: ^8.2.0
     execa: ^5.1.1
@@ -4875,7 +4875,7 @@ __metadata:
     "@keystonejs/server-side-graphql-client": ^2.1.2
     "@keystonejs/session": ^8.3.2
     cross-env: ^7.0.3
-    cypress: ^5.6.0
+    cypress: ^6
     cypress-multi-reporters: ^1.5.0
     dotenv-safe: ^8.2.0
     execa: ^5.1.1
@@ -5522,7 +5522,7 @@ __metadata:
     chalk: ^4.1.1
     chalk-cli: ^4.1.0
     cross-env: ^7.0.3
-    cypress: ^5.6.0
+    cypress: ^6
     cypress-multi-reporters: ^1.5.0
     dotenv: ^8.6.0
     dotenv-safe: ^8.2.0
@@ -7636,6 +7636,13 @@ __metadata:
   dependencies:
     undici-types: ~6.21.0
   checksum: f83748c14c8ae3b7d1672af4009b892a5ae652c05c4b61c39e842711e232a0db37991611364aea9522fdf48290a8cc27403138bc479ef24ff0c9222319e7858b
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:12.12.50":
+  version: 12.12.50
+  resolution: "@types/node@npm:12.12.50"
+  checksum: ae3b6ae1bf14024fe6a9fa49760199c14b22ae6e5df59ebf31c70cc21d8eed2cc639381c48abbf1a259bf8520d6519264175685b53a3a796585358759c2f3930
   languageName: node
   linkType: hard
 
@@ -14097,13 +14104,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:^5.6.0":
-  version: 5.6.0
-  resolution: "cypress@npm:5.6.0"
+"cypress@npm:^6":
+  version: 6.9.1
+  resolution: "cypress@npm:6.9.1"
   dependencies:
     "@cypress/listr-verbose-renderer": ^0.4.1
     "@cypress/request": ^2.88.5
     "@cypress/xvfb": ^1.2.4
+    "@types/node": 12.12.50
     "@types/sinonjs__fake-timers": ^6.0.1
     "@types/sizzle": ^2.3.2
     arch: ^2.1.2
@@ -14115,7 +14123,8 @@ __metadata:
     cli-table3: ~0.6.0
     commander: ^5.1.0
     common-tags: ^1.8.0
-    debug: ^4.1.1
+    dayjs: ^1.9.3
+    debug: 4.3.2
     eventemitter2: ^6.4.2
     execa: ^4.0.2
     executable: ^4.1.1
@@ -14129,10 +14138,10 @@ __metadata:
     lodash: ^4.17.19
     log-symbols: ^4.0.0
     minimist: ^1.2.5
-    moment: ^2.27.0
+    moment: ^2.29.1
     ospath: ^1.2.2
     pretty-bytes: ^5.4.1
-    ramda: ~0.26.1
+    ramda: ~0.27.1
     request-progress: ^3.0.0
     supports-color: ^7.2.0
     tmp: ~0.2.1
@@ -14141,7 +14150,7 @@ __metadata:
     yauzl: ^2.10.0
   bin:
     cypress: bin/cypress
-  checksum: 6804111a0619220c10c2f9b2ae259ec8ed3f83f70f70931cbe701f6c01dc0d97d1c4575e94dbee316ae9aad8afab5b709482fcdbd24b931587a704b53fa69fcf
+  checksum: 6006cd67f037bb9f53fd7cd45de5961324d5b378e5cc92db02fc6eef8fa153d0681be0e353faf7c8a856c85eeb52f2bf2d0664fde0b7efe18f05b816ce64090b
   languageName: node
   linkType: hard
 
@@ -14266,7 +14275,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.8.19":
+"dayjs@npm:^1.8.19, dayjs@npm:^1.9.3":
   version: 1.11.13
   resolution: "dayjs@npm:1.11.13"
   checksum: f388db88a6aa93956c1f6121644e783391c7b738b73dbc54485578736565c8931bdfba4bb94e9b1535c6e509c97d5deb918bbe1ae6b34358d994de735055cca9
@@ -26155,7 +26164,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moment@npm:^2.21.0, moment@npm:^2.27.0, moment@npm:^2.29.1":
+"moment@npm:^2.21.0, moment@npm:^2.29.1":
   version: 2.30.1
   resolution: "moment@npm:2.30.1"
   checksum: 859236bab1e88c3e5802afcf797fc801acdbd0ee509d34ea3df6eea21eb6bcc2abd4ae4e4e64aa7c986aa6cba563c6e62806218e6412a765010712e5fa121ba6
@@ -31493,10 +31502,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ramda@npm:~0.26.1":
-  version: 0.26.1
-  resolution: "ramda@npm:0.26.1"
-  checksum: 19c2730e44c129538151ae034c89be9b2c6a4ccc7c65cff57497418bc532ce09282f98cd927c39b0b03c6bc3f1d1a12d822b7b07f96a1634f4958a6c05b7b384
+"ramda@npm:~0.27.1":
+  version: 0.27.2
+  resolution: "ramda@npm:0.27.2"
+  checksum: 28d6735dd1eea1a796c56cf6111f3673c6105bbd736e521cdd7826c46a18eeff337c2dba4668f6eed990d539b9961fd6db19aa46ccc1530ba67a396c0a9f580d
   languageName: node
   linkType: hard
 

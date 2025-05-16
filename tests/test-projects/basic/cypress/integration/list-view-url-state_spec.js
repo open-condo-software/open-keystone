@@ -1,5 +1,7 @@
 describe('List view URL state', () => {
-  before(() => cy.visit('/reset-db'));
+  before(() => {
+    cy.visit('/reset-db'); // navigate to reset endpoint
+  });
 
   it('Stores currentPage state in the url', () => {
     // Loading at page 3
@@ -39,11 +41,7 @@ describe('List view URL state', () => {
     cy.visit('/admin/posts');
 
     // Setup to track XHR requests
-    cy.server();
-    // Alias the graphql request route
-    cy.route('post', '**/admin/api').as('graphqlPost');
-    // Avoid accidentally mocking routes
-    cy.server({ enable: false });
+    cy.intercept('POST', '**/admin/api').as('graphqlPost');
 
     cy.wait(500); // Search is now suspenseful need to wait
     cy.get('#ks-list-search-input').type('Why', { force: true });

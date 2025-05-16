@@ -40,7 +40,8 @@
     "heroku-postbuild": "yarn build && yarn workspace @keystonejs/demo-project-blog build",
     "npm-tag": "manypkg npm-tag",
     "update": "manypkg upgrade",
-    "no-cypress-install": "cross-env CYPRESS_INSTALL_BINARY=0 yarn"
+    "no-cypress-install": "cross-env CYPRESS_INSTALL_BINARY=0 yarn",
+    "postinstall": "node tests/test-projects/hoist-cypress.js"
   },
   "dependencies": {
     "@babel/core": "^7.14.6",
@@ -67,7 +68,7 @@
     "chalk": "^4.1.1",
     "chalk-cli": "^4.1.0",
     "cross-env": "^7.0.3",
-    "cypress": "^5.6.0",
+    "cypress": "^6",
     "cypress-multi-reporters": "^1.5.0",
     "dotenv": "^8.6.0",
     "dotenv-safe": "^8.2.0",

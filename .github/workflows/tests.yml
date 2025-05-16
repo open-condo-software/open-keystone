@@ -185,7 +185,7 @@ jobs:
       - name: Checkout Repo
         if: needs.should_run_tests.outputs.shouldRunTests == 'true'
         uses: actions/checkout@v4
-      - name: Setup Node.js 14.x
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         if: needs.should_run_tests.outputs.shouldRunTests == 'true'
         with:

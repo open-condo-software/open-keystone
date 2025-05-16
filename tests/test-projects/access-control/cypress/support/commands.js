@@ -23,7 +23,7 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
-const gql = require('graphql-tag');
+const gql = require('graphql-tag').default;
 
 function graphqlOperation(type) {
   return function (uri, operationString) {

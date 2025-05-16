@@ -1,7 +1,11 @@
 describe('Search', () => {
   before(() => cy.visit('/reset-db'));
 
-  [
+  beforeEach(() => {
+    cy.intercept('POST', '**/admin/api').as('graphqlPost');
+  });
+
+  const scenarios = [
     {
       url: '/admin/users',
       searchTerm: 'j',
@@ -20,33 +24,33 @@ describe('Search', () => {
       found: ['Keystone'],
       notFound: ['GraphQL', 'Node', 'React'],
     },
-  ].forEach(({ url, searchTerm, found, notFound }) => {
+  ];
+
+  scenarios.forEach(({ url, searchTerm, found, notFound }) => {
     it(`Searching for "${searchTerm}" in ${url}`, () => {
       cy.visit(url);
 
-      // First ensure we can see the values
+      // 2) Assert that before searching, all expected items are visible
       [...notFound, ...found].forEach(name => {
-        cy.get('main').should('contain', name);
+        cy.get('main').should('contain', name); // ensure each name is present in the main content
       });
 
-      // Setup to track XHR requests
-      cy.server();
-      // Alias the graphql request route
-      cy.route('post', '**/admin/api').as('graphqlPost');
-      // Avoid accidentally mocking routes
-      cy.server({ enable: false });
+      // 3) Wait for the search input to load and be visible
+      cy.get('#ks-list-search-input')
+        .should('be.visible') // ensure input is rendered before interacting
+        .clear({ force: true }) // clear any existing input (force in case it's covered)
+        .type(searchTerm, { force: true }); // type the search term
 
-      cy.wait(500); // Search is now suspenseful need to wait
-      cy.get('#ks-list-search-input').type(searchTerm, { force: true });
-
+      // 4) Wait for the stubbed GraphQL POST to complete
+      // This ensures the UI has received and processed the search results
       cy.wait('@graphqlPost');
 
-      // Then ensure we can still see some of the values
+      // 5a) Confirm that all expected "found" items remain visible
       found.forEach(name => {
         cy.get('main').should('contain', name);
       });
 
-      // And ensure we can't see the filtered values
+      // 5b) Confirm that all "notFound" items are no longer present
       notFound.forEach(name => {
         cy.get('main').should('not.contain', name);
       });
