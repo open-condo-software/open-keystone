@@ -4,7 +4,7 @@ require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 import { CloudinaryAdapter } from '@keystonejs/file-adapters';
 import { Text } from '@keystonejs/fields';
 import cloudinary from 'cloudinary';
-import { Upload } from 'graphql-upload';
+import Upload from 'graphql-upload/Upload.js';
 import mime from 'mime';
 import fs from 'fs';
 
