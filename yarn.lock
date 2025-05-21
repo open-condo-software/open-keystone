@@ -4670,7 +4670,7 @@ __metadata:
     "@keystonejs/utils": ^6.1.2
     express: ^4.17.1
     graphql: ^15.5.0
-    graphql-upload: ^11.0.0
+    graphql-upload: ^15.0.2
     nanoassert: ^2.0.0
   peerDependencies:
     express: ^4.17.1
@@ -5167,7 +5167,7 @@ __metadata:
     "@primer/octicons-react": ^11.3.0
     cloudinary: ^1.27.0
     dotenv: ^8.6.0
-    graphql-upload: ^11.0.0
+    graphql-upload: ^15.0.2
     image-extensions: ^1.1.0
     mime: ^2.5.2
     prop-types: ^15.7.2
@@ -5411,7 +5411,7 @@ __metadata:
     dumb-passwords: ^0.2.1
     globby: ^11.0.3
     graphql: ^15.5.0
-    graphql-upload: ^11.0.0
+    graphql-upload: ^15.0.2
     image-extensions: ^1.1.0
     inflection: ^1.13.1
     intersection-observer: ^0.12.0
@@ -5468,7 +5468,7 @@ __metadata:
     globby: ^11.0.3
     graphql: ^15.5.0
     graphql-type-json: ^0.3.2
-    graphql-upload: ^11.0.0
+    graphql-upload: ^15.0.2
     lodash.flattendeep: ^4.4.0
     micro-memoize: ^4.0.9
     ora: ^5.4.1
@@ -7187,6 +7187,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/busboy@npm:^1.5.0":
+  version: 1.5.4
+  resolution: "@types/busboy@npm:1.5.4"
+  dependencies:
+    "@types/node": "*"
+  checksum: 56444ed1223d5c8f6340128561c25bf7d6567494f507d386241de2ed6e22f9a69de7f536d71502c2f0897f81be7e8253455522ddd791db7e3eb769db7eae9e92
+  languageName: node
+  linkType: hard
+
 "@types/cacheable-request@npm:^6.0.1":
   version: 6.0.3
   resolution: "@types/cacheable-request@npm:6.0.3"
@@ -7678,6 +7687,13 @@ __metadata:
   version: 2.4.4
   resolution: "@types/normalize-package-data@npm:2.4.4"
   checksum: 65dff72b543997b7be8b0265eca7ace0e34b75c3e5fee31de11179d08fa7124a7a5587265d53d0409532ecb7f7fba662c2012807963e1f9b059653ec2c83ee05
+  languageName: node
+  linkType: hard
+
+"@types/object-path@npm:^0.11.1":
+  version: 0.11.4
+  resolution: "@types/object-path@npm:0.11.4"
+  checksum: 7f1f5cb18b651d21e7861da176d8f87526c936ed949a8126a2692195cbe65734ed1a1a22c06a24a54afe1890483a3d6b074b402ebfca7a7567c1c287b588f563
   languageName: node
   linkType: hard
 
@@ -17725,7 +17741,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-capacitor@npm:^6.1.0":
+"fs-capacitor@npm:^6.2.0":
   version: 6.2.0
   resolution: "fs-capacitor@npm:6.2.0"
   checksum: acdbeb92eedb1d7094f623e7be518c4d73075cb45ea97cc80ae23fc31adb066853723be824caf3e3c8f40944548c8cdc9bf0f0735eabb9413e734fe045b303b1
@@ -19547,18 +19563,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-upload@npm:^11.0.0":
-  version: 11.0.0
-  resolution: "graphql-upload@npm:11.0.0"
+"graphql-upload@npm:^15.0.2":
+  version: 15.0.2
+  resolution: "graphql-upload@npm:15.0.2"
   dependencies:
-    busboy: ^0.3.1
-    fs-capacitor: ^6.1.0
-    http-errors: ^1.7.3
-    isobject: ^4.0.0
-    object-path: ^0.11.4
+    "@types/busboy": ^1.5.0
+    "@types/node": "*"
+    "@types/object-path": ^0.11.1
+    busboy: ^1.6.0
+    fs-capacitor: ^6.2.0
+    http-errors: ^2.0.0
+    object-path: ^0.11.8
   peerDependencies:
-    graphql: 0.13.1 - 15
-  checksum: 4d17cf4a16cfba940ca73487710093bc0013b06550168c1b84cb1f915c2df26e172faf9ed873ae4fc1cb547cd0d4d6e8ee607a35634355f128b3f161f64f0e1f
+    "@types/express": ^4.0.29
+    "@types/koa": ^2.11.4
+    graphql: ^16.3.0
+  peerDependenciesMeta:
+    "@types/express":
+      optional: true
+    "@types/koa":
+      optional: true
+  checksum: 635db84b50b5a5ff09bfe14e23eda374eaa7bd4496ebfcd6abcdb887ac1a489f80ced22b987ebc9691cfde44e487b4c632da708f0fcfe9e63502f6530043d599
   languageName: node
   linkType: hard
 
@@ -20493,7 +20518,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"http-errors@npm:2.0.0":
+"http-errors@npm:2.0.0, http-errors@npm:^2.0.0":
   version: 2.0.0
   resolution: "http-errors@npm:2.0.0"
   dependencies:
@@ -22349,13 +22374,6 @@ __metadata:
   version: 3.0.1
   resolution: "isobject@npm:3.0.1"
   checksum: db85c4c970ce30693676487cca0e61da2ca34e8d4967c2e1309143ff910c207133a969f9e4ddb2dc6aba670aabce4e0e307146c310350b298e74a31f7d464703
-  languageName: node
-  linkType: hard
-
-"isobject@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "isobject@npm:4.0.0"
-  checksum: bbcb522e46d54fb22418ba49fb9a82057ffa201c8401fb6e018c042e2c98cf7d9c7b185aff88e035ec8adea0814506dc2aeff2d08891bbc158e1671a49e99c06
   languageName: node
   linkType: hard
 
@@ -27283,7 +27301,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"object-path@npm:^0.11.2, object-path@npm:^0.11.4":
+"object-path@npm:^0.11.2, object-path@npm:^0.11.4, object-path@npm:^0.11.8":
   version: 0.11.8
   resolution: "object-path@npm:0.11.8"
   checksum: 684ccf0fb6b82f067dc81e2763481606692b8485bec03eb2a64e086a44dbea122b2b9ef44423a08e09041348fe4b4b67bd59985598f1652f67df95f0618f5968
