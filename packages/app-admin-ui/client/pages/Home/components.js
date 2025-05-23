@@ -4,6 +4,7 @@ import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { withPseudoState } from 'react-pseudo-state';
 import { useList } from '../../providers/List';
+import { useAdminMeta } from '../../providers/AdminMeta';
 
 import CreateItemModal from '../../components/CreateItemModal';
 
@@ -39,6 +40,7 @@ const BoxElement = props => (
 const BoxComponent = ({ focusOrigin, isActive, isHover, isFocus, meta, ...props }) => {
   const { list, openCreateItemModal } = useList();
   const { label, singular } = list;
+  const { showDashboardCounts } = useAdminMeta();
 
   return (
     <Fragment>
@@ -52,7 +54,7 @@ const BoxComponent = ({ focusOrigin, isActive, isHover, isFocus, meta, ...props 
         >
           {label}
         </Name>
-        <Count meta={meta} />
+        {showDashboardCounts && <Count meta={meta} />}
         <CreateButton
           title={`Create ${singular}`}
           isHover={isHover || isFocus}
