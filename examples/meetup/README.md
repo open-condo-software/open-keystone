@@ -8,5 +8,5 @@ To run this project, open your terminal and run `yarn` within the Keystone proje
 
 The Keystone Admin UI is reachable from `localhost:3000/admin`. To log in, use the following credentials:
 
-Username: `admin@keystonejs.com`
+Username: `admin@open-keystone.com`
 Password: `password`

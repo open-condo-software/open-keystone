@@ -1,6 +1,6 @@
 {
-  "name": "@keystonejs/utils",
-  "description": "Common utility functions used throughout @keystonejs packages.",
+  "name": "@open-keystone/utils",
+  "description": "Common utility functions used throughout @open-keystone packages.",
   "version": "6.1.2",
   "author": "The KeystoneJS Development Team",
   "license": "MIT",

@@ -1,6 +1,6 @@
 {
   "name": "@arch-ui/navbar",
-  "description": "Navbar UI as used in @keystonejs Admin UI.",
+  "description": "Navbar UI as used in @open-keystone Admin UI.",
   "version": "0.1.15",
   "author": "Jed Watson",
   "license": "MIT",

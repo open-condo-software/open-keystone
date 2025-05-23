@@ -40,7 +40,7 @@ Let's assume we want set the following access controls for a `User` list:
 Here's how we would set that up:
 
 ```javascript
-const { Text, Select, Checkbox, Password } = require('@keystonejs/fields');
+const { Text, Select, Checkbox, Password } = require('@open-keystone/fields');
 
 const keystone = new Keystone({...})
 

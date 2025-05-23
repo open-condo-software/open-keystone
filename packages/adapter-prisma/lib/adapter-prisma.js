@@ -2,8 +2,12 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 const cuid = require('cuid');
-const { BaseKeystoneAdapter, BaseListAdapter, BaseFieldAdapter } = require('@keystonejs/keystone');
-const { defaultObj, mapKeys, identity, flatten } = require('@keystonejs/utils');
+const {
+  BaseKeystoneAdapter,
+  BaseListAdapter,
+  BaseFieldAdapter,
+} = require('@open-keystone/keystone');
+const { defaultObj, mapKeys, identity, flatten } = require('@open-keystone/utils');
 
 class PrismaAdapter extends BaseKeystoneAdapter {
   constructor() {
@@ -253,7 +257,7 @@ class PrismaAdapter extends BaseKeystoneAdapter {
 
   getDefaultPrimaryKeyConfig() {
     // Required here due to circular refs
-    const { AutoIncrement } = require('@keystonejs/fields-auto-increment');
+    const { AutoIncrement } = require('@open-keystone/fields-auto-increment');
     return AutoIncrement.primaryKeyDefaults[this.name].getConfig();
   }
 

@@ -1,5 +1,5 @@
 {
-  "name": "@keystonejs/app-graphql-playground",
+  "name": "@open-keystone/app-graphql-playground",
   "description": "KeystoneJS GraphQL Playground App.",
   "version": "5.2.3",
   "author": "The KeystoneJS Development Team",
@@ -10,8 +10,8 @@
   "dependencies": {
     "@apollographql/graphql-playground-html": "^1.6.29",
     "@apollographql/graphql-playground-react": "^1.7.41",
-    "@keystonejs/session": "^8.3.2",
-    "@keystonejs/utils": "^6.1.2",
+    "@open-keystone/session": "^8.3.2",
+    "@open-keystone/utils": "^6.1.2",
     "body-parser": "^1.19.0",
     "chalk": "^4.1.1",
     "falsey": "^1.0.0",

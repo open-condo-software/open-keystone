@@ -1,6 +1,6 @@
 {
   "name": "@arch-ui/card",
-  "description": "Card Component used in @keystonejs Admin UI.",
+  "description": "Card Component used in @open-keystone Admin UI.",
   "version": "0.0.18",
   "author": "Jed Watson",
   "license": "MIT",

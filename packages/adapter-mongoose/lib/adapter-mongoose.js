@@ -13,9 +13,13 @@ const {
   mergeWhereClause,
   resolveAllKeys,
   versionGreaterOrEqualTo,
-} = require('@keystonejs/utils');
+} = require('@open-keystone/utils');
 
-const { BaseKeystoneAdapter, BaseListAdapter, BaseFieldAdapter } = require('@keystonejs/keystone');
+const {
+  BaseKeystoneAdapter,
+  BaseListAdapter,
+  BaseFieldAdapter,
+} = require('@open-keystone/keystone');
 const { pipelineBuilder } = require('./join-builder');
 const { queryParser } = require('./query-parser');
 
@@ -131,7 +135,7 @@ class MongooseAdapter extends BaseKeystoneAdapter {
 
   getDefaultPrimaryKeyConfig() {
     // Required here due to circular refs
-    const { MongoId } = require('@keystonejs/fields-mongoid');
+    const { MongoId } = require('@open-keystone/fields-mongoid');
     return MongoId.primaryKeyDefaults[this.name].getConfig();
   }
 

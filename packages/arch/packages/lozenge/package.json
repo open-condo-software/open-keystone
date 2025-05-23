@@ -1,6 +1,6 @@
 {
   "name": "@arch-ui/lozenge",
-  "description": "Lozenge component as used in @keystonejs Admin UI.",
+  "description": "Lozenge component as used in @open-keystone Admin UI.",
   "version": "0.0.20",
   "author": "Jed Watson",
   "license": "MIT",

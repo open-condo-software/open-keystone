@@ -1,4 +1,4 @@
-# @keystonejs/field-views-loader
+# @open-keystone/field-views-loader
 
 ## 6.1.2
 
@@ -34,7 +34,7 @@
 
 ### Major Changes
 
-- [`08087998`](https://github.com/keystonejs/keystone-5/commit/08087998af0045aa45b26d721f75639cd279ae1b) [#2881](https://github.com/keystonejs/keystone-5/pull/2881) Thanks [@timleslie](https://github.com/timleslie)! - The default function in `@keystonejs/field-views-loader` now takes `{ pages, hooks, listViews }` rather than `{ adminMeta }`.
+- [`08087998`](https://github.com/keystonejs/keystone-5/commit/08087998af0045aa45b26d721f75639cd279ae1b) [#2881](https://github.com/keystonejs/keystone-5/pull/2881) Thanks [@timleslie](https://github.com/timleslie)! - The default function in `@open-keystone/field-views-loader` now takes `{ pages, hooks, listViews }` rather than `{ adminMeta }`.
   `AdminUIApp` now has a method `.getAdminViews({ keystone, includeLists })` which returns these values.
   `AdminUIApp.createDevMiddleware` now takes `{ adminMeta, keystone }` as arguments.
   These changes will only effect users who may have explicitly been using the `@keystone/fields-views-loader` packages or `.createDevMiddleware()`.
@@ -65,11 +65,11 @@
 
 ### Major Changes
 
-- [`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310) [#1821](https://github.com/keystonejs/keystone-5/pull/1821) Thanks [@jesstelford](https://github.com/jesstelford)! - Release @keystonejs/\* packages (つ＾ ◡ ＾)つ
+- [`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310) [#1821](https://github.com/keystonejs/keystone-5/pull/1821) Thanks [@jesstelford](https://github.com/jesstelford)! - Release @open-keystone/\* packages (つ＾ ◡ ＾)つ
 
-  - This is the first release of `@keystonejs/*` packages (previously `@keystone-alpha/*`).
-  - All packages in the `@keystone-alpha` namespace are now available in the `@keystonejs` namespace, starting at version `5.0.0`.
-  - To upgrade your project you must update any `@keystone-alpha/*` dependencies in `package.json` to point to `"@keystonejs/*": "^5.0.0"` and update any `require`/`import` statements in your code.
+  - This is the first release of `@open-keystone/*` packages (previously `@keystone-alpha/*`).
+  - All packages in the `@keystone-alpha` namespace are now available in the `@open-keystone` namespace, starting at version `5.0.0`.
+  - To upgrade your project you must update any `@keystone-alpha/*` dependencies in `package.json` to point to `"@open-keystone/*": "^5.0.0"` and update any `require`/`import` statements in your code.
 
 # @keystone-alpha/field-views-loader
 

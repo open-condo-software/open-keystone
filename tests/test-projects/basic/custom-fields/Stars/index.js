@@ -5,7 +5,7 @@ const {
   PrismaIntegerInterface,
 } = require('./Implementation');
 
-const { Integer } = require('@keystonejs/fields');
+const { Integer } = require('@open-keystone/fields');
 
 module.exports = {
   type: 'Stars',

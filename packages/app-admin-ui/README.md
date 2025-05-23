@@ -8,16 +8,16 @@ title: Admin UI app
 
 > This is the last active development release of this package as **Keystone 5** is now in a 6 to 12 month active maintenance phase. For more information please read our [Keystone 5 and beyond](https://github.com/keystonejs/keystone-5/issues/21) post.
 
-[![View changelog](https://img.shields.io/badge/changelogs.xyz-Explore%20Changelog-brightgreen)](https://changelogs.xyz/@keystonejs/app-admin-ui)
+[![View changelog](https://img.shields.io/badge/changelogs.xyz-Explore%20Changelog-brightgreen)](https://changelogs.xyz/@open-keystone/app-admin-ui)
 
 A KeystoneJS app which provides an Admin UI for content management.
 
 ## Usage
 
 ```js
-const { Keystone } = require('@keystonejs/keystone');
-const { GraphQLApp } = require('@keystonejs/app-graphql');
-const { AdminUIApp } = require('@keystonejs/app-admin-ui');
+const { Keystone } = require('@open-keystone/keystone');
+const { GraphQLApp } = require('@open-keystone/app-graphql');
+const { AdminUIApp } = require('@open-keystone/app-admin-ui');
 
 const keystone = new Keystone({...});
 
@@ -114,7 +114,7 @@ Header components on the Item Details page can be replaced using this hook. Ths 
 > This must return a React component.
 
 ```javascript title=/admin-ui/index.js
-import { ItemId, AddNewItem } from '@keystonejs/app-admin-ui/components';
+import { ItemId, AddNewItem } from '@open-keystone/app-admin-ui/components';
 export default {
   // re-implement the default AddNewItem and ItemId button + custom text
   itemHeaderActions: () => (
@@ -134,7 +134,7 @@ Header components on the List page can be replaced using this hook. This replace
 > This must return a React component.
 
 ```javascript title=/admin-ui/index.js
-import { CreateItem } from '@keystonejs/app-admin-ui/components';
+import { CreateItem } from '@open-keystone/app-admin-ui/components';
 export default {
   // re-implement the default create item button + custom text
   listHeaderActions: () => (
@@ -153,7 +153,7 @@ Custom Actions component for multiple items in the list can be replaced with thi
 > This must return a React component.
 
 ```javascript title=/admin-ui/index.js
-import { UpdateItems, DeleteItems } from '@keystonejs/app-admin-ui/components';
+import { UpdateItems, DeleteItems } from '@open-keystone/app-admin-ui/components';
 export default {
   // re-implement the default delete many and update many items buttons + custom text
   listManageActions: () => (

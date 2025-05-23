@@ -1,6 +1,6 @@
 {
   "name": "@arch-ui/icons",
-  "description": "Common Icons used in @arch-ui packages and @keystonejs Admin UI.",
+  "description": "Common Icons used in @arch-ui packages and @open-keystone Admin UI.",
   "version": "0.1.6",
   "author": "Jed Watson",
   "license": "MIT",

@@ -1,6 +1,6 @@
 {
   "name": "@arch-ui/pagination",
-  "description": "Pagination UI as used in @keystonejs Admin UI.",
+  "description": "Pagination UI as used in @open-keystone Admin UI.",
   "version": "0.0.29",
   "author": "Jed Watson",
   "license": "MIT",

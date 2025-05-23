@@ -1,6 +1,6 @@
-const { multiAdapterRunners, setupServer } = require('@keystonejs/test-utils');
+const { multiAdapterRunners, setupServer } = require('@open-keystone/test-utils');
 
-const { CalendarDay } = require('@keystonejs/fields');
+const { CalendarDay } = require('@open-keystone/fields');
 
 function setupKeystone(adapterName) {
   return setupServer({

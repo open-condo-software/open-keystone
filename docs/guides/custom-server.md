@@ -54,8 +54,8 @@ module.exports = {
 ```
 
 ```javascript title=index.js
-const { Keystone } = require('@keystonejs/keystone');
-const { GraphQLApp } = require('@keystonejs/app-graphql');
+const { Keystone } = require('@open-keystone/keystone');
+const { GraphQLApp } = require('@open-keystone/app-graphql');
 
 const keystone = new Keystone({...});
 
@@ -98,8 +98,8 @@ In this example there is no `index.js` file, instead the `keystone` instance and
 
 ```javascript title=server.js
 const express = require('express');
-const { Keystone } = require('@keystonejs/keystone');
-const { GraphQLApp } = require('@keystonejs/app-graphql');
+const { Keystone } = require('@open-keystone/keystone');
+const { GraphQLApp } = require('@open-keystone/app-graphql');
 
 const keystone = new Keystone({...});
 
@@ -132,9 +132,9 @@ function directly.
 
 ```javascript title=server.js
 const express = require('express');
-const { Keystone } = require('@keystonejs/keystone');
-const { GraphQLApp } = require('@keystonejs/app-graphql');
-const { AdminUIApp } = require('@keystonejs/app-admin-ui');
+const { Keystone } = require('@open-keystone/keystone');
+const { GraphQLApp } = require('@open-keystone/app-graphql');
+const { AdminUIApp } = require('@open-keystone/app-admin-ui');
 
 const keystone = new Keystone({...});
 

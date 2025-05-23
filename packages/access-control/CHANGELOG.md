@@ -1,4 +1,4 @@
-# @keystonejs/access-control
+# @open-keystone/access-control
 
 ## 7.1.2
 
@@ -7,7 +7,7 @@
 - [#95](https://github.com/keystonejs/keystone-5/pull/95) [`c8ff78b95`](https://github.com/keystonejs/keystone-5/commit/c8ff78b95af5d56d44bbc11c51e7cf28b81323b4) Thanks [@bladey](https://github.com/bladey)! - Renamed branch `master` to `main`.
 
 - Updated dependencies [[`c8ff78b95`](https://github.com/keystonejs/keystone-5/commit/c8ff78b95af5d56d44bbc11c51e7cf28b81323b4)]:
-  - @keystonejs/utils@6.1.2
+  - @open-keystone/utils@6.1.2
 
 ## 7.1.1
 
@@ -16,7 +16,7 @@
 - [#95](https://github.com/keystonejs/keystone-5/pull/95) [`a890b0576`](https://github.com/keystonejs/keystone-5/commit/a890b057628b60c2d1870cc3f5afd8e87b03f7df) Thanks [@bladey](https://github.com/bladey)! - Renamed branch `master` to `main`.
 
 - Updated dependencies [[`a890b0576`](https://github.com/keystonejs/keystone-5/commit/a890b057628b60c2d1870cc3f5afd8e87b03f7df)]:
-  - @keystonejs/utils@6.1.1
+  - @open-keystone/utils@6.1.1
 
 ## 7.1.0
 
@@ -27,7 +27,7 @@
 ### Patch Changes
 
 - Updated dependencies [[`345a5f0f6`](https://github.com/keystonejs/keystone-5/commit/345a5f0f66a34c75696230ad2fcfb7a2eac86cb4)]:
-  - @keystonejs/utils@6.1.0
+  - @open-keystone/utils@6.1.0
 
 ## 7.0.1
 
@@ -38,13 +38,13 @@
 * [`15b1132d2`](https://github.com/keystonejs/keystone-5/commit/15b1132d20d13f79bbf1707e1897b31da887c2b7) Thanks [@timleslie](https://github.com/timleslie)! - Updated types to be parameterised by imperative argument type.
 
 * Updated dependencies [[`04bf1e4bb`](https://github.com/keystonejs/keystone-5/commit/04bf1e4bb0223f4e2e06664bbc9e95c51118eb84)]:
-  - @keystonejs/utils@6.0.2
+  - @open-keystone/utils@6.0.2
 
 ## 7.0.0
 
 ### Major Changes
 
-- [`28a61dc67`](https://github.com/keystonejs/keystone-5/commit/28a61dc67b990ebd16bfc4e1c0a1e9ffb0e54d81) [#4801](https://github.com/keystonejs/keystone-5/pull/4801) Thanks [@timleslie](https://github.com/timleslie)! - Converted the `@keystonejs/access-control` package to TypeScript.
+- [`28a61dc67`](https://github.com/keystonejs/keystone-5/commit/28a61dc67b990ebd16bfc4e1c0a1e9ffb0e54d81) [#4801](https://github.com/keystonejs/keystone-5/pull/4801) Thanks [@timleslie](https://github.com/timleslie)! - Converted the `@open-keystone/access-control` package to TypeScript.
 
 ## 6.3.2
 
@@ -63,14 +63,14 @@
 * [`5ad7c12e8`](https://github.com/keystonejs/keystone-5/commit/5ad7c12e86573e73e85368076bdc1296f3f69db3) [#4726](https://github.com/keystonejs/keystone-5/pull/4726) Thanks [@timleslie](https://github.com/timleslie)! - Refactored `parseAccess` and inlined the code from `validateGranularConfigTypes` and `parseAccessCore`.
 
 * Updated dependencies [[`94c8d349d`](https://github.com/keystonejs/keystone-5/commit/94c8d349d3795cd9abec407f78752417623ee56f)]:
-  - @keystonejs/utils@6.0.1
+  - @open-keystone/utils@6.0.1
 
 ## 6.3.1
 
 ### Patch Changes
 
 - Updated dependencies [[`b76241695`](https://github.com/keystonejs/keystone-5/commit/b7624169554b01dba2185ef43856a223d32f12be)]:
-  - @keystonejs/utils@6.0.0
+  - @open-keystone/utils@6.0.0
 
 ## 6.3.0
 
@@ -139,7 +139,7 @@
 - [`5ba330b8`](https://github.com/keystonejs/keystone-5/commit/5ba330b8b2609ea0033a636daf9a215a5a192c20) [#2487](https://github.com/keystonejs/keystone-5/pull/2487) Thanks [@Noviny](https://github.com/Noviny)! - Small changes to package.json (mostly adding a repository field)
 
 - Updated dependencies [[`5ba330b8`](https://github.com/keystonejs/keystone-5/commit/5ba330b8b2609ea0033a636daf9a215a5a192c20)]:
-  - @keystonejs/utils@5.2.2
+  - @open-keystone/utils@5.2.2
 
 ## 5.1.0
 
@@ -150,22 +150,22 @@
 ### Patch Changes
 
 - Updated dependencies [[`517b23e4`](https://github.com/keystonejs/keystone-5/commit/517b23e4b17414ed1807e8d7af1e67377ba3b7bf)]:
-  - @keystonejs/utils@5.2.0
+  - @open-keystone/utils@5.2.0
 
 ## 5.0.0
 
 ### Major Changes
 
-- [`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310) [#1821](https://github.com/keystonejs/keystone-5/pull/1821) Thanks [@jesstelford](https://github.com/jesstelford)! - Release @keystonejs/\* packages (つ＾ ◡ ＾)つ
+- [`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310) [#1821](https://github.com/keystonejs/keystone-5/pull/1821) Thanks [@jesstelford](https://github.com/jesstelford)! - Release @open-keystone/\* packages (つ＾ ◡ ＾)つ
 
-  - This is the first release of `@keystonejs/*` packages (previously `@keystone-alpha/*`).
-  - All packages in the `@keystone-alpha` namespace are now available in the `@keystonejs` namespace, starting at version `5.0.0`.
-  - To upgrade your project you must update any `@keystone-alpha/*` dependencies in `package.json` to point to `"@keystonejs/*": "^5.0.0"` and update any `require`/`import` statements in your code.
+  - This is the first release of `@open-keystone/*` packages (previously `@keystone-alpha/*`).
+  - All packages in the `@keystone-alpha` namespace are now available in the `@open-keystone` namespace, starting at version `5.0.0`.
+  - To upgrade your project you must update any `@keystone-alpha/*` dependencies in `package.json` to point to `"@open-keystone/*": "^5.0.0"` and update any `require`/`import` statements in your code.
 
 ### Patch Changes
 
 - Updated dependencies [[`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310)]:
-  - @keystonejs/utils@5.0.0
+  - @open-keystone/utils@5.0.0
 
 # @keystone-alpha/access-control
 

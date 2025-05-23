@@ -8,7 +8,7 @@ title: Apollo helpers
 
 > This is the last active development release of this package as **Keystone 5** is now in a 6 to 12 month active maintenance phase. For more information please read our [Keystone 5 and beyond](https://github.com/keystonejs/keystone-5/issues/21) post.
 
-[![View changelog](https://img.shields.io/badge/changelogs.xyz-Explore%20Changelog-brightgreen)](https://changelogs.xyz/@keystonejs/apollo-helpers)
+[![View changelog](https://img.shields.io/badge/changelogs.xyz-Explore%20Changelog-brightgreen)](https://changelogs.xyz/@open-keystone/apollo-helpers)
 
 A set of functions and components to ease using
 [Apollo](https://www.apollographql.com/docs/react/) with Keystone.
@@ -16,7 +16,7 @@ A set of functions and components to ease using
 ## Installation
 
 ```shell
-yarn add @keystonejs/apollo-helpers
+yarn add @open-keystone/apollo-helpers
 ```
 
 ## Usage
@@ -33,7 +33,7 @@ import { HttpLink } from 'apollo-link-http';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
-import { Query, KeystoneProvider } from '@keystonejs/apollo-helpers';
+import { Query, KeystoneProvider } from '@open-keystone/apollo-helpers';
 
 const client = new ApolloClient({
   link: new HttpLink({ uri: '...' }),
@@ -75,7 +75,7 @@ import {
   KeystoneProvider,
   injectIsOptimisticFlag,
   flattenApollo,
-} from '@keystonejs/apollo-helpers';
+} from '@open-keystone/apollo-helpers';
 
 const cache = new InMemoryCache();
 

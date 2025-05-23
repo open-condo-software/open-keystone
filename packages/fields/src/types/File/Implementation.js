@@ -1,8 +1,8 @@
 import cuid from 'cuid';
 import { Implementation } from '../../Implementation';
-import { MongooseFieldAdapter } from '@keystonejs/adapter-mongoose';
-import { KnexFieldAdapter } from '@keystonejs/adapter-knex';
-import { PrismaFieldAdapter } from '@keystonejs/adapter-prisma';
+import { MongooseFieldAdapter } from '@open-keystone/adapter-mongoose';
+import { KnexFieldAdapter } from '@open-keystone/adapter-knex';
+import { PrismaFieldAdapter } from '@open-keystone/adapter-prisma';
 import mongoose from 'mongoose';
 
 // Disabling the getter of mongoose >= 5.1.0

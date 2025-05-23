@@ -1,6 +1,6 @@
 {
   "name": "@arch-ui/common",
-  "description": "Common config used throughout @arch-ui Components and @keystonejs Admin UI.",
+  "description": "Common config used throughout @arch-ui Components and @open-keystone Admin UI.",
   "version": "0.0.15",
   "author": "Jed Watson",
   "license": "MIT",

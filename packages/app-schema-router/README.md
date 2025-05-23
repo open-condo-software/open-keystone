@@ -8,7 +8,7 @@ title: GraphQL Schema Router
 
 > This is the last active development release of this package as **Keystone 5** is now in a 6 to 12 month active maintenance phase. For more information please read our [Keystone 5 and beyond](https://github.com/keystonejs/keystone-5/issues/21) post.
 
-[![View changelog](https://img.shields.io/badge/changelogs.xyz-Explore%20Changelog-brightgreen)](https://changelogs.xyz/@keystonejs/app-schema-router)
+[![View changelog](https://img.shields.io/badge/changelogs.xyz-Explore%20Changelog-brightgreen)](https://changelogs.xyz/@open-keystone/app-schema-router)
 
 A KeystoneJS App that route requests to different GraphQL schemas.
 
@@ -19,11 +19,11 @@ a `routerId`, which is used to pick between different GraphQL schemas which exis
 ## Usage
 
 ```javascript
-const { Keystone } = require('@keystonejs/keystone');
-const { GraphQLAppPlayground } = require('@keystonejs/app-graphql-playground');
-const { SchemaRouterApp } = require('@keystonejs/app-schema-router');
-const { GraphQLApp } = require('@keystonejs/app-graphql');
-const { AdminUIApp } = require('@keystonejs/app-admin-ui');
+const { Keystone } = require('@open-keystone/keystone');
+const { GraphQLAppPlayground } = require('@open-keystone/app-graphql-playground');
+const { SchemaRouterApp } = require('@open-keystone/app-schema-router');
+const { GraphQLApp } = require('@open-keystone/app-graphql');
+const { AdminUIApp } = require('@open-keystone/app-admin-ui');
 
 module.exports = {
   keystone: new Keystone(),

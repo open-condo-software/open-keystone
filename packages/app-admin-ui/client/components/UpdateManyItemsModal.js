@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core';
 import { Fragment, useMemo, useCallback, Suspense, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useToasts } from 'react-toast-notifications';
-import { omit, arrayToObject, countArrays } from '@keystonejs/utils';
+import { omit, arrayToObject, countArrays } from '@open-keystone/utils';
 
 import { Button, LoadingButton } from '@arch-ui/button';
 import Drawer from '@arch-ui/drawer';

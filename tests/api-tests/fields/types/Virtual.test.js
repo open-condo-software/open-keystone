@@ -1,5 +1,5 @@
-const { multiAdapterRunners, setupServer } = require('@keystonejs/test-utils');
-const { Integer, Virtual } = require('@keystonejs/fields');
+const { multiAdapterRunners, setupServer } = require('@open-keystone/test-utils');
+const { Integer, Virtual } = require('@open-keystone/fields');
 
 function makeSetupKeystone(fields) {
   return function setupKeystone(adapterName) {

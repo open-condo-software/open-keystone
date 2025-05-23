@@ -1,8 +1,8 @@
 import inflection from 'inflection';
 import { Implementation } from '../../Implementation';
-import { MongooseFieldAdapter } from '@keystonejs/adapter-mongoose';
-import { KnexFieldAdapter } from '@keystonejs/adapter-knex';
-import { PrismaFieldAdapter } from '@keystonejs/adapter-prisma';
+import { MongooseFieldAdapter } from '@open-keystone/adapter-mongoose';
+import { KnexFieldAdapter } from '@open-keystone/adapter-knex';
+import { PrismaFieldAdapter } from '@open-keystone/adapter-prisma';
 
 function initOptions(options) {
   let optionsArray = options;

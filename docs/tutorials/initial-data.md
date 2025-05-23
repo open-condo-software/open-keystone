@@ -19,13 +19,13 @@ It is best to start from a fresh project and start from an empty database (delet
 Also, make sure to have all of the following packages installed:
 
 ```shell allowCopy=false showLanguage=false
-yarn add @keystonejs/keystone
-yarn add @keystonejs/adapter-mongoose
-yarn add @keystonejs/app-graphql
-yarn add @keystonejs/fields
-yarn add @keystonejs/app-admin-ui
-yarn add @keystonejs/auth-password
-yarn add @keystonejs/server-side-graphql-client
+yarn add @open-keystone/keystone
+yarn add @open-keystone/adapter-mongoose
+yarn add @open-keystone/app-graphql
+yarn add @open-keystone/fields
+yarn add @open-keystone/app-admin-ui
+yarn add @open-keystone/auth-password
+yarn add @open-keystone/server-side-graphql-client
 ```
 
 ### Preparation
@@ -34,12 +34,12 @@ First let's create a `User` list and add a `PasswordAuthStrategy`.
 The code in `index.js`:
 
 ```javascript
-const { Keystone } = require('@keystonejs/keystone');
-const { PasswordAuthStrategy } = require('@keystonejs/auth-password');
-const { Text, Checkbox, Password } = require('@keystonejs/fields');
-const { GraphQLApp } = require('@keystonejs/app-graphql');
-const { AdminUIApp } = require('@keystonejs/app-admin-ui');
-const { MongooseAdapter } = require('@keystonejs/adapter-mongoose');
+const { Keystone } = require('@open-keystone/keystone');
+const { PasswordAuthStrategy } = require('@open-keystone/auth-password');
+const { Text, Checkbox, Password } = require('@open-keystone/fields');
+const { GraphQLApp } = require('@open-keystone/app-graphql');
+const { AdminUIApp } = require('@open-keystone/app-admin-ui');
+const { MongooseAdapter } = require('@open-keystone/adapter-mongoose');
 
 const keystone = new Keystone({
   adapter: new MongooseAdapter({ mongoUri: 'mongodb://localhost/keystone' }),
@@ -81,7 +81,7 @@ It has the following `required` keys:
 - `items`: the array of objects to be created.
 
 ```javascript
-const { createItems } = require('@keystonejs/server-side-graphql-client');
+const { createItems } = require('@open-keystone/server-side-graphql-client');
 
 await createItems({
   keystone,
@@ -111,7 +111,7 @@ As an example in our schema, the `email` field has `isUnique:true` constraint, t
 Example on how to `seed` the data upon database connection:
 
 ```javascript
-const { createItems } = require('@keystonejs/server-side-graphql-client');
+const { createItems } = require('@open-keystone/server-side-graphql-client');
 
 const keystone = new Keystone({
   adapter: new MongooseAdapter({ mongoUri: 'mongodb://localhost/keystone' }),
@@ -161,7 +161,7 @@ Consequently, while seeding it's possible to create relationships between items 
 Add the `Relationship` field to the imports:
 
 ```javascript
-const { Text, Checkbox, Password, Relationship } = require('@keystonejs/fields');
+const { Text, Checkbox, Password, Relationship } = require('@open-keystone/fields');
 ```
 
 Create a list with a relationship to another list:

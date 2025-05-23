@@ -1,4 +1,4 @@
-# @keystonejs/test-utils
+# @open-keystone/test-utils
 
 ## 13.1.2
 
@@ -7,11 +7,11 @@
 - [#95](https://github.com/keystonejs/keystone-5/pull/95) [`c8ff78b95`](https://github.com/keystonejs/keystone-5/commit/c8ff78b95af5d56d44bbc11c51e7cf28b81323b4) Thanks [@bladey](https://github.com/bladey)! - Renamed branch `master` to `main`.
 
 - Updated dependencies [[`c8ff78b95`](https://github.com/keystonejs/keystone-5/commit/c8ff78b95af5d56d44bbc11c51e7cf28b81323b4)]:
-  - @keystonejs/adapter-knex@13.3.2
-  - @keystonejs/adapter-mongoose@11.2.2
-  - @keystonejs/adapter-prisma@3.2.2
-  - @keystonejs/app-graphql@6.3.2
-  - @keystonejs/keystone@19.3.3
+  - @open-keystone/adapter-knex@13.3.2
+  - @open-keystone/adapter-mongoose@11.2.2
+  - @open-keystone/adapter-prisma@3.2.2
+  - @open-keystone/app-graphql@6.3.2
+  - @open-keystone/keystone@19.3.3
 
 ## 13.1.1
 
@@ -20,11 +20,11 @@
 - [#95](https://github.com/keystonejs/keystone-5/pull/95) [`a890b0576`](https://github.com/keystonejs/keystone-5/commit/a890b057628b60c2d1870cc3f5afd8e87b03f7df) Thanks [@bladey](https://github.com/bladey)! - Renamed branch `master` to `main`.
 
 - Updated dependencies [[`a890b0576`](https://github.com/keystonejs/keystone-5/commit/a890b057628b60c2d1870cc3f5afd8e87b03f7df)]:
-  - @keystonejs/adapter-knex@13.3.1
-  - @keystonejs/adapter-mongoose@11.2.1
-  - @keystonejs/adapter-prisma@3.2.1
-  - @keystonejs/app-graphql@6.3.1
-  - @keystonejs/keystone@19.3.2
+  - @open-keystone/adapter-knex@13.3.1
+  - @open-keystone/adapter-mongoose@11.2.1
+  - @open-keystone/adapter-prisma@3.2.1
+  - @open-keystone/app-graphql@6.3.1
+  - @open-keystone/keystone@19.3.2
 
 ## 13.1.0
 
@@ -35,11 +35,11 @@
 ### Patch Changes
 
 - Updated dependencies [[`345a5f0f6`](https://github.com/keystonejs/keystone-5/commit/345a5f0f66a34c75696230ad2fcfb7a2eac86cb4)]:
-  - @keystonejs/adapter-knex@13.2.0
-  - @keystonejs/adapter-mongoose@11.2.0
-  - @keystonejs/adapter-prisma@3.2.0
-  - @keystonejs/app-graphql@6.3.0
-  - @keystonejs/keystone@19.3.0
+  - @open-keystone/adapter-knex@13.2.0
+  - @open-keystone/adapter-mongoose@11.2.0
+  - @open-keystone/adapter-prisma@3.2.0
+  - @open-keystone/app-graphql@6.3.0
+  - @open-keystone/keystone@19.3.0
 
 ## 13.0.0
 
@@ -52,11 +52,11 @@
 - [`04bf1e4bb`](https://github.com/keystonejs/keystone-5/commit/04bf1e4bb0223f4e2e06664bbc9e95c51118eb84) [#2](https://github.com/keystonejs/keystone-5/pull/2) Thanks [@bladey](https://github.com/bladey)! - Updated repository URL in package.json.
 
 - Updated dependencies [[`26a9ce9b1`](https://github.com/keystonejs/keystone-5/commit/26a9ce9b1b495feb0f4660ff2d5cf54a4fa81b2d), [`04bf1e4bb`](https://github.com/keystonejs/keystone-5/commit/04bf1e4bb0223f4e2e06664bbc9e95c51118eb84), [`f88f3976b`](https://github.com/keystonejs/keystone-5/commit/f88f3976b2d29d3bd3521d1ae2d9109a4a688cfc), [`26a9ce9b1`](https://github.com/keystonejs/keystone-5/commit/26a9ce9b1b495feb0f4660ff2d5cf54a4fa81b2d)]:
-  - @keystonejs/adapter-knex@13.1.0
-  - @keystonejs/adapter-mongoose@11.1.0
-  - @keystonejs/adapter-prisma@3.1.0
-  - @keystonejs/app-graphql@6.2.2
-  - @keystonejs/keystone@19.2.1
+  - @open-keystone/adapter-knex@13.1.0
+  - @open-keystone/adapter-mongoose@11.1.0
+  - @open-keystone/adapter-prisma@3.1.0
+  - @open-keystone/app-graphql@6.2.2
+  - @open-keystone/keystone@19.2.1
 
 ## 12.0.0
 
@@ -68,10 +68,10 @@
 
 - Updated dependencies [[`ee019cfc5`](https://github.com/keystonejs/keystone-5/commit/ee019cfc51a831d005524e5427d0ebe1c71a1dee), [`a0931858e`](https://github.com/keystonejs/keystone-5/commit/a0931858e499d9504e4e822b850dcf89c3cdac60), [`d8f64887f`](https://github.com/keystonejs/keystone-5/commit/d8f64887f2aa428ea8ac35d0efa50ce05534f40b), [`45b047ad0`](https://github.com/keystonejs/keystone-5/commit/45b047ad015fc9d72cf8c2b85529ffe3abbc189e), [`74f428353`](https://github.com/keystonejs/keystone-5/commit/74f428353b90958f97669cbcb78e18ca44438765), [`4035218df`](https://github.com/keystonejs/keystone-5/commit/4035218df390beff3d42c0d3fc21335230d8a60d), [`a418fd535`](https://github.com/keystonejs/keystone-5/commit/a418fd5351b0070aab05380b658065be7916fb2a), [`e29ae2749`](https://github.com/keystonejs/keystone-5/commit/e29ae2749321c103dd494eba6778ee4137bb2aa3), [`250daa2a2`](https://github.com/keystonejs/keystone-5/commit/250daa2a2c2693f415d9499a531095f3caf2a1d5), [`8d0be8a89`](https://github.com/keystonejs/keystone-5/commit/8d0be8a89e2d9b89826365f81f47b8d8863b93d0)]:
   - @keystone-next/keystone@10.0.0
-  - @keystonejs/adapter-mongoose@11.0.1
-  - @keystonejs/adapter-prisma@3.0.1
-  - @keystonejs/adapter-knex@13.0.1
-  - @keystonejs/keystone@19.2.0
+  - @open-keystone/adapter-mongoose@11.0.1
+  - @open-keystone/adapter-prisma@3.0.1
+  - @open-keystone/adapter-knex@13.0.1
+  - @open-keystone/keystone@19.2.0
 
 ## 11.1.3
 
@@ -86,7 +86,7 @@
 
 - Updated dependencies [[`26543bd07`](https://github.com/keystonejs/keystone-5/commit/26543bd0752c470e336d61644c14e6a5333f65c0), [`3c1fa3203`](https://github.com/keystonejs/keystone-5/commit/3c1fa3203a6a9eeb2525c256f858f2e6cebea804), [`fd0dff3fd`](https://github.com/keystonejs/keystone-5/commit/fd0dff3fdfcbe20b2884357a6e1b20f1b7307652), [`096927a68`](https://github.com/keystonejs/keystone-5/commit/096927a6813a23030988ba8b64b2e8452f571a33)]:
   - @keystone-next/keystone@9.3.0
-  - @keystonejs/keystone@19.1.0
+  - @open-keystone/keystone@19.1.0
 
 ## 11.1.1
 
@@ -95,11 +95,11 @@
 - [`94fbb45f1`](https://github.com/keystonejs/keystone-5/commit/94fbb45f1920781423f6a8e489e812b74a260099) [#4728](https://github.com/keystonejs/keystone-5/pull/4728) Thanks [@timleslie](https://github.com/timleslie)! - Added new CLI options to support migrations in the Prisma adapter: `prototype`, `reset`, `generate`, and `deploy`.
 
 - Updated dependencies [[`a886039a1`](https://github.com/keystonejs/keystone-5/commit/a886039a1fc17c9b60b2955f0e58916ab1c3d7bf), [`94fbb45f1`](https://github.com/keystonejs/keystone-5/commit/94fbb45f1920781423f6a8e489e812b74a260099), [`749d1c86c`](https://github.com/keystonejs/keystone-5/commit/749d1c86c89690ef10014a4a0a12641eb24bfe1d), [`588be9ea1`](https://github.com/keystonejs/keystone-5/commit/588be9ea16ab5fb6e74f844b917ca8aeb91a9ac9)]:
-  - @keystonejs/adapter-prisma@3.0.0
+  - @open-keystone/adapter-prisma@3.0.0
   - @keystone-next/keystone@9.2.0
-  - @keystonejs/adapter-knex@13.0.0
-  - @keystonejs/adapter-mongoose@11.0.0
-  - @keystonejs/keystone@19.0.0
+  - @open-keystone/adapter-knex@13.0.0
+  - @open-keystone/adapter-mongoose@11.0.0
+  - @open-keystone/keystone@19.0.0
 
 ## 11.1.0
 
@@ -113,23 +113,23 @@
 
 - Updated dependencies [[`fe0c228b1`](https://github.com/keystonejs/keystone-5/commit/fe0c228b12530f6d384fa5eed9d5086768a24782), [`6b95cb6e4`](https://github.com/keystonejs/keystone-5/commit/6b95cb6e4d5bea3a87e22765d5fcf31db2fc31ae), [`fc2b7101f`](https://github.com/keystonejs/keystone-5/commit/fc2b7101f35f20e4d729269a005816546bb37464), [`e7d4d54e5`](https://github.com/keystonejs/keystone-5/commit/e7d4d54e5b94e6b376d6eab28a0f2b074f2c95ed), [`ac3db9561`](https://github.com/keystonejs/keystone-5/commit/ac3db95613093de83e2369f624ce9b6c77bb8eda), [`f162a9d72`](https://github.com/keystonejs/keystone-5/commit/f162a9d72859ae7f2932bf0859c712861918b9e6), [`a62a2d996`](https://github.com/keystonejs/keystone-5/commit/a62a2d996f1080051f7962b7063ae37d7e8b7e63)]:
   - @keystone-next/keystone@9.1.0
-  - @keystonejs/adapter-prisma@2.0.0
+  - @open-keystone/adapter-prisma@2.0.0
 
 ## 11.0.0
 
 ### Major Changes
 
-- [`6ea4ff3cf`](https://github.com/keystonejs/keystone-5/commit/6ea4ff3cf77d5d2278bf4f0415d11aa7399a0490) [#4660](https://github.com/keystonejs/keystone-5/pull/4660) Thanks [@timleslie](https://github.com/timleslie)! - Converted `@keystonejs/test-utils` to TypeScript.
+- [`6ea4ff3cf`](https://github.com/keystonejs/keystone-5/commit/6ea4ff3cf77d5d2278bf4f0415d11aa7399a0490) [#4660](https://github.com/keystonejs/keystone-5/pull/4660) Thanks [@timleslie](https://github.com/timleslie)! - Converted `@open-keystone/test-utils` to TypeScript.
 
 ### Patch Changes
 
 - Updated dependencies [[`49eec4dea`](https://github.com/keystonejs/keystone-5/commit/49eec4dea522c6a043b3eaf93fc8be8256b00aa6), [`3b7a056bb`](https://github.com/keystonejs/keystone-5/commit/3b7a056bb835482ceb408a70bf97300741552d19), [`4768fbf83`](https://github.com/keystonejs/keystone-5/commit/4768fbf831ffff648e540c479a1954ae40e05aaa), [`59027f8a4`](https://github.com/keystonejs/keystone-5/commit/59027f8a41cb11632f7c1eb5b3a8092193ecc87e), [`e11b111c7`](https://github.com/keystonejs/keystone-5/commit/e11b111c7e4a87c7a31108b9f5adbc546caaac35), [`283a6694a`](https://github.com/keystonejs/keystone-5/commit/283a6694ac461d0be980d7796f88efadd4fe108e), [`7ffd2ebb4`](https://github.com/keystonejs/keystone-5/commit/7ffd2ebb42dfaf12e23ba166b44ec4db60d9824b), [`0df2fb79c`](https://github.com/keystonejs/keystone-5/commit/0df2fb79c56094b5cdc0be6a0d6c2812ff0ec7f9), [`d090053df`](https://github.com/keystonejs/keystone-5/commit/d090053df9545380c42ddd18fae6782f3c3e2719), [`74a8528ea`](https://github.com/keystonejs/keystone-5/commit/74a8528ea0dad739f4f16af32fe4f8926a188b61)]:
-  - @keystonejs/adapter-prisma@1.1.2
-  - @keystonejs/keystone@18.1.0
+  - @open-keystone/adapter-prisma@1.1.2
+  - @open-keystone/keystone@18.1.0
   - @keystone-next/keystone@9.0.2
-  - @keystonejs/adapter-knex@12.0.4
-  - @keystonejs/adapter-mongoose@10.1.2
-  - @keystonejs/app-graphql@6.2.1
+  - @open-keystone/adapter-knex@12.0.4
+  - @open-keystone/adapter-mongoose@10.1.2
+  - @open-keystone/app-graphql@6.2.1
 
 ## 10.1.3
 
@@ -144,11 +144,11 @@
 
 - Updated dependencies [[`933c78a1e`](https://github.com/keystonejs/keystone-5/commit/933c78a1edc070b63f7720f64c15421ba28bdde5), [`89f7d4599`](https://github.com/keystonejs/keystone-5/commit/89f7d459906072940da1355c38815d1b3ef49368), [`abc5440dc`](https://github.com/keystonejs/keystone-5/commit/abc5440dc5ee8d8cdd6ddddb32cf21bd2c3fc324), [`1200c3562`](https://github.com/keystonejs/keystone-5/commit/1200c356272ae8deea9da4267ce62c1449498e95), [`cf2819544`](https://github.com/keystonejs/keystone-5/commit/cf2819544426def260ada5eb18fdc9b8a01e9438), [`1200c3562`](https://github.com/keystonejs/keystone-5/commit/1200c356272ae8deea9da4267ce62c1449498e95)]:
   - @keystone-next/keystone@9.0.0
-  - @keystonejs/keystone@18.0.0
-  - @keystonejs/app-graphql@6.2.0
-  - @keystonejs/adapter-mongoose@10.1.1
-  - @keystonejs/adapter-knex@12.0.3
-  - @keystonejs/adapter-prisma@1.1.1
+  - @open-keystone/keystone@18.0.0
+  - @open-keystone/app-graphql@6.2.0
+  - @open-keystone/adapter-mongoose@10.1.1
+  - @open-keystone/adapter-knex@12.0.3
+  - @open-keystone/adapter-prisma@1.1.1
 
 ## 10.1.1
 
@@ -168,9 +168,9 @@
 - [`efe97de24`](https://github.com/keystonejs/keystone-5/commit/efe97de24bd1de7a0f50bcbee6b445f4eef7311b) [#4522](https://github.com/keystonejs/keystone-5/pull/4522) Thanks [@timleslie](https://github.com/timleslie)! - Internally factored out `argGenerator` to support different system setup functions.
 
 - Updated dependencies [[`364ac9254`](https://github.com/keystonejs/keystone-5/commit/364ac9254735befd2d4804789bb62464bb51ee5b), [`2d3668c49`](https://github.com/keystonejs/keystone-5/commit/2d3668c49d1913afecbacf2b5ef164e553210956), [`e33cf0c1e`](https://github.com/keystonejs/keystone-5/commit/e33cf0c1e78ae69cffaf45009e47ca1198464cf2), [`fd5daefb4`](https://github.com/keystonejs/keystone-5/commit/fd5daefb4966b10cf8047386d19db14d325ef8c5), [`44c78319e`](https://github.com/keystonejs/keystone-5/commit/44c78319ed8cfb1000eb4b1aca5eb361376584b4), [`defd05365`](https://github.com/keystonejs/keystone-5/commit/defd05365f31d0d6d4b6fd9ffe0a0c3928f97e79), [`6d09df338`](https://github.com/keystonejs/keystone-5/commit/6d09df3381d1682b8002d52ed1696b661fdff035), [`4d3cb8e32`](https://github.com/keystonejs/keystone-5/commit/4d3cb8e32b22250fdbe04af758b0aad727ba63e4), [`a3908a675`](https://github.com/keystonejs/keystone-5/commit/a3908a675614fa8690ea641a124cc57c9f963618), [`d329f07a5`](https://github.com/keystonejs/keystone-5/commit/d329f07a5ce7ebf5d658a7f90334ba4372a2a72d), [`c1e8def9a`](https://github.com/keystonejs/keystone-5/commit/c1e8def9a4204d685a796e267edc50f6ef2e8c51), [`481e456ac`](https://github.com/keystonejs/keystone-5/commit/481e456ac4158207436ddd9be18fdca0f27b6409), [`08398473b`](https://github.com/keystonejs/keystone-5/commit/08398473bb81dfd43a3c134ed8de61e45aa770f0), [`2308e5efc`](https://github.com/keystonejs/keystone-5/commit/2308e5efc7c6893c87652411496b15a8124f6e05)]:
-  - @keystonejs/adapter-mongoose@10.1.0
+  - @open-keystone/adapter-mongoose@10.1.0
   - @keystone-next/keystone@7.0.0
-  - @keystonejs/adapter-prisma@1.1.0
+  - @open-keystone/adapter-prisma@1.1.0
 
 ## 10.0.0
 
@@ -181,9 +181,9 @@
 ### Patch Changes
 
 - Updated dependencies [[`2d660b2a1`](https://github.com/keystonejs/keystone-5/commit/2d660b2a1dd013787e022cad3a0c70dbe08c60da), [`3dd5c570a`](https://github.com/keystonejs/keystone-5/commit/3dd5c570a27d0795a689407d96fc9623c90a66df), [`f2b841b90`](https://github.com/keystonejs/keystone-5/commit/f2b841b90d5ac8adece645df45b8a17832391b50)]:
-  - @keystonejs/adapter-mongoose@10.0.1
-  - @keystonejs/keystone@17.1.1
-  - @keystonejs/adapter-prisma@1.0.7
+  - @open-keystone/adapter-mongoose@10.0.1
+  - @open-keystone/keystone@17.1.1
+  - @open-keystone/adapter-prisma@1.0.7
 
 ## 9.1.0
 
@@ -196,8 +196,8 @@
 - [`874fb3377`](https://github.com/keystonejs/keystone-5/commit/874fb337786dba2a2513f754bdfb2ab93ac81598) [#4009](https://github.com/keystonejs/keystone-5/pull/4009) Thanks [@timleslie](https://github.com/timleslie)! - Added a `provider` config option to `PrismaAdapter`. Only `postgresql` is currently supported, and this is the default value.
 
 - Updated dependencies [[`c4478b1c7`](https://github.com/keystonejs/keystone-5/commit/c4478b1c74e205232ecb321de91f0eda0e78b819), [`874fb3377`](https://github.com/keystonejs/keystone-5/commit/874fb337786dba2a2513f754bdfb2ab93ac81598)]:
-  - @keystonejs/adapter-knex@12.0.2
-  - @keystonejs/adapter-prisma@1.0.6
+  - @open-keystone/adapter-knex@12.0.2
+  - @open-keystone/adapter-prisma@1.0.6
 
 ## 9.0.1
 
@@ -206,9 +206,9 @@
 - [`28354a02f`](https://github.com/keystonejs/keystone-5/commit/28354a02f7bc3ee79e2cb4c299ece6126433c909) [#3846](https://github.com/keystonejs/keystone-5/pull/3846) Thanks [@renovate](https://github.com/apps/renovate)! - Updated dependency `mongodb-memory-server-core` to `^6.9.0`.
 
 - Updated dependencies [[`f30928db3`](https://github.com/keystonejs/keystone-5/commit/f30928db31b0c0a10a27b827b44afc1896dfbafe), [`e5efd0ef3`](https://github.com/keystonejs/keystone-5/commit/e5efd0ef3d6943534cb6c728afe5dbf0caf43e74), [`bf06edbf4`](https://github.com/keystonejs/keystone-5/commit/bf06edbf47e69280c3a9e270daa578528d68c447), [`85fa68456`](https://github.com/keystonejs/keystone-5/commit/85fa684565d8c9c40036d4544b3c0235dbbd327b)]:
-  - @keystonejs/adapter-prisma@1.0.3
-  - @keystonejs/adapter-knex@12.0.0
-  - @keystonejs/adapter-mongoose@10.0.0
+  - @open-keystone/adapter-prisma@1.0.3
+  - @open-keystone/adapter-knex@12.0.0
+  - @open-keystone/adapter-mongoose@10.0.0
 
 ## 9.0.0
 
@@ -221,10 +221,10 @@
 - [`966b5bc70`](https://github.com/keystonejs/keystone-5/commit/966b5bc7003e0f580528c4dcd46647cc4124b592) [#3737](https://github.com/keystonejs/keystone-5/pull/3737) Thanks [@renovate](https://github.com/apps/renovate)! - Updated dependency `mongodb-memory-server-core` to `^6.8.0`.
 
 - Updated dependencies [[`8c54a34be`](https://github.com/keystonejs/keystone-5/commit/8c54a34bec0f5f945447a2475f5500415eb154df), [`966b5bc70`](https://github.com/keystonejs/keystone-5/commit/966b5bc7003e0f580528c4dcd46647cc4124b592), [`f70c9f1ba`](https://github.com/keystonejs/keystone-5/commit/f70c9f1ba7452b54a15ab71943a3777d5b6dade4), [`3e2ca3a2f`](https://github.com/keystonejs/keystone-5/commit/3e2ca3a2ffa00cb5aababee572902a78e657ec58), [`bf5801070`](https://github.com/keystonejs/keystone-5/commit/bf5801070568bbcc1ed4f3394a293bfa5bea8b98), [`cc56990f2`](https://github.com/keystonejs/keystone-5/commit/cc56990f2e9a4ecf0c112362e8d472b9286f76bc), [`df0687184`](https://github.com/keystonejs/keystone-5/commit/df068718456d23819a7cae491870be4560b2010d), [`cc56990f2`](https://github.com/keystonejs/keystone-5/commit/cc56990f2e9a4ecf0c112362e8d472b9286f76bc)]:
-  - @keystonejs/adapter-knex@11.0.7
-  - @keystonejs/adapter-mongoose@9.0.8
-  - @keystonejs/adapter-prisma@1.0.0
-  - @keystonejs/keystone@17.0.0
+  - @open-keystone/adapter-knex@11.0.7
+  - @open-keystone/adapter-mongoose@9.0.8
+  - @open-keystone/adapter-prisma@1.0.0
+  - @open-keystone/keystone@17.0.0
 
 ## 8.0.4
 
@@ -235,10 +235,10 @@
 * [`7956d5da0`](https://github.com/keystonejs/keystone-5/commit/7956d5da00197dc11f5d54f7870b8fa72c05a3c0) [#3653](https://github.com/keystonejs/keystone-5/pull/3653) Thanks [@renovate](https://github.com/apps/renovate)! - Updated dependency `mongodb-memory-server-core` to `^6.7.5`.
 
 * Updated dependencies [[`06dffc42b`](https://github.com/keystonejs/keystone-5/commit/06dffc42b08062e3166880146c8fb606493ead12), [`7a1f8bbdc`](https://github.com/keystonejs/keystone-5/commit/7a1f8bbdcdf68c9579e17db77fa826e811abcab4), [`83007be79`](https://github.com/keystonejs/keystone-5/commit/83007be798ebd751d7eb708cde366dc35999af72), [`38e3ad9c3`](https://github.com/keystonejs/keystone-5/commit/38e3ad9c3e7124d06f11c7046821c857cf7f9ad2), [`6f42b0a9d`](https://github.com/keystonejs/keystone-5/commit/6f42b0a9d231049f9e7523eb78ec621d9c9d6df9), [`5c1e55721`](https://github.com/keystonejs/keystone-5/commit/5c1e5572134fa93c9aefbb537676e30cafd0e7d9), [`304701d7c`](https://github.com/keystonejs/keystone-5/commit/304701d7c23e98c8dc40c0f3f5512a0370107c06), [`7a1f8bbdc`](https://github.com/keystonejs/keystone-5/commit/7a1f8bbdcdf68c9579e17db77fa826e811abcab4), [`d95010eea`](https://github.com/keystonejs/keystone-5/commit/d95010eea35f40274f412dad5c2fed6b16ae6c60), [`104232785`](https://github.com/keystonejs/keystone-5/commit/104232785aac856be6a3ba55f8fa0fd8357237ed), [`7956d5da0`](https://github.com/keystonejs/keystone-5/commit/7956d5da00197dc11f5d54f7870b8fa72c05a3c0)]:
-  - @keystonejs/adapter-mongoose@9.0.7
-  - @keystonejs/keystone@16.0.0
-  - @keystonejs/app-graphql@6.1.3
-  - @keystonejs/adapter-knex@11.0.6
+  - @open-keystone/adapter-mongoose@9.0.7
+  - @open-keystone/keystone@16.0.0
+  - @open-keystone/app-graphql@6.1.3
+  - @open-keystone/adapter-knex@11.0.6
 
 ## 8.0.3
 
@@ -247,9 +247,9 @@
 - [`74ad0cf7a`](https://github.com/keystonejs/keystone-5/commit/74ad0cf7a1a08d7665575c13da9cfb0e5a692f22) [#3617](https://github.com/keystonejs/keystone-5/pull/3617) Thanks [@renovate](https://github.com/apps/renovate)! - Updated dependency `mongodb-memory-server-core` to `^6.7.0`.
 
 - Updated dependencies [[`4f6883dc3`](https://github.com/keystonejs/keystone-5/commit/4f6883dc38962805f96256f9fdf42fb77bb3326a), [`d7eac6629`](https://github.com/keystonejs/keystone-5/commit/d7eac662956fc2dffd9ea5cfedf60e51ecc1b80d), [`77aa2d7d1`](https://github.com/keystonejs/keystone-5/commit/77aa2d7d156a83759a7f3c26e8c5bd019966b054), [`9dae7a5d0`](https://github.com/keystonejs/keystone-5/commit/9dae7a5d00a62cd0b7a4470695adc5e1678db3dc), [`d07f6bfb6`](https://github.com/keystonejs/keystone-5/commit/d07f6bfb6b3bd65036c2030d2758abdf4eca1a9e)]:
-  - @keystonejs/adapter-knex@11.0.5
-  - @keystonejs/keystone@15.0.0
-  - @keystonejs/adapter-mongoose@9.0.6
+  - @open-keystone/adapter-knex@11.0.5
+  - @open-keystone/keystone@15.0.0
+  - @open-keystone/adapter-mongoose@9.0.6
 
 ## 8.0.2
 
@@ -258,25 +258,25 @@
 - [`3b619327b`](https://github.com/keystonejs/keystone-5/commit/3b619327b3801501b96b9af04ec6ca90e9ad9469) [#3517](https://github.com/keystonejs/keystone-5/pull/3517) Thanks [@renovate](https://github.com/apps/renovate)! - Update dependency `mongodb-memory-server-core` to `^6.6.7`.
 
 - Updated dependencies [[`cd15192cd`](https://github.com/keystonejs/keystone-5/commit/cd15192cdae5e476f64a257c196ca569a9440d5a), [`e9bc4367a`](https://github.com/keystonejs/keystone-5/commit/e9bc4367ac31f3fe3a2898198c600c76c42165b2), [`7bfdb79ee`](https://github.com/keystonejs/keystone-5/commit/7bfdb79ee43235418f098e5fe7412968dcf6c397), [`003b856e6`](https://github.com/keystonejs/keystone-5/commit/003b856e686cc1ee0f984c1acf024c1fa0c27837), [`d71f98791`](https://github.com/keystonejs/keystone-5/commit/d71f987917509a206b1e0a994dbc6641a7cf4e06), [`b3aa85031`](https://github.com/keystonejs/keystone-5/commit/b3aa850311cbc1622568f69f9cb4b9f46ab9db22), [`16fba3b98`](https://github.com/keystonejs/keystone-5/commit/16fba3b98271410e570a370f610da7cd0686f294), [`28b88abd3`](https://github.com/keystonejs/keystone-5/commit/28b88abd369f0df12eae72107db7c24323eda4b5)]:
-  - @keystonejs/app-graphql@6.1.2
-  - @keystonejs/keystone@14.0.2
-  - @keystonejs/adapter-knex@11.0.4
-  - @keystonejs/adapter-mongoose@9.0.5
+  - @open-keystone/app-graphql@6.1.2
+  - @open-keystone/keystone@14.0.2
+  - @open-keystone/adapter-knex@11.0.4
+  - @open-keystone/adapter-mongoose@9.0.5
 
 ## 8.0.1
 
 ### Patch Changes
 
 - Updated dependencies [[`25f50dadc`](https://github.com/keystonejs/keystone-5/commit/25f50dadc07d888de18d485244c84d17462dce2e), [`d38c9174f`](https://github.com/keystonejs/keystone-5/commit/d38c9174f8146ad6e268be87cf5d54d5074bc593), [`f714ac1e2`](https://github.com/keystonejs/keystone-5/commit/f714ac1e2c49ef44d756e35042bdb7da6db589a7), [`c243839c1`](https://github.com/keystonejs/keystone-5/commit/c243839c12abc8cffe8ff788fe57dcb880dc3a41)]:
-  - @keystonejs/keystone@14.0.0
-  - @keystonejs/adapter-knex@11.0.2
-  - @keystonejs/adapter-mongoose@9.0.3
+  - @open-keystone/keystone@14.0.0
+  - @open-keystone/adapter-knex@11.0.2
+  - @open-keystone/adapter-mongoose@9.0.3
 
 ## 8.0.0
 
 ### Major Changes
 
-- [`0369985e3`](https://github.com/keystonejs/keystone-5/commit/0369985e320afd6112f2664f8a8edc1ed7167130) [#3391](https://github.com/keystonejs/keystone-5/pull/3391) Thanks [@timleslie](https://github.com/timleslie)! - Removed the `MockAdapter`, `MockListAdapter` and `MockIdType` classes from `@keystonejs/test-utils`.
+- [`0369985e3`](https://github.com/keystonejs/keystone-5/commit/0369985e320afd6112f2664f8a8edc1ed7167130) [#3391](https://github.com/keystonejs/keystone-5/pull/3391) Thanks [@timleslie](https://github.com/timleslie)! - Removed the `MockAdapter`, `MockListAdapter` and `MockIdType` classes from `@open-keystone/test-utils`.
 
 * [`714316718`](https://github.com/keystonejs/keystone-5/commit/7143167187e3e3519b0b58e2b04ff0fee8fc75dc) [#3388](https://github.com/keystonejs/keystone-5/pull/3388) Thanks [@singhArmani](https://github.com/singhArmani)! - Removed the following redundant functions in tests, and used the equivalent `server-side-graphql-client` functions:
 
@@ -307,8 +307,8 @@
 - [`cc5bb8915`](https://github.com/keystonejs/keystone-5/commit/cc5bb891579281338ad7fad0873531be81d877d4) [#3387](https://github.com/keystonejs/keystone-5/pull/3387) Thanks [@singhArmani](https://github.com/singhArmani)! - Refactored internals to use `server-side-graphql-client`.
 
 - Updated dependencies [[`7e78ffdaa`](https://github.com/keystonejs/keystone-5/commit/7e78ffdaa96050e49e8e2678a3c4f1897fedae4f), [`0369985e3`](https://github.com/keystonejs/keystone-5/commit/0369985e320afd6112f2664f8a8edc1ed7167130)]:
-  - @keystonejs/adapter-mongoose@9.0.2
-  - @keystonejs/keystone@13.1.1
+  - @open-keystone/adapter-mongoose@9.0.2
+  - @open-keystone/keystone@13.1.1
 
 ## 7.1.1
 
@@ -319,10 +319,10 @@
 * [`2e10b1083`](https://github.com/keystonejs/keystone-5/commit/2e10b1083c0ab3925b877f16543c3d302f618313) [#3309](https://github.com/keystonejs/keystone-5/pull/3309) Thanks [@timleslie](https://github.com/timleslie)! - Simplified tests using the updated `test-utils` API.
 
 * Updated dependencies [[`af5171563`](https://github.com/keystonejs/keystone-5/commit/af51715637433bcdd2538835c98ac71a8eb86122), [`271f1a40b`](https://github.com/keystonejs/keystone-5/commit/271f1a40b97e03aaa00ce920a6515b8f18669428), [`22b4a5c1a`](https://github.com/keystonejs/keystone-5/commit/22b4a5c1a13c3cca47190467be9d56e836f180f1), [`afe661e60`](https://github.com/keystonejs/keystone-5/commit/afe661e607539df13584d460e1016ba0fa883cb8), [`04f9be03d`](https://github.com/keystonejs/keystone-5/commit/04f9be03de7fe82035205379208511c6e49890b3), [`ef7074977`](https://github.com/keystonejs/keystone-5/commit/ef70749775ce1565eafd7f94c3d7438c8ebd474e), [`e07c42d4e`](https://github.com/keystonejs/keystone-5/commit/e07c42d4ec75d5703bec4a2e419a42d18bed90ca), [`5a3849806`](https://github.com/keystonejs/keystone-5/commit/5a3849806d00e62b722461d02f6e4639bc45c1eb)]:
-  - @keystonejs/keystone@13.0.0
-  - @keystonejs/app-graphql@6.1.0
-  - @keystonejs/adapter-knex@11.0.1
-  - @keystonejs/adapter-mongoose@9.0.1
+  - @open-keystone/keystone@13.0.0
+  - @open-keystone/app-graphql@6.1.0
+  - @open-keystone/adapter-knex@11.0.1
+  - @open-keystone/adapter-mongoose@9.0.1
 
 ## 7.1.0
 
@@ -337,10 +337,10 @@
 * [`79d4c0d92`](https://github.com/keystonejs/keystone-5/commit/79d4c0d9250c1d1c1c46bcb2eaddae313eb7ac5f) [#3251](https://github.com/keystonejs/keystone-5/pull/3251) Thanks [@timleslie](https://github.com/timleslie)! - Improved error reporting in `matchFilter`.
 
 * Updated dependencies [[`5ad84ccd8`](https://github.com/keystonejs/keystone-5/commit/5ad84ccd8d008188e293629e90a4d7e7fde55333), [`51c898537`](https://github.com/keystonejs/keystone-5/commit/51c898537c7fdc8578fa47eade6a499594b0d154), [`61cdafe20`](https://github.com/keystonejs/keystone-5/commit/61cdafe20e0a22b5a1f9b6a2dcc4aefa45a26902), [`8480f889a`](https://github.com/keystonejs/keystone-5/commit/8480f889a492d83ee805f19877d49fd112117939), [`49984caae`](https://github.com/keystonejs/keystone-5/commit/49984caaec803ed86b027c9634ac6b3f671e9ba7), [`02f069f0b`](https://github.com/keystonejs/keystone-5/commit/02f069f0b6e28ccfe6d5cdeb59ab01bde27a655e), [`e114894d1`](https://github.com/keystonejs/keystone-5/commit/e114894d1bbcea8940cf14486fc336aa8d112da7), [`5fc97cbf4`](https://github.com/keystonejs/keystone-5/commit/5fc97cbf4489587a3a8cb38c04ba81fc2cb1fc5a), [`56e1798d6`](https://github.com/keystonejs/keystone-5/commit/56e1798d6815723cfba01e6d7dc6b4fe73d4447b), [`06f86c6f5`](https://github.com/keystonejs/keystone-5/commit/06f86c6f5c573411f0efda565a269d1d7ccb3c66), [`81b4df318`](https://github.com/keystonejs/keystone-5/commit/81b4df3182fc63c583e3fae5c05c528b678cab95), [`e6909b003`](https://github.com/keystonejs/keystone-5/commit/e6909b0037c9d3dc4fc6131da7968a424ce02be9), [`c9ca62876`](https://github.com/keystonejs/keystone-5/commit/c9ca628765f1ecb599c8556de2d31567ddf12504), [`3ce644d5f`](https://github.com/keystonejs/keystone-5/commit/3ce644d5f2b6e674adb2f155c0e729536079347a), [`622cc7d69`](https://github.com/keystonejs/keystone-5/commit/622cc7d6976ecb71f5b135c931ac0fcb4afdb1c7), [`7bdec6446`](https://github.com/keystonejs/keystone-5/commit/7bdec6446ed97fa962bb96abe07975bb23c6ec7a)]:
-  - @keystonejs/keystone@12.0.0
-  - @keystonejs/adapter-knex@11.0.0
-  - @keystonejs/adapter-mongoose@9.0.0
-  - @keystonejs/app-graphql@6.0.0
+  - @open-keystone/keystone@12.0.0
+  - @open-keystone/adapter-knex@11.0.0
+  - @open-keystone/adapter-mongoose@9.0.0
+  - @open-keystone/app-graphql@6.0.0
 
 ## 7.0.1
 
@@ -349,8 +349,8 @@
 - [`4ddc3dc6f`](https://github.com/keystonejs/keystone-5/commit/4ddc3dc6f87c192627d00db85a1080411400eeb5) [#3212](https://github.com/keystonejs/keystone-5/pull/3212) Thanks [@timleslie](https://github.com/timleslie)! - Removed `name` argument from calls to `setupServer` in tests.
 
 - Updated dependencies [[`f296866df`](https://github.com/keystonejs/keystone-5/commit/f296866dfab3af54381fd527473e3dc98425b3b9), [`9ab6961e0`](https://github.com/keystonejs/keystone-5/commit/9ab6961e0202277a980bd60a323a1c599f1dd085)]:
-  - @keystonejs/keystone@11.2.0
-  - @keystonejs/app-graphql@5.1.9
+  - @open-keystone/keystone@11.2.0
+  - @open-keystone/app-graphql@5.1.9
 
 ## 7.0.0
 
@@ -362,7 +362,7 @@
 ### Patch Changes
 
 - Updated dependencies [[`3ecf74462`](https://github.com/keystonejs/keystone-5/commit/3ecf74462524f4940474eaf75eea958acbda9ee4)]:
-  - @keystonejs/keystone@11.1.1
+  - @open-keystone/keystone@11.1.1
 
 ## 6.2.0
 
@@ -373,26 +373,26 @@
 ### Patch Changes
 
 - Updated dependencies [[`dec3d336a`](https://github.com/keystonejs/keystone-5/commit/dec3d336adbe8156722fbe65f315a57b2f5c08e7), [`78a5d5a45`](https://github.com/keystonejs/keystone-5/commit/78a5d5a457f80bba592e5a81056125b11469a5a8), [`1c69f4dc8`](https://github.com/keystonejs/keystone-5/commit/1c69f4dc8ab1eb23bc0a34850f48a51f2e9f1dce), [`950f23443`](https://github.com/keystonejs/keystone-5/commit/950f23443ef8f1a176a3cf6b039f93a29d954f5e), [`3c3c67abb`](https://github.com/keystonejs/keystone-5/commit/3c3c67abb5ec82155fec893d389eac3bbeb12bbd)]:
-  - @keystonejs/keystone@11.1.0
+  - @open-keystone/keystone@11.1.0
 
 ## 6.1.4
 
 ### Patch Changes
 
 - Updated dependencies [[`8df24d2ab`](https://github.com/keystonejs/keystone-5/commit/8df24d2ab4bed8a7fc1a856c20a571781dd7c04e), [`33046a66f`](https://github.com/keystonejs/keystone-5/commit/33046a66f33a82cf099880303b44d9736344667d), [`7c38e2671`](https://github.com/keystonejs/keystone-5/commit/7c38e267143491f38699326f02764f40f337d416), [`835866e1a`](https://github.com/keystonejs/keystone-5/commit/835866e1a2954113d809c9f0bac186485ac6212b)]:
-  - @keystonejs/keystone@11.0.0
-  - @keystonejs/adapter-knex@10.1.0
-  - @keystonejs/adapter-mongoose@8.1.3
+  - @open-keystone/keystone@11.0.0
+  - @open-keystone/adapter-knex@10.1.0
+  - @open-keystone/adapter-mongoose@8.1.3
 
 ## 6.1.3
 
 ### Patch Changes
 
 - Updated dependencies [[`4104e1f15`](https://github.com/keystonejs/keystone-5/commit/4104e1f15c545c05f680e8d16413862e875ca57a), [`cbfc67470`](https://github.com/keystonejs/keystone-5/commit/cbfc6747011329f7210e79ebe228f44ed8607321), [`aacc4a7f8`](https://github.com/keystonejs/keystone-5/commit/aacc4a7f8f88c242ae4bd784330d25056842d3fb), [`3204ae785`](https://github.com/keystonejs/keystone-5/commit/3204ae78576b0ab5649d5f5ae9cfbb1def347af1), [`4b06157be`](https://github.com/keystonejs/keystone-5/commit/4b06157be6cffde2d88969823f7c410fefd82317), [`839666e25`](https://github.com/keystonejs/keystone-5/commit/839666e25d8bffefd034e6344e11d72dd43b925b), [`64c0d68ac`](https://github.com/keystonejs/keystone-5/commit/64c0d68acb1ee969097a8fe59b5c296473790c5c), [`b696b2acb`](https://github.com/keystonejs/keystone-5/commit/b696b2acbf7def8dba41f46ccef5ff852703b95a), [`d970580e1`](https://github.com/keystonejs/keystone-5/commit/d970580e14904ba2f2ac5e969257e71f77ab67d7)]:
-  - @keystonejs/keystone@10.0.0
-  - @keystonejs/app-graphql@5.1.8
-  - @keystonejs/adapter-knex@10.0.2
-  - @keystonejs/adapter-mongoose@8.1.2
+  - @open-keystone/keystone@10.0.0
+  - @open-keystone/app-graphql@5.1.8
+  - @open-keystone/adapter-knex@10.0.2
+  - @open-keystone/adapter-mongoose@8.1.2
 
 ## 6.1.2
 
@@ -401,10 +401,10 @@
 - [`ddd6b435`](https://github.com/keystonejs/keystone-5/commit/ddd6b435cc1301cd5ea1ff2e24fa827d9b46aea3) [#2889](https://github.com/keystonejs/keystone-5/pull/2889) Thanks [@timleslie](https://github.com/timleslie)! - Explicitly set `cookieSecret` in `Keystone` objects to prevent warnings.
 
 - Updated dependencies [[`12126788`](https://github.com/keystonejs/keystone-5/commit/121267885eb3e279eb5b6d035568f547323dd245), [`e0e3e30a`](https://github.com/keystonejs/keystone-5/commit/e0e3e30a9051741de3f5a0c12ba00f2238d54800), [`c8e52f3b`](https://github.com/keystonejs/keystone-5/commit/c8e52f3ba892269922c1ed3af0c2114f07387704), [`2a1e4f49`](https://github.com/keystonejs/keystone-5/commit/2a1e4f49d7f234c49e5b04440ff786ddf3e9e7ed), [`9e2e0071`](https://github.com/keystonejs/keystone-5/commit/9e2e00715aff50f2ddfedf3dbc14f390275ff23b), [`b5c44934`](https://github.com/keystonejs/keystone-5/commit/b5c4493442c5e4cfeba23c058a9a6819c628aab9), [`0fbc5b98`](https://github.com/keystonejs/keystone-5/commit/0fbc5b989a9f96248d1bd7f2f589fe77cb1d8f7d), [`da1359df`](https://github.com/keystonejs/keystone-5/commit/da1359dfc1bff7e27505eff876efe3a0865bae2d), [`babed628`](https://github.com/keystonejs/keystone-5/commit/babed628a408d7da39990a4c89a19828468555a8), [`9bad0e5f`](https://github.com/keystonejs/keystone-5/commit/9bad0e5fe67d2379537f4cb145058c6c809b3533), [`e765ad20`](https://github.com/keystonejs/keystone-5/commit/e765ad20abae9838f64b72b7d43767ec87db336a)]:
-  - @keystonejs/keystone@9.0.0
-  - @keystonejs/adapter-knex@10.0.0
-  - @keystonejs/adapter-mongoose@8.1.0
-  - @keystonejs/app-graphql@5.1.7
+  - @open-keystone/keystone@9.0.0
+  - @open-keystone/adapter-knex@10.0.0
+  - @open-keystone/adapter-mongoose@8.1.0
+  - @open-keystone/app-graphql@5.1.7
 
 ## 6.1.1
 
@@ -415,8 +415,8 @@
 * [`96f0c6e9`](https://github.com/keystonejs/keystone-5/commit/96f0c6e917ecdd02af8da52829608b003219d3ca) [#2845](https://github.com/keystonejs/keystone-5/pull/2845) Thanks [@timleslie](https://github.com/timleslie)! - Updated patch versions of dependencies.
 
 * Updated dependencies [[`f266a692`](https://github.com/keystonejs/keystone-5/commit/f266a6923a24c84936d66e00ec7de0ea0956445b), [`8a135a88`](https://github.com/keystonejs/keystone-5/commit/8a135a88ae6f3a4434db0ba7033cad2e5f18651e)]:
-  - @keystonejs/app-graphql@5.1.6
-  - @keystonejs/keystone@8.1.4
+  - @open-keystone/app-graphql@5.1.6
+  - @open-keystone/keystone@8.1.4
 
 ## 6.1.0
 
@@ -427,17 +427,17 @@
 ### Patch Changes
 
 - Updated dependencies [[`98be4b48`](https://github.com/keystonejs/keystone-5/commit/98be4b4858f0f2cd672910acc5e6cc0c079ce21f), [`6a27fcf1`](https://github.com/keystonejs/keystone-5/commit/6a27fcf1896c5a745308346e5b0e66dd8bdd57a3), [`98e9f6d1`](https://github.com/keystonejs/keystone-5/commit/98e9f6d16e16ee13d2a8a22eb25be9cd2afc6fc0)]:
-  - @keystonejs/adapter-knex@9.0.2
-  - @keystonejs/keystone@8.1.2
+  - @open-keystone/adapter-knex@9.0.2
+  - @open-keystone/keystone@8.1.2
 
 ## 6.0.3
 
 ### Patch Changes
 
 - Updated dependencies [[`fd685241`](https://github.com/keystonejs/keystone-5/commit/fd68524135025e4d800b4a98932916736dd50e9d)]:
-  - @keystonejs/adapter-knex@9.0.0
-  - @keystonejs/adapter-mongoose@8.0.0
-  - @keystonejs/keystone@8.0.0
+  - @open-keystone/adapter-knex@9.0.0
+  - @open-keystone/adapter-mongoose@8.0.0
+  - @open-keystone/keystone@8.0.0
 
 ## 6.0.2
 
@@ -446,20 +446,20 @@
 - [`c08c28d2`](https://github.com/keystonejs/keystone-5/commit/c08c28d22f2c6a2bfa73ab0ea347c9e0da8a9063) [#2593](https://github.com/keystonejs/keystone-5/pull/2593) Thanks [@jossmac](https://github.com/jossmac)! - Applied a more consistent voice throughout documentation.
 
 - Updated dependencies [[`4a7d1eab`](https://github.com/keystonejs/keystone-5/commit/4a7d1eabf9b44fac7e16dfe20afdce409986e8dc), [`c08c28d2`](https://github.com/keystonejs/keystone-5/commit/c08c28d22f2c6a2bfa73ab0ea347c9e0da8a9063), [`2ae2bd47`](https://github.com/keystonejs/keystone-5/commit/2ae2bd47eb54a816cfd4c8cd178c460729cbc258), [`3407fa68`](https://github.com/keystonejs/keystone-5/commit/3407fa68b91d7ebb3e7288c7e95631013fe12535), [`c2b1b725`](https://github.com/keystonejs/keystone-5/commit/c2b1b725a9474348964a4ac2e0f5b4aaf1a7f486)]:
-  - @keystonejs/keystone@7.1.0
-  - @keystonejs/adapter-knex@8.0.0
-  - @keystonejs/adapter-mongoose@7.0.0
-  - @keystonejs/app-graphql@5.1.5
+  - @open-keystone/keystone@7.1.0
+  - @open-keystone/adapter-knex@8.0.0
+  - @open-keystone/adapter-mongoose@7.0.0
+  - @open-keystone/app-graphql@5.1.5
 
 ## 6.0.1
 
 ### Patch Changes
 
 - Updated dependencies [[`b6a555c2`](https://github.com/keystonejs/keystone-5/commit/b6a555c28296394908757f7404b72bc6b828b52a), [`abac6ad8`](https://github.com/keystonejs/keystone-5/commit/abac6ad83ad71f40047473c81d50b6af80ad41b2), [`b6a555c2`](https://github.com/keystonejs/keystone-5/commit/b6a555c28296394908757f7404b72bc6b828b52a), [`ca28681c`](https://github.com/keystonejs/keystone-5/commit/ca28681ca23c74bc57041fa36c20b93a4520e762), [`68be8f45`](https://github.com/keystonejs/keystone-5/commit/68be8f452909100fbddec431d6fe60c20a06a700), [`61a70503`](https://github.com/keystonejs/keystone-5/commit/61a70503f6c184a8f0f5440466399f12e6d7fa41), [`cec7ba5e`](https://github.com/keystonejs/keystone-5/commit/cec7ba5e2061280eff2a1d989054ecb02760e36d), [`663ae7b4`](https://github.com/keystonejs/keystone-5/commit/663ae7b453f450f077795fbbc6c9f138e6b27f52)]:
-  - @keystonejs/keystone@7.0.0
-  - @keystonejs/adapter-knex@7.0.0
-  - @keystonejs/app-graphql@5.1.4
-  - @keystonejs/adapter-mongoose@6.0.0
+  - @open-keystone/keystone@7.0.0
+  - @open-keystone/adapter-knex@7.0.0
+  - @open-keystone/app-graphql@5.1.4
+  - @open-keystone/adapter-mongoose@6.0.0
 
 ## 6.0.0
 
@@ -472,9 +472,9 @@
 - [`83bdf743`](https://github.com/keystonejs/keystone-5/commit/83bdf743748e39d1ea73eff2c8e3576cc713c624) [#2538](https://github.com/keystonejs/keystone-5/pull/2538) Thanks [@Vultraz](https://github.com/Vultraz)! - Updated mongo dependencies to latest version.
 
 - Updated dependencies [[`51546e41`](https://github.com/keystonejs/keystone-5/commit/51546e4142fb8c66cfc413479c671a59618f885b), [`29ad8a17`](https://github.com/keystonejs/keystone-5/commit/29ad8a175cc4324fe722eefd22c09f7fb6c5be5e), [`83bdf743`](https://github.com/keystonejs/keystone-5/commit/83bdf743748e39d1ea73eff2c8e3576cc713c624), [`d30b7498`](https://github.com/keystonejs/keystone-5/commit/d30b74984b21ae9fc2a3b39850f674639fbac074), [`8f22ab5e`](https://github.com/keystonejs/keystone-5/commit/8f22ab5eefc034f9fef4fd0f9ec2c2583fc5514f), [`599c0929`](https://github.com/keystonejs/keystone-5/commit/599c0929b213ebd4beb79e3ccaa685b92348ca81), [`fb510d67`](https://github.com/keystonejs/keystone-5/commit/fb510d67ab124d8c1bda1884fa2a0d48262b5e4d)]:
-  - @keystonejs/keystone@6.0.2
-  - @keystonejs/app-graphql@5.1.3
-  - @keystonejs/adapter-mongoose@5.2.2
+  - @open-keystone/keystone@6.0.2
+  - @open-keystone/app-graphql@5.1.3
+  - @open-keystone/adapter-mongoose@5.2.2
 
 ## 5.1.2
 
@@ -483,10 +483,10 @@
 - [`5ba330b8`](https://github.com/keystonejs/keystone-5/commit/5ba330b8b2609ea0033a636daf9a215a5a192c20) [#2487](https://github.com/keystonejs/keystone-5/pull/2487) Thanks [@Noviny](https://github.com/Noviny)! - Small changes to package.json (mostly adding a repository field)
 
 - Updated dependencies [[`10e88dc3`](https://github.com/keystonejs/keystone-5/commit/10e88dc3d81f5e021db0bfb31f7547852c602c14), [`e46f0adf`](https://github.com/keystonejs/keystone-5/commit/e46f0adf97141e1f1205787453173a0585df5bc3), [`6975f169`](https://github.com/keystonejs/keystone-5/commit/6975f16959bde3fe0e861977471c94a8c9f2c0b0), [`42497b8e`](https://github.com/keystonejs/keystone-5/commit/42497b8ebbaeaf0f4d7881dbb76c6abafde4cace), [`97fb01fe`](https://github.com/keystonejs/keystone-5/commit/97fb01fe5a32f5003a084c1fd357852fc28f74e4), [`6111e065`](https://github.com/keystonejs/keystone-5/commit/6111e06554a6aa6db0f7df1a6c16f9da8e81fce4), [`2d1069f1`](https://github.com/keystonejs/keystone-5/commit/2d1069f11f5f8941b0a18e482541043c853ebb4f), [`949f2f6a`](https://github.com/keystonejs/keystone-5/commit/949f2f6a3889492015281ffba45a8b3d37e6d888), [`6b353eff`](https://github.com/keystonejs/keystone-5/commit/6b353effc8b617137a3978b2c845e01403889722), [`5ba330b8`](https://github.com/keystonejs/keystone-5/commit/5ba330b8b2609ea0033a636daf9a215a5a192c20)]:
-  - @keystonejs/keystone@6.0.0
-  - @keystonejs/app-graphql@5.1.2
-  - @keystonejs/adapter-knex@6.3.2
-  - @keystonejs/adapter-mongoose@5.2.1
+  - @open-keystone/keystone@6.0.0
+  - @open-keystone/app-graphql@5.1.2
+  - @open-keystone/adapter-knex@6.3.2
+  - @open-keystone/adapter-mongoose@5.2.1
 
 ## 5.1.1
 
@@ -495,9 +495,9 @@
 - [`1d98dae8`](https://github.com/keystonejs/keystone-5/commit/1d98dae898a5e7c5b580bfcc1745eec5dd323adb) [#2392](https://github.com/keystonejs/keystone-5/pull/2392) Thanks [@Vultraz](https://github.com/Vultraz)! - Updated `mongodb` dependency to 3.5.3 and `mongodb-memory-server` dependency to 6.2.4.
 
 - Updated dependencies [[`635529c9`](https://github.com/keystonejs/keystone-5/commit/635529c9f227ae968332cd32e63875c4561af926), [`7ce804a8`](https://github.com/keystonejs/keystone-5/commit/7ce804a877300709375e5bc14206080ab15aec54), [`3abc5883`](https://github.com/keystonejs/keystone-5/commit/3abc58831e0f9b5871569a3fa6b21be7dc269cf3), [`8bdbb114`](https://github.com/keystonejs/keystone-5/commit/8bdbb114f6b2864693ae6e534df6fe8ee8345a60), [`362efbc2`](https://github.com/keystonejs/keystone-5/commit/362efbc2e054fa48aedb515c54b5a64757832be9)]:
-  - @keystonejs/adapter-knex@6.3.1
-  - @keystonejs/keystone@5.6.0
-  - @keystonejs/app-graphql@5.1.1
+  - @open-keystone/adapter-knex@6.3.1
+  - @open-keystone/keystone@5.6.0
+  - @open-keystone/app-graphql@5.1.1
 
 ## 5.1.0
 
@@ -508,10 +508,10 @@
 ### Patch Changes
 
 - Updated dependencies [[`517b23e4`](https://github.com/keystonejs/keystone-5/commit/517b23e4b17414ed1807e8d7af1e67377ba3b7bf)]:
-  - @keystonejs/adapter-knex@6.3.0
-  - @keystonejs/adapter-mongoose@5.2.0
-  - @keystonejs/app-graphql@5.1.0
-  - @keystonejs/keystone@5.5.0
+  - @open-keystone/adapter-knex@6.3.0
+  - @open-keystone/adapter-mongoose@5.2.0
+  - @open-keystone/app-graphql@5.1.0
+  - @open-keystone/keystone@5.5.0
 
 ## 5.0.3
 
@@ -519,19 +519,19 @@
 
 - [`3d7222cd`](https://github.com/keystonejs/keystone-5/commit/3d7222cd589ce8accbf3a9de141976c38e2c7e23) [#2167](https://github.com/keystonejs/keystone-5/pull/2167) - Fixed the unit tests on linux mint machines.
 - Updated dependencies [[`f3ea15f8`](https://github.com/keystonejs/keystone-5/commit/f3ea15f86f7bbd08abddcf3a63c5c66e86693d29), [`4cd4499d`](https://github.com/keystonejs/keystone-5/commit/4cd4499d9d19a5b379b2ae6ab1028c008248629a), [`ef419b59`](https://github.com/keystonejs/keystone-5/commit/ef419b59729a050f25fc886be6ec8ce17cbb1104), [`05d07adf`](https://github.com/keystonejs/keystone-5/commit/05d07adf84059ff565cd2394f68d71d92e657485), [`78193f9c`](https://github.com/keystonejs/keystone-5/commit/78193f9c9d93655fb0d4b8dc494fbe4c622a4d64)]:
-  - @keystonejs/adapter-knex@6.1.3
-  - @keystonejs/keystone@5.4.1
-  - @keystonejs/adapter-mongoose@5.1.4
+  - @open-keystone/adapter-knex@6.1.3
+  - @open-keystone/keystone@5.4.1
+  - @open-keystone/adapter-mongoose@5.1.4
 
 ## 5.0.2
 
 ### Patch Changes
 
 - Updated dependencies [[`77056ebd`](https://github.com/keystonejs/keystone-5/commit/77056ebdb31e58d27372925e8e24311a8c7d9e33), [`8188d76c`](https://github.com/keystonejs/keystone-5/commit/8188d76cb3f5d3e112ef95fd4e1887db9a520d9d), [`0acdae17`](https://github.com/keystonejs/keystone-5/commit/0acdae17c4b2bcb234a314ad1aba311981affc8f), [`733ac847`](https://github.com/keystonejs/keystone-5/commit/733ac847cab488dc92a30e7b458191d750fd5a3d), [`44b2bc93`](https://github.com/keystonejs/keystone-5/commit/44b2bc938fd508ac75f6a9cbb364006b9f122711), [`e68fc43b`](https://github.com/keystonejs/keystone-5/commit/e68fc43ba006f9c958f9c81ae20b230d05c2cab6), [`d4d89836`](https://github.com/keystonejs/keystone-5/commit/d4d89836700413c1da2b76e9b82b649c2cac859d), [`5540771e`](https://github.com/keystonejs/keystone-5/commit/5540771e52b5cb1aa33c0486dede7f2f9bc0944f), [`860dabec`](https://github.com/keystonejs/keystone-5/commit/860dabecacdf81aa1563cea9a5d50add8623dac1), [`1f4dc33d`](https://github.com/keystonejs/keystone-5/commit/1f4dc33d8a5ac4e38427eb215a7a8bc3504ae153), [`ee6fbcb2`](https://github.com/keystonejs/keystone-5/commit/ee6fbcb264a640f58332c50a2f502a4380c0d071), [`a3fdc50e`](https://github.com/keystonejs/keystone-5/commit/a3fdc50ebb61b38814816804b04d7cb4bc0fc70a), [`721472e1`](https://github.com/keystonejs/keystone-5/commit/721472e1801584be5807d6637c646b1755366d3e), [`da62aa4a`](https://github.com/keystonejs/keystone-5/commit/da62aa4a0af9cf27fd59fdcfb6b960e24999254d), [`6a348b93`](https://github.com/keystonejs/keystone-5/commit/6a348b93607c305c4ba61c1406a4acd508f33f64)]:
-  - @keystonejs/keystone@5.3.0
-  - @keystonejs/adapter-knex@6.0.0
-  - @keystonejs/adapter-mongoose@5.1.3
-  - @keystonejs/app-graphql@5.0.1
+  - @open-keystone/keystone@5.3.0
+  - @open-keystone/adapter-knex@6.0.0
+  - @open-keystone/adapter-mongoose@5.1.3
+  - @open-keystone/app-graphql@5.0.1
 
 ## 5.0.1
 
@@ -540,27 +540,27 @@
 - [`31b646ac`](https://github.com/keystonejs/keystone-5/commit/31b646ac3c06b82e809f5e55e8443ae5d21dac0f) [#1837](https://github.com/keystonejs/keystone-5/pull/1837) Thanks [@timleslie](https://github.com/timleslie)! - Updated mongo-related dependencies
 
 - Updated dependencies [[`9f6bcddd`](https://github.com/keystonejs/keystone-5/commit/9f6bcddd84cc1d60f139ca116e9006258e417469), [`31b646ac`](https://github.com/keystonejs/keystone-5/commit/31b646ac3c06b82e809f5e55e8443ae5d21dac0f)]:
-  - @keystonejs/adapter-mongoose@5.1.0
-  - @keystonejs/keystone@5.1.0
-  - @keystonejs/adapter-knex@5.0.1
+  - @open-keystone/adapter-mongoose@5.1.0
+  - @open-keystone/keystone@5.1.0
+  - @open-keystone/adapter-knex@5.0.1
 
 ## 5.0.0
 
 ### Major Changes
 
-- [`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310) [#1821](https://github.com/keystonejs/keystone-5/pull/1821) Thanks [@jesstelford](https://github.com/jesstelford)! - Release @keystonejs/\* packages (つ＾ ◡ ＾)つ
+- [`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310) [#1821](https://github.com/keystonejs/keystone-5/pull/1821) Thanks [@jesstelford](https://github.com/jesstelford)! - Release @open-keystone/\* packages (つ＾ ◡ ＾)つ
 
-  - This is the first release of `@keystonejs/*` packages (previously `@keystone-alpha/*`).
-  - All packages in the `@keystone-alpha` namespace are now available in the `@keystonejs` namespace, starting at version `5.0.0`.
-  - To upgrade your project you must update any `@keystone-alpha/*` dependencies in `package.json` to point to `"@keystonejs/*": "^5.0.0"` and update any `require`/`import` statements in your code.
+  - This is the first release of `@open-keystone/*` packages (previously `@keystone-alpha/*`).
+  - All packages in the `@keystone-alpha` namespace are now available in the `@open-keystone` namespace, starting at version `5.0.0`.
+  - To upgrade your project you must update any `@keystone-alpha/*` dependencies in `package.json` to point to `"@open-keystone/*": "^5.0.0"` and update any `require`/`import` statements in your code.
 
 ### Patch Changes
 
 - Updated dependencies [[`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310)]:
-  - @keystonejs/adapter-knex@5.0.0
-  - @keystonejs/adapter-mongoose@5.0.0
-  - @keystonejs/app-graphql@5.0.0
-  - @keystonejs/keystone@5.0.0
+  - @open-keystone/adapter-knex@5.0.0
+  - @open-keystone/adapter-mongoose@5.0.0
+  - @open-keystone/app-graphql@5.0.0
+  - @open-keystone/keystone@5.0.0
 
 # @keystone-alpha/test-utils
 

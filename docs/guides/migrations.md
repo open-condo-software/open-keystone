@@ -13,7 +13,7 @@ As your app grows new features, you'll inevitably need to change some of your ex
 When you create a new List, depending on the adapter, Keystone will initialise a database table with columns for each of the fields defined in the List. Let's look at an example.
 
 ```javascript
-const { KnexAdapter } = require('@keystonejs/adapter-knex');
+const { KnexAdapter } = require('@open-keystone/adapter-knex');
 
 const keystone = new Keystone({
   adapter: new KnexAdapter(),
@@ -59,7 +59,7 @@ Keystone cannot make this change for you because there could be existing data wi
 In development sometimes it can be helpful to drop the database everytime Keystone is restarted. To do this using the `KnexAdapter` you can pass the `dropDatabase` option to the adapter:
 
 ```js
-const { KnexAdapter } = require('@keystonejs/adapter-knex');
+const { KnexAdapter } = require('@open-keystone/adapter-knex');
 const adapter = new KnexAdapter({ dropDatabase: true });
 ```
 

@@ -65,12 +65,12 @@ During development you will want to be regularly making changes to your Keystone
 Add a new field to your current list:
 
 ```diff
--const { Text } = require('@keystonejs/fields');
+-const { Text } = require('@open-keystone/fields');
 - ...
 -  fields: {
 -    name: { type: Text, schemaDoc: 'This is the thing you need to do' },
 -  },
-+const { Text, Checkbox } = require('@keystonejs/fields');
++const { Text, Checkbox } = require('@open-keystone/fields');
 +...
 +  fields: {
 +    name: { type: Text, schemaDoc: 'This is the thing you need to do' },

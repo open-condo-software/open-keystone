@@ -1,6 +1,6 @@
 {
   "name": "@arch-ui/day-picker",
-  "description": "Day Picker UI as used in @keystonejs Admin UI.",
+  "description": "Day Picker UI as used in @open-keystone Admin UI.",
   "version": "1.0.8",
   "author": "Jed Watson",
   "license": "MIT",

@@ -11,7 +11,7 @@ Stores a point in time and a time zone offset.
 ## Usage
 
 ```js
-const { DateTime } = require('@keystonejs/fields');
+const { DateTime } = require('@open-keystone/fields');
 
 keystone.createList('User', {
   fields: {

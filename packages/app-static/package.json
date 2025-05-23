@@ -1,5 +1,5 @@
 {
-  "name": "@keystonejs/app-static",
+  "name": "@open-keystone/app-static",
   "description": "KeystoneJS Static File App.",
   "version": "5.2.3",
   "author": "The KeystoneJS Development Team",

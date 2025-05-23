@@ -26,11 +26,11 @@ yarn init
 ```
 
 Let's start with the minimal setup. We will need two packages here:
-`@keystonejs/keystone`, which is the core of Keystone, and
-`@keystonejs/adapter-mongoose`, which allows our app to connect to MongoDB:
+`@open-keystone/keystone`, which is the core of Keystone, and
+`@open-keystone/adapter-mongoose`, which allows our app to connect to MongoDB:
 
 ```shell
-yarn add @keystonejs/keystone @keystonejs/adapter-mongoose
+yarn add @open-keystone/keystone @open-keystone/adapter-mongoose
 ```
 
 ## First steps
@@ -39,8 +39,8 @@ After installation we can start coding. The main entry point of a Keystone app
 is the `index.js` file in the root folder. Create it and add the following:
 
 ```javascript title=index.js
-const { Keystone } = require('@keystonejs/keystone');
-const { MongooseAdapter } = require('@keystonejs/adapter-mongoose');
+const { Keystone } = require('@open-keystone/keystone');
+const { MongooseAdapter } = require('@open-keystone/adapter-mongoose');
 
 const keystone = new Keystone({
   adapter: new MongooseAdapter({ mongoUri: 'mongodb://localhost/keystone' }),
@@ -70,13 +70,13 @@ database.
 As in the previous step, install the necessary package.
 
 ```shell
-yarn add @keystonejs/app-graphql
+yarn add @open-keystone/app-graphql
 ```
 
 Import it in index.js:
 
 ```javascript title=index.js
-const { GraphQLApp } = require('@keystonejs/app-graphql');
+const { GraphQLApp } = require('@open-keystone/app-graphql');
 ```
 
 And add a new array export named `apps` with a new instance of `GraphQLApp`, like so:
@@ -94,16 +94,16 @@ In order to be able to start an app we need to add at least one `List`. A `List`
 is a model that is compatible with Keystone's Admin UI.
 
 Lists are composed of `fields`. To add fields to a list, we must install the
-`@keystonejs/fields` package:
+`@open-keystone/fields` package:
 
 ```shell
-yarn add @keystonejs/fields
+yarn add @open-keystone/fields
 ```
 
 In this example the field type `Text` is used, which must be `required` in `index.js`:
 
 ```javascript title=index.js
-const { Text } = require('@keystonejs/fields');
+const { Text } = require('@open-keystone/fields');
 ```
 
 Create your first list in `index.js` by adding the following before the module

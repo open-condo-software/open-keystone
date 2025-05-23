@@ -1,4 +1,4 @@
-# @keystonejs/session
+# @open-keystone/session
 
 ## 8.3.2
 
@@ -105,7 +105,7 @@
 
 - [`b6a555c2`](https://github.com/keystonejs/keystone-5/commit/b6a555c28296394908757f7404b72bc6b828b52a) [#2540](https://github.com/keystonejs/keystone-5/pull/2540) Thanks [@timleslie](https://github.com/timleslie)! - Removed the undocumented `restrictAudienceMiddleware` function.
 
-* [`61a70503`](https://github.com/keystonejs/keystone-5/commit/61a70503f6c184a8f0f5440466399f12e6d7fa41) [#2529](https://github.com/keystonejs/keystone-5/pull/2529) Thanks [@timleslie](https://github.com/timleslie)! - `@keystonejs/session` now provides a `SessionManager` class which replaces the former function based API. The method `keystone.getCookieSecret()` has been removed.
+* [`61a70503`](https://github.com/keystonejs/keystone-5/commit/61a70503f6c184a8f0f5440466399f12e6d7fa41) [#2529](https://github.com/keystonejs/keystone-5/pull/2529) Thanks [@timleslie](https://github.com/timleslie)! - `@open-keystone/session` now provides a `SessionManager` class which replaces the former function based API. The method `keystone.getCookieSecret()` has been removed.
 
 ## 5.1.1
 
@@ -123,11 +123,11 @@
 
 ### Major Changes
 
-- [`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310) [#1821](https://github.com/keystonejs/keystone-5/pull/1821) Thanks [@jesstelford](https://github.com/jesstelford)! - Release @keystonejs/\* packages (つ＾ ◡ ＾)つ
+- [`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310) [#1821](https://github.com/keystonejs/keystone-5/pull/1821) Thanks [@jesstelford](https://github.com/jesstelford)! - Release @open-keystone/\* packages (つ＾ ◡ ＾)つ
 
-  - This is the first release of `@keystonejs/*` packages (previously `@keystone-alpha/*`).
-  - All packages in the `@keystone-alpha` namespace are now available in the `@keystonejs` namespace, starting at version `5.0.0`.
-  - To upgrade your project you must update any `@keystone-alpha/*` dependencies in `package.json` to point to `"@keystonejs/*": "^5.0.0"` and update any `require`/`import` statements in your code.
+  - This is the first release of `@open-keystone/*` packages (previously `@keystone-alpha/*`).
+  - All packages in the `@keystone-alpha` namespace are now available in the `@open-keystone` namespace, starting at version `5.0.0`.
+  - To upgrade your project you must update any `@keystone-alpha/*` dependencies in `package.json` to point to `"@open-keystone/*": "^5.0.0"` and update any `require`/`import` statements in your code.
 
 # @keystone-alpha/session
 

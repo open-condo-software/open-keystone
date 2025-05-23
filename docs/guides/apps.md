@@ -24,8 +24,8 @@ A Keystone **App** has two primary purposes
 At a minimum a Keystone application requires one app, the [GraphQL API](/packages/app-graphql/README.md):
 
 ```javascript title=index.js
-const { GraphQLApp } = require('@keystonejs/app-graphql');
-const { Keystone } = require('@keystonejs/keystone');
+const { GraphQLApp } = require('@open-keystone/app-graphql');
+const { Keystone } = require('@open-keystone/keystone');
 
 const keystone = new Keystone();
 
@@ -39,9 +39,9 @@ Most of the time the `GraphQLApp` will be paired with an `AdminUIApp` which
 provides the functionality of the Keystone Admin UI:
 
 ```diff title=index.js allowCopy=false showLanguage=false
- const { GraphQLApp } = require('@keystonejs/app-graphql');
- const { Keystone } = require('@keystonejs/keystone');
-+const { AdminUIApp } = require('@keystonejs/app-admin-ui');
+ const { GraphQLApp } = require('@open-keystone/app-graphql');
+ const { Keystone } = require('@open-keystone/keystone');
++const { AdminUIApp } = require('@open-keystone/app-admin-ui');
 
  const keystone = new Keystone();
 

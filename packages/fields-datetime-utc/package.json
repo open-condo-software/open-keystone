@@ -1,5 +1,5 @@
 {
-  "name": "@keystonejs/fields-datetime-utc",
+  "name": "@open-keystone/fields-datetime-utc",
   "description": "KeystoneJS DatetimeUtc Field Type",
   "version": "7.0.3",
   "author": "The KeystoneJS Development Team",

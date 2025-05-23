@@ -11,7 +11,7 @@ order: 1
 ## Usage
 
 ```javascript
-const { Keystone } = require('@keystonejs/keystone');
+const { Keystone } = require('@open-keystone/keystone');
 
 const keystone = new Keystone({
   adapter,

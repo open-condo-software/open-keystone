@@ -1,6 +1,6 @@
 {
-  "name": "@keystonejs/test-utils",
-  "description": "Common utilities used while testing @keystonejs/* packages.",
+  "name": "@open-keystone/test-utils",
+  "description": "Common utilities used while testing @open-keystone/* packages.",
   "version": "13.1.2",
   "author": "The KeystoneJS Development Team",
   "license": "MIT",
@@ -10,11 +10,11 @@
     "node": ">=10.0.0"
   },
   "dependencies": {
-    "@keystonejs/adapter-knex": "^13.3.2",
-    "@keystonejs/adapter-mongoose": "^11.2.2",
-    "@keystonejs/adapter-prisma": "^3.2.2",
-    "@keystonejs/app-graphql": "^6.3.2",
-    "@keystonejs/keystone": "^19.3.3",
+    "@open-keystone/adapter-knex": "^13.3.2",
+    "@open-keystone/adapter-mongoose": "^11.2.2",
+    "@open-keystone/adapter-prisma": "^3.2.2",
+    "@open-keystone/app-graphql": "^6.3.2",
+    "@open-keystone/keystone": "^19.3.3",
     "@types/keystonejs__adapter-knex": "^6.3.2",
     "@types/keystonejs__adapter-mongoose": "^5.1.2",
     "@types/keystonejs__keystone": "^7.0.1",

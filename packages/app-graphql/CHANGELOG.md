@@ -1,4 +1,4 @@
-# @keystonejs/app-graphql
+# @open-keystone/app-graphql
 
 ## 6.3.3
 
@@ -7,7 +7,7 @@
 - [`e24e4dfce`](https://github.com/keystonejs/keystone-5/commit/e24e4dfce997810b459066b2f2fca0c9ac22a5dd) Thanks [@dcousens](https://github.com/dcousens)! - Fixes express.Router() usage to fix inheriting of express application settings
 
 - Updated dependencies [[`e24e4dfce`](https://github.com/keystonejs/keystone-5/commit/e24e4dfce997810b459066b2f2fca0c9ac22a5dd)]:
-  - @keystonejs/app-graphql-playground@5.2.3
+  - @open-keystone/app-graphql-playground@5.2.3
 
 ## 6.3.2
 
@@ -16,9 +16,9 @@
 - [#95](https://github.com/keystonejs/keystone-5/pull/95) [`c8ff78b95`](https://github.com/keystonejs/keystone-5/commit/c8ff78b95af5d56d44bbc11c51e7cf28b81323b4) Thanks [@bladey](https://github.com/bladey)! - Renamed branch `master` to `main`.
 
 - Updated dependencies [[`c8ff78b95`](https://github.com/keystonejs/keystone-5/commit/c8ff78b95af5d56d44bbc11c51e7cf28b81323b4)]:
-  - @keystonejs/app-graphql-playground@5.2.2
-  - @keystonejs/session@8.3.2
-  - @keystonejs/utils@6.1.2
+  - @open-keystone/app-graphql-playground@5.2.2
+  - @open-keystone/session@8.3.2
+  - @open-keystone/utils@6.1.2
 
 ## 6.3.1
 
@@ -27,9 +27,9 @@
 - [#95](https://github.com/keystonejs/keystone-5/pull/95) [`a890b0576`](https://github.com/keystonejs/keystone-5/commit/a890b057628b60c2d1870cc3f5afd8e87b03f7df) Thanks [@bladey](https://github.com/bladey)! - Renamed branch `master` to `main`.
 
 - Updated dependencies [[`a890b0576`](https://github.com/keystonejs/keystone-5/commit/a890b057628b60c2d1870cc3f5afd8e87b03f7df)]:
-  - @keystonejs/app-graphql-playground@5.2.1
-  - @keystonejs/session@8.3.1
-  - @keystonejs/utils@6.1.1
+  - @open-keystone/app-graphql-playground@5.2.1
+  - @open-keystone/session@8.3.1
+  - @open-keystone/utils@6.1.1
 
 ## 6.3.0
 
@@ -40,9 +40,9 @@
 ### Patch Changes
 
 - Updated dependencies [[`345a5f0f6`](https://github.com/keystonejs/keystone-5/commit/345a5f0f66a34c75696230ad2fcfb7a2eac86cb4)]:
-  - @keystonejs/app-graphql-playground@5.2.0
-  - @keystonejs/session@8.3.0
-  - @keystonejs/utils@6.1.0
+  - @open-keystone/app-graphql-playground@5.2.0
+  - @open-keystone/session@8.3.0
+  - @open-keystone/utils@6.1.0
 
 ## 6.2.2
 
@@ -51,17 +51,17 @@
 - [`04bf1e4bb`](https://github.com/keystonejs/keystone-5/commit/04bf1e4bb0223f4e2e06664bbc9e95c51118eb84) [#2](https://github.com/keystonejs/keystone-5/pull/2) Thanks [@bladey](https://github.com/bladey)! - Updated repository URL in package.json.
 
 - Updated dependencies [[`04bf1e4bb`](https://github.com/keystonejs/keystone-5/commit/04bf1e4bb0223f4e2e06664bbc9e95c51118eb84)]:
-  - @keystonejs/app-graphql-playground@5.1.10
-  - @keystonejs/session@8.2.1
-  - @keystonejs/utils@6.0.2
+  - @open-keystone/app-graphql-playground@5.1.10
+  - @open-keystone/session@8.2.1
+  - @open-keystone/utils@6.0.2
 
 ## 6.2.1
 
 ### Patch Changes
 
 - Updated dependencies [[`b76241695`](https://github.com/keystonejs/keystone-5/commit/b7624169554b01dba2185ef43856a223d32f12be)]:
-  - @keystonejs/utils@6.0.0
-  - @keystonejs/app-graphql-playground@5.1.9
+  - @open-keystone/utils@6.0.0
+  - @open-keystone/app-graphql-playground@5.1.9
 
 ## 6.2.0
 
@@ -84,7 +84,7 @@
 * [`16fba3b98`](https://github.com/keystonejs/keystone-5/commit/16fba3b98271410e570a370f610da7cd0686f294) [#3550](https://github.com/keystonejs/keystone-5/pull/3550) Thanks [@timleslie](https://github.com/timleslie)! - Removed unused dependencies.
 
 * Updated dependencies [[`16fba3b98`](https://github.com/keystonejs/keystone-5/commit/16fba3b98271410e570a370f610da7cd0686f294)]:
-  - @keystonejs/app-graphql-playground@5.1.7
+  - @open-keystone/app-graphql-playground@5.1.7
 
 ## 6.1.1
 
@@ -93,9 +93,9 @@
 - [`877a5a90d`](https://github.com/keystonejs/keystone-5/commit/877a5a90d608f0a13b6c0ea103cb96e3ac2caacc) [#3438](https://github.com/keystonejs/keystone-5/pull/3438) Thanks [@renovate](https://github.com/apps/renovate)! - Updated Apollo GraphQL package dependencies.
 
 - Updated dependencies [[`6cb4476ff`](https://github.com/keystonejs/keystone-5/commit/6cb4476ff15923933862c1cd7d4b1ade794106c6), [`5935b89f8`](https://github.com/keystonejs/keystone-5/commit/5935b89f8862b36f14d09da68f056f759a860f3e), [`db0797f7f`](https://github.com/keystonejs/keystone-5/commit/db0797f7f442c2c42cc941633930de527c722f48), [`e195810a1`](https://github.com/keystonejs/keystone-5/commit/e195810a1d63cba34f8962b95b84a4955bee246b), [`877a5a90d`](https://github.com/keystonejs/keystone-5/commit/877a5a90d608f0a13b6c0ea103cb96e3ac2caacc), [`07e246d15`](https://github.com/keystonejs/keystone-5/commit/07e246d15586dede7fa9a04bcc13020c8c5c3a25)]:
-  - @keystonejs/app-graphql-playground@5.1.6
-  - @keystonejs/utils@5.4.3
-  - @keystonejs/session@8.1.1
+  - @open-keystone/app-graphql-playground@5.1.6
+  - @open-keystone/utils@5.4.3
+  - @open-keystone/session@8.1.1
 
 ## 6.1.0
 
@@ -118,8 +118,8 @@
 ### Patch Changes
 
 - Updated dependencies [[`e710cd445`](https://github.com/keystonejs/keystone-5/commit/e710cd445bfb71317ca38622cc3795da61d13dff), [`136cb505c`](https://github.com/keystonejs/keystone-5/commit/136cb505ce11931de7fc470debe438e335588781), [`e63b9f25a`](https://github.com/keystonejs/keystone-5/commit/e63b9f25adb64cecf0f65c6f97fe30c95e483996)]:
-  - @keystonejs/session@8.0.0
-  - @keystonejs/app-graphql-playground@5.1.5
+  - @open-keystone/session@8.0.0
+  - @open-keystone/app-graphql-playground@5.1.5
 
 ## 5.1.9
 
@@ -128,8 +128,8 @@
 - [`9ab6961e0`](https://github.com/keystonejs/keystone-5/commit/9ab6961e0202277a980bd60a323a1c599f1dd085) [#3217](https://github.com/keystonejs/keystone-5/pull/3217) Thanks [@Vultraz](https://github.com/Vultraz)! - Updated apollo-server-express dependency to 2.15.1.
 
 - Updated dependencies [[`69d7f2e50`](https://github.com/keystonejs/keystone-5/commit/69d7f2e50ef2325c0d3b02b8bb5c310590796fed), [`2806a0bdf`](https://github.com/keystonejs/keystone-5/commit/2806a0bdfd65429e7c44ed070983f121d6934955)]:
-  - @keystonejs/utils@5.4.2
-  - @keystonejs/session@7.0.1
+  - @open-keystone/utils@5.4.2
+  - @open-keystone/session@7.0.1
 
 ## 5.1.8
 
@@ -138,17 +138,17 @@
 - [`aacc4a7f8`](https://github.com/keystonejs/keystone-5/commit/aacc4a7f8f88c242ae4bd784330d25056842d3fb) [#2990](https://github.com/keystonejs/keystone-5/pull/2990) Thanks [@Vultraz](https://github.com/Vultraz)! - Updated various Apollo dependencies to their latest versions.
 
 - Updated dependencies [[`aacc4a7f8`](https://github.com/keystonejs/keystone-5/commit/aacc4a7f8f88c242ae4bd784330d25056842d3fb), [`839666e25`](https://github.com/keystonejs/keystone-5/commit/839666e25d8bffefd034e6344e11d72dd43b925b)]:
-  - @keystonejs/app-graphql-playground@5.1.4
-  - @keystonejs/logger@5.1.2
+  - @open-keystone/app-graphql-playground@5.1.4
+  - @open-keystone/logger@5.1.2
 
 ## 5.1.7
 
 ### Patch Changes
 
 - Updated dependencies [[`e0e3e30a`](https://github.com/keystonejs/keystone-5/commit/e0e3e30a9051741de3f5a0c12ba00f2238d54800), [`0fbc5b98`](https://github.com/keystonejs/keystone-5/commit/0fbc5b989a9f96248d1bd7f2f589fe77cb1d8f7d), [`da1359df`](https://github.com/keystonejs/keystone-5/commit/da1359dfc1bff7e27505eff876efe3a0865bae2d)]:
-  - @keystonejs/utils@5.4.1
-  - @keystonejs/session@7.0.0
-  - @keystonejs/app-graphql-playground@5.1.3
+  - @open-keystone/utils@5.4.1
+  - @open-keystone/session@7.0.0
+  - @open-keystone/app-graphql-playground@5.1.3
 
 ## 5.1.6
 
@@ -163,7 +163,7 @@
 - [`c08c28d2`](https://github.com/keystonejs/keystone-5/commit/c08c28d22f2c6a2bfa73ab0ea347c9e0da8a9063) [#2593](https://github.com/keystonejs/keystone-5/pull/2593) Thanks [@jossmac](https://github.com/jossmac)! - Applied a more consistent voice throughout documentation.
 
 - Updated dependencies [[`c08c28d2`](https://github.com/keystonejs/keystone-5/commit/c08c28d22f2c6a2bfa73ab0ea347c9e0da8a9063)]:
-  - @keystonejs/session@6.0.1
+  - @open-keystone/session@6.0.1
 
 ## 5.1.4
 
@@ -172,9 +172,9 @@
 - [`b6a555c2`](https://github.com/keystonejs/keystone-5/commit/b6a555c28296394908757f7404b72bc6b828b52a) [#2540](https://github.com/keystonejs/keystone-5/pull/2540) Thanks [@timleslie](https://github.com/timleslie)! - Removed the undocumented `restrictAudienceMiddleware` function.
 
 - Updated dependencies [[`b6a555c2`](https://github.com/keystonejs/keystone-5/commit/b6a555c28296394908757f7404b72bc6b828b52a), [`61a70503`](https://github.com/keystonejs/keystone-5/commit/61a70503f6c184a8f0f5440466399f12e6d7fa41), [`663ae7b4`](https://github.com/keystonejs/keystone-5/commit/663ae7b453f450f077795fbbc6c9f138e6b27f52)]:
-  - @keystonejs/session@6.0.0
-  - @keystonejs/utils@5.4.0
-  - @keystonejs/app-graphql-playground@5.1.2
+  - @open-keystone/session@6.0.0
+  - @open-keystone/utils@5.4.0
+  - @open-keystone/app-graphql-playground@5.1.2
 
 ## 5.1.3
 
@@ -183,7 +183,7 @@
 - [`29ad8a17`](https://github.com/keystonejs/keystone-5/commit/29ad8a175cc4324fe722eefd22c09f7fb6c5be5e) [#2531](https://github.com/keystonejs/keystone-5/pull/2531) Thanks [@Vultraz](https://github.com/Vultraz)! - Fixed a minor typo.
 
 - Updated dependencies [[`51546e41`](https://github.com/keystonejs/keystone-5/commit/51546e4142fb8c66cfc413479c671a59618f885b)]:
-  - @keystonejs/utils@5.3.0
+  - @open-keystone/utils@5.3.0
 
 ## 5.1.2
 
@@ -196,10 +196,10 @@
 - [`5ba330b8`](https://github.com/keystonejs/keystone-5/commit/5ba330b8b2609ea0033a636daf9a215a5a192c20) [#2487](https://github.com/keystonejs/keystone-5/pull/2487) Thanks [@Noviny](https://github.com/Noviny)! - Small changes to package.json (mostly adding a repository field)
 
 - Updated dependencies [[`5ba330b8`](https://github.com/keystonejs/keystone-5/commit/5ba330b8b2609ea0033a636daf9a215a5a192c20)]:
-  - @keystonejs/app-graphql-playground@5.1.1
-  - @keystonejs/logger@5.1.1
-  - @keystonejs/session@5.1.1
-  - @keystonejs/utils@5.2.2
+  - @open-keystone/app-graphql-playground@5.1.1
+  - @open-keystone/logger@5.1.1
+  - @open-keystone/session@5.1.1
+  - @open-keystone/utils@5.2.2
 
 ## 5.1.1
 
@@ -208,7 +208,7 @@
 - [`362efbc2`](https://github.com/keystonejs/keystone-5/commit/362efbc2e054fa48aedb515c54b5a64757832be9) [#2437](https://github.com/keystonejs/keystone-5/pull/2437) Thanks [@Vultraz](https://github.com/Vultraz)! - Updated apollo-server-express dependency to 2.10.1.
 
 - Updated dependencies [[`dcdd8ed9`](https://github.com/keystonejs/keystone-5/commit/dcdd8ed9142cf3328a7af80bc167ef93c7669b09)]:
-  - @keystonejs/utils@5.2.1
+  - @open-keystone/utils@5.2.1
 
 ## 5.1.0
 
@@ -219,10 +219,10 @@
 ### Patch Changes
 
 - Updated dependencies [[`517b23e4`](https://github.com/keystonejs/keystone-5/commit/517b23e4b17414ed1807e8d7af1e67377ba3b7bf)]:
-  - @keystonejs/app-graphql-playground@5.1.0
-  - @keystonejs/logger@5.1.0
-  - @keystonejs/session@5.1.0
-  - @keystonejs/utils@5.2.0
+  - @open-keystone/app-graphql-playground@5.1.0
+  - @open-keystone/logger@5.1.0
+  - @open-keystone/session@5.1.0
+  - @open-keystone/utils@5.2.0
 
 ## 5.0.4
 
@@ -240,7 +240,7 @@
   apollo-utilities: 1.3.2 -> 1.3.3
 
 * Updated dependencies [[`59fd3689`](https://github.com/keystonejs/keystone-5/commit/59fd3689af3bc73682e430feed21b77376e54092)]:
-  - @keystonejs/app-graphql-playground@5.0.1
+  - @open-keystone/app-graphql-playground@5.0.1
 
 ## 5.0.3
 
@@ -254,7 +254,7 @@
 
 - [`129b0f6`](https://github.com/keystonejs/keystone-5/commit/129b0f61f34adb7482901d2da4ddb14ce1aedd62) [#2092](https://github.com/keystonejs/keystone-5/pull/2092) - Upgrade all Babel deps to the same version (7.7.4)
 - Updated dependencies [[`129b0f6`](https://github.com/keystonejs/keystone-5/commit/129b0f61f34adb7482901d2da4ddb14ce1aedd62)]:
-  - @keystonejs/utils@5.1.1
+  - @open-keystone/utils@5.1.1
 
 ## 5.0.1
 
@@ -266,19 +266,19 @@
 
 ### Major Changes
 
-- [`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310) [#1821](https://github.com/keystonejs/keystone-5/pull/1821) Thanks [@jesstelford](https://github.com/jesstelford)! - Release @keystonejs/\* packages (つ＾ ◡ ＾)つ
+- [`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310) [#1821](https://github.com/keystonejs/keystone-5/pull/1821) Thanks [@jesstelford](https://github.com/jesstelford)! - Release @open-keystone/\* packages (つ＾ ◡ ＾)つ
 
-  - This is the first release of `@keystonejs/*` packages (previously `@keystone-alpha/*`).
-  - All packages in the `@keystone-alpha` namespace are now available in the `@keystonejs` namespace, starting at version `5.0.0`.
-  - To upgrade your project you must update any `@keystone-alpha/*` dependencies in `package.json` to point to `"@keystonejs/*": "^5.0.0"` and update any `require`/`import` statements in your code.
+  - This is the first release of `@open-keystone/*` packages (previously `@keystone-alpha/*`).
+  - All packages in the `@keystone-alpha` namespace are now available in the `@open-keystone` namespace, starting at version `5.0.0`.
+  - To upgrade your project you must update any `@keystone-alpha/*` dependencies in `package.json` to point to `"@open-keystone/*": "^5.0.0"` and update any `require`/`import` statements in your code.
 
 ### Patch Changes
 
 - Updated dependencies [[`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310)]:
-  - @keystonejs/app-graphql-playground@5.0.0
-  - @keystonejs/logger@5.0.0
-  - @keystonejs/session@5.0.0
-  - @keystonejs/utils@5.0.0
+  - @open-keystone/app-graphql-playground@5.0.0
+  - @open-keystone/logger@5.0.0
+  - @open-keystone/session@5.0.0
+  - @open-keystone/utils@5.0.0
 
 # @keystone-alpha/app-graphql
 
@@ -417,7 +417,7 @@
 
   Remove usage of `port` arg from `prepareMiddleware()` and stop doing inline console.logs
 
-# @keystonejs/server
+# @open-keystone/server
 
 # @keystone-alpha/server
 

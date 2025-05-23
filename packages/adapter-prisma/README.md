@@ -8,7 +8,7 @@ title: Prisma adapter
 
 > This is the last active development release of this package as **Keystone 5** is now in a 6 to 12 month active maintenance phase. For more information please read our [Keystone 5 and beyond](https://github.com/keystonejs/keystone-5/issues/21) post.
 
-[![View changelog](https://img.shields.io/badge/changelogs.xyz-Explore%20Changelog-brightgreen)](https://changelogs.xyz/@keystonejs/adapter-prisma)
+[![View changelog](https://img.shields.io/badge/changelogs.xyz-Explore%20Changelog-brightgreen)](https://changelogs.xyz/@open-keystone/adapter-prisma)
 
 The Prisma adapter allows Keystone to connect a database using Prisma Client, a type-safe and auto-generated database client. You can learn more about Prisma Client in the [Prisma docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
 
@@ -21,7 +21,7 @@ The Prisma adapter allows Keystone to connect a database using Prisma Client, a 
 ## Usage
 
 ```javascript
-const { PrismaAdapter } = require('@keystonejs/adapter-prisma');
+const { PrismaAdapter } = require('@open-keystone/adapter-prisma');
 
 const keystone = new Keystone({
   adapter: new PrismaAdapter({ url: 'postgres://...' }),

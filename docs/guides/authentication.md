@@ -26,10 +26,10 @@ list used for authentication in `index.js`. Here, we will setup a
 `PasswordAuthStrategy` instance:
 
 ```javascript
-const { Keystone } = require('@keystonejs/keystone');
-const { Text, Password } = require('@keystonejs/fields');
-const { PasswordAuthStrategy } = require('@keystonejs/auth-password');
-const { AdminUIApp } = require('@keystonejs/app-admin-ui');
+const { Keystone } = require('@open-keystone/keystone');
+const { Text, Password } = require('@open-keystone/fields');
+const { PasswordAuthStrategy } = require('@open-keystone/auth-password');
+const { AdminUIApp } = require('@open-keystone/app-admin-ui');
 
 const keystone = new Keystone();
 

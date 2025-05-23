@@ -8,7 +8,7 @@ order: 3
 
 > This is the last active development release of this package as **Keystone 5** is now in a 6 to 12 month active maintenance phase. For more information please read our [Keystone 5 and beyond](https://github.com/keystonejs/keystone-5/issues/21) post.
 
-Keystone contains a set of primitive fields types that can be imported from the `@keystonejs/fields` package:
+Keystone contains a set of primitive fields types that can be imported from the `@open-keystone/fields` package:
 
 | Field type                                                          | Description                                                                                                                                            |
 | :------------------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -52,7 +52,7 @@ In addition to these, some complex types are packaged separately:
 Fields definitions are provided when creating a list. Field definitions should be an object where the key is the field name and the value is an object containing the fields config:
 
 ```javascript
-const { Text } = require('@keystonejs/fields');
+const { Text } = require('@open-keystone/fields');
 
 keystone.createList('Post', {
   fields: {

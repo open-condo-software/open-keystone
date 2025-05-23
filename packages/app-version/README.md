@@ -8,7 +8,7 @@ title: App version plugin
 
 > This is the last active development release of this package as **Keystone 5** is now in a 6 to 12 month active maintenance phase. For more information please read our [Keystone 5 and beyond](https://github.com/keystonejs/keystone-5/issues/21) post.
 
-[![View changelog](https://img.shields.io/badge/changelogs.xyz-Explore%20Changelog-brightgreen)](https://changelogs.xyz/@keystonejs/app-version)
+[![View changelog](https://img.shields.io/badge/changelogs.xyz-Explore%20Changelog-brightgreen)](https://changelogs.xyz/@open-keystone/app-version)
 
 This package provides support for including a version string both as an HTTP response header and as a graphQL query.
 
@@ -37,7 +37,7 @@ const keystone = new Keystone({
 It can also be used directly if you would like to manually manage your middleware stack of graphQL providers.
 
 ```javascript
-const { AppVersionProvider, appVersionMiddleware } = require('@keystonejs/app-version');
+const { AppVersionProvider, appVersionMiddleware } = require('@open-keystone/app-version');
 
 const version = '1.0.0';
 

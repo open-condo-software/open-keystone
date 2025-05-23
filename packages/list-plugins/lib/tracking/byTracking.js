@@ -1,4 +1,4 @@
-const { AuthedRelationship } = require('@keystonejs/fields-authed-relationship');
+const { AuthedRelationship } = require('@open-keystone/fields-authed-relationship');
 const { composeHook } = require('../utils');
 
 const _byTracking =

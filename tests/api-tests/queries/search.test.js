@@ -1,6 +1,6 @@
-const { Text, Integer } = require('@keystonejs/fields');
-const { multiAdapterRunners, setupServer } = require('@keystonejs/test-utils');
-const { createItem } = require('@keystonejs/server-side-graphql-client');
+const { Text, Integer } = require('@open-keystone/fields');
+const { multiAdapterRunners, setupServer } = require('@open-keystone/test-utils');
+const { createItem } = require('@open-keystone/server-side-graphql-client');
 
 function setupKeystone(adapterName) {
   return setupServer({

@@ -1,6 +1,6 @@
 {
   "name": "@arch-ui/button",
-  "description": "Button Components as used in @keystonejs Admin UI.",
+  "description": "Button Components as used in @open-keystone Admin UI.",
   "version": "0.0.25",
   "author": "Jed Watson",
   "license": "MIT",

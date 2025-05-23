@@ -8,11 +8,11 @@ title: A new data schema
 > **Note:** This document refers to a set of package releases which are all part of one Keystone release.
 > These package releases are collectively known as the `Arcade` release of Keystone. The packages included are:
 >
-> - `@keystonejs/adapter-knex`: `9.0.0`
-> - `@keystonejs/adapter-mongoose`: `8.0.0`
-> - `@keystonejs/fields`: `9.0.0`
-> - `@keystonejs/keystone`: `8.0.0`
-> - `@keystonejs/mongo-join-builder`: `7.0.0`
+> - `@open-keystone/adapter-knex`: `9.0.0`
+> - `@open-keystone/adapter-mongoose`: `8.0.0`
+> - `@open-keystone/fields`: `9.0.0`
+> - `@open-keystone/keystone`: `8.0.0`
+> - `@open-keystone/mongo-join-builder`: `7.0.0`
 
 We are excited to announce a **new and improved data schema** for Keystone.
 The new data schema simplifies the way your data is stored and will unlock the development of new functionality within Keystone.

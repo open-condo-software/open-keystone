@@ -1,5 +1,5 @@
-const { multiAdapterRunners } = require('@keystonejs/test-utils');
-const { runCustomQuery } = require('@keystonejs/server-side-graphql-client');
+const { multiAdapterRunners } = require('@open-keystone/test-utils');
+const { runCustomQuery } = require('@open-keystone/server-side-graphql-client');
 
 const timeQuery = async ({ keystone, query, variables, repeat = 1 }) => {
   const t0_us = process.hrtime.bigint();

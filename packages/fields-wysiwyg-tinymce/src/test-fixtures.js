@@ -1,4 +1,4 @@
-import { Text } from '@keystonejs/fields';
+import { Text } from '@open-keystone/fields';
 
 import { Wysiwyg } from './';
 

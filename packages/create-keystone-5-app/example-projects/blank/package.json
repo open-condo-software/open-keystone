@@ -1,5 +1,5 @@
 {
-  "name": "@keystonejs/example-projects-blank",
+  "name": "@open-keystone/example-projects-blank",
   "description": "A blank KeystoneJS starter project.",
   "private": true,
   "version": "5.0.21",
@@ -17,10 +17,10 @@
     "create-tables": "cross-env keystone create-tables"
   },
   "dependencies": {
-    "@keystonejs/adapter-mongoose": "^11.2.2",
-    "@keystonejs/app-admin-ui": "^7.5.2",
-    "@keystonejs/app-graphql": "^6.3.2",
-    "@keystonejs/keystone": "^19.3.3",
+    "@open-keystone/adapter-mongoose": "^11.2.2",
+    "@open-keystone/app-admin-ui": "^7.5.2",
+    "@open-keystone/app-graphql": "^6.3.2",
+    "@open-keystone/keystone": "^19.3.3",
     "cross-env": "^7.0.3"
   }
 }

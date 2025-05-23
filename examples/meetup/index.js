@@ -1,11 +1,11 @@
 require('dotenv').config();
 
-const { Keystone } = require('@keystonejs/keystone');
-const { PasswordAuthStrategy } = require('@keystonejs/auth-password');
-const { MongooseAdapter } = require('@keystonejs/adapter-mongoose');
-const { GraphQLApp } = require('@keystonejs/app-graphql');
-const { AdminUIApp } = require('@keystonejs/app-admin-ui');
-const { NextApp } = require('@keystonejs/app-next');
+const { Keystone } = require('@open-keystone/keystone');
+const { PasswordAuthStrategy } = require('@open-keystone/auth-password');
+const { MongooseAdapter } = require('@open-keystone/adapter-mongoose');
+const { GraphQLApp } = require('@open-keystone/app-graphql');
+const { AdminUIApp } = require('@open-keystone/app-admin-ui');
+const { NextApp } = require('@open-keystone/app-next');
 
 const {
   Event,

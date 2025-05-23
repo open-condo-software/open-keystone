@@ -1,5 +1,5 @@
 {
-  "name": "@keystonejs/fields-unsplash",
+  "name": "@open-keystone/fields-unsplash",
   "description": "KeystoneJS Unsplash Field Type",
   "version": "3.3.2",
   "author": "The KeystoneJS Development Team",
@@ -15,11 +15,11 @@
     "@arch-ui/input": "^0.1.14",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
-    "@keystonejs/adapter-knex": "^13.3.2",
-    "@keystonejs/adapter-mongoose": "^11.2.2",
-    "@keystonejs/adapter-prisma": "^3.2.2",
-    "@keystonejs/fields": "^22.1.3",
-    "@keystonejs/fields-content": "^9.1.2",
+    "@open-keystone/adapter-knex": "^13.3.2",
+    "@open-keystone/adapter-mongoose": "^11.2.2",
+    "@open-keystone/adapter-prisma": "^3.2.2",
+    "@open-keystone/fields": "^22.1.3",
+    "@open-keystone/fields-content": "^9.1.2",
     "node-fetch": "^2.6.1",
     "query-string": "^6.14.1",
     "unsplash-js": "^6.3.0"

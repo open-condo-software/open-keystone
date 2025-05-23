@@ -1,4 +1,4 @@
-import { Text } from '@keystonejs/fields';
+import { Text } from '@open-keystone/fields';
 import {
   LocationGoogleImplementation,
   MongoLocationGoogleInterface,
@@ -7,7 +7,7 @@ import {
 } from './Implementation';
 import path from 'path';
 
-const pkgDir = path.dirname(require.resolve('@keystonejs/fields-location-google/package.json'));
+const pkgDir = path.dirname(require.resolve('@open-keystone/fields-location-google/package.json'));
 
 export const LocationGoogle = {
   type: 'LocationGoogle',
