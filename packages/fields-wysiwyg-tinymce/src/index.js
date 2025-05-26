@@ -1,6 +1,6 @@
 import { dirname, join } from 'path';
 import express from 'express';
-import { Text } from '@keystonejs/fields';
+import { Text } from '@open-keystone/fields';
 import { WysiwygImplementation } from './Implementation';
 
 function prepareMiddleware() {
@@ -10,7 +10,7 @@ function prepareMiddleware() {
   return app;
 }
 
-const pkgDir = dirname(require.resolve('@keystonejs/fields-wysiwyg-tinymce/package.json'));
+const pkgDir = dirname(require.resolve('@open-keystone/fields-wysiwyg-tinymce/package.json'));
 
 export let Wysiwyg = {
   type: 'Wysiwyg',

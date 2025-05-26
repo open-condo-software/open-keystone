@@ -10,7 +10,7 @@ This plugin makes a list singleton by allowing only one item in the list. Useful
 ## Usage
 
 ```js
-const { singleton } = require('@keystonejs/list-plugins');
+const { singleton } = require('@open-keystone/list-plugins');
 
 keystone.createList('ListWithPlugin', {
   fields: {...},

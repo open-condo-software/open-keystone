@@ -1,9 +1,9 @@
-const { Keystone } = require('@keystonejs/keystone');
-const { PasswordAuthStrategy } = require('@keystonejs/auth-password');
-const { Text, Password, Relationship, Checkbox } = require('@keystonejs/fields');
-const { PrismaAdapter } = require('@keystonejs/adapter-prisma');
-const { GraphQLApp } = require('@keystonejs/app-graphql');
-const { AdminUIApp } = require('@keystonejs/app-admin-ui');
+const { Keystone } = require('@open-keystone/keystone');
+const { PasswordAuthStrategy } = require('@open-keystone/auth-password');
+const { Text, Password, Relationship, Checkbox } = require('@open-keystone/fields');
+const { PrismaAdapter } = require('@open-keystone/adapter-prisma');
+const { GraphQLApp } = require('@open-keystone/app-graphql');
+const { AdminUIApp } = require('@open-keystone/app-admin-ui');
 
 const {
   createdAt,
@@ -12,7 +12,7 @@ const {
   updatedBy,
   atTracking,
   byTracking,
-} = require('@keystonejs/list-plugins');
+} = require('@open-keystone/list-plugins');
 
 const defaultAccess = ({ authentication: { item } }) => !!item;
 

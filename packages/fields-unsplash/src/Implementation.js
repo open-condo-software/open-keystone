@@ -1,10 +1,10 @@
-import { MongooseFieldAdapter } from '@keystonejs/adapter-mongoose';
-import { KnexFieldAdapter } from '@keystonejs/adapter-knex';
-import { PrismaFieldAdapter } from '@keystonejs/adapter-prisma';
+import { MongooseFieldAdapter } from '@open-keystone/adapter-mongoose';
+import { KnexFieldAdapter } from '@open-keystone/adapter-knex';
+import { PrismaFieldAdapter } from '@open-keystone/adapter-prisma';
 import UnsplashAPI, { toJson } from 'unsplash-js';
 import queryString from 'query-string';
 
-import { Implementation } from '@keystonejs/fields';
+import { Implementation } from '@open-keystone/fields';
 
 // Polyfill fetch so unsplash-js works
 global.fetch = global.fetch || require('node-fetch');

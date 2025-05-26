@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { createItems } = require('@keystonejs/server-side-graphql-client');
+const { createItems } = require('@open-keystone/server-side-graphql-client');
 
 // Lets not hardcode password, even for test data
 const password = process.env.INITIAL_DATA_PASSWORD;
@@ -76,58 +76,58 @@ function createOrganisers(users) {
 
 const initialData = {
   User: [
-    { name: 'Admin User', email: 'admin@keystonejs.com', isAdmin: true, password },
+    { name: 'Admin User', email: 'admin@open-keystone.com', isAdmin: true, password },
     {
       name: 'Organiser 1',
-      email: 'organiser1@keystonejs.com',
+      email: 'organiser1@open-keystone.com',
       twitterHandle: '@organiser1',
       password,
     },
     {
       name: 'Organiser 2',
-      email: 'organiser2@keystonejs.com',
+      email: 'organiser2@open-keystone.com',
       twitterHandle: '@organiser2',
       password,
     },
     {
       name: 'Organiser 3',
-      email: 'organiser3@keystonejs.com',
+      email: 'organiser3@open-keystone.com',
       twitterHandle: '@organiser3',
       password,
     },
     {
       name: 'Speaker 1',
-      email: 'speaker1@keystonejs.com',
+      email: 'speaker1@open-keystone.com',
       twitterHandle: '@speaker1',
       password,
     },
     {
       name: 'Speaker 2',
-      email: 'speaker2@keystonejs.com',
+      email: 'speaker2@open-keystone.com',
       twitterHandle: '@speaker2',
       password,
     },
     {
       name: 'Speaker 3',
-      email: 'speaker3@keystonejs.com',
+      email: 'speaker3@open-keystone.com',
       twitterHandle: '@speaker3',
       password,
     },
     {
       name: 'Attendee 1',
-      email: 'attendee1@keystonejs.com',
+      email: 'attendee1@open-keystone.com',
       twitterHandle: `@attendee1`,
       password,
     },
     {
       name: 'Attendee 2',
-      email: 'attendee2@keystonejs.com',
+      email: 'attendee2@open-keystone.com',
       twitterHandle: `@attendee2`,
       password,
     },
     {
       name: 'Attendee 3',
-      email: 'attendee3@keystonejs.com',
+      email: 'attendee3@open-keystone.com',
       twitterHandle: `@attendee3`,
       password,
     },

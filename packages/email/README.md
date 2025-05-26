@@ -14,9 +14,9 @@ renderers. Powered by [`keystone-email`](https://github.com/keystonejs/keystone-
 ## Installation
 
 ```shell allowCopy=false showLanguage=false
-yarn add @keystonejs/email
+yarn add @open-keystone/email
 # or
-npm install @keystonejs/email
+npm install @open-keystone/email
 ```
 
 ## Transports
@@ -34,7 +34,7 @@ Express-compatible renderers should work out of the box
 There is a `jsx` renderer powered by `express-react-views`.
 
 ```javascript title=/emails/index.js
-const { emailSender } = require('@keystonejs/email');
+const { emailSender } = require('@open-keystone/email');
 
 const jsxEmailSender = emailSender.jsx({
   // The directory containing the email templates
@@ -73,7 +73,7 @@ There is support for [`mjml-react`](https://github.com/wix-incubator/mjml-react)
 using the `mjml` renderer.
 
 ```javascript title=/emails/index.js
-const { emailSender } = require('@keystonejs/email');
+const { emailSender } = require('@open-keystone/email');
 
 const mjmlEmailSender = emailSender.mjml({
   // The directory containing the email templates
@@ -115,7 +115,7 @@ module.exports = UserTemplate;
 ### Pug (previously Jade)
 
 ```javascript title=/emails/index.js
-const { emailSender } = require('@keystonejs/email');
+const { emailSender } = require('@open-keystone/email');
 
 const pugEmailSender = emailSender.pug({
   // The directory containing the email templates
@@ -137,7 +137,7 @@ Above are examples of using 2 renderers, `jsx`, and `pug`.
 In general, renderers are available directly on the exported object:
 
 ```javascript title=/emails/index.js
-const { emailSender } = require('@keystonejs/email');
+const { emailSender } = require('@open-keystone/email');
 
 emailSender.<renderer>(...);
 ```

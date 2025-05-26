@@ -1,6 +1,6 @@
 const { gen, sampleOne } = require('testcheck');
-const { Text, Relationship } = require('@keystonejs/fields');
-const { multiAdapterRunners, setupServer } = require('@keystonejs/test-utils');
+const { Text, Relationship } = require('@open-keystone/fields');
+const { multiAdapterRunners, setupServer } = require('@open-keystone/test-utils');
 
 const alphanumGenerator = gen.alphaNumString.notEmpty();
 

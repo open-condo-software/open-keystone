@@ -1,5 +1,24 @@
 # @keystonejs/fields-content
 
+## 10.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @open-keystone/fields@23.0.0
+  - @open-keystone/utils@7.0.0
+  - @arch-ui/color-utils@0.1.0
+  - @arch-ui/typography@0.1.0
+  - @arch-ui/tooltip@0.2.0
+  - @arch-ui/fields@3.1.0
+  - @arch-ui/input@0.2.0
+  - @arch-ui/theme@0.1.0
+  - @arch-ui/hooks@0.1.0
+
 ## 9.1.2
 
 ### Patch Changes

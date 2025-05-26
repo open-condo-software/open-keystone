@@ -1,4 +1,4 @@
-const { mergeWhereClause, upcase } = require('@keystonejs/utils');
+const { mergeWhereClause, upcase } = require('@open-keystone/utils');
 const { throwAccessDenied, ValidationFailureError } = require('../ListTypes/graphqlErrors');
 const { graphqlLogger } = require('../Keystone/logger');
 

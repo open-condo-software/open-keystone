@@ -1,5 +1,19 @@
 # @arch-ui/pagination
 
+## 0.1.0
+
+### Minor Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @arch-ui/loading@0.1.0
+  - @arch-ui/button@0.1.0
+  - @arch-ui/layout@0.3.0
+  - @arch-ui/theme@0.1.0
+
 ## 0.0.29
 
 ### Patch Changes

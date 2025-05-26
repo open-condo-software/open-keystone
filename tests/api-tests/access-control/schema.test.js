@@ -1,5 +1,5 @@
-const { multiAdapterRunners } = require('@keystonejs/test-utils');
-const { arrayToObject } = require('@keystonejs/utils');
+const { multiAdapterRunners } = require('@open-keystone/test-utils');
+const { arrayToObject } = require('@open-keystone/utils');
 const {
   setupKeystone,
   getStaticListName,

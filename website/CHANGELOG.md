@@ -1,5 +1,18 @@
 # @keystonejs/website
 
+## 7.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @arch-ui/select@0.2.0
+  - @arch-ui/input@0.2.0
+  - @arch-ui/theme@0.1.0
+
 ## 6.0.4
 
 ### Patch Changes

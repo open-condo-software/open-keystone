@@ -9,11 +9,11 @@ const {
   Checkbox,
   CalendarDay,
   DateTime,
-} = require('@keystonejs/fields');
-const { OEmbed, IframelyOEmbedAdapter } = require('@keystonejs/fields-oembed');
-const { Wysiwyg } = require('@keystonejs/fields-wysiwyg-tinymce');
-const { AuthedRelationship } = require('@keystonejs/fields-authed-relationship');
-const { LocalFileAdapter } = require('@keystonejs/file-adapters');
+} = require('@open-keystone/fields');
+const { OEmbed, IframelyOEmbedAdapter } = require('@open-keystone/fields-oembed');
+const { Wysiwyg } = require('@open-keystone/fields-wysiwyg-tinymce');
+const { AuthedRelationship } = require('@open-keystone/fields-authed-relationship');
+const { LocalFileAdapter } = require('@open-keystone/file-adapters');
 const { formatISO } = require('date-fns');
 
 const { staticRoute, staticPath, distDir } = require('./config');

@@ -1,5 +1,11 @@
 # @arch-ui/icons
 
+## 0.2.0
+
+### Minor Changes
+
+- Changed @keystonejs scope to @open-keystone
+
 ## 0.1.6
 
 ### Patch Changes

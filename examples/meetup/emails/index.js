@@ -1,4 +1,4 @@
-const { emailSender } = require('@keystonejs/email');
+const { emailSender } = require('@open-keystone/email');
 
 const jsxEmailSender = emailSender.jsx({
   root: __dirname,

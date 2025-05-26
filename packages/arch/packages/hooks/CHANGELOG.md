@@ -1,5 +1,11 @@
 # @arch-ui/hooks
 
+## 0.1.0
+
+### Minor Changes
+
+- Changed @keystonejs scope to @open-keystone
+
 ## 0.0.14
 
 ### Patch Changes

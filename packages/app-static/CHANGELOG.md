@@ -1,5 +1,11 @@
 # @keystonejs/app-static
 
+## 6.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
 ## 5.2.3
 
 ### Patch Changes

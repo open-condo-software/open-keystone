@@ -5,9 +5,9 @@ import {
   KnexMongoIdInterface,
   PrismaMongoIdInterface,
 } from './Implementation';
-import { Text } from '@keystonejs/fields';
+import { Text } from '@open-keystone/fields';
 
-const pkgDir = path.dirname(require.resolve('@keystonejs/fields-mongoid/package.json'));
+const pkgDir = path.dirname(require.resolve('@open-keystone/fields-mongoid/package.json'));
 
 export const MongoId = {
   type: 'MongoId',
@@ -29,7 +29,7 @@ export const MongoId = {
         throw (
           `The MongoId field type doesn't provide a default primary key field configuration for knex. ` +
           `You'll need to supply your own 'id' field for each list or use a different field type for your ` +
-          `ids (eg '@keystonejs/fields-auto-increment').`
+          `ids (eg '@open-keystone/fields-auto-increment').`
         );
       },
     },
@@ -38,7 +38,7 @@ export const MongoId = {
         throw (
           `The MongoId field type doesn't provide a default primary key field configuration for Prisma. ` +
           `You'll need to supply your own 'id' field for each list or use a different field type for your ` +
-          `ids (eg '@keystonejs/fields-auto-increment').`
+          `ids (eg '@open-keystone/fields-auto-increment').`
         );
       },
     },

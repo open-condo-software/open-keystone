@@ -297,7 +297,7 @@ Relationships are defined using the `Relationship` field type, and require at
 least 2 configured lists (one will refer to the other).
 
 ```javascript
-const { Relationship } = require('@keystonejs/fields');
+const { Relationship } = require('@open-keystone/fields');
 
 keystone.createList('Todo', {
   fields: {

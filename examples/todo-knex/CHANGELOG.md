@@ -1,5 +1,21 @@
 # @keystonejs/demo-project-todo-knex
 
+## 6.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @open-keystone/adapter-knex@14.0.0
+  - @open-keystone/app-admin-ui@8.0.0
+  - @open-keystone/app-graphql@7.0.0
+  - @open-keystone/app-static@6.0.0
+  - @open-keystone/keystone@20.0.0
+  - @open-keystone/fields@23.0.0
+
 ## 5.1.28
 
 ### Patch Changes

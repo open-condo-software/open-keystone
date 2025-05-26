@@ -1,6 +1,6 @@
 const { Implementation, MongoIntegerInterface, KnexIntegerInterface } = require('./Implementation');
 
-const { Text } = require('@keystonejs/fields');
+const { Text } = require('@open-keystone/fields');
 
 module.exports = {
   type: 'MultiCheck',

@@ -11,7 +11,7 @@ import { PageTitle, Title } from '@arch-ui/typography';
 
 import { gql, useMutation } from '@apollo/client';
 
-import { upcase } from '@keystonejs/utils';
+import { upcase } from '@open-keystone/utils';
 
 import KeystoneLogo from '../components/KeystoneLogo';
 

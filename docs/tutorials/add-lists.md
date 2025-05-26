@@ -17,7 +17,7 @@ into separate files. Create a directory named `lists`, with a file `Todo.js`
 and put the following code inside.
 
 ```javascript title=/lists/Todo.js
-const { Text, Checkbox } = require('@keystonejs/fields');
+const { Text, Checkbox } = require('@open-keystone/fields');
 
 module.exports = {
   fields: {
@@ -53,7 +53,7 @@ Make sure to relaunch Keystone and check that everything is working as expected.
 deadlines and the assignee of a task:
 
 ```javascript title=/lists/Todo.js
-const { Text, CalendarDay, Checkbox } = require('@keystonejs/fields');
+const { Text, CalendarDay, Checkbox } = require('@open-keystone/fields');
 
 module.exports = {
   fields: {
@@ -92,7 +92,7 @@ Why don't we make a separate `User` list, so we can point assigned tasks to a sp
 Create another file `User.js` in the `lists` directory. It should look like this:
 
 ```javascript title=/lists/User.js
-const { Text, Password } = require('@keystonejs/fields');
+const { Text, Password } = require('@open-keystone/fields');
 
 module.exports = {
   fields: {

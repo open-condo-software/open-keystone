@@ -1,5 +1,18 @@
 # @keystonejs/adapter-prisma
 
+## 4.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @open-keystone/fields-auto-increment@9.0.0
+  - @open-keystone/keystone@20.0.0
+  - @open-keystone/utils@7.0.0
+
 ## 3.2.2
 
 ### Patch Changes

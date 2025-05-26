@@ -15,7 +15,7 @@ This can be used to restrict access to the AdminUI, and to configure [access con
 ## Usage
 
 ```javascript title=index.js
-const { PasswordAuthStrategy } = require('@keystonejs/auth-password');
+const { PasswordAuthStrategy } = require('@open-keystone/auth-password');
 
 const keystone = new Keystone({...});
 

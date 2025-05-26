@@ -1,5 +1,11 @@
 # @keystonejs/session
 
+## 9.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
 ## 8.3.2
 
 ### Patch Changes

@@ -1,4 +1,4 @@
-import Controller from '@keystonejs/fields/Controller';
+import Controller from '@open-keystone/fields/Controller';
 
 export default class FileController extends Controller {
   getQueryFragment = () => `

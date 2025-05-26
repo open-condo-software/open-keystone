@@ -5,8 +5,8 @@ const {
   FacebookAuthStrategy,
   TwitterAuthStrategy,
   GitHubAuthStrategy,
-} = require('@keystonejs/auth-passport');
-const { createItems } = require('@keystonejs/server-side-graphql-client');
+} = require('@open-keystone/auth-passport');
+const { createItems } = require('@open-keystone/server-side-graphql-client');
 
 const { keystone, apps } = require('./index');
 const { google, facebook, twitter, github, port } = require('./config');

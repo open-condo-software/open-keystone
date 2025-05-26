@@ -1,5 +1,16 @@
 # @keystonejs/access-control
 
+## 8.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @open-keystone/utils@7.0.0
+
 ## 7.1.2
 
 ### Patch Changes

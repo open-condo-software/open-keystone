@@ -9,7 +9,7 @@ order: 6
 Stop maliciously complex or invalid queries against your `Keystone` instance.
 
 ```javascript
-const { validation } = require('@keystonejs/app-graphql');
+const { validation } = require('@open-keystone/app-graphql');
 
 const app = new GraphQLApp({
   apollo: {

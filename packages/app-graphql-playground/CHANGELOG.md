@@ -1,5 +1,17 @@
 # @keystonejs/app-graphql-playground
 
+## 6.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @open-keystone/session@9.0.0
+  - @open-keystone/utils@7.0.0
+
 ## 5.2.3
 
 ### Patch Changes

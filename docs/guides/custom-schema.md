@@ -19,7 +19,7 @@ A common situation where custom schema would be beneficial is incrementing a val
 First let's define a `Page` list. For the sake of simplicity, we'll give it only two fields: `title` and `views`.
 
 ```js title=/lists/Page.js
-const { Text, Integer } = require('@keystonejs/fields');
+const { Text, Integer } = require('@open-keystone/fields');
 
 const pageList = keystone.createList('Page', {
   fields: {

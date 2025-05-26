@@ -1,5 +1,17 @@
 # @keystonejs/auth-passport
 
+## 7.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @open-keystone/session@9.0.0
+  - @open-keystone/fields@23.0.0
+
 ## 6.1.2
 
 ### Patch Changes

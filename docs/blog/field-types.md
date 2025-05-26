@@ -18,7 +18,7 @@ This post provides insight into how we think about field types. Broadly speaking
 
 ## Core field types
 
-Core field types are those included in the `@keystonejs/fields` package and fall under ths `@keystonejs/fields-*` namespace.
+Core field types are those included in the `@open-keystone/fields` package and fall under ths `@open-keystone/fields-*` namespace.
 
 There's no definitive guide as to when a field should be a core field type, but generally speaking, the core fields consist of "primitive" values like:
 
@@ -55,7 +55,7 @@ This forms the final part of the decision making to help determine when a field 
 3. connect with a third-party service or API
 4. include a third-party library, that will impact the core fields bundle
 
-It may be open to some interpretation, but the above guidelines help when deciding which fields belong with `@keystonejs/fields` package, and which don't.
+It may be open to some interpretation, but the above guidelines help when deciding which fields belong with `@open-keystone/fields` package, and which don't.
 
 ## The future of field types
 
@@ -74,7 +74,7 @@ We've also realised that the `AuthedRelationship` is not conceptually different 
 
 This functionality can be achieved with hooks and config on the existing `Relationship` field. We plan to document how to achieve common use-cases such as this before changing the `AuthedRelationship` field.
 
-The `@keystonejs/fields-date-utc` package should be moved into the core fields package. It's a primitive data type used in a wide range of projects.
+The `@open-keystone/fields-date-utc` package should be moved into the core fields package. It's a primitive data type used in a wide range of projects.
 
 Both `Color` and `Url` are interesting. They currently both store values in the same way as the `Text` field and do nothing more than change the view.
 

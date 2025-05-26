@@ -16,7 +16,7 @@ Unlike the `DateTime` field type only the UTC value is stored.
 ## Usage
 
 ```js
-const { DateTimeUtc } = require('@keystonejs/fields');
+const { DateTimeUtc } = require('@open-keystone/fields');
 
 keystone.createList('User', {
   fields: {

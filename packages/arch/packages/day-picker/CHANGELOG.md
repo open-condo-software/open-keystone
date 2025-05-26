@@ -1,5 +1,19 @@
 # @arch-ui/day-picker
 
+## 1.1.0
+
+### Minor Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @arch-ui/typography@0.1.0
+  - @arch-ui/select@0.2.0
+  - @arch-ui/input@0.2.0
+  - @arch-ui/theme@0.1.0
+
 ## 1.0.8
 
 ### Patch Changes

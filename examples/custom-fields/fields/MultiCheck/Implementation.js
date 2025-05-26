@@ -1,4 +1,4 @@
-const { Text } = require('@keystonejs/fields');
+const { Text } = require('@open-keystone/fields');
 const { parseDefaultValues } = require('./util');
 
 // Using the text implementation because we're going to stringify the array of results.

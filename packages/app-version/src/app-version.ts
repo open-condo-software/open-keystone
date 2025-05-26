@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { parseCustomAccess } from '@keystonejs/access-control';
+import { parseCustomAccess } from '@open-keystone/access-control';
 
 export class AppVersionProvider<SN extends string> {
   _access: Record<SN, boolean> & { internal: true };

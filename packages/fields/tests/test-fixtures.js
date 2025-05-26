@@ -1,4 +1,4 @@
-import { getItems } from '@keystonejs/server-side-graphql-client';
+import { getItems } from '@open-keystone/server-side-graphql-client';
 import Text from '../src/types/Text';
 
 export const name = 'ID';

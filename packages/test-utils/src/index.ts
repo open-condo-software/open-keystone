@@ -7,13 +7,16 @@ import type { Express } from 'express';
 import supertest from 'supertest-light';
 import MongoDBMemoryServer from 'mongodb-memory-server-core';
 import url from 'url';
-import { Keystone } from '@keystonejs/keystone';
 // @ts-ignore
-import { GraphQLApp } from '@keystonejs/app-graphql';
-import { KnexAdapter } from '@keystonejs/adapter-knex';
-import { MongooseAdapter } from '@keystonejs/adapter-mongoose';
+import { Keystone } from '@open-keystone/keystone';
 // @ts-ignore
-import { PrismaAdapter } from '@keystonejs/adapter-prisma';
+import { GraphQLApp } from '@open-keystone/app-graphql';
+// @ts-ignore
+import { KnexAdapter } from '@open-keystone/adapter-knex';
+// @ts-ignore
+import { MongooseAdapter } from '@open-keystone/adapter-mongoose';
+// @ts-ignore
+import { PrismaAdapter } from '@open-keystone/adapter-prisma';
 
 export type AdapterName = 'mongoose' | 'knex' | 'prisma_postgresql';
 

@@ -1,5 +1,16 @@
 # @keystonejs/app-version
 
+## 3.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @open-keystone/access-control@8.0.0
+
 ## 2.1.2
 
 ### Patch Changes

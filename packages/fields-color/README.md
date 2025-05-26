@@ -14,7 +14,7 @@ Presented in the Admin UI as an interactive color picker.
 ## Usage
 
 ```js
-const { Color } = require('@keystonejs/fields-color');
+const { Color } = require('@open-keystone/fields-color');
 
 keystone.createList('Product', {
   fields: {

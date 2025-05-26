@@ -1,5 +1,25 @@
 # @keystonejs/demo-custom-fields
 
+## 3.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @open-keystone/adapter-mongoose@12.0.0
+  - @open-keystone/app-admin-ui@8.0.0
+  - @open-keystone/app-graphql@7.0.0
+  - @open-keystone/app-static@6.0.0
+  - @open-keystone/keystone@20.0.0
+  - @open-keystone/fields@23.0.0
+  - @arch-ui/controls@0.2.0
+  - @arch-ui/lozenge@0.1.0
+  - @arch-ui/fields@3.1.0
+  - @arch-ui/theme@0.1.0
+
 ## 2.0.3
 
 ### Patch Changes

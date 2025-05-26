@@ -1,5 +1,18 @@
 # @arch-ui/input
 
+## 0.2.0
+
+### Minor Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @arch-ui/color-utils@0.1.0
+  - @arch-ui/common@0.1.0
+  - @arch-ui/theme@0.1.0
+
 ## 0.1.14
 
 ### Patch Changes

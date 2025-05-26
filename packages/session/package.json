@@ -1,7 +1,7 @@
 {
-  "name": "@keystonejs/session",
+  "name": "@open-keystone/session",
   "description": "Tools to assist with setting up session management in your Keystone system.",
-  "version": "8.3.2",
+  "version": "9.0.0",
   "author": "The KeystoneJS Development Team",
   "license": "MIT",
   "main": "dist/session.cjs.js",
