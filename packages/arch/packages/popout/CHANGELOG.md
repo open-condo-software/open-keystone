@@ -1,5 +1,18 @@
 # @arch-ui/popout
 
+## 0.1.0
+
+### Minor Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @arch-ui/color-utils@0.1.0
+  - @arch-ui/modal-utils@1.1.0
+  - @arch-ui/theme@0.1.0
+
 ## 0.0.26
 
 ### Patch Changes

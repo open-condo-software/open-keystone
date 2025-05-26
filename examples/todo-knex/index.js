@@ -1,9 +1,9 @@
-const { Keystone } = require('@keystonejs/keystone');
-const { KnexAdapter } = require('@keystonejs/adapter-knex');
-const { Text } = require('@keystonejs/fields');
-const { GraphQLApp } = require('@keystonejs/app-graphql');
-const { AdminUIApp } = require('@keystonejs/app-admin-ui');
-const { StaticApp } = require('@keystonejs/app-static');
+const { Keystone } = require('@open-keystone/keystone');
+const { KnexAdapter } = require('@open-keystone/adapter-knex');
+const { Text } = require('@open-keystone/fields');
+const { GraphQLApp } = require('@open-keystone/app-graphql');
+const { AdminUIApp } = require('@open-keystone/app-admin-ui');
+const { StaticApp } = require('@open-keystone/app-static');
 
 const keystone = new Keystone({
   adapter: new KnexAdapter({ knexOptions: { connection: 'postgres://localhost/to-do' } }),

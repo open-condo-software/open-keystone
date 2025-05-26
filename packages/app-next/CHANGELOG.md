@@ -1,5 +1,11 @@
 # @keystonejs/app-next
 
+## 7.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
 ## 6.1.2
 
 ### Patch Changes

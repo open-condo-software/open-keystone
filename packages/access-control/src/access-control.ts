@@ -1,4 +1,4 @@
-import { pick, defaultObj, intersection } from '@keystonejs/utils';
+import { pick, defaultObj, intersection } from '@open-keystone/utils';
 
 type Static = boolean;
 type Declarative = Record<string, any>;

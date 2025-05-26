@@ -28,7 +28,7 @@ import Pagination, { getPaginationLabel } from './Pagination';
 import Search from './Search';
 import Management, { ManageToolbar } from './Management';
 import { useListFilter, useListSort, useListUrlState } from './dataHooks';
-import { captureSuspensePromises } from '@keystonejs/utils';
+import { captureSuspensePromises } from '@open-keystone/utils';
 import { useList } from '../../providers/List';
 import { useUIHooks } from '../../providers/Hooks';
 import CreateItem from './CreateItem';

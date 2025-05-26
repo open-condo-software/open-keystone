@@ -1,5 +1,21 @@
 # @keystonejs/api-tests
 
+## 10.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @open-keystone/fields-authed-relationship@2.0.0
+  - @open-keystone/auth-password@7.0.0
+  - @open-keystone/list-plugins@9.0.0
+  - @open-keystone/test-utils@14.0.0
+  - @open-keystone/fields@23.0.0
+  - @open-keystone/utils@7.0.0
+
 ## 9.1.2
 
 ### Patch Changes

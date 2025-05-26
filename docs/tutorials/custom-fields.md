@@ -35,7 +35,7 @@ For our Stars field it looks something like this:
 ```js
 const { Stars, MongoIntegerInterface, KnexIntegerInterface } = require('./Implementation');
 
-const { Integer } = require('@keystonejs/fields');
+const { Integer } = require('@open-keystone/fields');
 
 module.exports = {
   type: 'Stars',
@@ -64,7 +64,7 @@ Note: If you want to package field types for use outside your own project, there
 Let's start by looking at `Implementation.js`.
 
 ```js
-const { Integer } = require('@keystonejs/fields');
+const { Integer } = require('@open-keystone/fields');
 
 class Stars extends Integer.implementation {
   extendAdminMeta(meta) {

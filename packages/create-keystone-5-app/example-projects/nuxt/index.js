@@ -1,11 +1,11 @@
-const { Keystone } = require('@keystonejs/keystone');
-const { Text } = require('@keystonejs/fields');
-const { GraphQLApp } = require('@keystonejs/app-graphql');
-const { AdminUIApp } = require('@keystonejs/app-admin-ui');
-const { NuxtApp } = require('@keystonejs/app-nuxt');
+const { Keystone } = require('@open-keystone/keystone');
+const { Text } = require('@open-keystone/fields');
+const { GraphQLApp } = require('@open-keystone/app-graphql');
+const { AdminUIApp } = require('@open-keystone/app-admin-ui');
+const { NuxtApp } = require('@open-keystone/app-nuxt');
 
 /* keystone-cli: generated-code */
-const { MongooseAdapter: Adapter } = require('@keystonejs/adapter-mongoose');
+const { MongooseAdapter: Adapter } = require('@open-keystone/adapter-mongoose');
 const PROJECT_NAME = 'Nuxt';
 const adapterConfig = {};
 /* /keystone-cli: generated-code */

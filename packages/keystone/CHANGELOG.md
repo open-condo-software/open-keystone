@@ -1,5 +1,19 @@
 # @keystonejs/keystone
 
+## 20.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @open-keystone/access-control@8.0.0
+  - @open-keystone/app-version@3.0.0
+  - @open-keystone/session@9.0.0
+  - @open-keystone/utils@7.0.0
+
 ## 19.3.4
 
 ### Patch Changes

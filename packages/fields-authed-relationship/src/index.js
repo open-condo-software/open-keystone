@@ -1,4 +1,4 @@
-import { Relationship } from '@keystonejs/fields';
+import { Relationship } from '@open-keystone/fields';
 import { AuthedRelationship as implementation } from './Implementation';
 
 export const AuthedRelationship = {

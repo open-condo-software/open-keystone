@@ -1,5 +1,11 @@
 # @keystonejs/file-adapters
 
+## 8.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
 ## 7.1.2
 
 ### Patch Changes

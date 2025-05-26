@@ -1,5 +1,19 @@
 # @keystonejs/fields-wysiwyg-tinymce
 
+## 6.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @open-keystone/fields@23.0.0
+  - @arch-ui/fields@3.1.0
+  - @arch-ui/input@0.2.0
+  - @arch-ui/theme@0.1.0
+
 ## 5.4.2
 
 ### Patch Changes

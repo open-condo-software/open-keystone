@@ -1,5 +1,18 @@
 # @keystonejs/adapter-mongoose
 
+## 12.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @open-keystone/fields-mongoid@10.0.0
+  - @open-keystone/keystone@20.0.0
+  - @open-keystone/utils@7.0.0
+
 ## 11.2.2
 
 ### Patch Changes

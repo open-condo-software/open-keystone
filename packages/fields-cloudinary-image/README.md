@@ -15,9 +15,9 @@ The `CloudinaryImage` field extends the [`File`](/packages/fields/src/types/File
 This field must be used with the [`CoundinaryAdapter`](/packages/file-adapters/README.md#cloudinaryfileadapter) file adapter:
 
 ```js title=index.js
-const { Keystone } = require('@keystonejs/keystone');
-const { CloudinaryAdapter } = require('@keystonejs/file-adapters');
-const { CloudinaryImage } = require('@keystonejs/fields-cloudinary-image');
+const { Keystone } = require('@open-keystone/keystone');
+const { CloudinaryAdapter } = require('@open-keystone/file-adapters');
+const { CloudinaryImage } = require('@open-keystone/fields-cloudinary-image');
 
 const keystone = new Keystone({...});
 
@@ -115,7 +115,7 @@ The `CloudinaryImage` field also exposes a block that can be used in the [Conten
 ### Usage
 
 ```js title=index.js
-const { Content } = require('@keystonejs/fields-content');
+const { Content } = require('@open-keystone/fields-content');
 
 keystone.createList('Post', {
   fields: {

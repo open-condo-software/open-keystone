@@ -1,5 +1,19 @@
 # @keystonejs/example-projects-blank
 
+## 6.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @open-keystone/adapter-mongoose@12.0.0
+  - @open-keystone/app-admin-ui@8.0.0
+  - @open-keystone/app-graphql@7.0.0
+  - @open-keystone/keystone@20.0.0
+
 ## 5.0.21
 
 ### Patch Changes

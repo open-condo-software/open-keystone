@@ -1,5 +1,28 @@
 # @keystonejs/demo-project-meetup
 
+## 8.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @open-keystone/server-side-graphql-client@3.0.0
+  - @open-keystone/fields-cloudinary-image@3.0.0
+  - @open-keystone/fields-wysiwyg-tinymce@6.0.0
+  - @open-keystone/adapter-mongoose@12.0.0
+  - @open-keystone/auth-password@7.0.0
+  - @open-keystone/file-adapters@8.0.0
+  - @open-keystone/app-admin-ui@8.0.0
+  - @open-keystone/app-graphql@7.0.0
+  - @open-keystone/app-next@7.0.0
+  - @open-keystone/keystone@20.0.0
+  - @open-keystone/session@9.0.0
+  - @open-keystone/fields@23.0.0
+  - @open-keystone/email@6.0.0
+
 ## 7.0.3
 
 ### Patch Changes

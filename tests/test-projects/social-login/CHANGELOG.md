@@ -1,5 +1,27 @@
 # @keystonejs/cypress-project-facebook-login
 
+## 7.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @open-keystone/server-side-graphql-client@3.0.0
+  - @open-keystone/adapter-prisma@4.0.0
+  - @open-keystone/auth-passport@7.0.0
+  - @open-keystone/auth-password@7.0.0
+  - @open-keystone/file-adapters@8.0.0
+  - @open-keystone/app-admin-ui@8.0.0
+  - @open-keystone/app-graphql@7.0.0
+  - @open-keystone/app-static@6.0.0
+  - @open-keystone/keystone@20.0.0
+  - @open-keystone/fields@23.0.0
+  - @arch-ui/fields@3.1.0
+  - @arch-ui/input@0.2.0
+
 ## 6.0.5
 
 ### Patch Changes

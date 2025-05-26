@@ -1,5 +1,11 @@
 # @keystonejs/fields-datetime-utc
 
+## 8.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
 ## 7.0.3
 
 ### Patch Changes

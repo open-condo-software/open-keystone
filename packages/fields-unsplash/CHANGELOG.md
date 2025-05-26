@@ -1,5 +1,22 @@
 # @keystonejs/fields-unsplash
 
+## 4.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @open-keystone/adapter-mongoose@12.0.0
+  - @open-keystone/adapter-prisma@4.0.0
+  - @open-keystone/fields-content@10.0.0
+  - @open-keystone/adapter-knex@14.0.0
+  - @open-keystone/fields@23.0.0
+  - @arch-ui/fields@3.1.0
+  - @arch-ui/input@0.2.0
+
 ## 3.3.2
 
 ### Patch Changes

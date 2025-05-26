@@ -20,7 +20,7 @@ Hi! For a while we have been doing weekly releases, and if you were following Ke
 Upgrading all keystone packages you depend on can be a bit of a slog, and while we want to make this easier by having you depend on fewer packages in the future, for now, we have added some helpers to another open source project we run, [manypkg](https://www.npmjs.com/package/@manypkg/cli#manypkg-upgrade-packagename-tag-or-version) to make upgrading easier. If you install manypkg, you can now run
 
 ```
-manypkg upgrade @keystonejs cornice
+manypkg upgrade @open-keystone cornice
 ```
 
 to get all packages in the scope synced on the `cornice` release.
@@ -28,7 +28,7 @@ to get all packages in the scope synced on the `cornice` release.
 If you're just after latest, you can use
 
 ```
-manypkg upgrade @keystonejs
+manypkg upgrade @open-keystone
 ```
 
 ## Cornice Release Notes:

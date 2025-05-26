@@ -1,5 +1,5 @@
 import inflection from 'inflection';
-import { parseFieldAccess } from '@keystonejs/access-control';
+import { parseFieldAccess } from '@open-keystone/access-control';
 
 class Field {
   constructor(

@@ -1,7 +1,7 @@
 {
-  "name": "@keystonejs/app-static",
+  "name": "@open-keystone/app-static",
   "description": "KeystoneJS Static File App.",
-  "version": "5.2.3",
+  "version": "6.0.0",
   "author": "The KeystoneJS Development Team",
   "license": "MIT",
   "engines": {

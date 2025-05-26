@@ -1,5 +1,19 @@
 # @keystonejs/fields-color
 
+## 2.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @open-keystone/fields@23.0.0
+  - @arch-ui/button@0.1.0
+  - @arch-ui/fields@3.1.0
+  - @arch-ui/popout@0.1.0
+
 ## 1.1.2
 
 ### Patch Changes

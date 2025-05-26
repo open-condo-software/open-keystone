@@ -12,7 +12,7 @@ Useful for Birthdays and other all-day events always celebrated in the local tim
 ## Usage
 
 ```js
-const { Text, Password, CalendarDay } = require('@keystonejs/fields');
+const { Text, Password, CalendarDay } = require('@open-keystone/fields');
 
 keystone.createList('User', {
   fields: {

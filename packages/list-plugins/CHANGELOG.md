@@ -1,5 +1,17 @@
 # @keystonejs/list-plugins
 
+## 9.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @open-keystone/fields-authed-relationship@2.0.0
+  - @open-keystone/fields@23.0.0
+
 ## 8.1.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @keystonejs/email
 
+## 6.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
 ## 5.3.2
 
 ### Patch Changes

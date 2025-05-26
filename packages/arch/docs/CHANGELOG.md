@@ -1,5 +1,34 @@
 # @arch-ui/docs
 
+## 2.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @arch-ui/pagination@0.1.0
+  - @arch-ui/typography@0.1.0
+  - @arch-ui/controls@0.2.0
+  - @arch-ui/dropdown@0.1.0
+  - @arch-ui/loading@0.1.0
+  - @arch-ui/lozenge@0.1.0
+  - @arch-ui/tooltip@0.2.0
+  - @arch-ui/button@0.1.0
+  - @arch-ui/dialog@0.1.0
+  - @arch-ui/fields@3.1.0
+  - @arch-ui/layout@0.3.0
+  - @arch-ui/navbar@0.2.0
+  - @arch-ui/popout@0.1.0
+  - @arch-ui/select@0.2.0
+  - @arch-ui/alert@0.1.0
+  - @arch-ui/badge@0.1.0
+  - @arch-ui/input@0.2.0
+  - @arch-ui/theme@0.1.0
+  - @arch-ui/pill@0.2.0
+
 ## 1.1.33
 
 ### Patch Changes

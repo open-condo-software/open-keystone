@@ -1,9 +1,9 @@
-const { Keystone } = require('@keystonejs/keystone');
-const { PasswordAuthStrategy } = require('@keystonejs/auth-password');
-const { Text, Password, Select } = require('@keystonejs/fields');
-const { GraphQLApp } = require('@keystonejs/app-graphql');
-const { AdminUIApp } = require('@keystonejs/app-admin-ui');
-const { objMerge } = require('@keystonejs/utils');
+const { Keystone } = require('@open-keystone/keystone');
+const { PasswordAuthStrategy } = require('@open-keystone/auth-password');
+const { Text, Password, Select } = require('@open-keystone/fields');
+const { GraphQLApp } = require('@open-keystone/app-graphql');
+const { AdminUIApp } = require('@open-keystone/app-admin-ui');
+const { objMerge } = require('@open-keystone/utils');
 const {
   getStaticListName,
   getImperativeListName,
@@ -15,7 +15,7 @@ const {
 
 const { projectName } = require('./config');
 
-const { PrismaAdapter } = require('@keystonejs/adapter-prisma');
+const { PrismaAdapter } = require('@open-keystone/adapter-prisma');
 
 const keystone = new Keystone({
   adapter: new PrismaAdapter(),

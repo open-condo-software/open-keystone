@@ -20,7 +20,7 @@ to be verified without knowledge of the original value.
 ## Usage
 
 ```js
-const { Password, Text } = require('@keystonejs/fields');
+const { Password, Text } = require('@open-keystone/fields');
 
 keystone.createList('User', {
   fields: {

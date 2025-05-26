@@ -1,16 +1,16 @@
 {
-  "name": "@keystonejs/adapter-prisma",
+  "name": "@open-keystone/adapter-prisma",
   "description": "KeystoneJS Prisma Database Adapter",
-  "version": "3.2.2",
+  "version": "4.0.0",
   "author": "The KeystoneJS Development Team",
   "license": "MIT",
   "engines": {
     "node": ">=10.0.0"
   },
   "dependencies": {
-    "@keystonejs/fields-auto-increment": "^8.2.2",
-    "@keystonejs/keystone": "^19.3.3",
-    "@keystonejs/utils": "^6.1.2",
+    "@open-keystone/fields-auto-increment": "^9.0.0",
+    "@open-keystone/keystone": "^20.0.0",
+    "@open-keystone/utils": "^7.0.0",
     "@prisma/client": "4.16.0",
     "@prisma/internals": "4.16.0",
     "cuid": "^2.1.8",

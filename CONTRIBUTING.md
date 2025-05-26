@@ -61,8 +61,8 @@ An example, if you generate a changeset that includes `adapter-mongoose` as a pa
 
 ```md
 ---
-'@keystonejs/adapter-mongoose': patch
-'@keystonejs/keystone': minor
+'@open-keystone/adapter-mongoose': patch
+'@open-keystone/keystone': minor
 ---
 
 A very useful description of the changes should be here.
@@ -189,11 +189,11 @@ Now, for each release we want to backport to, we follow this process:
 
 1. Checkout the tag of the release
 
-   Let's say the package being patched is `@keystonejs/keystone`, then we
+   Let's say the package being patched is `@open-keystone/keystone`, then we
    want to run:
 
    ```sh
-   git checkout -b backport-keystone-14.0.1 @keystonejs/keystone@14.0.1
+   git checkout -b backport-keystone-14.0.1 @open-keystone/keystone@14.0.1
    ```
 
 2. Cherry pick the commit across.
@@ -236,7 +236,7 @@ Now, for each release we want to backport to, we follow this process:
 
    ```sh
    (\
-   export PACKAGE_NAME=@keystonejs/keystone && \
+   export PACKAGE_NAME=@open-keystone/keystone && \
    export OTP_CODE= && \
    cd packages/keystone && \
    yarn publish --tag=backport --otp=$OTP_CODE && \

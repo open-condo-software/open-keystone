@@ -1,8 +1,8 @@
 {
-  "name": "@keystonejs/cypress-project-login",
-  "description": "A KeystoneJS demo project for integration testing. See @keystonejs/keystone for more.",
+  "name": "@open-keystone/cypress-project-login",
+  "description": "A KeystoneJS demo project for integration testing. See @open-keystone/keystone for more.",
   "private": true,
-  "version": "6.0.5",
+  "version": "7.0.0",
   "author": "The KeystoneJS Development Team",
   "license": "MIT",
   "engines": {
@@ -18,16 +18,16 @@
     "cypress:open": "if [ -f .env ]; then yarn prepare-test-server cypress:open:cmd; else echo \"\nError: Must create a tests/test-projects/login/.env file.\nSee tests/test-projects/login/.env.example for values\n\"; exit 1; fi"
   },
   "dependencies": {
-    "@keystonejs/adapter-prisma": "^3.2.2",
-    "@keystonejs/app-admin-ui": "^7.5.2",
-    "@keystonejs/app-graphql": "^6.3.2",
-    "@keystonejs/app-static": "^5.2.2",
-    "@keystonejs/auth-password": "^6.1.2",
-    "@keystonejs/fields": "^22.1.3",
-    "@keystonejs/keystone": "^19.3.3",
-    "@keystonejs/list-plugins": "^8.1.2",
-    "@keystonejs/server-side-graphql-client": "^2.1.2",
-    "@keystonejs/session": "^8.3.2",
+    "@open-keystone/adapter-prisma": "^4.0.0",
+    "@open-keystone/app-admin-ui": "^8.0.0",
+    "@open-keystone/app-graphql": "^7.0.0",
+    "@open-keystone/app-static": "^6.0.0",
+    "@open-keystone/auth-password": "^7.0.0",
+    "@open-keystone/fields": "^23.0.0",
+    "@open-keystone/keystone": "^20.0.0",
+    "@open-keystone/list-plugins": "^9.0.0",
+    "@open-keystone/server-side-graphql-client": "^3.0.0",
+    "@open-keystone/session": "^9.0.0",
     "cross-env": "^7.0.3",
     "express": "^4.17.1"
   },

@@ -1,5 +1,18 @@
 # @keystonejs/fields-auto-increment
 
+## 9.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @open-keystone/adapter-prisma@4.0.0
+  - @open-keystone/adapter-knex@14.0.0
+  - @open-keystone/fields@23.0.0
+
 ## 8.2.2
 
 ### Patch Changes

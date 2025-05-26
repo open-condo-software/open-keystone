@@ -8,7 +8,7 @@ title: Passport auth strategy
 
 > This is the last active development release of this package as **Keystone 5** is now in a 6 to 12 month active maintenance phase. For more information please read our [Keystone 5 and beyond](https://github.com/keystonejs/keystone-5/issues/21) post.
 
-[![View changelog](https://img.shields.io/badge/changelogs.xyz-Explore%20Changelog-brightgreen)](https://changelogs.xyz/@keystonejs/auth-passport)
+[![View changelog](https://img.shields.io/badge/changelogs.xyz-Explore%20Changelog-brightgreen)](https://changelogs.xyz/@open-keystone/auth-passport)
 
 > This feature is currently in progress. While passport works for the `GraphQLApp`, only password authentication is supported for the `AdminUIApp`. Please see [this issue](https://github.com/keystonejs/keystone-5/issues/2581) for more details.
 
@@ -95,12 +95,12 @@ To run this example: `keystone dev`, then visit
 `index.js`
 
 ```javascript
-const { Keystone } = require('@keystonejs/keystone');
-const { MongooseAdapter } = require('@keystonejs/adapter-mongoose');
-const { GraphQLApp } = require('@keystonejs/app-graphql');
-const { AdminUIApp } = require('@keystonejs/app-admin-ui');
+const { Keystone } = require('@open-keystone/keystone');
+const { MongooseAdapter } = require('@open-keystone/adapter-mongoose');
+const { GraphQLApp } = require('@open-keystone/app-graphql');
+const { AdminUIApp } = require('@open-keystone/app-admin-ui');
 
-const { GoogleAuthStrategy } = require('@keystonejs/auth-passport');
+const { GoogleAuthStrategy } = require('@open-keystone/auth-passport');
 
 const cookieSecret = '<Something super secret>';
 
@@ -174,13 +174,13 @@ the Google authentication process.
 `server.js`
 
 ```javascript
-const { Keystone } = require('@keystonejs/keystone');
-const { MongooseAdapter } = require('@keystonejs/adapter-mongoose');
-const { GraphQLApp } = require('@keystonejs/app-graphql');
-const { AdminUIApp } = require('@keystonejs/app-admin-ui');
+const { Keystone } = require('@open-keystone/keystone');
+const { MongooseAdapter } = require('@open-keystone/adapter-mongoose');
+const { GraphQLApp } = require('@open-keystone/app-graphql');
+const { AdminUIApp } = require('@open-keystone/app-admin-ui');
 const express = require('express');
 
-const { GoogleAuthStrategy } = require('@keystonejs/auth-passport');
+const { GoogleAuthStrategy } = require('@open-keystone/auth-passport');
 
 const cookieSecret = '<Something super secret>';
 
@@ -335,7 +335,7 @@ You can create your own strategies to work with Keystone by extending the
 
 ```javascript
 const PassportWordPress = require('passport-wordpress').Strategy;
-const { PassportAuthStrategy } = require('@keystonejs/auth-passport');
+const { PassportAuthStrategy } = require('@open-keystone/auth-passport');
 
 class WordPressAuthStrategy extends PassportAuthStrategy {
   constructor(keystone, listKey, config) {

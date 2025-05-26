@@ -1,5 +1,18 @@
 # create-keystone-5-app
 
+## 5.0.0
+
+### Major Changes
+
+- Changed @keystonejs scope to @open-keystone
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @open-keystone/adapter-mongoose@12.0.0
+  - @open-keystone/adapter-prisma@4.0.0
+  - @open-keystone/adapter-knex@14.0.0
+
 ## 4.0.2
 
 ### Patch Changes
