@@ -1,33 +1,42 @@
-#name: Release
-#
-#on:
-#  push:
-#    branches:
-#      - main
-#
-#jobs:
-#  release:
-#    name: Release
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout Repo
-#        uses: actions/checkout@main
-#        with:
-#          fetch-depth: 0
-#          persist-credentials: false
-#
-#      - name: Setup Node.js 14.x
-#        uses: actions/setup-node@main
-#        with:
-#          node-version: 14.x
-#
-#      - name: Install Dependencies
-#        # we have a postinstall script that uses is-ci which doesn't yet detect GitHub Actions
-#        run: CI=true yarn
-#
-#      - name: Create Release Pull Request
-#        uses: changesets/action@master
-#        with:
-#          version: yarn version-packages
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+name: Publish packages
+
+# NOTE: id-token to publish with provenance, content to publish release notes
+permissions:
+  contents: write
+  id-token: write
+
+on:
+  push:
+    branches:
+      - main
+
+
+
+jobs:
+  release:
+    runs-on: ubuntu-22.04
+
+    strategy:
+      matrix:
+        node-version: [ 16.x ]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+
+      - name: Install deps
+        run: yarn --immutable
+
+      - name: Publish packages
+        run: node .github/publish-packages.js
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
