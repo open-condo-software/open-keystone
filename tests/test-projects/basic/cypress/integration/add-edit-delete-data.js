@@ -44,8 +44,8 @@ describe('Adding data', () => {
     const url = '/admin/posts';
     cy.visit(url);
 
-    cy.server();
-    cy.route('/admin/posts/*').as('newPost');
+    cy.intercept('/admin/posts/*').as('newPost');
+    // cy.wait('@newPost');
 
     cy.get('#list-page-create-button').click({ force: true });
 
@@ -114,8 +114,8 @@ describe('Editing data', () => {
     const url = '/admin/posts';
     cy.visit(url);
 
-    cy.server();
-    cy.route('/admin/posts/*').as('newPost');
+    cy.intercept('/admin/posts/*').as('newPost');
+    // cy.wait('@newPost');
 
     cy.get(`a:contains("My post"):first`).click({ force: true });
 
