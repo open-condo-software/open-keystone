@@ -201,13 +201,20 @@ jobs:
         if: needs.should_run_tests.outputs.shouldRunTests == 'true'
       - run: yarn --cwd tests/${{ matrix.project }} cypress:run:ci
         if: needs.should_run_tests.outputs.shouldRunTests == 'true'
+      - name: Prepare safe artifact name pieces
+        if: failure()
+        id: names
+        run: |
+          SAFE_PROJECT=${{ matrix.project }}               
+          SAFE_PROJECT=${SAFE_PROJECT//\//-}               
+          echo "SAFE_PROJECT=$SAFE_PROJECT" >> $GITHUB_ENV
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
-          path: cypress/screenshots
+          name: cypress-screenshots-${{ env.SAFE_PROJECT }}-${{ matrix.node-version }}
+          path: tests/${{ matrix.project }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
-          path: cypress/videos
+          name: cypress-videos-${{ env.SAFE_PROJECT }}-${{ matrix.node-version }}
+          path: tests/${{ matrix.project }}/cypress/videos
