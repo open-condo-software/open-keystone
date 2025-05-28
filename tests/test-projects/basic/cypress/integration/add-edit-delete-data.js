@@ -24,11 +24,9 @@ describe('Adding data', () => {
   ].forEach(({ url, data }) => {
     it(`Adding data to ${url}`, () => {
       cy.visit(url);
-      const btn = cy.get('#list-page-create-button');
 
       cy.wait(5000);
-
-      btn.click({ force: true });
+      cy.get('#list-page-create-button').click({ force: true });
 
       Object.keys(data).forEach(item => {
         cy.get(`#${item}`).type(data[item], { force: true });
