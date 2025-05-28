@@ -6,6 +6,25 @@ const { enableDevFeatures, mode } = require('./env');
 
 const clientDirectory = path.resolve(__dirname, '..', 'client');
 
+// In Node 17+ they removed 'md4' hash, since it became "weak"
+// Guess who is relying on it and hard-coded it in code-base? webpack4 is here
+// Currently its a struggle to migrate to webpack5, so this is our chance I guess
+// 1. Upgrading wp4 -> wp5 requires upgrading of loaders
+// 2. New loaders requires one of 2 options:
+// 2.a) require React in all files (including @arch)
+// 2.b) migrate emotion in all files (including @arch)
+class PatchHashingFunctionPlugin {
+  apply() {
+    const crypto = require('crypto');
+    const createHash = crypto.createHash;
+
+    crypto.createHash = function (algorithm, options) {
+      if (algorithm === 'md4') return createHash.call(this, 'md5', options);
+      return createHash.call(this, algorithm, options);
+    };
+  }
+}
+
 module.exports = function ({ adminMeta, adminViews, entry, outputPath }) {
   const templatePlugin = new HtmlWebpackPlugin({
     title: 'KeystoneJS',
@@ -75,6 +94,7 @@ module.exports = function ({ adminMeta, adminViews, entry, outputPath }) {
       environmentPlugin,
       templatePlugin,
       ...(mode === 'development' ? [new webpack.HotModuleReplacementPlugin()] : []),
+      new PatchHashingFunctionPlugin(),
     ],
     module: {
       rules,
