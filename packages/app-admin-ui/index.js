@@ -276,7 +276,6 @@ class AdminUIApp {
     const webpackMiddlewareConfig = {
       publicPath: this.adminPath,
       stats: 'none',
-      logLevel: 'error',
     };
     const webpackHotMiddlewareConfig = { log: null };
     const secureCompiler = webpack(

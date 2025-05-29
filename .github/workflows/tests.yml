@@ -49,7 +49,7 @@ jobs:
       matrix:
         index: [0, 1, 2, 3, 4, 5, 6, 7, 8]
         adapter: ['mongoose', 'knex', 'prisma_postgresql']
-        node-version: [16.x]
+        node-version: [16.x, 18.x]
 
     steps:
       - name: Checkout Repo
@@ -102,7 +102,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [16.x]
+        node-version: [16.x, 18.x]
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -129,7 +129,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        node-version: [ 16.x ]
+        node-version: [18.x]
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -168,9 +168,6 @@ jobs:
           - 5432:5432
     env:
       DATABASE_URL: 'postgres://keystone5:k3yst0n3@localhost:5432/test_db'
-      CLOUDINARY_CLOUD_NAME: $CLOUDINARY_CLOUD_NAME
-      CLOUDINARY_KEY: $CLOUDINARY_KEY
-      CLOUDINARY_SECRET: $CLOUDINARY_SECRET
       PORT: 3000
     strategy:
       fail-fast: false
@@ -180,7 +177,7 @@ jobs:
           - test-projects/login
           - test-projects/access-control
           - test-projects/client-validation
-        node-version: [16.x]
+        node-version: [16.x, 18.x]
     steps:
       - name: Checkout Repo
         if: needs.should_run_tests.outputs.shouldRunTests == 'true'
