@@ -1,12 +1,13 @@
 {
-	"scripts": {
-		"start": "yarn basic start",
-		"access-control": "yarn --cwd access-control",
-		"basic": "yarn --cwd basic",
-		"login": "yarn --cwd login",
-		"social-login": "yarn --cwd social-login"
-	},
+  "scripts": {
+    "start": "yarn basic start",
+    "access-control": "yarn --cwd access-control",
+    "basic": "yarn --cwd basic",
+    "login": "yarn --cwd login",
+    "social-login": "yarn --cwd social-login"
+  },
   "repository": "https://github.com/keystonejs/keystone-5.git",
   "homepage": "https://github.com/keystonejs/keystone-5",
-	"license": "MIT"
+  "license": "MIT",
+  "version": "0.0.0-development"
 }

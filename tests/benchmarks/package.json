@@ -2,11 +2,11 @@
   "name": "@open-keystone/benchmarks",
   "description": "A set of benchmarks for running against the KeystoneJS API.",
   "private": true,
-  "version": "6.0.0",
+  "version": "0.0.0-development",
   "author": "The KeystoneJS Development Team",
   "license": "MIT",
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=16.0.0"
   },
   "scripts": {
     "go": "node fixtures/index.js"
@@ -14,14 +14,14 @@
   "repository": "https://github.com/keystonejs/keystone-5/tree/main/tests/benchmarks",
   "homepage": "https://github.com/keystonejs/keystone-5",
   "dependencies": {
-    "@open-keystone/adapter-knex": "^14.0.0",
-    "@open-keystone/adapter-mongoose": "^12.0.0",
-    "@open-keystone/app-graphql": "^7.0.0",
-    "@open-keystone/fields": "^23.0.0",
-    "@open-keystone/keystone": "^20.0.0",
-    "@open-keystone/server-side-graphql-client": "^3.0.0",
-    "@open-keystone/session": "^9.0.0",
-    "@open-keystone/test-utils": "^14.0.0",
+    "@open-keystone/adapter-knex": "workspace:^",
+    "@open-keystone/adapter-mongoose": "workspace:^",
+    "@open-keystone/app-graphql": "workspace:^",
+    "@open-keystone/fields": "workspace:^",
+    "@open-keystone/keystone": "workspace:^",
+    "@open-keystone/server-side-graphql-client": "workspace:^",
+    "@open-keystone/session": "workspace:^",
+    "@open-keystone/test-utils": "workspace:^",
     "cookie-signature": "^1.1.0",
     "supertest-light": "^1.0.3",
     "testcheck": "^1.0.0-rc.2"

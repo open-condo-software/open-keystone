@@ -1,13 +1,13 @@
 {
   "name": "@open-keystone/session",
   "description": "Tools to assist with setting up session management in your Keystone system.",
-  "version": "9.0.0",
+  "version": "0.0.0-development",
   "author": "The KeystoneJS Development Team",
   "license": "MIT",
   "main": "dist/session.cjs.js",
   "module": "dist/session.esm.js",
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=16.0.0"
   },
   "dependencies": {
     "@babel/runtime": "^7.14.6",

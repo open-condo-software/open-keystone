@@ -1,13 +1,13 @@
 {
   "name": "@open-keystone/fields-unsplash",
   "description": "KeystoneJS Unsplash Field Type",
-  "version": "4.0.0",
+  "version": "0.0.0-development",
   "author": "The KeystoneJS Development Team",
   "license": "MIT",
   "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/fields-unsplash",
   "homepage": "https://github.com/keystonejs/keystone-5",
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=16.0.0"
   },
   "dependencies": {
     "@apollo/client": "^3.3.20",
@@ -15,11 +15,11 @@
     "@arch-ui/input": "^0.2.0",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
-    "@open-keystone/adapter-knex": "^14.0.0",
-    "@open-keystone/adapter-mongoose": "^12.0.0",
-    "@open-keystone/adapter-prisma": "^4.0.0",
-    "@open-keystone/fields": "^23.0.0",
-    "@open-keystone/fields-content": "^10.0.0",
+    "@open-keystone/adapter-knex": "workspace:^",
+    "@open-keystone/adapter-mongoose": "workspace:^",
+    "@open-keystone/adapter-prisma": "workspace:^",
+    "@open-keystone/fields": "workspace:^",
+    "@open-keystone/fields-content": "workspace:^",
     "node-fetch": "^2.6.1",
     "query-string": "^6.14.1",
     "unsplash-js": "^6.3.0"

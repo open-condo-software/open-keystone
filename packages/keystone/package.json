@@ -1,18 +1,18 @@
 {
   "name": "@open-keystone/keystone",
   "description": "The main @open-keystone class & CLI. This is where the magic happens.",
-  "version": "20.0.0",
+  "version": "0.0.0-development",
   "author": "The KeystoneJS Development Team",
   "license": "MIT",
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=16.0.0"
   },
   "bin": "bin/cli.js",
   "dependencies": {
-    "@open-keystone/access-control": "^8.0.0",
-    "@open-keystone/app-version": "^3.0.0",
-    "@open-keystone/session": "^9.0.0",
-    "@open-keystone/utils": "^7.0.0",
+    "@open-keystone/access-control": "workspace:^",
+    "@open-keystone/app-version": "workspace:^",
+    "@open-keystone/session": "workspace:^",
+    "@open-keystone/utils": "workspace:^",
     "apollo-errors": "^1.9.0",
     "apollo-server-express": "^2.23.0",
     "arg": "^5.0.0",
@@ -41,8 +41,8 @@
     "terminal-link": "^2.1.1"
   },
   "devDependencies": {
-    "@open-keystone/fields": "^23.0.0",
-    "@open-keystone/test-utils": "*",
+    "@open-keystone/fields": "workspace:^",
+    "@open-keystone/test-utils": "workspace:^",
     "p-is-promise": "^3.0.0",
     "tmp": "^0.2.1"
   },
