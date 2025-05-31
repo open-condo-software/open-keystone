@@ -1,11 +1,11 @@
 {
   "name": "@open-keystone/fields-content",
   "description": "A block-based content field for KeystoneJS",
-  "version": "10.0.0",
+  "version": "0.0.0-development",
   "author": "The KeystoneJS Development Team",
   "license": "MIT",
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=16.0.0"
   },
   "dependencies": {
     "@arch-ui/color-utils": "^0.1.0",
@@ -17,8 +17,8 @@
     "@arch-ui/typography": "^0.1.0",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
-    "@open-keystone/fields": "^23.0.0",
-    "@open-keystone/utils": "^7.0.0",
+    "@open-keystone/fields": "workspace:^",
+    "@open-keystone/utils": "workspace:^",
     "@popperjs/core": "^2.9.2",
     "@primer/octicons-react": "^11.3.0",
     "apply-ref": "^1.0.0",
@@ -39,7 +39,7 @@
     "slate-react": "^0.22.10"
   },
   "devDependencies": {
-    "@open-keystone/server-side-graphql-client": "*"
+    "@open-keystone/server-side-graphql-client": "workspace:^"
   },
   "preconstruct": {
     "entrypoints": [

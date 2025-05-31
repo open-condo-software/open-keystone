@@ -1,15 +1,15 @@
 {
   "name": "@open-keystone/list-plugins",
   "description": "List level plugins which can update list config during list initialization including adding additional fields",
-  "version": "9.0.0",
+  "version": "0.0.0-development",
   "author": "The KeystoneJS Development Team",
   "license": "MIT",
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=16.0.0"
   },
   "dependencies": {
-    "@open-keystone/fields": "^23.0.0",
-    "@open-keystone/fields-authed-relationship": "^2.0.0"
+    "@open-keystone/fields": "workspace:^",
+    "@open-keystone/fields-authed-relationship": "workspace:^"
   },
   "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/list-plugins"
 }

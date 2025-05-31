@@ -2,21 +2,21 @@
   "name": "@open-keystone/api-tests",
   "description": "A set of tests for running against the KeystoneJS API.",
   "private": true,
-  "version": "10.0.0",
+  "version": "0.0.0-development",
   "author": "The KeystoneJS Development Team",
   "license": "MIT",
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=16.0.0"
   },
   "repository": "https://github.com/keystonejs/keystone-5/tree/main/tests/api-tests",
   "homepage": "https://github.com/keystonejs/keystone-5",
   "devDependencies": {
-    "@open-keystone/adapter-knex": "*",
-    "@open-keystone/adapter-mongoose": "*",
-    "@open-keystone/app-graphql": "*",
-    "@open-keystone/keystone": "*",
-    "@open-keystone/server-side-graphql-client": "*",
-    "@open-keystone/session": "*",
+    "@open-keystone/adapter-knex": "workspace:^",
+    "@open-keystone/adapter-mongoose": "workspace:^",
+    "@open-keystone/app-graphql": "workspace:^",
+    "@open-keystone/keystone": "workspace:^",
+    "@open-keystone/server-side-graphql-client": "workspace:^",
+    "@open-keystone/session": "workspace:^",
     "cookie-signature": "^1.1.0",
     "cuid": "^2.1.8",
     "globby": "^11.0.3",
@@ -25,12 +25,12 @@
     "testcheck": "^1.0.0-rc.2"
   },
   "dependencies": {
-    "@open-keystone/auth-password": "^7.0.0",
-    "@open-keystone/fields": "^23.0.0",
-    "@open-keystone/fields-authed-relationship": "^2.0.0",
-    "@open-keystone/list-plugins": "^9.0.0",
-    "@open-keystone/test-utils": "^14.0.0",
-    "@open-keystone/utils": "^7.0.0",
+    "@open-keystone/auth-password": "workspace:^",
+    "@open-keystone/fields": "workspace:^",
+    "@open-keystone/fields-authed-relationship": "workspace:^",
+    "@open-keystone/list-plugins": "workspace:^",
+    "@open-keystone/test-utils": "workspace:^",
+    "@open-keystone/utils": "workspace:^",
     "express": "^4.17.1"
   }
 }
