@@ -24,5 +24,8 @@
     "@open-keystone/fields": "workspace:^",
     "@open-keystone/keystone": "workspace:^",
     "cross-env": "^7.0.3"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

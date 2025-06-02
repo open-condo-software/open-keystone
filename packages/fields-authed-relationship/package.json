@@ -19,5 +19,8 @@
     "@open-keystone/server-side-graphql-client": "workspace:^",
     "@open-keystone/test-utils": "workspace:^"
   },
-  "module": "dist/fields-authed-relationship.esm.js"
+  "module": "dist/fields-authed-relationship.esm.js",
+  "publishConfig": {
+    "access": "public"
+  }
 }

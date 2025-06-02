@@ -35,5 +35,8 @@
   "module": "dist/fields-wysiwyg-tinymce.esm.js",
   "devDependencies": {
     "express": "^4.17.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

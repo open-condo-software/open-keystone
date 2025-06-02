@@ -21,5 +21,8 @@
   "devDependencies": {
     "express": "^4.17.1"
   },
-  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/app-graphql"
+  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/app-graphql",
+  "publishConfig": {
+    "access": "public"
+  }
 }

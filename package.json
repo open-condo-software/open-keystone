@@ -219,5 +219,13 @@
   "engines": {
     "node": ">=10.0.0"
   },
-  "packageManager": "yarn@3.8.7"
+  "packageManager": "yarn@3.8.7",
+  "devDependencies": {
+    "@mono-pub/commit-analyzer": "^1.0.5",
+    "@mono-pub/git": "^1.0.5",
+    "@mono-pub/github": "^1.0.5",
+    "@mono-pub/npm": "^1.0.5",
+    "execa": "^5.1.1",
+    "mono-pub": "^2.0.0"
+  }
 }

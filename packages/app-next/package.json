@@ -10,5 +10,8 @@
   "dependencies": {
     "next": "10.2.3"
   },
-  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/app-next"
+  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/app-next",
+  "publishConfig": {
+    "access": "public"
+  }
 }

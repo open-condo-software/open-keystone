@@ -11,5 +11,8 @@
     "@open-keystone/fields": "workspace:^",
     "@open-keystone/session": "workspace:^"
   },
-  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/auth-password"
+  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/auth-password",
+  "publishConfig": {
+    "access": "public"
+  }
 }
