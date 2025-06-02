@@ -31,5 +31,8 @@
       "index.js",
       "views/*.js"
     ]
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

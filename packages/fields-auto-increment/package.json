@@ -19,5 +19,8 @@
     "@open-keystone/server-side-graphql-client": "workspace:^"
   },
   "main": "dist/fields-auto-increment.cjs.js",
-  "module": "dist/fields-auto-increment.esm.js"
+  "module": "dist/fields-auto-increment.esm.js",
+  "publishConfig": {
+    "access": "public"
+  }
 }

@@ -39,5 +39,8 @@
       "views/*.js",
       "views/blocks/unsplash-image.js"
     ]
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -25,5 +25,8 @@
       "index.js",
       "views/{Controller,Filter}.js"
     ]
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

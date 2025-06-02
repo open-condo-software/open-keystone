@@ -26,5 +26,8 @@
     "cross-env": "^7.0.3",
     "express": "^4.17.1",
     "nuxt": "^2.15.7"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

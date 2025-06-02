@@ -15,5 +15,8 @@
     "cloudinary": "^1.27.0",
     "mkdirp": "^1.0.4",
     "url-join": "^4.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

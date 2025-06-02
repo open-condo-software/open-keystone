@@ -12,5 +12,8 @@
   "dependencies": {
     "@open-keystone/utils": "workspace:^"
   },
-  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/access-control"
+  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/access-control",
+  "publishConfig": {
+    "access": "public"
+  }
 }

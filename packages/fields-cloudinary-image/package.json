@@ -47,5 +47,8 @@
     "dotenv": "^8.6.0",
     "graphql-upload": "^15.0.2",
     "mime": "^2.5.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

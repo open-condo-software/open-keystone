@@ -12,5 +12,8 @@
   "devDependencies": {
     "@open-keystone/fields": "workspace:^",
     "@open-keystone/test-utils": "workspace:^"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

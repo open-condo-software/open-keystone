@@ -7,7 +7,7 @@ const publish = require('mono-pub');
 
 /** @type {import('mono-pub').MonoPubPlugin} */
 const builder = {
-  name: '@open-condo/turbo-builder',
+  name: '@open-keystone/preconstruct-builder',
   async prepareAll({ foundPackages }, ctx) {
     await execa('yarn', ['build'], { cwd: ctx.cwd });
   },

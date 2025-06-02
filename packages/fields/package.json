@@ -78,5 +78,8 @@
       "Controller.js",
       "types/*/views/{Cell,Controller,Filter,Field}.js"
     ]
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
