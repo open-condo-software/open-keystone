@@ -25,31 +25,44 @@ const BREAKING_KEYWORDS = [
 ];
 
 // NOTE: Edit this list to add / remove packages from auto-release cycle
-const RELEASE_LIST = ['packages/*'];
+const RELEASE_LIST = ['packages/*', '!packages/create-keystone-5-app'];
 
-publish(RELEASE_LIST, [
-  git(),
-  github({
-    extractCommitsFromSquashed: true,
-    releaseNotesOptions: {
-      rules: [
-        { breaking: true, section: '⚠️ BREAKING CHANGES' },
-        { type: 'feat', section: '✨ New Features' },
-        ...getReleaseSection(['fix', 'hotfix'], '🐛 Bug Fixes'),
-        { type: 'perf', section: '🚀 Performance Improvements' },
-        ...getReleaseSection(
-          ['docs', 'style', 'refactor', 'test', 'build', 'ci', 'chore', 'revert'],
-          '🦖 Other Changes'
-        ),
-        { dependency: true, section: '🌐 Dependencies' },
-      ],
+publish(
+  RELEASE_LIST,
+  [
+    git(),
+    github({
+      extractCommitsFromSquashed: true,
+      releaseNotesOptions: {
+        rules: [
+          { breaking: true, section: '⚠️ BREAKING CHANGES' },
+          { type: 'feat', section: '✨ New Features' },
+          ...getReleaseSection(['fix', 'hotfix'], '🐛 Bug Fixes'),
+          { type: 'perf', section: '🚀 Performance Improvements' },
+          ...getReleaseSection(
+            ['docs', 'style', 'refactor', 'test', 'build', 'ci', 'chore', 'revert'],
+            '🦖 Other Changes'
+          ),
+          { dependency: true, section: '🌐 Dependencies' },
+        ],
+        breakingNoteKeywords: BREAKING_KEYWORDS,
+      },
+    }),
+    commitAnalyzer({
+      patchTypes: ['fix', 'hotfix', 'revert', 'perf'],
       breakingNoteKeywords: BREAKING_KEYWORDS,
+    }),
+    builder,
+    npm({ provenance: true }),
+  ],
+  {
+    ignoreDependencies: {
+      // Dev deps
+      '@open-keystone/keystone': ['@open-keystone/test-utils', '@open-keystone/fields'],
+      // See original KS notes in packages
+      '@open-keystone/adapter-prisma': ['@open-keystone/fields-auto-increment'],
+      '@open-keystone/adapter-knex': ['@open-keystone/fields-auto-increment'],
+      '@open-keystone/adapter-mongoose': ['@open-keystone/fields-mongoid'],
     },
-  }),
-  commitAnalyzer({
-    patchTypes: ['fix', 'hotfix', 'revert', 'perf'],
-    breakingNoteKeywords: BREAKING_KEYWORDS,
-  }),
-  builder,
-  npm({ provenance: true }),
-]);
+  }
+);

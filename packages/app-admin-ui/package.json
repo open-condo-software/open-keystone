@@ -39,7 +39,6 @@
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
     "@open-keystone/field-views-loader": "workspace:^",
-    "@open-keystone/fields": "workspace:^",
     "@open-keystone/session": "workspace:^",
     "@open-keystone/utils": "workspace:^",
     "@primer/octicons-react": "^11.3.0",
