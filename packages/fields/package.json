@@ -36,7 +36,6 @@
     "@open-keystone/adapter-knex": "workspace:^",
     "@open-keystone/adapter-mongoose": "workspace:^",
     "@open-keystone/adapter-prisma": "workspace:^",
-    "@open-keystone/app-admin-ui": "workspace:^",
     "@open-keystone/server-side-graphql-client": "workspace:^",
     "@open-keystone/utils": "workspace:^",
     "@primer/octicons-react": "^11.3.0",

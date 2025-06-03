@@ -4617,51 +4617,51 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mono-pub/commit-analyzer@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "@mono-pub/commit-analyzer@npm:1.0.5"
+"@mono-pub/commit-analyzer@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "@mono-pub/commit-analyzer@npm:1.0.7"
   dependencies:
     conventional-commits-parser: ^3.2.4
   peerDependencies:
     mono-pub: 1.x
-  checksum: 9bdd6ea65c438379369e81c2fb98f21bbea0af1dd3385ffa3ac3a650a66a46c73a8d0a9d9d0cf0af61e4c714059946de3d3a4cfea3230551c652c5c04ee183b8
+  checksum: d8c97ce9d6409ef1828b9f502c5f5b5f668efc57e2a2c2d353fa5eff90a373d6ef4e79e13ef14311e36a00d9510edd18ca165b9fa4fdaa91f99764e9417f62fa
   languageName: node
   linkType: hard
 
-"@mono-pub/git@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "@mono-pub/git@npm:1.0.5"
+"@mono-pub/git@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "@mono-pub/git@npm:1.0.7"
   dependencies:
     execa: ^5
   peerDependencies:
     mono-pub: 1.x
-  checksum: fb5d646d87b6b447c8c4e60e64d16d26aa5bd1c7ea644d6dc898915f8e84a91175f435b60ba2d4b587b2de11353fad52b29a9611b865d09a41c15c4d34f70509
+  checksum: 2bccb770337abb8004d94cfb1df4b5de05164458fa1960cb22aa7b6c56b864e5e1238ed014a5adef3879c6457657963c81340b3f6309c80e42d2fcd9f72f6203
   languageName: node
   linkType: hard
 
-"@mono-pub/github@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "@mono-pub/github@npm:1.0.5"
+"@mono-pub/github@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "@mono-pub/github@npm:1.0.7"
   dependencies:
-    "@mono-pub/git": ^1.0.5
+    "@mono-pub/git": ^1.0.7
     "@octokit/rest": ^19.0.7
     conventional-commits-parser: ^3.2.4
     lodash: ^4.17.21
   peerDependencies:
     mono-pub: 1.x
-  checksum: 8169e7c34b42361b64465b15e4c6ca1ae5fac2a956bb9ce387141f67b681cd4dbd037dc8ad58cffae53e8439dec4a3c390f80722e4c793a3d0f5b8e03750c9a4
+  checksum: 1fc3f760b0401d421c8be2db650a06fd1981c9227fc386c904cf500f6215967cc75a470f6bbecb4aedbb22d296a085c957eba9457c3077a4424be1fae4b4ae2b
   languageName: node
   linkType: hard
 
-"@mono-pub/npm@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "@mono-pub/npm@npm:1.0.5"
+"@mono-pub/npm@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "@mono-pub/npm@npm:1.0.7"
   dependencies:
     execa: ^5
     tmp: ^0.2.1
   peerDependencies:
     mono-pub: 1.x
-  checksum: 24e6a5a62a284b5fdc6c6693824243829237c0fc132ea232b3d44e43b44a8f2c188fb77149ccdee344e314eace2df3a156b5085cd4c5ff417f06353b94098c5b
+  checksum: 932117f7ccb6aef2a553d9b509acfeaf396a0b9aed856b55092bea744e34b103e8c0dd232acb0bd2fcba9158326e8d08333a37103d9573e0c100dcdd9c28a2ea
   languageName: node
   linkType: hard
 
@@ -6297,7 +6297,6 @@ __metadata:
     "@open-keystone/adapter-knex": "workspace:^"
     "@open-keystone/adapter-mongoose": "workspace:^"
     "@open-keystone/adapter-prisma": "workspace:^"
-    "@open-keystone/app-admin-ui": "workspace:^"
     "@open-keystone/app-static": "workspace:^"
     "@open-keystone/file-adapters": "workspace:^"
     "@open-keystone/server-side-graphql-client": "workspace:^"
@@ -6414,10 +6413,10 @@ __metadata:
     "@changesets/cli": ^2.16.0
     "@jest/test-sequencer": ^26.6.3
     "@manypkg/cli": ^0.18.0
-    "@mono-pub/commit-analyzer": ^1.0.5
-    "@mono-pub/git": ^1.0.5
-    "@mono-pub/github": ^1.0.5
-    "@mono-pub/npm": ^1.0.5
+    "@mono-pub/commit-analyzer": ^1.0.7
+    "@mono-pub/git": ^1.0.7
+    "@mono-pub/github": ^1.0.7
+    "@mono-pub/npm": ^1.0.7
     "@preconstruct/cli": ^2.8.12
     "@types/jest": ^26.0.23
     "@typescript-eslint/eslint-plugin": ^4.28.0
@@ -6453,7 +6452,7 @@ __metadata:
     mocha: ^8.4.0
     mocha-junit-reporter: ^2.0.0
     mongodb: ^3.6.9
-    mono-pub: ^2.0.0
+    mono-pub: ^2.1.1
     p-is-promise: ^3.0.0
     pino-colada: ^2.2.0
     postcss: ^8.3.4
@@ -6484,9 +6483,6 @@ __metadata:
 "@open-keystone/server-side-graphql-client@workspace:^, @open-keystone/server-side-graphql-client@workspace:packages/server-side-graphql-client":
   version: 0.0.0-use.local
   resolution: "@open-keystone/server-side-graphql-client@workspace:packages/server-side-graphql-client"
-  dependencies:
-    "@open-keystone/fields": "workspace:^"
-    "@open-keystone/test-utils": "workspace:^"
   languageName: unknown
   linkType: soft
 
@@ -26674,14 +26670,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mono-pub@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "mono-pub@npm:2.0.0"
+"mono-pub@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "mono-pub@npm:2.1.1"
   dependencies:
     glob: ^10.2.2
     lodash: ^4.17.21
     signale: ^1.4.0
-  checksum: c825e782af8c78ee1e1f789ba64206273769b16eca78937bb27015f202d1d3d0a69107c26a820c8b57e5cff9726128badc69d37ec0938e8fcacc9c356fecbb36
+  checksum: 1a9d415b0bf8b3217f85f4c1342b172011e2ffd8320b3642093a54d5104b49e8a116b6a8e6cf80308fa45b5339acd8301c99f302e48fcd52019eec3d66737ab0
   languageName: node
   linkType: hard
 
