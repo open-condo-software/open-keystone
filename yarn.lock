@@ -5499,7 +5499,6 @@ __metadata:
     "@babel/runtime": ^7.14.6
     "@emotion/core": ^10.1.1
     "@open-keystone/field-views-loader": "workspace:^"
-    "@open-keystone/fields": "workspace:^"
     "@open-keystone/session": "workspace:^"
     "@open-keystone/utils": "workspace:^"
     "@primer/octicons-react": ^11.3.0
@@ -6297,6 +6296,7 @@ __metadata:
     "@open-keystone/adapter-knex": "workspace:^"
     "@open-keystone/adapter-mongoose": "workspace:^"
     "@open-keystone/adapter-prisma": "workspace:^"
+    "@open-keystone/app-admin-ui": "workspace:^"
     "@open-keystone/app-static": "workspace:^"
     "@open-keystone/file-adapters": "workspace:^"
     "@open-keystone/server-side-graphql-client": "workspace:^"
