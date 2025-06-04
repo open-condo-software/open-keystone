@@ -221,11 +221,11 @@
   },
   "packageManager": "yarn@3.8.7",
   "devDependencies": {
-    "@mono-pub/commit-analyzer": "^1.0.8",
-    "@mono-pub/git": "^1.0.8",
-    "@mono-pub/github": "^1.0.8",
-    "@mono-pub/npm": "^1.0.8",
+    "@mono-pub/commit-analyzer": "^1.0.9",
+    "@mono-pub/git": "^1.0.9",
+    "@mono-pub/github": "^1.0.9",
+    "@mono-pub/npm": "^1.0.9",
     "execa": "^5.1.1",
-    "mono-pub": "^2.2.0"
+    "mono-pub": "^2.2.1"
   }
 }
