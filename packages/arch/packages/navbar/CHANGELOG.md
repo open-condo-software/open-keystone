@@ -1,17 +1,5 @@
 # @arch-ui/navbar
 
-## 0.2.0
-
-### Minor Changes
-
-- Changed @keystonejs scope to @open-keystone
-
-### Patch Changes
-
-- Updated dependencies []:
-  - @arch-ui/color-utils@0.1.0
-  - @arch-ui/theme@0.1.0
-
 ## 0.1.15
 
 ### Patch Changes

@@ -1,17 +1,5 @@
 # @arch-ui/pill
 
-## 0.2.0
-
-### Minor Changes
-
-- Changed @keystonejs scope to @open-keystone
-
-### Patch Changes
-
-- Updated dependencies []:
-  - @arch-ui/common@0.1.0
-  - @arch-ui/theme@0.1.0
-
 ## 0.1.21
 
 ### Patch Changes
