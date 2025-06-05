@@ -1,18 +1,5 @@
 # @arch-ui/filters
 
-## 0.1.0
-
-### Minor Changes
-
-- Changed @keystonejs scope to @open-keystone
-
-### Patch Changes
-
-- Updated dependencies []:
-  - @arch-ui/controls@0.2.0
-  - @arch-ui/layout@0.3.0
-  - @arch-ui/theme@0.1.0
-
 ## 0.0.23
 
 ### Patch Changes

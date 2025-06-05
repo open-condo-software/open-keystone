@@ -14,10 +14,10 @@
     "start": "cross-env NODE_ENV=production keystone start"
   },
   "dependencies": {
-    "@arch-ui/controls": "^0.2.0",
-    "@arch-ui/fields": "^3.1.0",
-    "@arch-ui/lozenge": "^0.1.0",
-    "@arch-ui/theme": "^0.1.0",
+    "@arch-ui/controls": "^0.1.12",
+    "@arch-ui/fields": "^3.0.8",
+    "@arch-ui/lozenge": "^0.0.20",
+    "@arch-ui/theme": "^0.0.14",
     "@emotion/core": "^10.1.1",
     "@open-keystone/adapter-mongoose": "workspace:^",
     "@open-keystone/app-admin-ui": "workspace:^",

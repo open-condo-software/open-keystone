@@ -1,7 +1,7 @@
 {
   "name": "@arch-ui/navbar",
   "description": "Navbar UI as used in @open-keystone Admin UI.",
-  "version": "0.2.0",
+  "version": "0.1.15",
   "author": "Jed Watson",
   "license": "MIT",
   "main": "dist/navbar.cjs.js",
@@ -12,8 +12,8 @@
     "react": "^17.0.2"
   },
   "dependencies": {
-    "@arch-ui/color-utils": "^0.1.0",
-    "@arch-ui/theme": "^0.1.0",
+    "@arch-ui/color-utils": "^0.0.5",
+    "@arch-ui/theme": "^0.0.14",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.27",

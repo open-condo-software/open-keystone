@@ -15,8 +15,8 @@
     "cypress:run": "exit 0"
   },
   "dependencies": {
-    "@arch-ui/fields": "^3.1.0",
-    "@arch-ui/input": "^0.2.0",
+    "@arch-ui/fields": "^3.0.8",
+    "@arch-ui/input": "^0.1.14",
     "@open-keystone/adapter-prisma": "workspace:^",
     "@open-keystone/app-admin-ui": "workspace:^",
     "@open-keystone/app-graphql": "workspace:^",

@@ -12,7 +12,7 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@arch-ui/input": "^0.2.0",
+    "@arch-ui/input": "^0.1.14",
     "@babel/runtime": "^7.14.6",
     "@open-keystone/adapter-knex": "workspace:^",
     "@open-keystone/adapter-mongoose": "workspace:^",
