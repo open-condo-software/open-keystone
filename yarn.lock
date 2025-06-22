@@ -6164,7 +6164,7 @@ __metadata:
     "@open-keystone/fields-content": "workspace:^"
     "@open-keystone/file-adapters": "workspace:^"
     "@primer/octicons-react": ^11.3.0
-    cloudinary: ^1.27.0
+    cloudinary: ^1.41.3
     dotenv: ^8.6.0
     graphql-upload: ^15.0.2
     image-extensions: ^1.1.0
@@ -6435,7 +6435,7 @@ __metadata:
   resolution: "@open-keystone/file-adapters@workspace:packages/file-adapters"
   dependencies:
     aws-sdk: ^2.933.0
-    cloudinary: ^1.27.0
+    cloudinary: ^1.41.3
     mkdirp: ^1.0.4
     url-join: ^4.0.1
   languageName: unknown
@@ -12874,7 +12874,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cloudinary@npm:^1.27.0":
+"cloudinary@npm:^1.41.3":
   version: 1.41.3
   resolution: "cloudinary@npm:1.41.3"
   dependencies:

@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@open-keystone/file-adapters": "workspace:^",
-    "cloudinary": "^1.27.0",
+    "cloudinary": "^1.41.3",
     "dotenv": "^8.6.0",
     "graphql-upload": "^15.0.2",
     "mime": "^2.5.2"
