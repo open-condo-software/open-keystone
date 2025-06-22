@@ -11,7 +11,7 @@
     "@open-keystone/fields-auto-increment": "workspace:^",
     "@open-keystone/keystone": "workspace:^",
     "@open-keystone/utils": "workspace:^",
-    "knex": "^0.95.6",
+    "knex": "^2.5.1",
     "p-settle": "^4.1.1",
     "pg": "^8.6.0"
   },
