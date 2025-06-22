@@ -11,7 +11,7 @@ class NextApp {
   }
 
   async prepareMiddleware({ dev, distDir }) {
-    const nextApp = next({ distDir, dir: this._dir, dev });
+    const nextApp = next({ dir: this._dir, dev, conf: { distDir } });
     await nextApp.prepare();
     return nextApp.getRequestHandler();
   }
