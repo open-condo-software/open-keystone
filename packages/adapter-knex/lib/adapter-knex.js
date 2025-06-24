@@ -392,11 +392,13 @@ class KnexListAdapter extends BaseListAdapter {
     // 1:1 - put it in the FK col of the other table
     if (cardinality === '1:1') {
       if (value !== null) {
-        return this._query()
+        const rows = await this._query()
           .table(tableName)
           .where('id', value)
           .update({ [columnName]: itemId })
           .returning('id');
+
+        return rows.map(row => row.id);
       } else {
         return null;
       }
@@ -405,16 +407,20 @@ class KnexListAdapter extends BaseListAdapter {
       if (values.length) {
         if (cardinality === 'N:N') {
           const { near, far } = this._getNearFar(adapter);
-          return this._query()
+          const rows = await this._query()
             .insert(values.map(id => ({ [near]: itemId, [far]: id })))
             .into(tableName)
             .returning(far);
+
+          return rows.map(row => row[far]);
         } else {
-          return this._query()
+          const rows = await this._query()
             .table(tableName)
             .whereIn('id', values) // 1:N
             .update({ [columnName]: itemId })
             .returning('id');
+
+          return rows.map(row => row.id);
         }
       } else {
         return [];
