@@ -5,8 +5,7 @@ import express from 'express';
 import type { Express } from 'express';
 // @ts-ignore
 import supertest from 'supertest-light';
-import MongoDBMemoryServer from 'mongodb-memory-server-core';
-import url from 'url';
+import { MongoMemoryServer } from 'mongodb-memory-server';
 // @ts-ignore
 import { Keystone } from '@open-keystone/keystone';
 // @ts-ignore
@@ -135,16 +134,15 @@ function networkedGraphqlRequest({
 
 // One instance per node.js thread which cleans itself up when the main process
 // exits
-let mongoServer: MongoDBMemoryServer | undefined | null;
+let mongoServer: MongoMemoryServer | undefined | null;
 let mongoServerReferences = 0;
 
 async function getMongoMemoryServerConfig() {
-  mongoServer = mongoServer || new MongoDBMemoryServer();
+  mongoServer = mongoServer || (await MongoMemoryServer.create());
   mongoServerReferences++;
-  // Passing `true` here generates a new, random DB name for us
-  const mongoUri = await mongoServer.getConnectionString(true);
   // In theory the dbName can contain query params so lets parse it then extract the db name
-  const dbName = url.parse(mongoUri).pathname!.split('/').pop();
+  const dbName = `db_${crypto.randomBytes(16).toString('hex')}`;
+  const mongoUri = await mongoServer.getUri(dbName);
 
   return { mongoUri, dbName };
 }
