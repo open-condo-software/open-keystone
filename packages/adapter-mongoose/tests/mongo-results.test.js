@@ -3,7 +3,7 @@ const { queryParser } = require('../lib/query-parser');
 const { postsAdapter, listAdapter } = require('./utils');
 
 const { MongoClient } = require('mongodb');
-const MongoDBMemoryServer = require('mongodb-memory-server-core').default;
+const { MongoMemoryServer } = require('mongodb-memory-server');
 
 const mongoJoinBuilder = parserOptions => {
   return async (query, aggregate) => {
@@ -32,13 +32,10 @@ let mongoDb;
 let mongoServer;
 
 beforeAll(async () => {
-  mongoServer = new MongoDBMemoryServer();
-  const mongoUri = await mongoServer.getConnectionString();
-  mongoConnection = await MongoClient.connect(mongoUri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-  mongoDb = mongoConnection.db(await mongoServer.getDbName());
+  mongoServer = await MongoMemoryServer.create();
+  const mongoUri = mongoServer.getUri();
+  mongoConnection = await MongoClient.connect(mongoUri);
+  mongoDb = mongoConnection.db();
 });
 
 afterAll(() => {

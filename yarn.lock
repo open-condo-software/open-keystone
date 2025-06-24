@@ -5619,6 +5619,7 @@ __metadata:
     "@open-keystone/keystone": "workspace:^"
     "@open-keystone/utils": "workspace:^"
     cuid: ^2.1.8
+    mongodb: ^6.17.0
     mongodb-memory-server: ^10.1.4
     mongoose: ^8.16.0
     p-settle: ^4.1.1
@@ -26740,7 +26741,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mongodb@npm:^6.9.0, mongodb@npm:~6.17.0":
+"mongodb@npm:^6.17.0, mongodb@npm:^6.9.0, mongodb@npm:~6.17.0":
   version: 6.17.0
   resolution: "mongodb@npm:6.17.0"
   dependencies:
