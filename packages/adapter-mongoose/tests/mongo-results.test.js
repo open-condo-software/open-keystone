@@ -3,7 +3,7 @@ const { queryParser } = require('../lib/query-parser');
 const { postsAdapter, listAdapter } = require('./utils');
 
 const { MongoClient } = require('mongodb');
-const MongoDBMemoryServer = require('mongodb-memory-server-core').default;
+const { MongoMemoryServer } = require('mongodb-memory-server');
 
 const mongoJoinBuilder = parserOptions => {
   return async (query, aggregate) => {
@@ -16,14 +16,7 @@ const mongoJoinBuilder = parserOptions => {
 
 function getAggregate(database, collection) {
   return pipeline => {
-    return new Promise((resolve, reject) => {
-      database.collection(collection).aggregate(pipeline, (error, cursor) => {
-        if (error) {
-          return reject(error);
-        }
-        return resolve(cursor.toArray());
-      });
-    });
+    return database.collection(collection).aggregate(pipeline).toArray();
   };
 }
 
@@ -32,18 +25,15 @@ let mongoDb;
 let mongoServer;
 
 beforeAll(async () => {
-  mongoServer = new MongoDBMemoryServer();
-  const mongoUri = await mongoServer.getConnectionString();
-  mongoConnection = await MongoClient.connect(mongoUri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-  mongoDb = mongoConnection.db(await mongoServer.getDbName());
-});
+  mongoServer = await MongoMemoryServer.create();
+  const mongoUri = mongoServer.getUri();
+  mongoConnection = await MongoClient.connect(mongoUri);
+  mongoDb = mongoConnection.db();
+}, 60_000);
 
-afterAll(() => {
-  mongoConnection.close();
-  mongoServer.stop();
+afterAll(async () => {
+  await mongoConnection.close();
+  await mongoServer.stop();
 });
 
 beforeEach(async () => {
@@ -55,7 +45,7 @@ describe('mongo memory servier is alive', () => {
   it('should start mongo server', async () => {
     const collection = mongoDb.collection('heartbeat');
     const result = await collection.insertMany([{ a: 1 }, { b: 1 }]);
-    expect(result.result).toMatchObject({ n: 2, ok: 1 });
+    expect(result).toMatchObject({ acknowledged: true, insertedCount: 2 });
     expect(await collection.countDocuments({})).toBe(2);
   });
 });

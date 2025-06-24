@@ -61,8 +61,8 @@ export const filterTests = withKeystone => {
         undefined,
         adapterName === 'mongoose'
           ? [
-              { name: 'person7', lastOnline: null },
               { name: 'person6', lastOnline: null },
+              { name: 'person7', lastOnline: null },
               { name: 'person1', lastOnline: '1666-04-12T00:08:00.000+10:00' },
               { name: 'person2', lastOnline: '1950-10-01T23:59:59.999-10:00' },
               { name: 'person3', lastOnline: '1990-12-31T12:34:56.789+01:23' },

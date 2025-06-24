@@ -82,12 +82,12 @@ export class MongooseMongoIdInterface extends MongooseFieldAdapter {
     return {
       ...this.equalityConditions(
         this.field.isPrimaryKey ? '_id' : dbPath,
-        s => s && mongoose.Types.ObjectId(s)
+        s => s && new mongoose.Types.ObjectId(s)
       ),
       //NOTE: ObjectId(null) returns a new ObjectId value
       ...this.inConditions(
         this.field.isPrimaryKey ? '_id' : dbPath,
-        s => s && mongoose.Types.ObjectId(s)
+        s => s && new mongoose.Types.ObjectId(s)
       ),
     };
   }

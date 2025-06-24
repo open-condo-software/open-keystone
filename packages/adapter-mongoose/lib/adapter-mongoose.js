@@ -31,7 +31,7 @@ class MongooseAdapter extends BaseKeystoneAdapter {
     this.listAdapterClass = MongooseListAdapter;
     this.name = 'mongoose';
     this.mongoose = new mongoose.Mongoose();
-    this.minVer = '4.0.0';
+    this.minVer = '5.0.0';
     if (debugMongoose()) {
       this.mongoose.set('debug', true);
     }
@@ -56,12 +56,7 @@ class MongooseAdapter extends BaseKeystoneAdapter {
       throw new Error(`No MongoDB connection URI specified.`);
     }
 
-    await this.mongoose.connect(uri, {
-      useNewUrlParser: true,
-      useFindAndModify: false,
-      useUnifiedTopology: true,
-      ...mongooseConfig,
-    });
+    await this.mongoose.connect(uri, mongooseConfig);
   }
   async postConnect({ rels }) {
     // Setup all schemas
@@ -345,8 +340,8 @@ class MongooseListAdapter extends BaseListAdapter {
           return (
             await this._getModel(tableName).create(
               values.map(id => ({
-                [near]: mongoose.Types.ObjectId(itemId),
-                [far]: mongoose.Types.ObjectId(id),
+                [near]: new mongoose.Types.ObjectId(itemId),
+                [far]: new mongoose.Types.ObjectId(id),
               }))
             )
           ).map(x => x[far]);
@@ -420,7 +415,7 @@ class MongooseListAdapter extends BaseListAdapter {
         }
         const currentRefIds = (
           await this._getModel(tableName).aggregate([
-            { $match: { [matchCol]: mongoose.Types.ObjectId(item.id) } },
+            { $match: { [matchCol]: new mongoose.Types.ObjectId(item.id) } },
           ])
         ).map(x => x[selectCol].toString());
 
@@ -431,12 +426,12 @@ class MongooseListAdapter extends BaseListAdapter {
             await this._getModel(tableName).deleteMany({
               $and: [
                 { [matchCol]: { $eq: item._id } },
-                { [selectCol]: { $in: needsDelete.map(id => mongoose.Types.ObjectId(id)) } },
+                { [selectCol]: { $in: needsDelete.map(id => new mongoose.Types.ObjectId(id)) } },
               ],
             });
           } else {
             await this._getModel(tableName).updateMany(
-              { [selectCol]: { $in: needsDelete.map(id => mongoose.Types.ObjectId(id)) } },
+              { [selectCol]: { $in: needsDelete.map(id => new mongoose.Types.ObjectId(id)) } },
               { [columnName]: null }
             );
           }
@@ -457,7 +452,7 @@ class MongooseListAdapter extends BaseListAdapter {
   }
 
   async _delete(id) {
-    id = mongoose.Types.ObjectId(id);
+    id = new mongoose.Types.ObjectId(id);
     // Traverse all other lists and remove references to this item
     // We can't just traverse our own fields, because we might have been
     // a silent partner in a relationship, so we have no self-knowledge of it.
@@ -521,14 +516,14 @@ class MongooseListAdapter extends BaseListAdapter {
         ids = await this._getModel(tableName).aggregate([
           {
             $match: {
-              [columnNames[columnKey].near]: { $eq: mongoose.Types.ObjectId(from.fromId) },
+              [columnNames[columnKey].near]: { $eq: new mongoose.Types.ObjectId(from.fromId) },
             },
           },
         ]);
         ids = ids.map(x => x[columnNames[columnKey].far]);
       } else {
         ids = await this._getModel(tableName).aggregate([
-          { $match: { [columnName]: mongoose.Types.ObjectId(from.fromId) } },
+          { $match: { [columnName]: new mongoose.Types.ObjectId(from.fromId) } },
         ]);
         ids = ids.map(x => x._id);
       }
