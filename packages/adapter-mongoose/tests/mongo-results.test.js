@@ -16,14 +16,7 @@ const mongoJoinBuilder = parserOptions => {
 
 function getAggregate(database, collection) {
   return pipeline => {
-    return new Promise((resolve, reject) => {
-      database.collection(collection).aggregate(pipeline, (error, cursor) => {
-        if (error) {
-          return reject(error);
-        }
-        return resolve(cursor.toArray());
-      });
-    });
+    return database.collection(collection).aggregate(pipeline).toArray();
   };
 }
 
@@ -36,11 +29,11 @@ beforeAll(async () => {
   const mongoUri = mongoServer.getUri();
   mongoConnection = await MongoClient.connect(mongoUri);
   mongoDb = mongoConnection.db();
-});
+}, 60_000);
 
-afterAll(() => {
-  mongoConnection.close();
-  mongoServer.stop();
+afterAll(async () => {
+  await mongoConnection.close();
+  await mongoServer.stop();
 });
 
 beforeEach(async () => {
@@ -52,7 +45,7 @@ describe('mongo memory servier is alive', () => {
   it('should start mongo server', async () => {
     const collection = mongoDb.collection('heartbeat');
     const result = await collection.insertMany([{ a: 1 }, { b: 1 }]);
-    expect(result.result).toMatchObject({ n: 2, ok: 1 });
+    expect(result).toMatchObject({ acknowledged: true, insertedCount: 2 });
     expect(await collection.countDocuments({})).toBe(2);
   });
 });
