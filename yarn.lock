@@ -5808,6 +5808,9 @@ __metadata:
   resolution: "@open-keystone/app-next@workspace:packages/app-next"
   dependencies:
     next: ^12.3.7
+  peerDependencies:
+    react: ^17.0.2
+    react-dom: ^17.0.2
   languageName: unknown
   linkType: soft
 
