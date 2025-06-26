@@ -489,6 +489,15 @@ module.exports = class List {
   }
 
   async listQueryMeta(args, context, gqlName, info, from) {
+    if (info?.cacheControl) {
+      const opName = info.operation?.name?.value;
+      const hint =
+        typeof this.cacheHint === 'function'
+          ? this.cacheHint({ results: [], operationName: opName, meta: true })
+          : this.cacheHint;
+      if (hint) info.cacheControl.setCacheHint(hint);
+    }
+
     return {
       // Return these as functions so they're lazily evaluated depending
       // on what the user requested

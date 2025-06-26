@@ -1,4 +1,5 @@
 const { ApolloServer, gql } = require('apollo-server-express');
+const { ApolloServerPluginCacheControl } = require('apollo-server-core');
 const flattenDeep = require('lodash.flattendeep');
 const memoize = require('micro-memoize');
 const falsey = require('falsey');
@@ -458,8 +459,6 @@ module.exports = class Keystone {
     });
 
     const server = new ApolloServer({
-      typeDefs,
-      resolvers,
       schema,
       context: ({ req }) => ({
         ...this.createContext({
@@ -472,6 +471,13 @@ module.exports = class Keystone {
       }),
       formatError,
       ...apolloConfig,
+      plugins: [
+        ...(apolloConfig.plugins || []),
+        ApolloServerPluginCacheControl({
+          calculateHttpHeaders: true,
+          defaultMaxAge: 0,
+        }),
+      ],
     });
 
     await server.start();
