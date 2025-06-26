@@ -4,6 +4,7 @@ const memoize = require('micro-memoize');
 const falsey = require('falsey');
 const createCorsMiddleware = require('cors');
 const { execute, print } = require('graphql');
+const { makeExecutableSchema } = require('@graphql-tools/schema');
 const GraphQLUpload = require('graphql-upload/GraphQLUpload.js');
 const { arrayToObject, objMerge, flatten, unique, filterValues } = require('@open-keystone/utils');
 const {
@@ -226,7 +227,8 @@ module.exports = class Keystone {
       query = gql(query);
     }
 
-    return execute(schema, query, null, context, variables);
+    // return execute(schema, query, null, context, variables);
+    return execute({ schema, document: query, contextValue: context, variableValues: variables });
   }
 
   createAuthStrategy(options) {
@@ -443,11 +445,22 @@ module.exports = class Keystone {
     }
   }
 
-  createApolloServer({ apolloConfig = {}, schemaName, dev }) {
+  async createApolloServer({ apolloConfig = {}, schemaName }) {
     // add the Admin GraphQL API
+
+    const typeDefs = this.getTypeDefs({ schemaName });
+    const resolvers = this.getResolvers({ schemaName });
+    const { parseOptions } = apolloConfig;
+    const schema = makeExecutableSchema({
+      typeDefs,
+      resolvers,
+      parseOptions,
+    });
+
     const server = new ApolloServer({
-      typeDefs: this.getTypeDefs({ schemaName }),
-      resolvers: this.getResolvers({ schemaName }),
+      typeDefs,
+      resolvers,
+      schema,
       context: ({ req }) => ({
         ...this.createContext({
           schemaName,
@@ -457,22 +470,13 @@ module.exports = class Keystone {
         ...this._sessionManager.getContext(req),
         req,
       }),
-      ...(process.env.ENGINE_API_KEY || process.env.APOLLO_KEY
-        ? {
-            tracing: true,
-          }
-        : {
-            engine: false,
-            // Only enable tracing in dev mode so we can get local debug info, but
-            // don't bother returning that info on prod when the `engine` is
-            // disabled.
-            tracing: dev,
-          }),
       formatError,
       ...apolloConfig,
-      uploads: false, // User cannot override this as it would clash with the upload middleware
     });
-    this._schemas[schemaName] = server.schema;
+
+    await server.start();
+
+    this._schemas[schemaName] = schema;
 
     return server;
   }
@@ -607,7 +611,7 @@ module.exports = class Keystone {
     pinoOptions,
     cors = { origin: true, credentials: true },
   } = {}) {
-    this.createApolloServer({ schemaName: 'internal' });
+    await this.createApolloServer({ schemaName: 'internal' });
     const middlewares = await this._prepareMiddlewares({ dev, apps, distDir, pinoOptions, cors });
     // These function can't be called after prepare(), so make them throw an error from now on.
     ['extendGraphQLSchema', 'createList', 'createAuthStrategy'].forEach(f => {

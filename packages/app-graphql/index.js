@@ -25,8 +25,8 @@ class GraphQLApp {
   /**
    * @return Array<middlewares>
    */
-  prepareMiddleware({ keystone, dev }) {
-    const server = keystone.createApolloServer({
+  async prepareMiddleware({ keystone, dev }) {
+    const server = await keystone.createApolloServer({
       apolloConfig: this._apollo,
       schemaName: this._schemaName,
       dev,

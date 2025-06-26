@@ -11,7 +11,7 @@
     "@open-keystone/app-graphql-playground": "workspace:^",
     "@open-keystone/session": "workspace:^",
     "@open-keystone/utils": "workspace:^",
-    "graphql": "^15.5.0",
+    "graphql": "^16.10.0",
     "graphql-upload": "^15.0.2",
     "nanoassert": "^2.0.0"
   },
