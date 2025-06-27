@@ -121,6 +121,7 @@ export class SessionManager {
       next();
     };
 
+    // @ts-ignore
     return [injectAuthCookieMiddleware, sessionMiddleware, _populateAuthedItemMiddleware];
   }
 

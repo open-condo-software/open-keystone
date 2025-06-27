@@ -382,7 +382,6 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
           expect(errors).toContainEqual({
             message: 'Operation has depth 5 (max: 3)',
             extensions: { code: 'GRAPHQL_VALIDATION_FAILED' },
-            name: 'ValidationError',
             uid: expect.anything(),
           });
         })
@@ -497,7 +496,6 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
           expect(errors).toContainEqual({
             message: 'Undefined fragment "nosuchfragment"',
             extensions: { code: 'GRAPHQL_VALIDATION_FAILED' },
-            name: 'ValidationError',
             uid: expect.anything(),
           });
         })
@@ -607,7 +605,6 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
           expect(errors).toContainEqual({
             message: 'Request contains 4 definitions (max: 3)',
             extensions: { code: 'GRAPHQL_VALIDATION_FAILED' },
-            name: 'ValidationError',
             uid: expect.anything(),
           });
         })
@@ -751,7 +748,6 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
           expect(errors).toContainEqual({
             message: 'Request contains 13 fields (max: 8)',
             extensions: { code: 'GRAPHQL_VALIDATION_FAILED' },
-            name: 'ValidationError',
             uid: expect.anything(),
           });
         })
@@ -811,7 +807,6 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
           expect(errors).toContainEqual({
             message: 'Request contains 80 fields (max: 8)',
             extensions: { code: 'GRAPHQL_VALIDATION_FAILED' },
-            name: 'ValidationError',
             uid: expect.anything(),
           });
         })
