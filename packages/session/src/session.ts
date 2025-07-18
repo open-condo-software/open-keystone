@@ -13,9 +13,9 @@ type _List = {
 };
 type _Keystone = { lists: Record<string, _List> };
 type _SessionInfo = {
-  creatorId: string;
-  provider: string;
-  authMethod: string;
+  creatorId?: string;
+  provider?: string;
+  authMethod?: string;
 };
 
 export class SessionManager {
