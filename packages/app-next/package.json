@@ -7,10 +7,8 @@
   "engines": {
     "node": ">=16.0.0"
   },
-  "dependencies": {
-    "next": "^12.3.7"
-  },
   "peerDependencies": {
+    "next": ">=12",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
