@@ -10,7 +10,7 @@ const getCellFromSecondRow = index =>
   `#ks-list-table tbody > tr:nth-child(2) > td:nth-child(${index})`;
 
 beforeEach(() => {
-  cy.clock(1551628922000);
+  cy.clock(1551628922000, ['Date']);
 });
 
 ///// Begin Date Time Component

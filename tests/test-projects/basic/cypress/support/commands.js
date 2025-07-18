@@ -37,27 +37,33 @@ function graphqlOperation(type) {
     // etc, are.
     // Why not read the cookies, and execute it from within the test? Because
     // the cookies are HTTP-only, so they're not accessible via JavaScript.
-    return cy.window().then(win =>
-      // NOTE: __APOLLO_CLIENT__ is only available in dev mode
-      // (process.env.NODE_ENV !== 'production'), so this may error at some
-      // point. If so, we need another way of attaching a global graphql query
-      // lib to the window from within the app for testing.
-      win.__APOLLO_CLIENT__[type]({
-        [type === 'mutate' ? 'mutation' : type]: operation,
+    return cy
+      .window()
+      .its('__APOLLO_CLIENT__', { timeout: 10000 })
+      .should(client => {
+        expect(client).to.haveOwnProperty(type);
       })
-        .then(result => {
-          console.log('Fetched data:', result);
-          return result;
+      .then(client =>
+        // NOTE: __APOLLO_CLIENT__ is only available in dev mode
+        // (process.env.NODE_ENV !== 'production'), so this may error at some
+        // point. If so, we need another way of attaching a global graphql query
+        // lib to the window from within the app for testing.
+        client[type]({
+          [type === 'mutate' ? 'mutation' : type]: operation,
         })
-        .catch(error => {
-          console.error(`${type} error:`, error);
-          if (error.graphQLErrors) {
-            return { errors: error.graphQLErrors };
-          } else {
-            return { errors: [error] };
-          }
-        })
-    );
+          .then(result => {
+            console.log('Fetched data:', result);
+            return result;
+          })
+          .catch(error => {
+            console.error(`${type} error:`, error);
+            if (error.graphQLErrors) {
+              return { errors: error.graphQLErrors };
+            } else {
+              return { errors: [error] };
+            }
+          })
+      );
   };
 }
 

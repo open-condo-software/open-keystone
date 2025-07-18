@@ -37,28 +37,34 @@ function graphqlOperation(type) {
     // the cookies are HTTP-only, so they're not accessible via JavaScript.
     // NOTE: Timeout of 10s as sometimes this command was timing out after the
     // default 4s.
-    return cy.window({ timeout: 10000 }).then({ timeout: 10000 }, win =>
-      // NOTE: __APOLLO_CLIENT__ is only available in dev mode
-      // (process.env.NODE_ENV !== 'production'), so this may error at some
-      // point. If so, we need another way of attaching a global graphql query
-      // lib to the window from within the app for testing.
-      win.__APOLLO_CLIENT__[type]({
-        [type === 'mutate' ? 'mutation' : type]: operation,
-        // Avoid anything which may be cached when loading the admin UI - we
-        // want to test how the GraphQL API responds, not how the Apollo Cache
-        // responds (which can be different: it doesn't cache errors!)
-        fetchPolicy: 'no-cache',
-        // The GraphQL api might send back partial data + partial errors. We
-        // want it all.
-        errorPolicy: 'all',
-      }).catch(error => {
-        if (error.graphQLErrors) {
-          return { errors: error.graphQLErrors };
-        } else {
-          return { errors: [error] };
-        }
+    return cy
+      .window({ timeout: 10000 })
+      .its('__APOLLO_CLIENT__', { timeout: 10000 })
+      .should(client => {
+        expect(client).to.haveOwnProperty(type);
       })
-    );
+      .then({ timeout: 10000 }, client =>
+        // NOTE: __APOLLO_CLIENT__ is only available in dev mode
+        // (process.env.NODE_ENV !== 'production'), so this may error at some
+        // point. If so, we need another way of attaching a global graphql query
+        // lib to the window from within the app for testing.
+        client[type]({
+          [type === 'mutate' ? 'mutation' : type]: operation,
+          // Avoid anything which may be cached when loading the admin UI - we
+          // want to test how the GraphQL API responds, not how the Apollo Cache
+          // responds (which can be different: it doesn't cache errors!)
+          fetchPolicy: 'no-cache',
+          // The GraphQL api might send back partial data + partial errors. We
+          // want it all.
+          errorPolicy: 'all',
+        }).catch(error => {
+          if (error.graphQLErrors) {
+            return { errors: error.graphQLErrors };
+          } else {
+            return { errors: [error] };
+          }
+        })
+      );
   };
 }
 
