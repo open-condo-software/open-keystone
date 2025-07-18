@@ -12,10 +12,10 @@
     "react": "^17.0.2"
   },
   "dependencies": {
-    "@open-arch-ui/theme": "0.0.14",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
-    "@emotion/styled": "^10.0.27"
+    "@emotion/styled": "^10.0.27",
+    "@open-arch-ui/theme": "workspace:^"
   },
   "module": "dist/badge.esm.js",
   "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/arch/packages/badge"

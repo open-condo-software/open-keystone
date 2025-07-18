@@ -18,7 +18,7 @@
     "cypress:open": "if [ -f .env ]; then yarn prepare-test-server cypress:open:cmd; else echo \"\nError: Must create a tests/test-projects/client-validation/.env file.\nSee tests/test-projects/client-validation/.env.example for values\n\"; exit 1; fi"
   },
   "dependencies": {
-    "@open-arch-ui/fields": "^3.0.8",
+    "@open-arch-ui/fields": "workspace:^",
     "@open-keystone/adapter-prisma": "workspace:^",
     "@open-keystone/app-admin-ui": "workspace:^",
     "@open-keystone/app-graphql": "workspace:^",

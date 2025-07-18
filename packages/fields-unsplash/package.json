@@ -11,10 +11,10 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.8",
-    "@open-arch-ui/fields": "^3.0.8",
-    "@open-arch-ui/input": "^0.1.14",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
+    "@open-arch-ui/fields": "workspace:^",
+    "@open-arch-ui/input": "workspace:^",
     "@open-keystone/adapter-knex": "workspace:^",
     "@open-keystone/adapter-mongoose": "workspace:^",
     "@open-keystone/adapter-prisma": "workspace:^",

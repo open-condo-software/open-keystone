@@ -10,11 +10,11 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@open-arch-ui/fields": "^3.0.8",
-    "@open-arch-ui/input": "^0.1.14",
-    "@open-arch-ui/theme": "^0.0.14",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
+    "@open-arch-ui/fields": "workspace:^",
+    "@open-arch-ui/input": "workspace:^",
+    "@open-arch-ui/theme": "workspace:^",
     "@open-keystone/fields": "workspace:^",
     "@primer/octicons-react": "^11.3.0",
     "@tinymce/tinymce-react": "^3.12.6",

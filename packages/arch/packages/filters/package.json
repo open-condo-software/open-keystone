@@ -12,11 +12,11 @@
     "react": "^17.0.2"
   },
   "dependencies": {
-    "@open-arch-ui/controls": "^0.1.12",
-    "@open-arch-ui/layout": "^0.2.17",
-    "@open-arch-ui/theme": "^0.0.14",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
+    "@open-arch-ui/controls": "workspace:^",
+    "@open-arch-ui/layout": "workspace:^",
+    "@open-arch-ui/theme": "workspace:^",
     "react-radios": "^1.1.0"
   },
   "module": "dist/filters.esm.js",

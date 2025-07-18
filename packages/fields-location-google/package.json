@@ -10,10 +10,10 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@open-arch-ui/fields": "^3.0.8",
-    "@open-arch-ui/select": "^0.1.12",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
+    "@open-arch-ui/fields": "workspace:^",
+    "@open-arch-ui/select": "workspace:^",
     "@open-keystone/adapter-knex": "workspace:^",
     "@open-keystone/adapter-mongoose": "workspace:^",
     "@open-keystone/adapter-prisma": "workspace:^",

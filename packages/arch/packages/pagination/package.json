@@ -12,13 +12,13 @@
     "react": "^17.0.2"
   },
   "dependencies": {
-    "@open-arch-ui/button": "^0.0.25",
-    "@open-arch-ui/layout": "^0.2.17",
-    "@open-arch-ui/loading": "^0.0.21",
-    "@open-arch-ui/theme": "^0.0.14",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.27",
+    "@open-arch-ui/button": "workspace:^",
+    "@open-arch-ui/layout": "workspace:^",
+    "@open-arch-ui/loading": "workspace:^",
+    "@open-arch-ui/theme": "workspace:^",
     "@primer/octicons-react": "^11.3.0",
     "react-router-dom": "5.2.0"
   },

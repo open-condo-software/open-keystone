@@ -281,511 +281,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@open-arch-ui/alert@^0.0.21, @open-arch-ui/alert@workspace:packages/arch/packages/alert":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/alert@workspace:packages/arch/packages/alert"
-  dependencies:
-    "@open-arch-ui/theme": ^0.0.14
-    "@emotion/core": ^10.1.1
-    "@emotion/styled": ^10.0.27
-    react: ^17.0.2
-  peerDependencies:
-    react: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/badge@^0.0.20, @open-arch-ui/badge@workspace:packages/arch/packages/badge":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/badge@workspace:packages/arch/packages/badge"
-  dependencies:
-    "@open-arch-ui/theme": 0.0.14
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    "@emotion/styled": ^10.0.27
-    react: ^17.0.2
-  peerDependencies:
-    react: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/button@^0.0.25, @open-arch-ui/button@workspace:packages/arch/packages/button":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/button@workspace:packages/arch/packages/button"
-  dependencies:
-    "@open-arch-ui/color-utils": ^0.0.5
-    "@open-arch-ui/common": ^0.0.15
-    "@open-arch-ui/loading": ^0.0.21
-    "@open-arch-ui/theme": ^0.0.14
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    "@emotion/styled": ^10.0.27
-    react: ^17.0.2
-    react-pseudo-state: ^2.2.2
-    react-router-dom: 5.2.0
-  peerDependencies:
-    react: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/card@^0.0.18, @open-arch-ui/card@workspace:packages/arch/packages/card":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/card@workspace:packages/arch/packages/card"
-  dependencies:
-    "@open-arch-ui/theme": 0.0.14
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    react: ^17.0.2
-  peerDependencies:
-    react: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/color-utils@0.0.5, @open-arch-ui/color-utils@^0.0.5, @open-arch-ui/color-utils@workspace:packages/arch/packages/color-utils":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/color-utils@workspace:packages/arch/packages/color-utils"
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/common@0.0.15, @open-arch-ui/common@^0.0.15, @open-arch-ui/common@workspace:packages/arch/packages/common":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/common@workspace:packages/arch/packages/common"
-  dependencies:
-    "@open-arch-ui/theme": ^0.0.14
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/confirm@^0.0.26, @open-arch-ui/confirm@workspace:packages/arch/packages/confirm":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/confirm@workspace:packages/arch/packages/confirm"
-  dependencies:
-    "@open-arch-ui/modal-utils": ^1.0.16
-    "@open-arch-ui/theme": ^0.0.14
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    "@emotion/styled": ^10.0.27
-    focus-trap-react: ^8.5.1
-    react: ^17.0.2
-    react-dom: ^17.0.2
-    react-scrolllock: ^5.0.1
-  peerDependencies:
-    react: ^17.0.2
-    react-dom: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/controls@^0.1.12, @open-arch-ui/controls@workspace:packages/arch/packages/controls":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/controls@workspace:packages/arch/packages/controls"
-  dependencies:
-    "@open-arch-ui/input": ^0.1.14
-    "@open-arch-ui/theme": ^0.0.14
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    "@emotion/styled": ^10.0.27
-    react: ^17.0.2
-    react-pseudo-state: ^2.2.2
-    react-radios: ^1.1.0
-  peerDependencies:
-    react: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/day-picker@^1.0.8, @open-arch-ui/day-picker@workspace:packages/arch/packages/day-picker":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/day-picker@workspace:packages/arch/packages/day-picker"
-  dependencies:
-    "@open-arch-ui/input": ^0.1.14
-    "@open-arch-ui/select": ^0.1.12
-    "@open-arch-ui/theme": ^0.0.14
-    "@open-arch-ui/typography": ^0.0.21
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    "@emotion/styled": ^10.0.27
-    "@primer/octicons-react": ^11.3.0
-    chrono-node: ^1.4.8
-    date-fns: ^2.22.1
-    intersection-observer: ^0.12.0
-    moment: ^2.29.1
-    react: ^17.0.2
-    react-window: ^1.8.6
-  peerDependencies:
-    react: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/dialog@^0.0.28, @open-arch-ui/dialog@workspace:packages/arch/packages/dialog":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/dialog@workspace:packages/arch/packages/dialog"
-  dependencies:
-    "@open-arch-ui/color-utils": ^0.0.5
-    "@open-arch-ui/modal-utils": ^1.0.16
-    "@open-arch-ui/theme": ^0.0.14
-    "@open-arch-ui/typography": ^0.0.21
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    "@emotion/styled": ^10.0.27
-    focus-trap-react: ^8.5.1
-    react: ^17.0.2
-    react-dom: ^17.0.2
-    react-scrolllock: ^5.0.1
-  peerDependencies:
-    react: ^17.0.2
-    react-dom: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/docs@workspace:packages/arch/docs":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/docs@workspace:packages/arch/docs"
-  dependencies:
-    "@open-arch-ui/alert": ^0.0.21
-    "@open-arch-ui/badge": ^0.0.20
-    "@open-arch-ui/button": ^0.0.25
-    "@open-arch-ui/controls": ^0.1.12
-    "@open-arch-ui/dialog": ^0.0.28
-    "@open-arch-ui/dropdown": ^0.0.25
-    "@open-arch-ui/fields": ^3.0.8
-    "@open-arch-ui/input": ^0.1.14
-    "@open-arch-ui/layout": ^0.2.17
-    "@open-arch-ui/loading": ^0.0.21
-    "@open-arch-ui/lozenge": ^0.0.20
-    "@open-arch-ui/navbar": ^0.1.15
-    "@open-arch-ui/pagination": ^0.0.29
-    "@open-arch-ui/pill": ^0.1.21
-    "@open-arch-ui/popout": ^0.0.26
-    "@open-arch-ui/select": ^0.1.12
-    "@open-arch-ui/theme": ^0.0.14
-    "@open-arch-ui/tooltip": ^0.1.17
-    "@open-arch-ui/typography": ^0.0.21
-    "@emotion/core": ^10.1.1
-    "@emotion/styled": ^10.0.27
-    "@primer/octicons-react": ^11.3.0
-    "@reach/router": ^1.3.4
-    clipboard-copy: ^4.0.1
-    gatsby: 2.13.25
-    react: ^17.0.2
-    react-dom: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/drawer@^0.0.28, @open-arch-ui/drawer@workspace:packages/arch/packages/drawer":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/drawer@workspace:packages/arch/packages/drawer"
-  dependencies:
-    "@open-arch-ui/color-utils": ^0.0.5
-    "@open-arch-ui/modal-utils": ^1.0.16
-    "@open-arch-ui/theme": ^0.0.14
-    "@open-arch-ui/typography": ^0.0.21
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    "@emotion/styled": ^10.0.27
-    focus-trap-react: ^8.5.1
-    react: ^17.0.2
-    react-dom: ^17.0.2
-    react-scrolllock: ^5.0.1
-  peerDependencies:
-    react: ^17.0.2
-    react-dom: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/dropdown@^0.0.25, @open-arch-ui/dropdown@workspace:packages/arch/packages/dropdown":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/dropdown@workspace:packages/arch/packages/dropdown"
-  dependencies:
-    "@open-arch-ui/modal-utils": ^1.0.16
-    "@open-arch-ui/theme": ^0.0.14
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    "@emotion/styled": ^10.0.27
-    focus-trap-react: ^8.5.1
-    react: ^17.0.2
-    react-dom: ^17.0.2
-    react-router-dom: 5.2.0
-  peerDependencies:
-    react: ^17.0.2
-    react-dom: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/fields@^3.0.8, @open-arch-ui/fields@workspace:packages/arch/packages/fields":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/fields@workspace:packages/arch/packages/fields"
-  dependencies:
-    "@open-arch-ui/lozenge": ^0.0.20
-    "@open-arch-ui/theme": ^0.0.14
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    "@emotion/styled": ^10.0.27
-    "@primer/octicons-react": ^11.3.0
-    react: ^17.0.2
-  peerDependencies:
-    react: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/filters@^0.0.23, @open-arch-ui/filters@workspace:packages/arch/packages/filters":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/filters@workspace:packages/arch/packages/filters"
-  dependencies:
-    "@open-arch-ui/controls": ^0.1.12
-    "@open-arch-ui/layout": ^0.2.17
-    "@open-arch-ui/theme": ^0.0.14
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    react: ^17.0.2
-    react-radios: ^1.1.0
-  peerDependencies:
-    react: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/hooks@^0.0.14, @open-arch-ui/hooks@workspace:packages/arch/packages/hooks":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/hooks@workspace:packages/arch/packages/hooks"
-  dependencies:
-    "@babel/runtime": ^7.14.6
-    react: ^17.0.2
-    resize-observer-polyfill: ^1.5.1
-  peerDependencies:
-    react: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/icons@workspace:packages/arch/packages/icons":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/icons@workspace:packages/arch/packages/icons"
-  dependencies:
-    "@babel/runtime": ^7.14.6
-    "@primer/octicons": ^12.1.0
-    fs-extra: ^9.1.0
-    react: ^17.0.2
-    to-pascal-case: ^1.0.0
-  peerDependencies:
-    react: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/input@^0.1.14, @open-arch-ui/input@workspace:packages/arch/packages/input":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/input@workspace:packages/arch/packages/input"
-  dependencies:
-    "@open-arch-ui/color-utils": 0.0.5
-    "@open-arch-ui/common": 0.0.15
-    "@open-arch-ui/theme": 0.0.14
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    react: ^17.0.2
-  peerDependencies:
-    react: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/layout@^0.2.17, @open-arch-ui/layout@workspace:packages/arch/packages/layout":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/layout@workspace:packages/arch/packages/layout"
-  dependencies:
-    "@open-arch-ui/common": 0.0.15
-    "@open-arch-ui/theme": 0.0.14
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    "@emotion/styled": ^10.0.27
-    react: ^17.0.2
-  peerDependencies:
-    react: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/loading@^0.0.21, @open-arch-ui/loading@workspace:packages/arch/packages/loading":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/loading@workspace:packages/arch/packages/loading"
-  dependencies:
-    "@open-arch-ui/theme": 0.0.14
-    "@open-arch-ui/typography": 0.0.21
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    "@emotion/styled": ^10.0.27
-    react: ^17.0.2
-  peerDependencies:
-    react: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/lozenge@^0.0.20, @open-arch-ui/lozenge@workspace:packages/arch/packages/lozenge":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/lozenge@workspace:packages/arch/packages/lozenge"
-  dependencies:
-    "@open-arch-ui/theme": 0.0.14
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    "@emotion/styled": ^10.0.27
-    react: ^17.0.2
-  peerDependencies:
-    react: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/modal-utils@^1.0.16, @open-arch-ui/modal-utils@workspace:packages/arch/packages/modal-utils":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/modal-utils@workspace:packages/arch/packages/modal-utils"
-  dependencies:
-    "@open-arch-ui/color-utils": ^0.0.5
-    "@open-arch-ui/theme": ^0.0.14
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    "@emotion/styled": ^10.0.27
-    react: ^17.0.2
-    react-scrolllock: ^5.0.1
-    react-transition-group: ^4.4.2
-  peerDependencies:
-    react: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/navbar@^0.1.15, @open-arch-ui/navbar@workspace:packages/arch/packages/navbar":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/navbar@workspace:packages/arch/packages/navbar"
-  dependencies:
-    "@open-arch-ui/color-utils": ^0.0.5
-    "@open-arch-ui/theme": ^0.0.14
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    "@emotion/styled": ^10.0.27
-    react: ^17.0.2
-    react-router-dom: 5.2.0
-  peerDependencies:
-    react: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/options@^0.0.27, @open-arch-ui/options@workspace:packages/arch/packages/options":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/options@workspace:packages/arch/packages/options"
-  dependencies:
-    "@open-arch-ui/common": ^0.0.15
-    "@open-arch-ui/theme": ^0.0.14
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    "@primer/octicons-react": ^11.3.0
-    react: ^17.0.2
-    react-select: ^3.2.0
-  peerDependencies:
-    react: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/pagination@^0.0.29, @open-arch-ui/pagination@workspace:packages/arch/packages/pagination":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/pagination@workspace:packages/arch/packages/pagination"
-  dependencies:
-    "@open-arch-ui/button": ^0.0.25
-    "@open-arch-ui/layout": ^0.2.17
-    "@open-arch-ui/loading": ^0.0.21
-    "@open-arch-ui/theme": ^0.0.14
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    "@emotion/styled": ^10.0.27
-    "@primer/octicons-react": ^11.3.0
-    react: ^17.0.2
-    react-router-dom: 5.2.0
-  peerDependencies:
-    react: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/pill@^0.1.21, @open-arch-ui/pill@workspace:packages/arch/packages/pill":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/pill@workspace:packages/arch/packages/pill"
-  dependencies:
-    "@open-arch-ui/common": ^0.0.15
-    "@open-arch-ui/theme": 0.0.14
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    "@emotion/styled": ^10.0.27
-    "@primer/octicons-react": ^11.3.0
-    react: ^17.0.2
-  peerDependencies:
-    react: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/popout@^0.0.26, @open-arch-ui/popout@workspace:packages/arch/packages/popout":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/popout@workspace:packages/arch/packages/popout"
-  dependencies:
-    "@open-arch-ui/color-utils": ^0.0.5
-    "@open-arch-ui/modal-utils": ^1.0.16
-    "@open-arch-ui/theme": ^0.0.14
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    "@emotion/styled": ^10.0.27
-    "@popperjs/core": ^2.9.2
-    focus-trap-react: ^8.5.1
-    react: ^17.0.2
-    react-dom: ^17.0.2
-    react-popper: ^2.2.5
-  peerDependencies:
-    react: ^17.0.2
-    react-dom: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/select@^0.1.12, @open-arch-ui/select@workspace:packages/arch/packages/select":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/select@workspace:packages/arch/packages/select"
-  dependencies:
-    "@open-arch-ui/theme": ^0.0.14
-    "@babel/runtime": ^7.14.6
-    react: ^17.0.2
-    react-select: ^3.2.0
-  peerDependencies:
-    react: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/theme@0.0.14, @open-arch-ui/theme@^0.0.14, @open-arch-ui/theme@workspace:packages/arch/packages/theme":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/theme@workspace:packages/arch/packages/theme"
-  dependencies:
-    "@open-arch-ui/color-utils": 0.0.5
-    "@babel/runtime": ^7.14.6
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/tooltip@^0.1.17, @open-arch-ui/tooltip@workspace:packages/arch/packages/tooltip":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/tooltip@workspace:packages/arch/packages/tooltip"
-  dependencies:
-    "@open-arch-ui/modal-utils": ^1.0.16
-    "@open-arch-ui/theme": ^0.0.14
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    "@emotion/styled": ^10.0.27
-    "@popperjs/core": ^2.9.2
-    flushable: ^1.0.0
-    react: ^17.0.2
-    react-dom: ^17.0.2
-    react-popper: ^2.2.5
-  peerDependencies:
-    react: ^17.0.2
-    react-dom: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
-"@open-arch-ui/typography@0.0.21, @open-arch-ui/typography@^0.0.21, @open-arch-ui/typography@workspace:packages/arch/packages/typography":
-  version: 0.0.0-use.local
-  resolution: "@open-arch-ui/typography@workspace:packages/arch/packages/typography"
-  dependencies:
-    "@open-arch-ui/theme": 0.0.14
-    "@babel/runtime": ^7.14.6
-    "@emotion/core": ^10.1.1
-    "@emotion/styled": ^10.0.27
-    react: ^17.0.2
-  peerDependencies:
-    react: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
 "@ardatan/sync-fetch@npm:^0.0.1":
   version: 0.0.1
   resolution: "@ardatan/sync-fetch@npm:0.0.1"
@@ -5814,6 +5309,511 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@open-arch-ui/alert@workspace:^, @open-arch-ui/alert@workspace:packages/arch/packages/alert":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/alert@workspace:packages/arch/packages/alert"
+  dependencies:
+    "@emotion/core": ^10.1.1
+    "@emotion/styled": ^10.0.27
+    "@open-arch-ui/theme": "workspace:^"
+    react: ^17.0.2
+  peerDependencies:
+    react: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/badge@workspace:^, @open-arch-ui/badge@workspace:packages/arch/packages/badge":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/badge@workspace:packages/arch/packages/badge"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@emotion/styled": ^10.0.27
+    "@open-arch-ui/theme": "workspace:^"
+    react: ^17.0.2
+  peerDependencies:
+    react: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/button@workspace:^, @open-arch-ui/button@workspace:packages/arch/packages/button":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/button@workspace:packages/arch/packages/button"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@emotion/styled": ^10.0.27
+    "@open-arch-ui/color-utils": "workspace:^"
+    "@open-arch-ui/common": "workspace:^"
+    "@open-arch-ui/loading": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    react: ^17.0.2
+    react-pseudo-state: ^2.2.2
+    react-router-dom: 5.2.0
+  peerDependencies:
+    react: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/card@workspace:^, @open-arch-ui/card@workspace:packages/arch/packages/card":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/card@workspace:packages/arch/packages/card"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@open-arch-ui/theme": "workspace:^"
+    react: ^17.0.2
+  peerDependencies:
+    react: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/color-utils@workspace:^, @open-arch-ui/color-utils@workspace:packages/arch/packages/color-utils":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/color-utils@workspace:packages/arch/packages/color-utils"
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/common@workspace:^, @open-arch-ui/common@workspace:packages/arch/packages/common":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/common@workspace:packages/arch/packages/common"
+  dependencies:
+    "@open-arch-ui/theme": "workspace:^"
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/confirm@workspace:^, @open-arch-ui/confirm@workspace:packages/arch/packages/confirm":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/confirm@workspace:packages/arch/packages/confirm"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@emotion/styled": ^10.0.27
+    "@open-arch-ui/modal-utils": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    focus-trap-react: ^8.5.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
+    react-scrolllock: ^5.0.1
+  peerDependencies:
+    react: ^17.0.2
+    react-dom: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/controls@workspace:^, @open-arch-ui/controls@workspace:packages/arch/packages/controls":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/controls@workspace:packages/arch/packages/controls"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@emotion/styled": ^10.0.27
+    "@open-arch-ui/input": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    react: ^17.0.2
+    react-pseudo-state: ^2.2.2
+    react-radios: ^1.1.0
+  peerDependencies:
+    react: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/day-picker@workspace:^, @open-arch-ui/day-picker@workspace:packages/arch/packages/day-picker":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/day-picker@workspace:packages/arch/packages/day-picker"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@emotion/styled": ^10.0.27
+    "@open-arch-ui/input": "workspace:^"
+    "@open-arch-ui/select": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    "@open-arch-ui/typography": "workspace:^"
+    "@primer/octicons-react": ^11.3.0
+    chrono-node: ^1.4.8
+    date-fns: ^2.22.1
+    intersection-observer: ^0.12.0
+    moment: ^2.29.1
+    react: ^17.0.2
+    react-window: ^1.8.6
+  peerDependencies:
+    react: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/dialog@workspace:^, @open-arch-ui/dialog@workspace:packages/arch/packages/dialog":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/dialog@workspace:packages/arch/packages/dialog"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@emotion/styled": ^10.0.27
+    "@open-arch-ui/color-utils": "workspace:^"
+    "@open-arch-ui/modal-utils": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    "@open-arch-ui/typography": "workspace:^"
+    focus-trap-react: ^8.5.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
+    react-scrolllock: ^5.0.1
+  peerDependencies:
+    react: ^17.0.2
+    react-dom: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/docs@workspace:packages/arch/docs":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/docs@workspace:packages/arch/docs"
+  dependencies:
+    "@emotion/core": ^10.1.1
+    "@emotion/styled": ^10.0.27
+    "@open-arch-ui/alert": "workspace:^"
+    "@open-arch-ui/badge": "workspace:^"
+    "@open-arch-ui/button": "workspace:^"
+    "@open-arch-ui/controls": "workspace:^"
+    "@open-arch-ui/dialog": "workspace:^"
+    "@open-arch-ui/dropdown": "workspace:^"
+    "@open-arch-ui/fields": "workspace:^"
+    "@open-arch-ui/input": "workspace:^"
+    "@open-arch-ui/layout": "workspace:^"
+    "@open-arch-ui/loading": "workspace:^"
+    "@open-arch-ui/lozenge": "workspace:^"
+    "@open-arch-ui/navbar": "workspace:^"
+    "@open-arch-ui/pagination": "workspace:^"
+    "@open-arch-ui/pill": "workspace:^"
+    "@open-arch-ui/popout": "workspace:^"
+    "@open-arch-ui/select": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    "@open-arch-ui/tooltip": "workspace:^"
+    "@open-arch-ui/typography": "workspace:^"
+    "@primer/octicons-react": ^11.3.0
+    "@reach/router": ^1.3.4
+    clipboard-copy: ^4.0.1
+    gatsby: 2.13.25
+    react: ^17.0.2
+    react-dom: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/drawer@workspace:^, @open-arch-ui/drawer@workspace:packages/arch/packages/drawer":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/drawer@workspace:packages/arch/packages/drawer"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@emotion/styled": ^10.0.27
+    "@open-arch-ui/color-utils": "workspace:^"
+    "@open-arch-ui/modal-utils": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    "@open-arch-ui/typography": "workspace:^"
+    focus-trap-react: ^8.5.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
+    react-scrolllock: ^5.0.1
+  peerDependencies:
+    react: ^17.0.2
+    react-dom: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/dropdown@workspace:^, @open-arch-ui/dropdown@workspace:packages/arch/packages/dropdown":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/dropdown@workspace:packages/arch/packages/dropdown"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@emotion/styled": ^10.0.27
+    "@open-arch-ui/modal-utils": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    focus-trap-react: ^8.5.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
+    react-router-dom: 5.2.0
+  peerDependencies:
+    react: ^17.0.2
+    react-dom: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/fields@workspace:^, @open-arch-ui/fields@workspace:packages/arch/packages/fields":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/fields@workspace:packages/arch/packages/fields"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@emotion/styled": ^10.0.27
+    "@open-arch-ui/lozenge": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    "@primer/octicons-react": ^11.3.0
+    react: ^17.0.2
+  peerDependencies:
+    react: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/filters@workspace:^, @open-arch-ui/filters@workspace:packages/arch/packages/filters":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/filters@workspace:packages/arch/packages/filters"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@open-arch-ui/controls": "workspace:^"
+    "@open-arch-ui/layout": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    react: ^17.0.2
+    react-radios: ^1.1.0
+  peerDependencies:
+    react: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/hooks@workspace:^, @open-arch-ui/hooks@workspace:packages/arch/packages/hooks":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/hooks@workspace:packages/arch/packages/hooks"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    react: ^17.0.2
+    resize-observer-polyfill: ^1.5.1
+  peerDependencies:
+    react: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/icons@workspace:packages/arch/packages/icons":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/icons@workspace:packages/arch/packages/icons"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@primer/octicons": ^12.1.0
+    fs-extra: ^9.1.0
+    react: ^17.0.2
+    to-pascal-case: ^1.0.0
+  peerDependencies:
+    react: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/input@workspace:^, @open-arch-ui/input@workspace:packages/arch/packages/input":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/input@workspace:packages/arch/packages/input"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@open-arch-ui/color-utils": "workspace:^"
+    "@open-arch-ui/common": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    react: ^17.0.2
+  peerDependencies:
+    react: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/layout@workspace:^, @open-arch-ui/layout@workspace:packages/arch/packages/layout":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/layout@workspace:packages/arch/packages/layout"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@emotion/styled": ^10.0.27
+    "@open-arch-ui/common": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    react: ^17.0.2
+  peerDependencies:
+    react: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/loading@workspace:^, @open-arch-ui/loading@workspace:packages/arch/packages/loading":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/loading@workspace:packages/arch/packages/loading"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@emotion/styled": ^10.0.27
+    "@open-arch-ui/theme": "workspace:^"
+    "@open-arch-ui/typography": "workspace:^"
+    react: ^17.0.2
+  peerDependencies:
+    react: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/lozenge@workspace:^, @open-arch-ui/lozenge@workspace:packages/arch/packages/lozenge":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/lozenge@workspace:packages/arch/packages/lozenge"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@emotion/styled": ^10.0.27
+    "@open-arch-ui/theme": "workspace:^"
+    react: ^17.0.2
+  peerDependencies:
+    react: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/modal-utils@workspace:^, @open-arch-ui/modal-utils@workspace:packages/arch/packages/modal-utils":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/modal-utils@workspace:packages/arch/packages/modal-utils"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@emotion/styled": ^10.0.27
+    "@open-arch-ui/color-utils": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    react: ^17.0.2
+    react-scrolllock: ^5.0.1
+    react-transition-group: ^4.4.2
+  peerDependencies:
+    react: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/navbar@workspace:^, @open-arch-ui/navbar@workspace:packages/arch/packages/navbar":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/navbar@workspace:packages/arch/packages/navbar"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@emotion/styled": ^10.0.27
+    "@open-arch-ui/color-utils": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    react: ^17.0.2
+    react-router-dom: 5.2.0
+  peerDependencies:
+    react: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/options@workspace:^, @open-arch-ui/options@workspace:packages/arch/packages/options":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/options@workspace:packages/arch/packages/options"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@open-arch-ui/common": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    "@primer/octicons-react": ^11.3.0
+    react: ^17.0.2
+    react-select: ^3.2.0
+  peerDependencies:
+    react: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/pagination@workspace:^, @open-arch-ui/pagination@workspace:packages/arch/packages/pagination":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/pagination@workspace:packages/arch/packages/pagination"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@emotion/styled": ^10.0.27
+    "@open-arch-ui/button": "workspace:^"
+    "@open-arch-ui/layout": "workspace:^"
+    "@open-arch-ui/loading": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    "@primer/octicons-react": ^11.3.0
+    react: ^17.0.2
+    react-router-dom: 5.2.0
+  peerDependencies:
+    react: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/pill@workspace:^, @open-arch-ui/pill@workspace:packages/arch/packages/pill":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/pill@workspace:packages/arch/packages/pill"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@emotion/styled": ^10.0.27
+    "@open-arch-ui/common": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    "@primer/octicons-react": ^11.3.0
+    react: ^17.0.2
+  peerDependencies:
+    react: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/popout@workspace:^, @open-arch-ui/popout@workspace:packages/arch/packages/popout":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/popout@workspace:packages/arch/packages/popout"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@emotion/styled": ^10.0.27
+    "@open-arch-ui/color-utils": "workspace:^"
+    "@open-arch-ui/modal-utils": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    "@popperjs/core": ^2.9.2
+    focus-trap-react: ^8.5.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
+    react-popper: ^2.2.5
+  peerDependencies:
+    react: ^17.0.2
+    react-dom: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/select@workspace:^, @open-arch-ui/select@workspace:packages/arch/packages/select":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/select@workspace:packages/arch/packages/select"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@open-arch-ui/theme": "workspace:^"
+    react: ^17.0.2
+    react-select: ^3.2.0
+  peerDependencies:
+    react: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/theme@workspace:^, @open-arch-ui/theme@workspace:packages/arch/packages/theme":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/theme@workspace:packages/arch/packages/theme"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@open-arch-ui/color-utils": "workspace:^"
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/tooltip@workspace:^, @open-arch-ui/tooltip@workspace:packages/arch/packages/tooltip":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/tooltip@workspace:packages/arch/packages/tooltip"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@emotion/styled": ^10.0.27
+    "@open-arch-ui/modal-utils": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    "@popperjs/core": ^2.9.2
+    flushable: ^1.0.0
+    react: ^17.0.2
+    react-dom: ^17.0.2
+    react-popper: ^2.2.5
+  peerDependencies:
+    react: ^17.0.2
+    react-dom: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@open-arch-ui/typography@workspace:^, @open-arch-ui/typography@workspace:packages/arch/packages/typography":
+  version: 0.0.0-use.local
+  resolution: "@open-arch-ui/typography@workspace:packages/arch/packages/typography"
+  dependencies:
+    "@babel/runtime": ^7.14.6
+    "@emotion/core": ^10.1.1
+    "@emotion/styled": ^10.0.27
+    "@open-arch-ui/theme": "workspace:^"
+    react: ^17.0.2
+  peerDependencies:
+    react: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
 "@open-keystone/access-control@workspace:^, @open-keystone/access-control@workspace:packages/access-control":
   version: 0.0.0-use.local
   resolution: "@open-keystone/access-control@workspace:packages/access-control"
@@ -5918,35 +5918,35 @@ __metadata:
   resolution: "@open-keystone/app-admin-ui@workspace:packages/app-admin-ui"
   dependencies:
     "@apollo/client": ^3.11.8
-    "@open-arch-ui/alert": ^0.0.21
-    "@open-arch-ui/badge": ^0.0.20
-    "@open-arch-ui/button": ^0.0.25
-    "@open-arch-ui/card": ^0.0.18
-    "@open-arch-ui/color-utils": ^0.0.5
-    "@open-arch-ui/common": ^0.0.15
-    "@open-arch-ui/confirm": ^0.0.26
-    "@open-arch-ui/controls": ^0.1.12
-    "@open-arch-ui/dialog": ^0.0.28
-    "@open-arch-ui/drawer": ^0.0.28
-    "@open-arch-ui/dropdown": ^0.0.25
-    "@open-arch-ui/fields": ^3.0.8
-    "@open-arch-ui/hooks": ^0.0.14
-    "@open-arch-ui/input": ^0.1.14
-    "@open-arch-ui/layout": ^0.2.17
-    "@open-arch-ui/loading": ^0.0.21
-    "@open-arch-ui/lozenge": ^0.0.20
-    "@open-arch-ui/navbar": ^0.1.15
-    "@open-arch-ui/options": ^0.0.27
-    "@open-arch-ui/pagination": ^0.0.29
-    "@open-arch-ui/pill": ^0.1.21
-    "@open-arch-ui/popout": ^0.0.26
-    "@open-arch-ui/select": ^0.1.12
-    "@open-arch-ui/theme": ^0.0.14
-    "@open-arch-ui/tooltip": ^0.1.17
-    "@open-arch-ui/typography": ^0.0.21
     "@babel/core": ^7.14.6
     "@babel/runtime": ^7.14.6
     "@emotion/core": ^10.1.1
+    "@open-arch-ui/alert": "workspace:^"
+    "@open-arch-ui/badge": "workspace:^"
+    "@open-arch-ui/button": "workspace:^"
+    "@open-arch-ui/card": "workspace:^"
+    "@open-arch-ui/color-utils": "workspace:^"
+    "@open-arch-ui/common": "workspace:^"
+    "@open-arch-ui/confirm": "workspace:^"
+    "@open-arch-ui/controls": "workspace:^"
+    "@open-arch-ui/dialog": "workspace:^"
+    "@open-arch-ui/drawer": "workspace:^"
+    "@open-arch-ui/dropdown": "workspace:^"
+    "@open-arch-ui/fields": "workspace:^"
+    "@open-arch-ui/hooks": "workspace:^"
+    "@open-arch-ui/input": "workspace:^"
+    "@open-arch-ui/layout": "workspace:^"
+    "@open-arch-ui/loading": "workspace:^"
+    "@open-arch-ui/lozenge": "workspace:^"
+    "@open-arch-ui/navbar": "workspace:^"
+    "@open-arch-ui/options": "workspace:^"
+    "@open-arch-ui/pagination": "workspace:^"
+    "@open-arch-ui/pill": "workspace:^"
+    "@open-arch-ui/popout": "workspace:^"
+    "@open-arch-ui/select": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    "@open-arch-ui/tooltip": "workspace:^"
+    "@open-arch-ui/typography": "workspace:^"
     "@open-keystone/field-views-loader": "workspace:^"
     "@open-keystone/session": "workspace:^"
     "@open-keystone/utils": "workspace:^"
@@ -6152,7 +6152,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@open-keystone/cypress-project-basic@workspace:tests/test-projects/basic"
   dependencies:
-    "@open-arch-ui/fields": ^3.0.8
+    "@open-arch-ui/fields": "workspace:^"
     "@open-keystone/adapter-prisma": "workspace:^"
     "@open-keystone/app-admin-ui": "workspace:^"
     "@open-keystone/app-graphql": "workspace:^"
@@ -6189,7 +6189,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@open-keystone/cypress-project-client-validation@workspace:tests/test-projects/client-validation"
   dependencies:
-    "@open-arch-ui/fields": ^3.0.8
+    "@open-arch-ui/fields": "workspace:^"
     "@open-keystone/adapter-prisma": "workspace:^"
     "@open-keystone/app-admin-ui": "workspace:^"
     "@open-keystone/app-graphql": "workspace:^"
@@ -6243,8 +6243,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@open-keystone/cypress-project-social-login@workspace:tests/test-projects/social-login"
   dependencies:
-    "@open-arch-ui/fields": ^3.0.8
-    "@open-arch-ui/input": ^0.1.14
+    "@open-arch-ui/fields": "workspace:^"
+    "@open-arch-ui/input": "workspace:^"
     "@open-keystone/adapter-prisma": "workspace:^"
     "@open-keystone/app-admin-ui": "workspace:^"
     "@open-keystone/app-graphql": "workspace:^"
@@ -6268,11 +6268,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@open-keystone/demo-custom-fields@workspace:examples/custom-fields"
   dependencies:
-    "@open-arch-ui/controls": ^0.1.12
-    "@open-arch-ui/fields": ^3.0.8
-    "@open-arch-ui/lozenge": ^0.0.20
-    "@open-arch-ui/theme": ^0.0.14
     "@emotion/core": ^10.1.1
+    "@open-arch-ui/controls": "workspace:^"
+    "@open-arch-ui/fields": "workspace:^"
+    "@open-arch-ui/lozenge": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
     "@open-keystone/adapter-mongoose": "workspace:^"
     "@open-keystone/app-admin-ui": "workspace:^"
     "@open-keystone/app-graphql": "workspace:^"
@@ -6290,10 +6290,10 @@ __metadata:
   resolution: "@open-keystone/demo-project-blog@workspace:examples/blog"
   dependencies:
     "@apollo/client": ^3.11.8
-    "@open-arch-ui/layout": ^0.2.17
-    "@open-arch-ui/typography": ^0.0.21
     "@emotion/core": ^10.1.1
     "@emotion/styled": ^10.0.27
+    "@open-arch-ui/layout": "workspace:^"
+    "@open-arch-ui/typography": "workspace:^"
     "@open-keystone/adapter-mongoose": "workspace:^"
     "@open-keystone/app-admin-ui": "workspace:^"
     "@open-keystone/app-graphql": "workspace:^"
@@ -6502,15 +6502,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@open-keystone/fields-cloudinary-image@workspace:packages/fields-cloudinary-image"
   dependencies:
-    "@open-arch-ui/button": ^0.0.25
-    "@open-arch-ui/fields": ^3.0.8
-    "@open-arch-ui/input": ^0.1.14
-    "@open-arch-ui/layout": ^0.2.17
-    "@open-arch-ui/lozenge": ^0.0.20
-    "@open-arch-ui/theme": ^0.0.14
     "@babel/runtime": ^7.14.6
     "@emotion/core": ^10.1.1
     "@iframely/embed.js": ^1.3.2
+    "@open-arch-ui/button": "workspace:^"
+    "@open-arch-ui/fields": "workspace:^"
+    "@open-arch-ui/input": "workspace:^"
+    "@open-arch-ui/layout": "workspace:^"
+    "@open-arch-ui/lozenge": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
     "@open-keystone/adapter-knex": "workspace:^"
     "@open-keystone/adapter-mongoose": "workspace:^"
     "@open-keystone/fields": "workspace:^"
@@ -6535,11 +6535,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@open-keystone/fields-color@workspace:packages/fields-color"
   dependencies:
-    "@open-arch-ui/button": ^0.0.25
-    "@open-arch-ui/fields": ^3.0.8
-    "@open-arch-ui/popout": ^0.0.26
     "@babel/runtime": ^7.14.6
     "@emotion/core": ^10.1.1
+    "@open-arch-ui/button": "workspace:^"
+    "@open-arch-ui/fields": "workspace:^"
+    "@open-arch-ui/popout": "workspace:^"
     "@open-keystone/fields": "workspace:^"
     "@open-keystone/server-side-graphql-client": "workspace:^"
     react: ^18.3.1
@@ -6553,15 +6553,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@open-keystone/fields-content@workspace:packages/fields-content"
   dependencies:
-    "@open-arch-ui/color-utils": ^0.0.5
-    "@open-arch-ui/fields": ^3.0.8
-    "@open-arch-ui/hooks": ^0.0.14
-    "@open-arch-ui/input": ^0.1.14
-    "@open-arch-ui/theme": ^0.0.14
-    "@open-arch-ui/tooltip": ^0.1.17
-    "@open-arch-ui/typography": ^0.0.21
     "@babel/runtime": ^7.14.6
     "@emotion/core": ^10.1.1
+    "@open-arch-ui/color-utils": "workspace:^"
+    "@open-arch-ui/fields": "workspace:^"
+    "@open-arch-ui/hooks": "workspace:^"
+    "@open-arch-ui/input": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    "@open-arch-ui/tooltip": "workspace:^"
+    "@open-arch-ui/typography": "workspace:^"
     "@open-keystone/fields": "workspace:^"
     "@open-keystone/server-side-graphql-client": "workspace:^"
     "@open-keystone/utils": "workspace:^"
@@ -6596,10 +6596,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@open-keystone/fields-location-google@workspace:packages/fields-location-google"
   dependencies:
-    "@open-arch-ui/fields": ^3.0.8
-    "@open-arch-ui/select": ^0.1.12
     "@babel/runtime": ^7.14.6
     "@emotion/core": ^10.1.1
+    "@open-arch-ui/fields": "workspace:^"
+    "@open-arch-ui/select": "workspace:^"
     "@open-keystone/adapter-knex": "workspace:^"
     "@open-keystone/adapter-mongoose": "workspace:^"
     "@open-keystone/adapter-prisma": "workspace:^"
@@ -6618,13 +6618,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@open-keystone/fields-markdown@workspace:packages/fields-markdown"
   dependencies:
-    "@open-arch-ui/fields": ^3.0.8
-    "@open-arch-ui/input": ^0.1.14
-    "@open-arch-ui/theme": ^0.0.14
-    "@open-arch-ui/tooltip": ^0.1.17
-    "@open-arch-ui/typography": ^0.0.21
     "@babel/runtime": ^7.14.6
     "@emotion/core": ^10.1.1
+    "@open-arch-ui/fields": "workspace:^"
+    "@open-arch-ui/input": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    "@open-arch-ui/tooltip": "workspace:^"
+    "@open-arch-ui/typography": "workspace:^"
     "@open-keystone/fields": "workspace:^"
     "@open-keystone/server-side-graphql-client": "workspace:^"
     "@primer/octicons-react": ^11.3.0
@@ -6639,8 +6639,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@open-keystone/fields-mongoid@workspace:packages/fields-mongoid"
   dependencies:
-    "@open-arch-ui/input": ^0.1.14
     "@babel/runtime": ^7.14.6
+    "@open-arch-ui/input": "workspace:^"
     "@open-keystone/adapter-knex": "workspace:^"
     "@open-keystone/adapter-mongoose": "workspace:^"
     "@open-keystone/adapter-prisma": "workspace:^"
@@ -6653,13 +6653,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@open-keystone/fields-oembed@workspace:packages/fields-oembed"
   dependencies:
-    "@open-arch-ui/button": ^0.0.25
-    "@open-arch-ui/fields": ^3.0.8
-    "@open-arch-ui/input": ^0.1.14
-    "@open-arch-ui/theme": ^0.0.14
     "@babel/runtime": ^7.14.6
     "@emotion/core": ^10.1.1
     "@iframely/embed.js": ^1.3.2
+    "@open-arch-ui/button": "workspace:^"
+    "@open-arch-ui/fields": "workspace:^"
+    "@open-arch-ui/input": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
     "@open-keystone/adapter-knex": "workspace:^"
     "@open-keystone/adapter-mongoose": "workspace:^"
     "@open-keystone/adapter-prisma": "workspace:^"
@@ -6679,10 +6679,10 @@ __metadata:
   resolution: "@open-keystone/fields-unsplash@workspace:packages/fields-unsplash"
   dependencies:
     "@apollo/client": ^3.11.8
-    "@open-arch-ui/fields": ^3.0.8
-    "@open-arch-ui/input": ^0.1.14
     "@babel/runtime": ^7.14.6
     "@emotion/core": ^10.1.1
+    "@open-arch-ui/fields": "workspace:^"
+    "@open-arch-ui/input": "workspace:^"
     "@open-keystone/adapter-knex": "workspace:^"
     "@open-keystone/adapter-mongoose": "workspace:^"
     "@open-keystone/adapter-prisma": "workspace:^"
@@ -6702,11 +6702,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@open-keystone/fields-wysiwyg-tinymce@workspace:packages/fields-wysiwyg-tinymce"
   dependencies:
-    "@open-arch-ui/fields": ^3.0.8
-    "@open-arch-ui/input": ^0.1.14
-    "@open-arch-ui/theme": ^0.0.14
     "@babel/runtime": ^7.14.6
     "@emotion/core": ^10.1.1
+    "@open-arch-ui/fields": "workspace:^"
+    "@open-arch-ui/input": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
     "@open-keystone/fields": "workspace:^"
     "@primer/octicons-react": ^11.3.0
     "@tinymce/tinymce-react": ^3.12.6
@@ -6724,25 +6724,25 @@ __metadata:
   resolution: "@open-keystone/fields@workspace:packages/fields"
   dependencies:
     "@apollo/client": ^3.11.8
-    "@open-arch-ui/alert": ^0.0.21
-    "@open-arch-ui/button": ^0.0.25
-    "@open-arch-ui/controls": ^0.1.12
-    "@open-arch-ui/day-picker": ^1.0.8
-    "@open-arch-ui/drawer": ^0.0.28
-    "@open-arch-ui/fields": ^3.0.8
-    "@open-arch-ui/filters": ^0.0.23
-    "@open-arch-ui/input": ^0.1.14
-    "@open-arch-ui/layout": ^0.2.17
-    "@open-arch-ui/loading": ^0.0.21
-    "@open-arch-ui/lozenge": ^0.0.20
-    "@open-arch-ui/options": ^0.0.27
-    "@open-arch-ui/popout": ^0.0.26
-    "@open-arch-ui/select": ^0.1.12
-    "@open-arch-ui/theme": ^0.0.14
-    "@open-arch-ui/tooltip": ^0.1.17
-    "@open-arch-ui/typography": ^0.0.21
     "@babel/runtime": ^7.14.6
     "@emotion/core": ^10.1.1
+    "@open-arch-ui/alert": "workspace:^"
+    "@open-arch-ui/button": "workspace:^"
+    "@open-arch-ui/controls": "workspace:^"
+    "@open-arch-ui/day-picker": "workspace:^"
+    "@open-arch-ui/drawer": "workspace:^"
+    "@open-arch-ui/fields": "workspace:^"
+    "@open-arch-ui/filters": "workspace:^"
+    "@open-arch-ui/input": "workspace:^"
+    "@open-arch-ui/layout": "workspace:^"
+    "@open-arch-ui/loading": "workspace:^"
+    "@open-arch-ui/lozenge": "workspace:^"
+    "@open-arch-ui/options": "workspace:^"
+    "@open-arch-ui/popout": "workspace:^"
+    "@open-arch-ui/select": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
+    "@open-arch-ui/tooltip": "workspace:^"
+    "@open-arch-ui/typography": "workspace:^"
     "@open-keystone/access-control": "workspace:^"
     "@open-keystone/adapter-knex": "workspace:^"
     "@open-keystone/adapter-mongoose": "workspace:^"
@@ -6984,9 +6984,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@open-keystone/website@workspace:website"
   dependencies:
-    "@open-arch-ui/input": ^0.1.14
-    "@open-arch-ui/select": ^0.1.12
-    "@open-arch-ui/theme": ^0.0.14
     "@emotion/core": ^10.1.1
     "@emotion/styled": ^10.0.27
     "@emotion/weak-memoize": ^0.2.5
@@ -6994,6 +6991,9 @@ __metadata:
     "@mapbox/rehype-prism": ^0.6.0
     "@mdx-js/mdx": ^1.6.22
     "@mdx-js/react": ^1.6.22
+    "@open-arch-ui/input": "workspace:^"
+    "@open-arch-ui/select": "workspace:^"
+    "@open-arch-ui/theme": "workspace:^"
     "@primer/octicons-react": ^11.3.0
     "@reach/router": ^1.3.4
     "@reach/skip-nav": ^0.13.2

@@ -12,8 +12,8 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@open-arch-ui/input": "^0.1.14",
     "@babel/runtime": "^7.14.6",
+    "@open-arch-ui/input": "workspace:^",
     "@open-keystone/adapter-knex": "workspace:^",
     "@open-keystone/adapter-mongoose": "workspace:^",
     "@open-keystone/adapter-prisma": "workspace:^",

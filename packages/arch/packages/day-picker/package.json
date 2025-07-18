@@ -12,13 +12,13 @@
     "react": "^17.0.2"
   },
   "dependencies": {
-    "@open-arch-ui/input": "^0.1.14",
-    "@open-arch-ui/select": "^0.1.12",
-    "@open-arch-ui/theme": "^0.0.14",
-    "@open-arch-ui/typography": "^0.0.21",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.27",
+    "@open-arch-ui/input": "workspace:^",
+    "@open-arch-ui/select": "workspace:^",
+    "@open-arch-ui/theme": "workspace:^",
+    "@open-arch-ui/typography": "workspace:^",
     "@primer/octicons-react": "^11.3.0",
     "chrono-node": "^1.4.8",
     "date-fns": "^2.22.1",

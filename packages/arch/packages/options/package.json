@@ -12,10 +12,10 @@
     "react": "^17.0.2"
   },
   "dependencies": {
-    "@open-arch-ui/common": "^0.0.15",
-    "@open-arch-ui/theme": "^0.0.14",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
+    "@open-arch-ui/common": "workspace:^",
+    "@open-arch-ui/theme": "workspace:^",
     "@primer/octicons-react": "^11.3.0",
     "react-select": "^3.2.0"
   },

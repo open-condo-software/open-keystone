@@ -15,10 +15,10 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.8",
-    "@open-arch-ui/layout": "^0.2.17",
-    "@open-arch-ui/typography": "^0.0.21",
     "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.27",
+    "@open-arch-ui/layout": "workspace:^",
+    "@open-arch-ui/typography": "workspace:^",
     "@open-keystone/adapter-mongoose": "workspace:^",
     "@open-keystone/app-admin-ui": "workspace:^",
     "@open-keystone/app-graphql": "workspace:^",

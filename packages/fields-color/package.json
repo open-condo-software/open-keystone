@@ -8,11 +8,11 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@open-arch-ui/button": "^0.0.25",
-    "@open-arch-ui/fields": "^3.0.8",
-    "@open-arch-ui/popout": "^0.0.26",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
+    "@open-arch-ui/button": "workspace:^",
+    "@open-arch-ui/fields": "workspace:^",
+    "@open-arch-ui/popout": "workspace:^",
     "@open-keystone/fields": "workspace:^",
     "react-color": "^2.19.3"
   },

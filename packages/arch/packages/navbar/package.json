@@ -12,11 +12,11 @@
     "react": "^17.0.2"
   },
   "dependencies": {
-    "@open-arch-ui/color-utils": "^0.0.5",
-    "@open-arch-ui/theme": "^0.0.14",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.27",
+    "@open-arch-ui/color-utils": "workspace:^",
+    "@open-arch-ui/theme": "workspace:^",
     "react-router-dom": "5.2.0"
   },
   "module": "dist/navbar.esm.js",
