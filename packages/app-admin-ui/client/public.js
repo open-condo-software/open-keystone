@@ -50,11 +50,11 @@ const Keystone = () => {
   );
 };
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('app'));
+root.render(
   <Suspense fallback={null}>
     <AdminMetaProvider>
       <Keystone />
     </AdminMetaProvider>
-  </Suspense>,
-  document.getElementById('app')
+  </Suspense>
 );

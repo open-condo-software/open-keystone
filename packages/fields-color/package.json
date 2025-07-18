@@ -17,11 +17,11 @@
     "react-color": "^2.19.3"
   },
   "peerDependencies": {
-    "react": "^17.0.2"
+    "react": "^18.3.1"
   },
   "devDependencies": {
     "@open-keystone/server-side-graphql-client": "workspace:^",
-    "react": "^17.0.2"
+    "react": "^18.3.1"
   },
   "main": "dist/fields-color.cjs.js",
   "module": "dist/fields-color.esm.js",

@@ -42,8 +42,8 @@
     "graphql": "^16.10.0",
     "isomorphic-unfetch": "^3.1.0",
     "next": "10.2.3",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "repository": "https://github.com/keystonejs/keystone-5/tree/main/examples/blog"
 }

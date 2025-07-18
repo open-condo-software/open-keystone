@@ -18,7 +18,7 @@
     "@open-keystone/adapter-mongoose": "workspace:^",
     "@open-keystone/adapter-prisma": "workspace:^",
     "@open-keystone/fields": "workspace:^",
-    "react": "^17.0.2"
+    "react": "^18.3.1"
   },
   "preconstruct": {
     "entrypoints": [

@@ -114,11 +114,11 @@ export const KeystoneAdminUI = () => {
   );
 };
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('app'));
+root.render(
   <Suspense fallback={null}>
     <AdminMetaProvider>
       <KeystoneAdminUI />
     </AdminMetaProvider>
-  </Suspense>,
-  document.getElementById('app')
+  </Suspense>
 );

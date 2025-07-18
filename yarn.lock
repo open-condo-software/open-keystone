@@ -5811,7 +5811,7 @@ __metadata:
     "@apollo/client": ^3.11.8
     "@babel/runtime": ^7.14.6
     "@jesstelford/apollo-cache-invalidation": ^0.0.3-gh3-gh5
-    "@types/react": ^17.0.11
+    "@types/react": ^18.3.1
     apollo-cache: ^1.3.5
     apollo-link: ^1.2.14
     apollo-utilities: ^1.3.4
@@ -5819,10 +5819,10 @@ __metadata:
     hoist-non-react-statics: ^3.3.2
     lodash.mapvalues: ^4.6.0
     memoize-one: ^5.2.1
-    react: ^17.0.2
+    react: ^18.3.1
     react-adopt: ^0.6.0
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5864,7 +5864,7 @@ __metadata:
     "@open-keystone/session": "workspace:^"
     "@open-keystone/utils": "workspace:^"
     "@primer/octicons-react": ^11.3.0
-    "@types/react": ^17.0.11
+    "@types/react": ^18.3.1
     apollo-upload-client: ^17.0.0
     apply-ref: ^1.0.0
     babel-loader: ^10.0.0
@@ -5886,8 +5886,8 @@ __metadata:
     memoize-one: ^5.2.1
     prop-types: ^15.7.2
     raf-schd: ^4.0.3
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.3.1
+    react-dom: ^18.3.1
     react-prop-toggle: ^1.0.2
     react-pseudo-state: ^2.2.2
     react-router-dom: 5.2.0
@@ -5946,8 +5946,8 @@ __metadata:
   dependencies:
     next: ^12.3.7
   peerDependencies:
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.3.1
+    react-dom: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -6094,7 +6094,7 @@ __metadata:
     mocha: ^8.4.0
     mocha-junit-reporter: ^2.0.0
     pino-colada: ^2.2.0
-    react: ^17.0.2
+    react: ^18.3.1
     start-server-and-test: ^1.12.5
   languageName: unknown
   linkType: soft
@@ -6121,7 +6121,7 @@ __metadata:
     mocha: ^8.4.0
     mocha-junit-reporter: ^2.0.0
     pino-colada: ^2.2.0
-    react: ^17.0.2
+    react: ^18.3.1
     start-server-and-test: ^1.12.5
   languageName: unknown
   linkType: soft
@@ -6174,7 +6174,7 @@ __metadata:
     express: ^4.17.1
     passport-wordpress: ^0.0.4
     pino-colada: ^2.2.0
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -6195,7 +6195,7 @@ __metadata:
     "@open-keystone/keystone": "workspace:^"
     "@primer/octicons-react": ^11.3.0
     cross-env: ^7.0.3
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -6231,8 +6231,8 @@ __metadata:
     graphql: ^16.10.0
     isomorphic-unfetch: ^3.1.0
     next: 10.2.3
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.3.1
+    react-dom: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -6268,8 +6268,8 @@ __metadata:
     lodash.uniqby: ^4.7.0
     next: 10.2.3
     prop-types: ^15.7.2
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.3.1
+    react-dom: ^18.3.1
     react-toast-notifications: ^2.4.4
     react-use-form-state: ^0.13.2
     uuid: ^8.3.2
@@ -6315,12 +6315,12 @@ __metadata:
     mjml-react: ^1.2.0
     pify: ^5.0.0
     pug: 3.0.2
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.3.1
+    react-dom: ^18.3.1
   peerDependencies:
     mjml-react: ^1.2.0
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.3.1
+    react-dom: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -6438,7 +6438,7 @@ __metadata:
     mime: ^2.5.2
     prop-types: ^15.7.2
     query-string: ^6.14.1
-    react: ^17.0.2
+    react: ^18.3.1
     slate: ^0.47.9
     slate-drop-or-paste-images: ^0.9.1
     slate-react: ^0.22.10
@@ -6456,10 +6456,10 @@ __metadata:
     "@emotion/core": ^10.1.1
     "@open-keystone/fields": "workspace:^"
     "@open-keystone/server-side-graphql-client": "workspace:^"
-    react: ^17.0.2
+    react: ^18.3.1
     react-color: ^2.19.3
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -6490,8 +6490,8 @@ __metadata:
     memoize-one: ^5.2.1
     nanoassert: ^2.0.0
     p-is-promise: ^3.0.0
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.3.1
+    react-dom: ^18.3.1
     react-popper: ^2.2.5
     slate: ^0.47.9
     slate-drop-or-paste-images: ^0.9.1
@@ -6523,7 +6523,7 @@ __metadata:
     google-maps-react: ^2.0.6
     mongoose: ^8.16.0
     node-fetch: ^2.6.1
-    react: ^17.0.2
+    react: ^18.3.1
     react-toast-notifications: ^2.4.4
   languageName: unknown
   linkType: soft
@@ -6544,7 +6544,7 @@ __metadata:
     "@primer/octicons-react": ^11.3.0
     codemirror: ^5.62.0
     prop-types: ^15.7.2
-    react: ^17.0.2
+    react: ^18.3.1
     react-codemirror2: ^7.2.1
   languageName: unknown
   linkType: soft
@@ -6559,7 +6559,7 @@ __metadata:
     "@open-keystone/adapter-mongoose": "workspace:^"
     "@open-keystone/adapter-prisma": "workspace:^"
     "@open-keystone/fields": "workspace:^"
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -6582,9 +6582,9 @@ __metadata:
     dotenv: ^8.6.0
     node-fetch: ^2.6.1
     query-string: ^6.14.1
-    react: ^17.0.2
+    react: ^18.3.1
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -6605,10 +6605,10 @@ __metadata:
     dotenv: ^8.6.0
     node-fetch: ^2.6.1
     query-string: ^6.14.1
-    react: ^17.0.2
+    react: ^18.3.1
     unsplash-js: ^6.3.0
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -6626,7 +6626,7 @@ __metadata:
     "@tinymce/tinymce-react": ^3.12.6
     express: ^4.17.1
     prop-types: ^15.7.2
-    react: ^17.0.2
+    react: ^18.3.1
     tinymce: ^5.8.1
   peerDependencies:
     express: ^4.17.1
@@ -6688,9 +6688,9 @@ __metadata:
     mongoose: ^8.16.0
     p-settle: ^4.1.1
     prop-types: ^15.7.2
-    react: ^17.0.2
+    react: ^18.3.1
     react-day-picker: 8.0.0-beta.3
-    react-dom: ^17.0.2
+    react-dom: ^18.3.1
     react-image: ^4.0.3
     react-select: ^3.2.0
     react-toast-notifications: ^2.4.4
@@ -6936,8 +6936,8 @@ __metadata:
     lodash.throttle: ^4.1.1
     mdast-util-to-string: ^2.0.0
     prism-react-renderer: ^1.2.1
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.3.1
+    react-dom: ^18.3.1
     react-github-btn: ^1.2.0
     react-helmet: ^6.1.0
     unist-util-visit: ^2.0.3
@@ -8240,14 +8240,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^17.0.11":
-  version: 17.0.85
-  resolution: "@types/react@npm:17.0.85"
+"@types/react@npm:^18.3.1":
+  version: 18.3.23
+  resolution: "@types/react@npm:18.3.23"
   dependencies:
     "@types/prop-types": "*"
-    "@types/scheduler": ^0.16
     csstype: ^3.0.2
-  checksum: b2bf128d6126bd3504272d4281f20561b2bcaf92e414c10ffa65c4e41c51ff24c2fcf377b55767f2b4196a989e75d54e7623dbd0944efbf1a85ee1a7dc79ae40
+  checksum: d781257d42bf3c66f4bcd21e76a86cd9b6e21fbaf377fe0f840f1ff35049efa59491aa6a4dcf2b3db42af4ab085acebe185f0ae28b7c36d60be5e9094c707bdd
   languageName: node
   linkType: hard
 
@@ -8273,13 +8272,6 @@ __metadata:
   version: 0.12.0
   resolution: "@types/retry@npm:0.12.0"
   checksum: 61a072c7639f6e8126588bf1eb1ce8835f2cb9c2aba795c4491cf6310e013267b0c8488039857c261c387e9728c1b43205099223f160bb6a76b4374f741b5603
-  languageName: node
-  linkType: hard
-
-"@types/scheduler@npm:^0.16":
-  version: 0.16.8
-  resolution: "@types/scheduler@npm:0.16.8"
-  checksum: 6c091b096daa490093bf30dd7947cd28e5b2cd612ec93448432b33f724b162587fed9309a0acc104d97b69b1d49a0f3fc755a62282054d62975d53d7fd13472d
   languageName: node
   linkType: hard
 
@@ -32285,6 +32277,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-dom@npm:^18.3.1":
+  version: 18.3.1
+  resolution: "react-dom@npm:18.3.1"
+  dependencies:
+    loose-envify: ^1.1.0
+    scheduler: ^0.23.2
+  peerDependencies:
+    react: ^18.3.1
+  checksum: 298954ecd8f78288dcaece05e88b570014d8f6dce5db6f66e6ee91448debeb59dcd31561dddb354eee47e6c1bb234669459060deb238ed0213497146e555a0b9
+  languageName: node
+  linkType: hard
+
 "react-error-overlay@npm:^3.0.0":
   version: 3.0.0
   resolution: "react-error-overlay@npm:3.0.0"
@@ -32807,6 +32811,15 @@ __metadata:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
   checksum: b254cc17ce3011788330f7bbf383ab653c6848902d7936a87b09d835d091e3f295f7e9dd1597c6daac5dc80f90e778c8230218ba8ad599f74adcc11e33b9d61b
+  languageName: node
+  linkType: hard
+
+"react@npm:^18.3.1":
+  version: 18.3.1
+  resolution: "react@npm:18.3.1"
+  dependencies:
+    loose-envify: ^1.1.0
+  checksum: a27bcfa8ff7c15a1e50244ad0d0c1cb2ad4375eeffefd266a64889beea6f6b64c4966c9b37d14ee32d6c9fcd5aa6ba183b6988167ab4d127d13e7cb5b386a376
   languageName: node
   linkType: hard
 
@@ -34247,6 +34260,15 @@ __metadata:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
   checksum: c4b35cf967c8f0d3e65753252d0f260271f81a81e427241295c5a7b783abf4ea9e905f22f815ab66676f5313be0a25f47be582254db8f9241b259213e999b8fc
+  languageName: node
+  linkType: hard
+
+"scheduler@npm:^0.23.2":
+  version: 0.23.2
+  resolution: "scheduler@npm:0.23.2"
+  dependencies:
+    loose-envify: ^1.1.0
+  checksum: 3e82d1f419e240ef6219d794ff29c7ee415fbdc19e038f680a10c067108e06284f1847450a210b29bbaf97b9d8a97ced5f624c31c681248ac84c80d56ad5a2c4
   languageName: node
   linkType: hard
 

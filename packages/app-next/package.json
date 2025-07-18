@@ -11,8 +11,8 @@
     "next": "^12.3.7"
   },
   "peerDependencies": {
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/app-next",
   "publishConfig": {

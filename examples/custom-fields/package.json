@@ -27,7 +27,7 @@
     "@open-keystone/keystone": "workspace:^",
     "@primer/octicons-react": "^11.3.0",
     "cross-env": "^7.0.3",
-    "react": "^17.0.2"
+    "react": "^18.3.1"
   },
   "repository": "https://github.com/keystonejs/keystone-5/tree/main/examples/custom-fields"
 }
