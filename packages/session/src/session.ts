@@ -151,7 +151,10 @@ export class SessionManager {
     return item;
   }
 
-  startAuthedSession(req: Request, { item, list, sessionInfo }: { item: _Item; list: _List; sessionInfo?: _SessionInfo }) {
+  startAuthedSession(
+    req: Request,
+    { item, list, sessionInfo }: { item: _Item; list: _List; sessionInfo?: _SessionInfo }
+  ) {
     return new Promise((resolve, reject) =>
       req.session.regenerate(err => {
         if (err) return reject(err);
@@ -175,8 +178,15 @@ export class SessionManager {
 
   getContext(req: Request) {
     return {
-      startAuthedSession: ({ item, list, sessionInfo }: { item: _Item; list: _List; sessionInfo?: _SessionInfo }) =>
-        this.startAuthedSession(req, { item, list, sessionInfo }),
+      startAuthedSession: ({
+        item,
+        list,
+        sessionInfo,
+      }: {
+        item: _Item;
+        list: _List;
+        sessionInfo?: _SessionInfo;
+      }) => this.startAuthedSession(req, { item, list, sessionInfo }),
       endAuthedSession: () => this.endAuthedSession(req),
     };
   }
