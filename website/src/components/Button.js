@@ -2,7 +2,7 @@
 
 import { Link } from 'gatsby';
 import { jsx } from '@emotion/core';
-import { colors } from '@arch-ui/theme';
+import { colors } from '@open-arch-ui/theme';
 
 // TODO
 const variants = {

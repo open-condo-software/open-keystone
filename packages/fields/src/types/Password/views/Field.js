@@ -3,13 +3,13 @@
 import { jsx } from '@emotion/core';
 import { useState, useRef, useEffect } from 'react';
 
-import { FieldContainer, FieldLabel, FieldDescription, FieldInput } from '@arch-ui/fields';
-import { Alert } from '@arch-ui/alert';
-import { Input } from '@arch-ui/input';
-import { FlexGroup } from '@arch-ui/layout';
-import { Button } from '@arch-ui/button';
+import { FieldContainer, FieldLabel, FieldDescription, FieldInput } from '@open-arch-ui/fields';
+import { Alert } from '@open-arch-ui/alert';
+import { Input } from '@open-arch-ui/input';
+import { FlexGroup } from '@open-arch-ui/layout';
+import { Button } from '@open-arch-ui/button';
 import { EyeIcon, LockIcon } from '@primer/octicons-react';
-import { A11yText } from '@arch-ui/typography';
+import { A11yText } from '@open-arch-ui/typography';
 
 const PasswordField = ({
   onChange,

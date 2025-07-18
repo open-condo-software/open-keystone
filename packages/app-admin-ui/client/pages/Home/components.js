@@ -9,10 +9,10 @@ import { useAdminMeta } from '../../providers/AdminMeta';
 import CreateItemModal from '../../components/CreateItemModal';
 
 import { PlusIcon } from '@primer/octicons-react';
-import { Card } from '@arch-ui/card';
-import { colors, gridSize } from '@arch-ui/theme';
-import { LoadingIndicator } from '@arch-ui/loading';
-import { A11yText } from '@arch-ui/typography';
+import { Card } from '@open-arch-ui/card';
+import { colors, gridSize } from '@open-arch-ui/theme';
+import { LoadingIndicator } from '@open-arch-ui/loading';
+import { A11yText } from '@open-arch-ui/typography';
 
 export const HeaderInset = props => (
   <div css={{ paddingLeft: gridSize * 2, paddingRight: gridSize * 2 }} {...props} />

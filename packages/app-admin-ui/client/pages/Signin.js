@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import { jsx } from '@emotion/core';
 
-import { Alert } from '@arch-ui/alert';
-import { LoadingButton } from '@arch-ui/button';
-import { Input } from '@arch-ui/input';
-import { colors, gridSize } from '@arch-ui/theme';
-import { PageTitle, Title } from '@arch-ui/typography';
+import { Alert } from '@open-arch-ui/alert';
+import { LoadingButton } from '@open-arch-ui/button';
+import { Input } from '@open-arch-ui/input';
+import { colors, gridSize } from '@open-arch-ui/theme';
+import { PageTitle, Title } from '@open-arch-ui/typography';
 
 import { gql, useMutation } from '@apollo/client';
 

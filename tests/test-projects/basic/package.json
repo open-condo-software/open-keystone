@@ -19,7 +19,7 @@
     "cypress:open": "if [ -f .env ]; then yarn prepare-test-server cypress:open:cmd; else echo \"\nError: Must create a tests/test-projects/basic/.env file.\nSee tests/test-projects/basic/.env.example for values\n\"; exit 1; fi"
   },
   "dependencies": {
-    "@arch-ui/fields": "^3.0.8",
+    "@open-arch-ui/fields": "workspace:^",
     "@open-keystone/adapter-prisma": "workspace:^",
     "@open-keystone/app-admin-ui": "workspace:^",
     "@open-keystone/app-graphql": "workspace:^",
@@ -39,7 +39,7 @@
     "date-fns": "^2.22.1",
     "express": "^4.17.1",
     "graphql": "^16.10.0",
-    "react": "^17.0.2"
+    "react": "^18.3.1"
   },
   "devDependencies": {
     "cypress": "^6",

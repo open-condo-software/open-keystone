@@ -1,24 +1,24 @@
 {
-  "name": "@arch-ui/pagination",
+  "name": "@open-arch-ui/pagination",
   "description": "Pagination UI as used in @open-keystone Admin UI.",
   "version": "0.0.29",
   "author": "Jed Watson",
   "license": "MIT",
   "main": "dist/pagination.cjs.js",
   "peerDependencies": {
-    "react": "^17.0.2"
+    "react": "^18.3.1"
   },
   "devDependencies": {
-    "react": "^17.0.2"
+    "react": "^18.3.1"
   },
   "dependencies": {
-    "@arch-ui/button": "^0.0.25",
-    "@arch-ui/layout": "^0.2.17",
-    "@arch-ui/loading": "^0.0.21",
-    "@arch-ui/theme": "^0.0.14",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.27",
+    "@open-arch-ui/button": "workspace:^",
+    "@open-arch-ui/layout": "workspace:^",
+    "@open-arch-ui/loading": "workspace:^",
+    "@open-arch-ui/theme": "workspace:^",
     "@primer/octicons-react": "^11.3.0",
     "react-router-dom": "5.2.0"
   },

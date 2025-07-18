@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import Tooltip from '@arch-ui/tooltip';
-import { IconButton } from '@arch-ui/button';
+import Tooltip from '@open-arch-ui/tooltip';
+import { IconButton } from '@open-arch-ui/button';
 import { PlusIcon } from '@primer/octicons-react';
 import { useList } from '../../providers/List';
 

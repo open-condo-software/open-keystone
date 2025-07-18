@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 
-import { Button } from '@arch-ui/button';
-import { FlexGroup } from '@arch-ui/layout';
-import { Input } from '@arch-ui/input';
+import { Button } from '@open-arch-ui/button';
+import { FlexGroup } from '@open-arch-ui/layout';
+import { Input } from '@open-arch-ui/input';
 
 const FlexGroupExample = ({ heading, groupProps }) => (
   <Fragment>

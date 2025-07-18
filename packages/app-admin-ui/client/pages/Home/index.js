@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { gql, useQuery } from '@apollo/client';
 
-import { Container, Grid, Cell } from '@arch-ui/layout';
-import { PageTitle } from '@arch-ui/typography';
+import { Container, Grid, Cell } from '@open-arch-ui/layout';
+import { PageTitle } from '@open-arch-ui/typography';
 
 import { ListProvider } from '../../providers/List';
 import DocTitle from '../../components/DocTitle';

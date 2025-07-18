@@ -4,9 +4,9 @@ import { jsx } from '@emotion/core';
 import { forwardRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import { borderRadius, colors, gridSize, shadows } from '@arch-ui/theme';
+import { borderRadius, colors, gridSize, shadows } from '@open-arch-ui/theme';
 import FocusTrap from 'focus-trap-react';
-import { withModalHandlers, springDown } from '@arch-ui/modal-utils';
+import { withModalHandlers, springDown } from '@open-arch-ui/modal-utils';
 import { usePopper } from 'react-popper';
 
 const ARROW_WIDTH = 30;

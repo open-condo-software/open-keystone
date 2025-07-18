@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Pagination } from '@arch-ui/pagination';
+import { Pagination } from '@open-arch-ui/pagination';
 
 const PaginationGuide = () => (
   <Fragment>

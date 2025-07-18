@@ -7,18 +7,18 @@ import PropToggle from 'react-prop-toggle';
 import { uid } from 'react-uid';
 import { jsx } from '@emotion/core';
 
-import { colors, gridSize } from '@arch-ui/theme';
-import { alpha } from '@arch-ui/color-utils';
+import { colors, gridSize } from '@open-arch-ui/theme';
+import { alpha } from '@open-arch-ui/color-utils';
 import {
   PrimaryNav,
   PrimaryNavItem,
   PrimaryNavHeading,
   PrimaryNavScrollArea,
   PRIMARY_NAV_GUTTER,
-} from '@arch-ui/navbar';
-import { Title, Truncate } from '@arch-ui/typography';
-import Tooltip from '@arch-ui/tooltip';
-import { FlexGroup } from '@arch-ui/layout';
+} from '@open-arch-ui/navbar';
+import { Title, Truncate } from '@open-arch-ui/typography';
+import Tooltip from '@open-arch-ui/tooltip';
+import { FlexGroup } from '@open-arch-ui/layout';
 import { PersonIcon, SignOutIcon, TerminalIcon, MarkGithubIcon } from '@primer/octicons-react';
 
 import { useAdminMeta } from '../providers/AdminMeta';

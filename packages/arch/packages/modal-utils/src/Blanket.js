@@ -2,8 +2,8 @@
 
 import { jsx } from '@emotion/core';
 
-import { colors } from '@arch-ui/theme';
-import { alpha } from '@arch-ui/color-utils';
+import { colors } from '@open-arch-ui/theme';
+import { alpha } from '@open-arch-ui/color-utils';
 
 export const Blanket = ({ isTinted, isLight, ...props }) => {
   let bg = 'transparent';

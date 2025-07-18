@@ -14,10 +14,10 @@ import {
 import { VariableSizeList as List } from 'react-window';
 import { ChevronLeftIcon, ChevronRightIcon } from '@primer/octicons-react';
 import { useLayoutEffect, useState, useRef, useMemo, useCallback } from 'react';
-import { borderRadius, colors } from '@arch-ui/theme';
+import { borderRadius, colors } from '@open-arch-ui/theme';
 import { yearRange, months, getWeeksInMonth, isNumberInRange } from './utils';
 import { SelectMonth, SelectYear } from './selects';
-import { A11yText } from '@arch-ui/typography';
+import { A11yText } from '@open-arch-ui/typography';
 import { Month } from './month';
 import { WeekLabels, Day } from './comps';
 import 'intersection-observer';

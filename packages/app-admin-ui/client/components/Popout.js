@@ -2,10 +2,10 @@
 import { jsx } from '@emotion/core';
 import { Fragment, forwardRef } from 'react';
 
-import { Button } from '@arch-ui/button';
-import PopoutModal from '@arch-ui/popout';
-import { colors, gridSize } from '@arch-ui/theme';
-import { alpha } from '@arch-ui/color-utils';
+import { Button } from '@open-arch-ui/button';
+import PopoutModal from '@open-arch-ui/popout';
+import { colors, gridSize } from '@open-arch-ui/theme';
+import { alpha } from '@open-arch-ui/color-utils';
 
 export const POPOUT_GUTTER = gridSize * 2;
 

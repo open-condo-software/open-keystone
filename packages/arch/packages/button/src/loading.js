@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 
-import { LoadingIndicator, LoadingSpinner } from '@arch-ui/loading';
+import { LoadingIndicator, LoadingSpinner } from '@open-arch-ui/loading';
 import { Button } from './primitives';
 
 // Styled

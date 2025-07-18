@@ -10,10 +10,10 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@arch-ui/fields": "^3.0.8",
-    "@arch-ui/select": "^0.1.12",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
+    "@open-arch-ui/fields": "workspace:^",
+    "@open-arch-ui/select": "workspace:^",
     "@open-keystone/adapter-knex": "workspace:^",
     "@open-keystone/adapter-mongoose": "workspace:^",
     "@open-keystone/adapter-prisma": "workspace:^",
@@ -22,7 +22,7 @@
     "google-maps-react": "^2.0.6",
     "mongoose": "^8.16.0",
     "node-fetch": "^2.6.1",
-    "react": "^17.0.2",
+    "react": "^18.3.1",
     "react-toast-notifications": "^2.4.4"
   },
   "devDependencies": {

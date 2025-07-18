@@ -2,8 +2,8 @@
 import { jsx } from '@emotion/core';
 import { Fragment } from 'react';
 
-import { FlexGroup } from '@arch-ui/layout';
-import { colors, gridSize } from '@arch-ui/theme';
+import { FlexGroup } from '@open-arch-ui/layout';
+import { colors, gridSize } from '@open-arch-ui/theme';
 
 import { useUIHooks } from '../../providers/Hooks';
 import DeleteItems from '../../components/DeleteItems';

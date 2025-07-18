@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { FoldIcon, KebabVerticalIcon, UnfoldIcon, ZapIcon } from '@primer/octicons-react';
-import { CONTAINER_GUTTER, CONTAINER_WIDTH } from '@arch-ui/layout';
-import { A11yText } from '@arch-ui/typography';
-import { IconButton } from '@arch-ui/button';
-import Dropdown from '@arch-ui/dropdown';
-import { useMeasure } from '@arch-ui/hooks';
+import { CONTAINER_GUTTER, CONTAINER_WIDTH } from '@open-arch-ui/layout';
+import { A11yText } from '@open-arch-ui/typography';
+import { IconButton } from '@open-arch-ui/button';
+import Dropdown from '@open-arch-ui/dropdown';
+import { useMeasure } from '@open-arch-ui/hooks';
 
 import { useReset } from './dataHooks';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { formatISO } from 'date-fns';
-import { DayTimePicker } from '@arch-ui/day-picker';
+import { DayTimePicker } from '@open-arch-ui/day-picker';
 import { stringifyDate, parseDate } from './utils';
 
 const DateTimeFilterView = props => {

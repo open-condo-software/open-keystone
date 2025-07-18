@@ -3,8 +3,8 @@ import { jsx } from '@emotion/core';
 import { Children, cloneElement, forwardRef } from 'react';
 import styled from '@emotion/styled';
 
-import { mediaQueries } from '@arch-ui/common';
-import { gridSize } from '@arch-ui/theme';
+import { mediaQueries } from '@open-arch-ui/common';
+import { gridSize } from '@open-arch-ui/theme';
 
 // ==============================
 // Container

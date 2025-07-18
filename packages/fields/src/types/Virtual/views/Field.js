@@ -2,10 +2,10 @@
 
 import { jsx } from '@emotion/core';
 
-import { colors, gridSize } from '@arch-ui/theme';
+import { colors, gridSize } from '@open-arch-ui/theme';
 import { ShieldIcon } from '@primer/octicons-react';
 
-import { FieldContainer, FieldDescription } from '@arch-ui/fields';
+import { FieldContainer, FieldDescription } from '@open-arch-ui/fields';
 import PrettyData from '../prettyData';
 
 export const FieldLabel = props => {

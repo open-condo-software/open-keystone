@@ -5,14 +5,14 @@ import { Component, Suspense } from 'react';
 import { useImage } from 'react-image';
 import PropTypes from 'prop-types';
 
-import { FieldContainer, FieldLabel, FieldDescription, FieldInput } from '@arch-ui/fields';
+import { FieldContainer, FieldLabel, FieldDescription, FieldInput } from '@open-arch-ui/fields';
 import { AlertIcon, FileMediaIcon } from '@primer/octicons-react';
-import { HiddenInput } from '@arch-ui/input';
-import { LoadingIndicator } from '@arch-ui/loading';
-import { Lozenge } from '@arch-ui/lozenge';
-import { Button, LoadingButton } from '@arch-ui/button';
-import { FlexGroup } from '@arch-ui/layout';
-import { borderRadius, colors, gridSize } from '@arch-ui/theme';
+import { HiddenInput } from '@open-arch-ui/input';
+import { LoadingIndicator } from '@open-arch-ui/loading';
+import { Lozenge } from '@open-arch-ui/lozenge';
+import { Button, LoadingButton } from '@open-arch-ui/button';
+import { FlexGroup } from '@open-arch-ui/layout';
+import { borderRadius, colors, gridSize } from '@open-arch-ui/theme';
 import isEqual from 'lodash.isequal';
 
 function uploadButtonLabelFn({ status }) {

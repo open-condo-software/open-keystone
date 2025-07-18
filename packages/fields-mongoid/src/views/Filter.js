@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input } from '@arch-ui/input';
+import { Input } from '@open-arch-ui/input';
 
 const MongoIdFilterView = ({ onChange, filter, field, innerRef, value }) => {
   const handleChange = ({ target: { value } }) => {

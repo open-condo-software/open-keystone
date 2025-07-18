@@ -1,24 +1,24 @@
 {
-  "name": "@arch-ui/day-picker",
+  "name": "@open-arch-ui/day-picker",
   "description": "Day Picker UI as used in @open-keystone Admin UI.",
   "version": "1.0.8",
   "author": "Jed Watson",
   "license": "MIT",
   "main": "dist/day-picker.cjs.js",
   "peerDependencies": {
-    "react": "^17.0.2"
+    "react": "^18.3.1"
   },
   "devDependencies": {
-    "react": "^17.0.2"
+    "react": "^18.3.1"
   },
   "dependencies": {
-    "@arch-ui/input": "^0.1.14",
-    "@arch-ui/select": "^0.1.12",
-    "@arch-ui/theme": "^0.0.14",
-    "@arch-ui/typography": "^0.0.21",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.27",
+    "@open-arch-ui/input": "workspace:^",
+    "@open-arch-ui/select": "workspace:^",
+    "@open-arch-ui/theme": "workspace:^",
+    "@open-arch-ui/typography": "workspace:^",
     "@primer/octicons-react": "^11.3.0",
     "chrono-node": "^1.4.8",
     "date-fns": "^2.22.1",

@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import { Fragment, useState, useCallback, createContext, useContext } from 'react';
 import { BlockMenuItem } from '@open-keystone/fields-content/block-components';
-import { Input } from '@arch-ui/input';
+import { Input } from '@open-arch-ui/input';
 
 import { gql, useLazyQuery } from '@apollo/client';
 

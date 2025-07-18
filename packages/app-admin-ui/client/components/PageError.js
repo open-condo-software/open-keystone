@@ -2,8 +2,8 @@
 import { jsx } from '@emotion/core';
 
 import { StopIcon } from '@primer/octicons-react';
-import { colors } from '@arch-ui/theme';
-import { Container } from '@arch-ui/layout';
+import { colors } from '@open-arch-ui/theme';
+import { Container } from '@open-arch-ui/layout';
 
 export default function PageError({ children, icon: Icon = StopIcon, ...props }) {
   return (

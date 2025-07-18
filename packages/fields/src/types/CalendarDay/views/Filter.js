@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextDayPicker } from '@arch-ui/day-picker';
+import { TextDayPicker } from '@open-arch-ui/day-picker';
 
 const CalendarDayFilterView = ({ onChange, filter, value, innerRef }) => {
   const handleChange = newValue => {

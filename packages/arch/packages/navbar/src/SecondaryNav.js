@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { colors, gridSize } from '@arch-ui/theme';
+import { colors, gridSize } from '@open-arch-ui/theme';
 import { ItemElement } from './common';
 
 const Wrapper = styled.nav({

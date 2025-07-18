@@ -8,7 +8,7 @@ import Slugger from 'github-slugger';
 import { MDXProvider } from '@mdx-js/react';
 import { jsx } from '@emotion/core';
 import { SkipNavContent } from '@reach/skip-nav';
-import { borderRadius, colors, gridSize } from '@arch-ui/theme';
+import { borderRadius, colors, gridSize } from '@open-arch-ui/theme';
 
 import { Layout, Content } from '../templates/layout';
 import mdComponents from '../components/markdown';

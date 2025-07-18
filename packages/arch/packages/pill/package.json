@@ -1,22 +1,22 @@
 {
-  "name": "@arch-ui/pill",
+  "name": "@open-arch-ui/pill",
   "description": "Pill Component as used in @open-keystone Admin UI.",
   "version": "0.1.21",
   "author": "Jed Watson",
   "license": "MIT",
   "main": "dist/pill.cjs.js",
   "peerDependencies": {
-    "react": "^17.0.2"
+    "react": "^18.3.1"
   },
   "devDependencies": {
-    "react": "^17.0.2"
+    "react": "^18.3.1"
   },
   "dependencies": {
-    "@arch-ui/common": "^0.0.15",
-    "@arch-ui/theme": "0.0.14",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.27",
+    "@open-arch-ui/common": "workspace:^",
+    "@open-arch-ui/theme": "workspace:^",
     "@primer/octicons-react": "^11.3.0"
   },
   "module": "dist/pill.esm.js",

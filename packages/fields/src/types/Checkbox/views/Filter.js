@@ -1,5 +1,5 @@
 import React from 'react';
-import { RadioGroup, Radio } from '@arch-ui/filters';
+import { RadioGroup, Radio } from '@open-arch-ui/filters';
 
 const inputMap = {
   is_true: true,

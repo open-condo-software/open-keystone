@@ -1,8 +1,8 @@
 /** @jsx jsx */
 
 import { jsx } from '@emotion/core';
-import { FieldInput } from '@arch-ui/fields';
-import { CheckboxPrimitive } from '@arch-ui/controls';
+import { FieldInput } from '@open-arch-ui/fields';
+import { CheckboxPrimitive } from '@open-arch-ui/controls';
 
 export const Checkbox = ({ label, value, onChange }) => {
   const checked = value || false;

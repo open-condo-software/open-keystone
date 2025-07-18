@@ -9,7 +9,7 @@ import {
   setMonth,
 } from 'date-fns';
 import { memo, useRef, useEffect } from 'react';
-import { colors } from '@arch-ui/theme';
+import { colors } from '@open-arch-ui/theme';
 import { months } from './utils';
 import { WeekRow, Day } from './comps';
 

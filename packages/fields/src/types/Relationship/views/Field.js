@@ -4,11 +4,11 @@ import { jsx } from '@emotion/core';
 import { Fragment } from 'react';
 import { gql, useQuery } from '@apollo/client';
 
-import { FieldContainer, FieldLabel, FieldDescription, FieldInput } from '@arch-ui/fields';
+import { FieldContainer, FieldLabel, FieldDescription, FieldInput } from '@open-arch-ui/fields';
 import { PlusIcon, PersonIcon, LinkExternalIcon } from '@primer/octicons-react';
-import { gridSize } from '@arch-ui/theme';
-import { IconButton } from '@arch-ui/button';
-import Tooltip from '@arch-ui/tooltip';
+import { gridSize } from '@open-arch-ui/theme';
+import { IconButton } from '@open-arch-ui/button';
+import Tooltip from '@open-arch-ui/tooltip';
 
 import RelationshipSelect from './RelationshipSelect';
 import {

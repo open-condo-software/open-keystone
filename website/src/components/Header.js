@@ -3,7 +3,7 @@
 import { forwardRef } from 'react';
 import { Link } from 'gatsby';
 import { jsx } from '@emotion/core';
-import { colors, gridSize } from '@arch-ui/theme';
+import { colors, gridSize } from '@open-arch-ui/theme';
 
 import logosvg from '../assets/logo.svg';
 import { Container, SocialIconsNav, Search } from '../components';

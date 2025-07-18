@@ -1,7 +1,7 @@
 /** @jsx jsx */
 
 import { jsx } from '@emotion/core';
-import { colors, gridSize } from '@arch-ui/theme';
+import { colors, gridSize } from '@open-arch-ui/theme';
 import { LinkIcon } from '@primer/octicons-react';
 
 // offset header height for hash links

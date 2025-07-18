@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import Highlight, { defaultProps } from 'prism-react-renderer';
-import { colors } from '@arch-ui/theme/src';
+import { colors } from '@open-arch-ui/theme/src';
 
 import { HomepageSection } from './HomepageSection';
 import prismTheme from '../../prism-themes/custom';

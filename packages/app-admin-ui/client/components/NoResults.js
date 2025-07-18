@@ -2,9 +2,9 @@
 
 import { jsx } from '@emotion/core';
 
-import { Button } from '@arch-ui/button';
+import { Button } from '@open-arch-ui/button';
 import { InfoIcon } from '@primer/octicons-react';
-import { colors } from '@arch-ui/theme';
+import { colors } from '@open-arch-ui/theme';
 
 import { useListPagination } from '../pages/List/dataHooks';
 

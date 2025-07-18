@@ -1,5 +1,5 @@
-import { colors } from '@arch-ui/theme';
-import { alpha, darken } from '@arch-ui/color-utils';
+import { colors } from '@open-arch-ui/theme';
+import { alpha, darken } from '@open-arch-ui/color-utils';
 
 const boldAppearance = {
   default: {

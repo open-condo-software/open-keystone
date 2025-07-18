@@ -3,8 +3,14 @@ import { createPortal } from 'react-dom';
 import ScrollLock from 'react-scrolllock';
 import FocusTrap from 'focus-trap-react';
 
-import { fade, slideUp, withTransitionState, Blanket, generateUEID } from '@arch-ui/modal-utils';
-import { A11yText } from '@arch-ui/typography';
+import {
+  fade,
+  slideUp,
+  withTransitionState,
+  Blanket,
+  generateUEID,
+} from '@open-arch-ui/modal-utils';
+import { A11yText } from '@open-arch-ui/typography';
 
 import { Body, Dialog, Footer, Header, Positioner, Title } from './primitives';
 

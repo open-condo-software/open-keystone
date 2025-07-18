@@ -2,7 +2,7 @@
 
 import { Fragment } from 'react';
 import { jsx, Global } from '@emotion/core';
-import { globalStyles } from '@arch-ui/theme';
+import { globalStyles } from '@open-arch-ui/theme';
 import { SkipNavContent } from '@reach/skip-nav';
 
 import { Layout } from '../templates/layout';

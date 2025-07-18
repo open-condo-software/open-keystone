@@ -8,20 +8,20 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@arch-ui/button": "^0.0.25",
-    "@arch-ui/fields": "^3.0.8",
-    "@arch-ui/popout": "^0.0.26",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
+    "@open-arch-ui/button": "workspace:^",
+    "@open-arch-ui/fields": "workspace:^",
+    "@open-arch-ui/popout": "workspace:^",
     "@open-keystone/fields": "workspace:^",
     "react-color": "^2.19.3"
   },
   "peerDependencies": {
-    "react": "^17.0.2"
+    "react": "^18.3.1"
   },
   "devDependencies": {
     "@open-keystone/server-side-graphql-client": "workspace:^",
-    "react": "^17.0.2"
+    "react": "^18.3.1"
   },
   "main": "dist/fields-color.cjs.js",
   "module": "dist/fields-color.esm.js",

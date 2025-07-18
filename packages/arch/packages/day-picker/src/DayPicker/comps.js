@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { colors, borderRadius } from '@arch-ui/theme';
+import { colors, borderRadius } from '@open-arch-ui/theme';
 
 export const WeekRow = styled.div({
   display: 'flex',

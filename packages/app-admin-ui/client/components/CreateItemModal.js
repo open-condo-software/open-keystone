@@ -14,9 +14,9 @@ import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { useToasts } from 'react-toast-notifications';
 
-import { Button, LoadingButton } from '@arch-ui/button';
-import Drawer from '@arch-ui/drawer';
-import Confirm from '@arch-ui/confirm';
+import { Button, LoadingButton } from '@open-arch-ui/button';
+import Drawer from '@open-arch-ui/drawer';
+import Confirm from '@open-arch-ui/confirm';
 import {
   arrayToObject,
   captureSuspensePromises,
@@ -24,8 +24,8 @@ import {
   mapKeys,
   omitBy,
 } from '@open-keystone/utils';
-import { gridSize } from '@arch-ui/theme';
-import { AutocompleteCaptor } from '@arch-ui/input';
+import { gridSize } from '@open-arch-ui/theme';
+import { AutocompleteCaptor } from '@open-arch-ui/input';
 
 import PageLoading from './PageLoading';
 import { useList } from '../providers/List';

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
-import { Pill } from '@arch-ui/pill';
-import { FlexGroup } from '@arch-ui/layout';
+import { Pill } from '@open-arch-ui/pill';
+import { FlexGroup } from '@open-arch-ui/layout';
 
 const appearances = ['Default', 'Primary', 'Danger', 'Create', 'Warning'];
 const PillGuide = () => (

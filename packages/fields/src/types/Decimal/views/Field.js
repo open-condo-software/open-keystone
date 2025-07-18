@@ -6,8 +6,8 @@ import {
   FieldDescription,
   FieldInput,
   Currency,
-} from '@arch-ui/fields';
-import { Input } from '@arch-ui/input';
+} from '@open-arch-ui/fields';
+import { Input } from '@open-arch-ui/input';
 
 const DecimalField = ({ onChange, autoFocus, field, value, errors, isDisabled }) => {
   const handleChange = event => {

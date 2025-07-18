@@ -1,9 +1,9 @@
 /** @jsx jsx */
 
 import { jsx } from '@emotion/core';
-import { colors, gridSize } from '@arch-ui/theme';
+import { colors, gridSize } from '@open-arch-ui/theme';
 import { ShieldIcon } from '@primer/octicons-react';
-import { Lozenge } from '@arch-ui/lozenge';
+import { Lozenge } from '@open-arch-ui/lozenge';
 
 export const FieldContainer = props => (
   <div data-selector="field-container" css={{ marginBottom: gridSize * 2 }} {...props} />

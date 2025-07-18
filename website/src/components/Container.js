@@ -2,7 +2,7 @@
 
 import { jsx } from '@emotion/core';
 import { mq } from '../utils/media';
-import { gridSize } from '@arch-ui/theme';
+import { gridSize } from '@open-arch-ui/theme';
 
 export const CONTAINER_GUTTERS = [gridSize * 2, gridSize * 3, gridSize * 4];
 export const DEFAULT_WIDTH = 1440;

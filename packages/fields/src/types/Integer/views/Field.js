@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { FieldContainer, FieldLabel, FieldDescription, FieldInput } from '@arch-ui/fields';
-import { Input } from '@arch-ui/input';
+import { FieldContainer, FieldLabel, FieldDescription, FieldInput } from '@open-arch-ui/fields';
+import { Input } from '@open-arch-ui/input';
 
 const IntegerField = ({ onChange, autoFocus, field, value, errors, isDisabled }) => {
   const handleChange = event => {

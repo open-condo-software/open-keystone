@@ -11,10 +11,10 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.8",
-    "@arch-ui/fields": "^3.0.8",
-    "@arch-ui/input": "^0.1.14",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
+    "@open-arch-ui/fields": "workspace:^",
+    "@open-arch-ui/input": "workspace:^",
     "@open-keystone/adapter-knex": "workspace:^",
     "@open-keystone/adapter-mongoose": "workspace:^",
     "@open-keystone/adapter-prisma": "workspace:^",
@@ -25,11 +25,11 @@
     "unsplash-js": "^6.3.0"
   },
   "peerDependencies": {
-    "react": "^17.0.2"
+    "react": "^18.3.1"
   },
   "devDependencies": {
     "dotenv": "^8.6.0",
-    "react": "^17.0.2"
+    "react": "^18.3.1"
   },
   "main": "dist/fields-unsplash.cjs.js",
   "module": "dist/fields-unsplash.esm.js",

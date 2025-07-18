@@ -3,8 +3,8 @@ import { jsx } from '@emotion/core';
 import { forwardRef } from 'react';
 import styled from '@emotion/styled';
 
-import { colors } from '@arch-ui/theme';
-import { alpha } from '@arch-ui/color-utils';
+import { colors } from '@open-arch-ui/theme';
+import { alpha } from '@open-arch-ui/color-utils';
 
 const outerGutter = 40;
 const innerGutter = 20;

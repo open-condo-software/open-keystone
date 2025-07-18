@@ -6,8 +6,8 @@ import { usePopper } from 'react-popper';
 import { marks, markTypes } from './marks';
 import { ToolbarButton } from './toolbar-components';
 import { CircleSlashIcon } from '@primer/octicons-react';
-import { colors, gridSize } from '@arch-ui/theme';
-import { useMeasure } from '@arch-ui/hooks';
+import { colors, gridSize } from '@open-arch-ui/theme';
+import { useMeasure } from '@open-arch-ui/hooks';
 import { getSelectionReference } from './utils';
 import applyRef from 'apply-ref';
 

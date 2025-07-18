@@ -14,11 +14,11 @@
     "start": "cross-env NODE_ENV=production keystone start"
   },
   "dependencies": {
-    "@arch-ui/controls": "^0.1.12",
-    "@arch-ui/fields": "^3.0.8",
-    "@arch-ui/lozenge": "^0.0.20",
-    "@arch-ui/theme": "^0.0.14",
     "@emotion/core": "^10.1.1",
+    "@open-arch-ui/controls": "workspace:^",
+    "@open-arch-ui/fields": "workspace:^",
+    "@open-arch-ui/lozenge": "workspace:^",
+    "@open-arch-ui/theme": "workspace:^",
     "@open-keystone/adapter-mongoose": "workspace:^",
     "@open-keystone/app-admin-ui": "workspace:^",
     "@open-keystone/app-graphql": "workspace:^",
@@ -27,7 +27,7 @@
     "@open-keystone/keystone": "workspace:^",
     "@primer/octicons-react": "^11.3.0",
     "cross-env": "^7.0.3",
-    "react": "^17.0.2"
+    "react": "^18.3.1"
   },
   "repository": "https://github.com/keystonejs/keystone-5/tree/main/examples/custom-fields"
 }

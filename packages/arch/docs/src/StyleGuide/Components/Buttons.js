@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from 'react';
 
 import { AlertIcon, MeterIcon, PencilIcon, PlusIcon, MegaphoneIcon } from '@primer/octicons-react';
-import { Button, IconButton, LoadingButton } from '@arch-ui/button';
-import { FlexGroup } from '@arch-ui/layout';
+import { Button, IconButton, LoadingButton } from '@open-arch-ui/button';
+import { FlexGroup } from '@open-arch-ui/layout';
 
 const loadingTypes = [
   { appearance: 'default', variant: 'dots' },

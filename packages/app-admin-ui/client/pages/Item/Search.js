@@ -5,11 +5,11 @@ import { forwardRef, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { SearchIcon, XIcon } from '@primer/octicons-react';
-import { IconButton } from '@arch-ui/button';
-import { A11yText } from '@arch-ui/typography';
-import { colors } from '@arch-ui/theme';
-import { uniformHeight } from '@arch-ui/common';
-import Tooltip from '@arch-ui/tooltip';
+import { IconButton } from '@open-arch-ui/button';
+import { A11yText } from '@open-arch-ui/typography';
+import { colors } from '@open-arch-ui/theme';
+import { uniformHeight } from '@open-arch-ui/common';
+import Tooltip from '@open-arch-ui/tooltip';
 
 export function Search({ list }) {
   const [value, setValue] = useState('');

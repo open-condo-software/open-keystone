@@ -1,22 +1,22 @@
 {
-  "name": "@arch-ui/input",
+  "name": "@open-arch-ui/input",
   "description": "Input component as used in @open-keystone Admin UI.",
   "version": "0.1.14",
   "author": "Jed Watson",
   "license": "MIT",
   "main": "dist/input.cjs.js",
   "peerDependencies": {
-    "react": "^17.0.2"
+    "react": "^18.3.1"
   },
   "devDependencies": {
-    "react": "^17.0.2"
+    "react": "^18.3.1"
   },
   "dependencies": {
-    "@arch-ui/color-utils": "0.0.5",
-    "@arch-ui/common": "0.0.15",
-    "@arch-ui/theme": "0.0.14",
     "@babel/runtime": "^7.14.6",
-    "@emotion/core": "^10.1.1"
+    "@emotion/core": "^10.1.1",
+    "@open-arch-ui/color-utils": "workspace:^",
+    "@open-arch-ui/common": "workspace:^",
+    "@open-arch-ui/theme": "workspace:^"
   },
   "module": "dist/input.esm.js",
   "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/arch/packages/input"

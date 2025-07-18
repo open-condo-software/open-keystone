@@ -1,5 +1,5 @@
 {
-  "name": "@arch-ui/color-utils",
+  "name": "@open-arch-ui/color-utils",
   "description": "Color Utilities used throughout @arch-ui components & @open-keystone Admin UI.",
   "version": "0.0.5",
   "author": "Jed Watson",
