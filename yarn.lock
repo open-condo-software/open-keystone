@@ -5316,9 +5316,9 @@ __metadata:
     "@emotion/core": ^10.1.1
     "@emotion/styled": ^10.0.27
     "@open-arch-ui/theme": "workspace:^"
-    react: ^17.0.2
+    react: ^18.3.1
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5330,9 +5330,9 @@ __metadata:
     "@emotion/core": ^10.1.1
     "@emotion/styled": ^10.0.27
     "@open-arch-ui/theme": "workspace:^"
-    react: ^17.0.2
+    react: ^18.3.1
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5347,11 +5347,11 @@ __metadata:
     "@open-arch-ui/common": "workspace:^"
     "@open-arch-ui/loading": "workspace:^"
     "@open-arch-ui/theme": "workspace:^"
-    react: ^17.0.2
+    react: ^18.3.1
     react-pseudo-state: ^2.2.2
     react-router-dom: 5.2.0
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5362,9 +5362,9 @@ __metadata:
     "@babel/runtime": ^7.14.6
     "@emotion/core": ^10.1.1
     "@open-arch-ui/theme": "workspace:^"
-    react: ^17.0.2
+    react: ^18.3.1
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5392,12 +5392,12 @@ __metadata:
     "@open-arch-ui/modal-utils": "workspace:^"
     "@open-arch-ui/theme": "workspace:^"
     focus-trap-react: ^8.5.1
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.3.1
+    react-dom: ^18.3.1
     react-scrolllock: ^5.0.1
   peerDependencies:
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.3.1
+    react-dom: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5410,11 +5410,11 @@ __metadata:
     "@emotion/styled": ^10.0.27
     "@open-arch-ui/input": "workspace:^"
     "@open-arch-ui/theme": "workspace:^"
-    react: ^17.0.2
+    react: ^18.3.1
     react-pseudo-state: ^2.2.2
     react-radios: ^1.1.0
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5434,10 +5434,10 @@ __metadata:
     date-fns: ^2.22.1
     intersection-observer: ^0.12.0
     moment: ^2.29.1
-    react: ^17.0.2
+    react: ^18.3.1
     react-window: ^1.8.6
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5453,12 +5453,12 @@ __metadata:
     "@open-arch-ui/theme": "workspace:^"
     "@open-arch-ui/typography": "workspace:^"
     focus-trap-react: ^8.5.1
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.3.1
+    react-dom: ^18.3.1
     react-scrolllock: ^5.0.1
   peerDependencies:
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.3.1
+    react-dom: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5491,8 +5491,8 @@ __metadata:
     "@reach/router": ^1.3.4
     clipboard-copy: ^4.0.1
     gatsby: 2.13.25
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.3.1
+    react-dom: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5508,12 +5508,12 @@ __metadata:
     "@open-arch-ui/theme": "workspace:^"
     "@open-arch-ui/typography": "workspace:^"
     focus-trap-react: ^8.5.1
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.3.1
+    react-dom: ^18.3.1
     react-scrolllock: ^5.0.1
   peerDependencies:
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.3.1
+    react-dom: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5527,12 +5527,12 @@ __metadata:
     "@open-arch-ui/modal-utils": "workspace:^"
     "@open-arch-ui/theme": "workspace:^"
     focus-trap-react: ^8.5.1
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.3.1
+    react-dom: ^18.3.1
     react-router-dom: 5.2.0
   peerDependencies:
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.3.1
+    react-dom: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5546,9 +5546,9 @@ __metadata:
     "@open-arch-ui/lozenge": "workspace:^"
     "@open-arch-ui/theme": "workspace:^"
     "@primer/octicons-react": ^11.3.0
-    react: ^17.0.2
+    react: ^18.3.1
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5561,10 +5561,10 @@ __metadata:
     "@open-arch-ui/controls": "workspace:^"
     "@open-arch-ui/layout": "workspace:^"
     "@open-arch-ui/theme": "workspace:^"
-    react: ^17.0.2
+    react: ^18.3.1
     react-radios: ^1.1.0
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5573,10 +5573,10 @@ __metadata:
   resolution: "@open-arch-ui/hooks@workspace:packages/arch/packages/hooks"
   dependencies:
     "@babel/runtime": ^7.14.6
-    react: ^17.0.2
+    react: ^18.3.1
     resize-observer-polyfill: ^1.5.1
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5587,10 +5587,10 @@ __metadata:
     "@babel/runtime": ^7.14.6
     "@primer/octicons": ^12.1.0
     fs-extra: ^9.1.0
-    react: ^17.0.2
+    react: ^18.3.1
     to-pascal-case: ^1.0.0
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5603,9 +5603,9 @@ __metadata:
     "@open-arch-ui/color-utils": "workspace:^"
     "@open-arch-ui/common": "workspace:^"
     "@open-arch-ui/theme": "workspace:^"
-    react: ^17.0.2
+    react: ^18.3.1
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5618,9 +5618,9 @@ __metadata:
     "@emotion/styled": ^10.0.27
     "@open-arch-ui/common": "workspace:^"
     "@open-arch-ui/theme": "workspace:^"
-    react: ^17.0.2
+    react: ^18.3.1
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5633,9 +5633,9 @@ __metadata:
     "@emotion/styled": ^10.0.27
     "@open-arch-ui/theme": "workspace:^"
     "@open-arch-ui/typography": "workspace:^"
-    react: ^17.0.2
+    react: ^18.3.1
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5647,9 +5647,9 @@ __metadata:
     "@emotion/core": ^10.1.1
     "@emotion/styled": ^10.0.27
     "@open-arch-ui/theme": "workspace:^"
-    react: ^17.0.2
+    react: ^18.3.1
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5662,11 +5662,11 @@ __metadata:
     "@emotion/styled": ^10.0.27
     "@open-arch-ui/color-utils": "workspace:^"
     "@open-arch-ui/theme": "workspace:^"
-    react: ^17.0.2
+    react: ^18.3.1
     react-scrolllock: ^5.0.1
     react-transition-group: ^4.4.2
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5679,10 +5679,10 @@ __metadata:
     "@emotion/styled": ^10.0.27
     "@open-arch-ui/color-utils": "workspace:^"
     "@open-arch-ui/theme": "workspace:^"
-    react: ^17.0.2
+    react: ^18.3.1
     react-router-dom: 5.2.0
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5695,10 +5695,10 @@ __metadata:
     "@open-arch-ui/common": "workspace:^"
     "@open-arch-ui/theme": "workspace:^"
     "@primer/octicons-react": ^11.3.0
-    react: ^17.0.2
+    react: ^18.3.1
     react-select: ^3.2.0
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5714,10 +5714,10 @@ __metadata:
     "@open-arch-ui/loading": "workspace:^"
     "@open-arch-ui/theme": "workspace:^"
     "@primer/octicons-react": ^11.3.0
-    react: ^17.0.2
+    react: ^18.3.1
     react-router-dom: 5.2.0
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5731,9 +5731,9 @@ __metadata:
     "@open-arch-ui/common": "workspace:^"
     "@open-arch-ui/theme": "workspace:^"
     "@primer/octicons-react": ^11.3.0
-    react: ^17.0.2
+    react: ^18.3.1
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5749,12 +5749,12 @@ __metadata:
     "@open-arch-ui/theme": "workspace:^"
     "@popperjs/core": ^2.9.2
     focus-trap-react: ^8.5.1
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.3.1
+    react-dom: ^18.3.1
     react-popper: ^2.2.5
   peerDependencies:
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.3.1
+    react-dom: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5764,10 +5764,10 @@ __metadata:
   dependencies:
     "@babel/runtime": ^7.14.6
     "@open-arch-ui/theme": "workspace:^"
-    react: ^17.0.2
+    react: ^18.3.1
     react-select: ^3.2.0
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5791,12 +5791,12 @@ __metadata:
     "@open-arch-ui/theme": "workspace:^"
     "@popperjs/core": ^2.9.2
     flushable: ^1.0.0
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.3.1
+    react-dom: ^18.3.1
     react-popper: ^2.2.5
   peerDependencies:
-    react: ^17.0.2
-    react-dom: ^17.0.2
+    react: ^18.3.1
+    react-dom: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -5808,9 +5808,9 @@ __metadata:
     "@emotion/core": ^10.1.1
     "@emotion/styled": ^10.0.27
     "@open-arch-ui/theme": "workspace:^"
-    react: ^17.0.2
+    react: ^18.3.1
   peerDependencies:
-    react: ^17.0.2
+    react: ^18.3.1
   languageName: unknown
   linkType: soft
 
@@ -31930,19 +31930,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^17.0.2":
-  version: 17.0.2
-  resolution: "react-dom@npm:17.0.2"
-  dependencies:
-    loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-    scheduler: ^0.20.2
-  peerDependencies:
-    react: 17.0.2
-  checksum: 1c1eaa3bca7c7228d24b70932e3d7c99e70d1d04e13bb0843bbf321582bc25d7961d6b8a6978a58a598af2af496d1cedcfb1bf65f6b0960a0a8161cb8dab743c
-  languageName: node
-  linkType: hard
-
 "react-dom@npm:^18.3.1":
   version: 18.3.1
   resolution: "react-dom@npm:18.3.1"
@@ -32460,16 +32447,6 @@ __metadata:
     object-assign: ^4.1.1
     prop-types: ^15.6.2
   checksum: 8484f3ecb13414526f2a7412190575fc134da785c02695eb92bb6028c930bfe1c238d7be2a125088fec663cc7cda0a3623373c46807cf2c281f49c34b79881ac
-  languageName: node
-  linkType: hard
-
-"react@npm:^17.0.2":
-  version: 17.0.2
-  resolution: "react@npm:17.0.2"
-  dependencies:
-    loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-  checksum: b254cc17ce3011788330f7bbf383ab653c6848902d7936a87b09d835d091e3f295f7e9dd1597c6daac5dc80f90e778c8230218ba8ad599f74adcc11e33b9d61b
   languageName: node
   linkType: hard
 
