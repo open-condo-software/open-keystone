@@ -17,5 +17,8 @@
     "@open-arch-ui/theme": "workspace:^"
   },
   "module": "dist/card.esm.js",
-  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/arch/packages/card"
+  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/arch/packages/card",
+  "publishConfig": {
+    "access": "public"
+  }
 }

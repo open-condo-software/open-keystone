@@ -18,5 +18,8 @@
     "@open-arch-ui/theme": "workspace:^"
   },
   "module": "dist/lozenge.esm.js",
-  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/arch/packages/lozenge"
+  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/arch/packages/lozenge",
+  "publishConfig": {
+    "access": "public"
+  }
 }

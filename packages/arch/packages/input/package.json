@@ -19,5 +19,8 @@
     "@open-arch-ui/theme": "workspace:^"
   },
   "module": "dist/input.esm.js",
-  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/arch/packages/input"
+  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/arch/packages/input",
+  "publishConfig": {
+    "access": "public"
+  }
 }
