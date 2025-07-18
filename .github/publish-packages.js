@@ -25,7 +25,7 @@ const BREAKING_KEYWORDS = [
 ];
 
 // NOTE: Edit this list to add / remove packages from auto-release cycle
-const RELEASE_LIST = ['packages/*', '!packages/create-keystone-5-app'];
+const RELEASE_LIST = ['packages/*', 'packages/arch/packages/*', '!packages/create-keystone-5-app'];
 
 publish(
   RELEASE_LIST,
