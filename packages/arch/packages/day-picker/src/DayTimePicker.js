@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { parseISO } from 'date-fns';
 import { DayPicker } from './DayPicker';
-import { Input } from '@arch-ui/input';
-import Select from '@arch-ui/select';
+import { Input } from '@open-arch-ui/input';
+import Select from '@open-arch-ui/select';
 
 const options = [
   '-12',

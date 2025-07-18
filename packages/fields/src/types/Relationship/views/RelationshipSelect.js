@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { gql, useQuery } from '@apollo/client';
-import Select from '@arch-ui/select';
+import Select from '@open-arch-ui/select';
 import { components } from 'react-select';
 import 'intersection-observer';
 import { useState, useMemo, useRef, useEffect, forwardRef } from 'react';

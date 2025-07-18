@@ -6,11 +6,11 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import memoizeOne from 'memoize-one';
 
-import { Container } from '@arch-ui/layout';
-import { Button } from '@arch-ui/button';
-import { AutocompleteCaptor } from '@arch-ui/input';
-import { Card } from '@arch-ui/card';
-import { gridSize } from '@arch-ui/theme';
+import { Container } from '@open-arch-ui/layout';
+import { Button } from '@open-arch-ui/button';
+import { AutocompleteCaptor } from '@open-arch-ui/input';
+import { Card } from '@open-arch-ui/card';
+import { gridSize } from '@open-arch-ui/theme';
 import {
   mapKeys,
   arrayToObject,

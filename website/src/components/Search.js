@@ -3,8 +3,8 @@
 import { jsx } from '@emotion/core';
 import { useEffect, useRef } from 'react';
 import { navigate } from 'gatsby';
-import { Input } from '@arch-ui/input';
-import { borderRadius, colors } from '@arch-ui/theme';
+import { Input } from '@open-arch-ui/input';
+import { borderRadius, colors } from '@open-arch-ui/theme';
 
 import { addCallback } from '../utils/async-load-search';
 

@@ -7,9 +7,9 @@ import { Fragment } from 'react';
 import { gql, useMutation } from '@apollo/client';
 
 import { CheckIcon } from '@primer/octicons-react';
-import { Button } from '@arch-ui/button';
-import { LoadingIndicator } from '@arch-ui/loading';
-import { colors } from '@arch-ui/theme';
+import { Button } from '@open-arch-ui/button';
+import { LoadingIndicator } from '@open-arch-ui/loading';
+import { colors } from '@open-arch-ui/theme';
 
 import Animation from '../components/Animation';
 import { useAdminMeta } from '../providers/AdminMeta';

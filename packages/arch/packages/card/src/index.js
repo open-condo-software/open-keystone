@@ -1,7 +1,7 @@
 /** @jsx jsx */
 
 import { jsx } from '@emotion/core';
-import { borderRadius, gridSize, shadows } from '@arch-ui/theme';
+import { borderRadius, gridSize, shadows } from '@open-arch-ui/theme';
 
 // ==============================
 // Card

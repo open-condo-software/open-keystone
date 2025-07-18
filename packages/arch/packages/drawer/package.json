@@ -1,5 +1,5 @@
 {
-  "name": "@arch-ui/drawer",
+  "name": "@open-arch-ui/drawer",
   "description": "Drawer Portal UI as used in @open-keystone Admin UI.",
   "version": "0.0.28",
   "author": "Jed Watson",
@@ -14,10 +14,10 @@
     "react-dom": "^17.0.2"
   },
   "dependencies": {
-    "@arch-ui/color-utils": "^0.0.5",
-    "@arch-ui/modal-utils": "^1.0.16",
-    "@arch-ui/theme": "^0.0.14",
-    "@arch-ui/typography": "^0.0.21",
+    "@open-arch-ui/color-utils": "^0.0.5",
+    "@open-arch-ui/modal-utils": "^1.0.16",
+    "@open-arch-ui/theme": "^0.0.14",
+    "@open-arch-ui/typography": "^0.0.21",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.27",

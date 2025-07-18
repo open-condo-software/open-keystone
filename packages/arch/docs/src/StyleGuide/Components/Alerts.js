@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
-import { Alert } from '@arch-ui/alert';
-import { FlexGroup } from '@arch-ui/layout';
+import { Alert } from '@open-arch-ui/alert';
+import { FlexGroup } from '@open-arch-ui/layout';
 
 const AlertGuide = () => (
   <Fragment>

@@ -4,13 +4,13 @@ import { Component, createRef, Suspense } from 'react';
 import { Transition, TransitionGroup } from 'react-transition-group';
 
 import { ChevronLeftIcon, ChevronRightIcon, AlertIcon } from '@primer/octicons-react';
-import { colors, gridSize } from '@arch-ui/theme';
-import { A11yText } from '@arch-ui/typography';
-import { Alert } from '@arch-ui/alert';
-import { Button } from '@arch-ui/button';
-import { OptionPrimitive } from '@arch-ui/options';
-import Select from '@arch-ui/select';
-import { LoadingSpinner } from '@arch-ui/loading';
+import { colors, gridSize } from '@open-arch-ui/theme';
+import { A11yText } from '@open-arch-ui/typography';
+import { Alert } from '@open-arch-ui/alert';
+import { Button } from '@open-arch-ui/button';
+import { OptionPrimitive } from '@open-arch-ui/options';
+import Select from '@open-arch-ui/select';
+import { LoadingSpinner } from '@open-arch-ui/loading';
 
 import FieldSelect from '../FieldSelect';
 import PopoutForm from './PopoutForm';

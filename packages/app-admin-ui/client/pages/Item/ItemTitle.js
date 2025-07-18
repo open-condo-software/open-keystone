@@ -3,10 +3,10 @@ import { jsx } from '@emotion/core';
 import { memo } from 'react';
 
 import { ChevronLeftIcon } from '@primer/octicons-react';
-import { FlexGroup } from '@arch-ui/layout';
-import { IconButton } from '@arch-ui/button';
-import { gridSize } from '@arch-ui/theme';
-import { PageTitle } from '@arch-ui/typography';
+import { FlexGroup } from '@open-arch-ui/layout';
+import { IconButton } from '@open-arch-ui/button';
+import { gridSize } from '@open-arch-ui/theme';
+import { PageTitle } from '@open-arch-ui/typography';
 
 import { Search } from './Search';
 import { useUIHooks } from '../../providers/Hooks';

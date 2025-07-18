@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import React, { useContext, useState, Fragment, useEffect } from 'react';
 import { LinkIcon, CheckIcon, CircleSlashIcon, LinkExternalIcon } from '@primer/octicons-react';
-import { colors, gridSize } from '@arch-ui/theme';
+import { colors, gridSize } from '@open-arch-ui/theme';
 import { usePopper } from 'react-popper';
 import { createPortal } from 'react-dom';
 import { ToolbarButton } from '../toolbar-components';

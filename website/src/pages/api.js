@@ -3,7 +3,7 @@
 import { Fragment } from 'react';
 import { jsx, Global } from '@emotion/core';
 import { Link } from 'gatsby';
-import { globalStyles } from '@arch-ui/theme';
+import { globalStyles } from '@open-arch-ui/theme';
 import { Layout, Content } from '../templates/layout';
 import { HomepageFooter } from '../components/homepage/HomepageFooter';
 import { Container } from '../components';

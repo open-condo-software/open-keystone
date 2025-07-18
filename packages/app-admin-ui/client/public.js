@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ToastProvider } from 'react-toast-notifications';
 import { Global } from '@emotion/core';
 
-import { globalStyles } from '@arch-ui/theme';
+import { globalStyles } from '@open-arch-ui/theme';
 
 import { initApolloClient } from './apolloClient';
 

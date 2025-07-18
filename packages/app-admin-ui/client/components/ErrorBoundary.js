@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import { Component } from 'react';
 
-import { colors } from '@arch-ui/theme';
+import { colors } from '@open-arch-ui/theme';
 
 export class ErrorBoundary extends Component {
   state = {

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { LoadingIndicator } from '@arch-ui/loading';
+import { LoadingIndicator } from '@open-arch-ui/loading';
 
 export default function PageLoading() {
   return (

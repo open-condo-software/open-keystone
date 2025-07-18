@@ -2,8 +2,8 @@
 
 import { jsx } from '@emotion/core';
 
-import { FieldContainer, FieldLabel, FieldDescription, FieldInput } from '@arch-ui/fields';
-import Select from '@arch-ui/select';
+import { FieldContainer, FieldLabel, FieldDescription, FieldInput } from '@open-arch-ui/fields';
+import Select from '@open-arch-ui/select';
 
 const SelectField = ({
   onChange,

@@ -1,5 +1,5 @@
 {
-  "name": "@arch-ui/filters",
+  "name": "@open-arch-ui/filters",
   "description": "Filter UI as used in @open-keystone Admin UI.",
   "version": "0.0.23",
   "author": "Jed Watson",
@@ -12,9 +12,9 @@
     "react": "^17.0.2"
   },
   "dependencies": {
-    "@arch-ui/controls": "^0.1.12",
-    "@arch-ui/layout": "^0.2.17",
-    "@arch-ui/theme": "^0.0.14",
+    "@open-arch-ui/controls": "^0.1.12",
+    "@open-arch-ui/layout": "^0.2.17",
+    "@open-arch-ui/theme": "^0.0.14",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
     "react-radios": "^1.1.0"

@@ -16,9 +16,9 @@
     "build": "gatsby build"
   },
   "dependencies": {
-    "@arch-ui/input": "^0.1.14",
-    "@arch-ui/select": "^0.1.12",
-    "@arch-ui/theme": "^0.0.14",
+    "@open-arch-ui/input": "^0.1.14",
+    "@open-arch-ui/select": "^0.1.12",
+    "@open-arch-ui/theme": "^0.0.14",
     "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.27",
     "@emotion/weak-memoize": "^0.2.5",

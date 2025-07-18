@@ -1,7 +1,7 @@
 /** @jsx jsx */
 
 import { jsx } from '@emotion/core';
-import { colors } from '@arch-ui/theme';
+import { colors } from '@open-arch-ui/theme';
 
 export function Blockquote(props) {
   let variant = getVariant(props);

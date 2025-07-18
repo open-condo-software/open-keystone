@@ -18,14 +18,14 @@ This repository is a module of the full [arch-ui][source] repository.
 
 ## Install
 
-This repository is distributed with [npm][npm]. After [installing npm][install-npm], you can install `@arch-ui/alert` with this command.
+This repository is distributed with [npm][npm]. After [installing npm][install-npm], you can install `@open-arch-ui/alert` with this command.
 
 ```
-npm install --save @arch-ui/alert
+npm install --save @open-arch-ui/alert
 
 # OR
 
-yarn add @arch-ui/alert
+yarn add @open-arch-ui/alert
 ```
 
 ## Usage
@@ -33,10 +33,10 @@ yarn add @arch-ui/alert
 Import the component into your application.
 
 ```jsx
-import { Alert } from '@arch-ui/alert';
+import { Alert } from '@open-arch-ui/alert';
 ```
 
-To override the styles use the [`@arch-ui/theme` package][theme].
+To override the styles use the [`@open-arch-ui/theme` package][theme].
 
 ## Documentation
 
@@ -77,7 +77,7 @@ You can put multiple paragraphs of text in an alert—the last paragraph's botto
 Should the need arise, you can quickly space out your alert from surrounding content with an `AlertGroup` wrapper. _Note the extra top and bottom margin in the example below._
 
 ```jsx
-import { Alert, AlertGroup } from '@arch-ui/alert';
+import { Alert, AlertGroup } from '@open-arch-ui/alert';
 
 <AlertGroup>
   <Alert>Alert message goes here.</Alert>
@@ -146,8 +146,8 @@ MIT © [Thinkmill](https://www.thinkmill.com.au/)
 
 [source]: https://github.com/keystonejs/keystone-5/tree/main/packages/arch
 
-[npm]: https://www.npmjs.com/package/@arch-ui/alert
+[npm]: https://www.npmjs.com/package/@open-arch-ui/alert
 
 [install-npm]: https://docs.npmjs.com/getting-started/installing-node
 
-[theme]: http://npmjs.com/package/@arch-ui/theme
+[theme]: http://npmjs.com/package/@open-arch-ui/theme

@@ -2,7 +2,7 @@
 
 import React, { Fragment, useState } from 'react';
 
-import { IconButton } from '@arch-ui/button';
+import { IconButton } from '@open-arch-ui/button';
 import { GearIcon } from '@primer/octicons-react';
 
 import { useList } from '../providers/List';

@@ -1,5 +1,5 @@
 {
-  "name": "@arch-ui/input",
+  "name": "@open-arch-ui/input",
   "description": "Input component as used in @open-keystone Admin UI.",
   "version": "0.1.14",
   "author": "Jed Watson",
@@ -12,9 +12,9 @@
     "react": "^17.0.2"
   },
   "dependencies": {
-    "@arch-ui/color-utils": "0.0.5",
-    "@arch-ui/common": "0.0.15",
-    "@arch-ui/theme": "0.0.14",
+    "@open-arch-ui/color-utils": "0.0.5",
+    "@open-arch-ui/common": "0.0.15",
+    "@open-arch-ui/theme": "0.0.14",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1"
   },

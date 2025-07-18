@@ -1,12 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import styled from '@emotion/styled';
 
-import { Button } from '@arch-ui/button';
-import { FlexGroup } from '@arch-ui/layout';
-import Dialog from '@arch-ui/dialog';
-import Dropdown from '@arch-ui/dropdown';
-import Popout from '@arch-ui/popout';
-import Tooltip from '@arch-ui/tooltip';
+import { Button } from '@open-arch-ui/button';
+import { FlexGroup } from '@open-arch-ui/layout';
+import Dialog from '@open-arch-ui/dialog';
+import Dropdown from '@open-arch-ui/dropdown';
+import Popout from '@open-arch-ui/popout';
+import Tooltip from '@open-arch-ui/tooltip';
 
 const handleDropdownClick = ({ data }) => {
   console.log(`You selected "${data.content}", yum!`);

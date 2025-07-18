@@ -1,7 +1,7 @@
 /** @jsx jsx */
 
 import { jsx } from '@emotion/core';
-import { Pagination } from '@arch-ui/pagination';
+import { Pagination } from '@open-arch-ui/pagination';
 import { useListPagination } from './dataHooks';
 
 const CYPRESS_TEST_ID = 'ks-pagination';

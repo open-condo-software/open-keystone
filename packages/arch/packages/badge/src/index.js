@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import styled from '@emotion/styled';
 
-import { colors } from '@arch-ui/theme';
+import { colors } from '@open-arch-ui/theme';
 
 const boldBackgroundColor = {
   default: colors.N60,

@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.8",
-    "@arch-ui/fields": "^3.0.8",
-    "@arch-ui/input": "^0.1.14",
+    "@open-arch-ui/fields": "^3.0.8",
+    "@open-arch-ui/input": "^0.1.14",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
     "@open-keystone/adapter-knex": "workspace:^",

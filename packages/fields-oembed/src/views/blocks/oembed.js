@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { Suspense, Fragment, useState, createContext, useContext } from 'react';
-import { Button } from '@arch-ui/button';
+import { Button } from '@open-arch-ui/button';
 import PreviewPlaceholder from '../preview';
 import { BlockMenuItem } from '@open-keystone/fields-content/block-components';
 

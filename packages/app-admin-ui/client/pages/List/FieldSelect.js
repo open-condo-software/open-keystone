@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { jsx } from '@emotion/core';
-import { Options } from '@arch-ui/options';
+import { Options } from '@open-arch-ui/options';
 import { arrayToObject } from '@open-keystone/utils';
 
 function isOptionSelected(opt, selected) {

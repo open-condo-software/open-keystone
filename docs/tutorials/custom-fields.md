@@ -125,13 +125,13 @@ export default function StarsCell({ field, data }) {
 
 ## Field
 
-The field component provides the main interface used when creating or editing list items in Keystone. To get a consistent look, we're going to import some wrapping components from `@arch-ui/fields`, that's Keystone's UI library. This will render the labels and provided consistent spacing. Other than this we simply delegate the `onChange` event to the `Stars` so that values can be updated when a user clicks on the stars.
+The field component provides the main interface used when creating or editing list items in Keystone. To get a consistent look, we're going to import some wrapping components from `@open-arch-ui/fields`, that's Keystone's UI library. This will render the labels and provided consistent spacing. Other than this we simply delegate the `onChange` event to the `Stars` so that values can be updated when a user clicks on the stars.
 
 ```jsx
 /** @jsx jsx */
 
 import { jsx } from '@emotion/core';
-import { FieldContainer, FieldLabel, FieldInput } from '@arch-ui/fields';
+import { FieldContainer, FieldLabel, FieldInput } from '@open-arch-ui/fields';
 import Stars from './Stars';
 
 const StarsField = ({ field, value, errors, onChange }) => (

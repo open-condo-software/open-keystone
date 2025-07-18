@@ -4,7 +4,7 @@ import BaseSelect from 'react-select';
 import AsyncCreatableSelect from 'react-select/async-creatable';
 import AsyncSelect from 'react-select/async';
 import CreatableSelect from 'react-select/creatable';
-import { colors } from '@arch-ui/theme';
+import { colors } from '@open-arch-ui/theme';
 
 // ==============================
 // Styled Select

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import throttle from 'lodash.throttle';
 import { jsx } from '@emotion/core';
-import { colors, gridSize } from '@arch-ui/theme';
+import { colors, gridSize } from '@open-arch-ui/theme';
 
 export const Table = props => {
   const ref = useRef();

@@ -15,8 +15,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.8",
-    "@arch-ui/layout": "^0.2.17",
-    "@arch-ui/typography": "^0.0.21",
+    "@open-arch-ui/layout": "^0.2.17",
+    "@open-arch-ui/typography": "^0.0.21",
     "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.27",
     "@open-keystone/adapter-mongoose": "workspace:^",

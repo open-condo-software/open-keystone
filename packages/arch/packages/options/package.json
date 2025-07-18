@@ -1,5 +1,5 @@
 {
-  "name": "@arch-ui/options",
+  "name": "@open-arch-ui/options",
   "description": "Options UI as used in @open-keystone Admin UI.",
   "version": "0.0.27",
   "author": "Jed Watson",
@@ -12,8 +12,8 @@
     "react": "^17.0.2"
   },
   "dependencies": {
-    "@arch-ui/common": "^0.0.15",
-    "@arch-ui/theme": "^0.0.14",
+    "@open-arch-ui/common": "^0.0.15",
+    "@open-arch-ui/theme": "^0.0.14",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
     "@primer/octicons-react": "^11.3.0",

@@ -1,4 +1,4 @@
-import { borderRadius, gridSize } from '@arch-ui/theme';
+import { borderRadius, gridSize } from '@open-arch-ui/theme';
 
 export const uniformHeight = {
   appearance: 'none',

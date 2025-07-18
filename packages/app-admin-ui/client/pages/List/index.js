@@ -4,14 +4,14 @@ import { jsx } from '@emotion/core';
 import { Fragment, useEffect, Suspense } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import { Container, FlexGroup } from '@arch-ui/layout';
-import { colors, gridSize } from '@arch-ui/theme';
-import { PageTitle } from '@arch-ui/typography';
-import { Button } from '@arch-ui/button';
+import { Container, FlexGroup } from '@open-arch-ui/layout';
+import { colors, gridSize } from '@open-arch-ui/theme';
+import { PageTitle } from '@open-arch-ui/typography';
+import { Button } from '@open-arch-ui/button';
 import { KebabHorizontalIcon } from '@primer/octicons-react';
-import Tooltip from '@arch-ui/tooltip';
+import Tooltip from '@open-arch-ui/tooltip';
 import { applyRefs } from 'apply-ref';
-import { LoadingIndicator } from '@arch-ui/loading';
+import { LoadingIndicator } from '@open-arch-ui/loading';
 
 import CreateItemModal from '../../components/CreateItemModal';
 import DocTitle from '../../components/DocTitle';

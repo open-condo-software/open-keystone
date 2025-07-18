@@ -1,9 +1,9 @@
 /** @jsx jsx */
 
 import { jsx } from '@emotion/core';
-import { FieldDescription } from '@arch-ui/fields';
-import { CONTAINER_WIDTH } from '@arch-ui/layout';
-import { gridSize } from '@arch-ui/theme';
+import { FieldDescription } from '@open-arch-ui/fields';
+import { CONTAINER_WIDTH } from '@open-arch-ui/layout';
+import { gridSize } from '@open-arch-ui/theme';
 
 const ListDescription = props => (
   <FieldDescription

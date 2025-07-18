@@ -3,7 +3,7 @@
 import { useCallback, useRef } from 'react';
 import { useClipboard } from 'use-clipboard-copy';
 import { jsx } from '@emotion/core';
-import { colors, borderRadius, gridSize } from '@arch-ui/theme';
+import { colors, borderRadius, gridSize } from '@open-arch-ui/theme';
 
 import { CONTAINER_GUTTERS } from '../Container';
 import { mediaMax } from '../../utils/media';

@@ -2,8 +2,8 @@
 
 import { jsx } from '@emotion/core';
 
-import { FieldContainer, FieldLabel, FieldDescription, FieldInput } from '@arch-ui/fields';
-import { Input } from '@arch-ui/input';
+import { FieldContainer, FieldLabel, FieldDescription, FieldInput } from '@open-arch-ui/fields';
+import { Input } from '@open-arch-ui/input';
 
 const UuidField = ({ onChange, autoFocus, field, errors, value = '', isDisabled }) => {
   const handleChange = event => {

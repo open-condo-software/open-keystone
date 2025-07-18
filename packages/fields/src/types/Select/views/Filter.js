@@ -2,10 +2,10 @@
 
 import { jsx } from '@emotion/core';
 import { Fragment } from 'react';
-import Select from '@arch-ui/select';
-import { CheckMark, Options, OptionPrimitive } from '@arch-ui/options';
-import { Radio, RadioGroup } from '@arch-ui/filters';
-import { gridSize } from '@arch-ui/theme';
+import Select from '@open-arch-ui/select';
+import { CheckMark, Options, OptionPrimitive } from '@open-arch-ui/options';
+import { Radio, RadioGroup } from '@open-arch-ui/filters';
+import { gridSize } from '@open-arch-ui/theme';
 
 const EventCatcher = props => (
   <div

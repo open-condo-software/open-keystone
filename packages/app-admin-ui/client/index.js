@@ -5,7 +5,7 @@ import { BrowserRouter, Redirect, Route, Switch, useParams } from 'react-router-
 import { ToastProvider } from 'react-toast-notifications';
 import { Global } from '@emotion/core';
 
-import { globalStyles } from '@arch-ui/theme';
+import { globalStyles } from '@open-arch-ui/theme';
 
 import { initApolloClient } from './apolloClient';
 import Nav from './components/Nav';

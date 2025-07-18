@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { borderRadius, colors, gridSize } from '@arch-ui/theme';
+import { borderRadius, colors, gridSize } from '@open-arch-ui/theme';
 
 const boldBackgroundColor = {
   default: colors.N60,

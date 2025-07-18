@@ -1,5 +1,5 @@
 {
-  "name": "@arch-ui/hooks",
+  "name": "@open-arch-ui/hooks",
   "description": "Custom Hooks used in @arch-ui packages.",
   "version": "0.0.14",
   "author": "Jed Watson",

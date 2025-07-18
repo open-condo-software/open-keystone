@@ -2,11 +2,11 @@
 
 import { jsx } from '@emotion/core';
 import { useState, useEffect } from 'react';
-import { FieldContainer, FieldDescription } from '@arch-ui/fields';
+import { FieldContainer, FieldDescription } from '@open-arch-ui/fields';
 import { Checkbox } from './MultiCheck';
 import { ShieldIcon } from '@primer/octicons-react';
-import { Lozenge } from '@arch-ui/lozenge';
-import { colors, gridSize } from '@arch-ui/theme';
+import { Lozenge } from '@open-arch-ui/lozenge';
+import { colors, gridSize } from '@open-arch-ui/theme';
 
 const MultiCheckField = ({ onChange, autoFocus, field, value, errors }) => {
   const initialState = value ? value : field.config.defaultValue;

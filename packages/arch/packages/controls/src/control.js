@@ -2,8 +2,8 @@ import React, { useMemo } from 'react';
 import { PseudoState } from 'react-pseudo-state';
 import styled from '@emotion/styled';
 
-import { colors } from '@arch-ui/theme';
-import { HiddenInput } from '@arch-ui/input';
+import { colors } from '@open-arch-ui/theme';
+import { HiddenInput } from '@open-arch-ui/input';
 
 const Wrapper = styled.div({
   display: 'flex',

@@ -2,9 +2,9 @@
 
 import { jsx } from '@emotion/core';
 
-import { FieldContainer, FieldLabel, FieldDescription, FieldInput } from '@arch-ui/fields';
+import { FieldContainer, FieldLabel, FieldDescription, FieldInput } from '@open-arch-ui/fields';
 
-import { CheckboxPrimitive } from '@arch-ui/controls';
+import { CheckboxPrimitive } from '@open-arch-ui/controls';
 
 const CheckboxField = ({ onChange, autoFocus, field, value, errors, isDisabled }) => {
   const handleChange = event => {

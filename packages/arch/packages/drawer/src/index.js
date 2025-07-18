@@ -12,10 +12,10 @@ import {
   slideInHorizontal,
   withTransitionState,
   generateUEID,
-} from '@arch-ui/modal-utils';
-import { borderRadius, colors, gridSize, shadows } from '@arch-ui/theme';
-import { alpha } from '@arch-ui/color-utils';
-import { A11yText, Title } from '@arch-ui/typography';
+} from '@open-arch-ui/modal-utils';
+import { borderRadius, colors, gridSize, shadows } from '@open-arch-ui/theme';
+import { alpha } from '@open-arch-ui/color-utils';
+import { A11yText, Title } from '@open-arch-ui/typography';
 import { useStackIndex } from './stacks';
 
 const innerGutter = gridSize * 2;

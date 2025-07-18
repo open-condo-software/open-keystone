@@ -5,11 +5,11 @@ import { useRef, forwardRef, useState, useCallback } from 'react';
 import debounce from 'lodash.debounce';
 
 import { SearchIcon, XIcon } from '@primer/octicons-react';
-// import { Input } from '@arch-ui/input';
-import { A11yText } from '@arch-ui/typography';
-import { LoadingSpinner } from '@arch-ui/loading';
-import { colors } from '@arch-ui/theme';
-import { uniformHeight } from '@arch-ui/common';
+// import { Input } from '@open-arch-ui/input';
+import { A11yText } from '@open-arch-ui/typography';
+import { LoadingSpinner } from '@open-arch-ui/loading';
+import { colors } from '@open-arch-ui/theme';
+import { uniformHeight } from '@open-arch-ui/common';
 
 import { useListSearch } from './dataHooks';
 import { elementOffsetStyles } from './Filters/ActiveFilters';

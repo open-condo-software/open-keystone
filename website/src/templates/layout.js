@@ -2,7 +2,7 @@
 
 import { Fragment, useState } from 'react';
 import { jsx, Global } from '@emotion/core';
-import { colors, borderRadius, gridSize } from '@arch-ui/theme';
+import { colors, borderRadius, gridSize } from '@open-arch-ui/theme';
 import { SkipNavLink } from '@reach/skip-nav';
 
 import { Header, NextBanner, SiteMeta } from '../components';

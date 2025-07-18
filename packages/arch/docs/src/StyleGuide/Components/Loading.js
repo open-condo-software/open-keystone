@@ -3,9 +3,9 @@ import { jsx } from '@emotion/core';
 import { Fragment, useState } from 'react';
 import styled from '@emotion/styled';
 
-import { colors } from '@arch-ui/theme';
-import { FlexGroup } from '@arch-ui/layout';
-import { LoadingIndicator, LoadingSpinner } from '@arch-ui/loading';
+import { colors } from '@open-arch-ui/theme';
+import { FlexGroup } from '@open-arch-ui/layout';
+import { LoadingIndicator, LoadingSpinner } from '@open-arch-ui/loading';
 
 const LoadingBox = styled.div(({ on, size }) => ({
   alignItems: 'center',

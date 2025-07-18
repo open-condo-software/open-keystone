@@ -4,7 +4,7 @@ import { Fragment, useLayoutEffect, useMemo, useRef } from 'react';
 import { Link } from 'gatsby';
 import { jsx } from '@emotion/core';
 import { Location } from '@reach/router';
-import { colors, gridSize } from '@arch-ui/theme';
+import { colors, gridSize } from '@open-arch-ui/theme';
 const slugify = require('@sindresorhus/slugify');
 
 import { SocialIconsNav } from '../components';

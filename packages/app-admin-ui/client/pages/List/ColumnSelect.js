@@ -1,7 +1,7 @@
 /** @jsx jsx */
 
 import { jsx } from '@emotion/core';
-import { OptionPrimitive, CheckMark } from '@arch-ui/options';
+import { OptionPrimitive, CheckMark } from '@open-arch-ui/options';
 
 import { Popout, POPOUT_GUTTER } from '../../components/Popout';
 import { useListColumns } from './dataHooks';

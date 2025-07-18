@@ -1,6 +1,6 @@
 import React, { useState, useEffect, forwardRef, useRef } from 'react';
 import chrono from 'chrono-node';
-import { Input } from '@arch-ui/input';
+import { Input } from '@open-arch-ui/input';
 import { format, formatISO, parseISO } from 'date-fns';
 
 export const TextDayPicker = forwardRef(

@@ -2,7 +2,7 @@
 
 import { Fragment } from 'react';
 import { jsx } from '@emotion/core';
-import { colors } from '@arch-ui/theme';
+import { colors } from '@open-arch-ui/theme';
 
 import { Link } from 'gatsby';
 import { H1, H2, H3, H4, H5, H6 } from './Heading';

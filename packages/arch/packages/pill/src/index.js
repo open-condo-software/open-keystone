@@ -4,8 +4,8 @@ import styled from '@emotion/styled';
 import { forwardRef } from 'react';
 
 import { XIcon } from '@primer/octicons-react';
-import { colors } from '@arch-ui/theme';
-import { uniformHeight } from '@arch-ui/common';
+import { colors } from '@open-arch-ui/theme';
+import { uniformHeight } from '@open-arch-ui/common';
 
 const boldBackgroundColor = {
   default: { default: colors.N60, hover: colors.N50, active: colors.N70 },

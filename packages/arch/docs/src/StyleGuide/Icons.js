@@ -6,9 +6,9 @@ import styled from '@emotion/styled';
 import copyToClipboard from 'clipboard-copy';
 
 import * as icons from '@primer/octicons-react';
-import { Grid, Cell } from '@arch-ui/layout';
-import { colors } from '@arch-ui/theme';
-import { Kbd } from '@arch-ui/typography';
+import { Grid, Cell } from '@open-arch-ui/layout';
+import { colors } from '@open-arch-ui/theme';
+import { Kbd } from '@open-arch-ui/typography';
 
 const Instructions = styled('div')`
   color: ${colors.N60};
