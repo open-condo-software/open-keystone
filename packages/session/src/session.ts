@@ -13,7 +13,7 @@ type _List = {
 };
 type _Keystone = { lists: Record<string, _List> };
 
-export class SessionManager {
+export class SessionManager<SessionMeta extends Record<string, string>> {
   _cookieSecret: SessionOptions['secret'];
   _cookie: SessionOptions['cookie'];
   _sessionStore: SessionOptions['store'];
@@ -146,12 +146,16 @@ export class SessionManager {
     return item;
   }
 
-  startAuthedSession(req: Request, { item, list }: { item: _Item; list: _List }) {
+  startAuthedSession(
+    req: Request,
+    { item, list, meta }: { item: _Item; list: _List; meta?: SessionMeta }
+  ) {
     return new Promise((resolve, reject) =>
       req.session.regenerate(err => {
         if (err) return reject(err);
         (req.session as any).keystoneListKey = list.key;
         (req.session as any).keystoneItemId = item.id;
+        (req.session as any).keystoneSessionMeta = meta;
         resolve(cookieSignature.sign(req.session.id, this._cookieSecret));
       })
     );
@@ -169,8 +173,15 @@ export class SessionManager {
 
   getContext(req: Request) {
     return {
-      startAuthedSession: ({ item, list }: { item: _Item; list: _List }) =>
-        this.startAuthedSession(req, { item, list }),
+      startAuthedSession: ({
+        item,
+        list,
+        meta,
+      }: {
+        item: _Item;
+        list: _List;
+        meta?: SessionMeta;
+      }) => this.startAuthedSession(req, { item, list, meta }),
       endAuthedSession: () => this.endAuthedSession(req),
     };
   }
