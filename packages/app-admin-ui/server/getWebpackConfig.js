@@ -65,7 +65,7 @@ module.exports = function ({ adminMeta, adminViews, entry, outputPath }) {
       mode === 'production' ? entryPath : [entryPath, 'webpack-hot-middleware/client?reload=true'],
     output: {
       path: outputPath,
-      filename: 'js/[name].[hash].bundle.js',
+      filename: 'js/[name].[fullhash].bundle.js',
       publicPath: adminMeta.adminPath + '/',
     },
     // TODO: We should pay attention to our bundle size at some point, but
