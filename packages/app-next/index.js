@@ -1,6 +1,7 @@
 const path = require('path');
 const next = require('next');
 const nextBuild = require('next/dist/build').default;
+const { parse } = require('url');
 
 class NextApp {
   constructor({ dir } = {}) {
@@ -15,7 +16,16 @@ class NextApp {
     // We want to keep this behaviour, so I omitted it for now
     const nextApp = next({ dir: this._dir, dev });
     await nextApp.prepare();
-    return nextApp.getRequestHandler();
+
+    // NOTE: There's a conflict between Next.js handler and express handler in third argument
+    // Next.js one expects optional parsed string, while express gives next callback
+    // https://nextjs.org/docs/pages/guides/custom-server
+    const nextHandler = nextApp.getRequestHandler();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    return function expressHandler(req, res, _next) {
+      const parsedUrl = parse(req.url, true);
+      return nextHandler(req, res, parsedUrl);
+    };
   }
 
   async build() {
