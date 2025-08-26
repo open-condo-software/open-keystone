@@ -44,6 +44,7 @@ module.exports = class Keystone {
       addVersionToHttpHeaders: true,
       access: true,
     },
+    customTypeDefs = [],
   }) {
     this.defaultAccess = { list: true, field: true, custom: true, ...defaultAccess };
     this.auth = {};
@@ -59,6 +60,7 @@ module.exports = class Keystone {
     this.eventHandlers = { onConnect };
     this.registeredTypes = new Set();
     this._schemaNames = schemaNames;
+    this._customTypeDefs = customTypeDefs
     this.appVersion = appVersion;
 
     this._listCRUDProvider = new ListCRUDProvider();
@@ -85,6 +87,10 @@ module.exports = class Keystone {
     };
     if (this.queryLimits.maxTotalResults < 1) {
       throw new Error("queryLimits.maxTotalResults can't be < 1");
+    }
+
+    if (!Array.isArray(this._customTypeDefs)) {
+      throw new Error("customTypeDefs should be Array. For example, ['scalar YourOwnScalarType']")
     }
   }
 
@@ -543,6 +549,7 @@ module.exports = class Keystone {
       mutations.length > 0 && `type Mutation { ${mutations.join('\n')} }`,
       subscriptions.length > 0 && `type Subscription { ${subscriptions.join('\n')} }`,
       'scalar Upload',
+      ...unique(this._customTypeDefs),
     ]
       .filter(s => s)
       .map(s => gql(s));
