@@ -98,6 +98,7 @@ module.exports = function ({ adminMeta, adminViews, entry, outputPath }) {
         // we also want @apollo/client to always resolve to the same version of @apollo/client
         '@apollo/client$': path.dirname(require.resolve('@apollo/client/package.json')),
       },
+      fallback: { crypto: false },
     },
   };
 };

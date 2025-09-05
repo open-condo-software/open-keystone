@@ -99,9 +99,15 @@ class AdminUIApp {
       compilers.map(
         compiler =>
           new Promise((resolve, reject) => {
-            compiler.run(err => {
+            compiler.run((err, stats) => {
               if (err) {
                 reject(err);
+              } else if (stats && stats.hasErrors()) {
+                return reject(
+                  new Error(
+                    stats.toString({ all: false, errors: true, warnings: true, colors: true })
+                  )
+                );
               } else {
                 resolve();
               }
