@@ -5,16 +5,16 @@
   "author": "The KeystoneJS Development Team",
   "license": "MIT",
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "dependencies": {
     "@open-keystone/fields-auto-increment": "workspace:^",
     "@open-keystone/keystone": "workspace:^",
     "@open-keystone/utils": "workspace:^",
-    "@prisma/client": "4.16.0",
-    "@prisma/internals": "4.16.0",
+    "@prisma/client": "6.19.0",
+    "@prisma/internals": "6.19.0",
     "cuid": "^2.1.8",
-    "prisma": "4.16.0"
+    "prisma": "6.19.0"
   },
   "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/adapter-prisma",
   "publishConfig": {
