@@ -10,7 +10,7 @@
     "@open-arch-ui/color-utils": "workspace:^"
   },
   "module": "dist/theme.esm.js",
-  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/arch/packages/theme",
+  "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/arch/packages/theme",
   "publishConfig": {
     "access": "public"
   }

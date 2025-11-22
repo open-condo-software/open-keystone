@@ -6,7 +6,7 @@
   "license": "MIT",
   "main": "dist/color-utils.cjs.js",
   "module": "dist/color-utils.esm.js",
-  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/arch/packages/color-utils",
+  "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/arch/packages/color-utils",
   "publishConfig": {
     "access": "public"
   }

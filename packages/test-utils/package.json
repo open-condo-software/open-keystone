@@ -19,7 +19,7 @@
     "mongodb-memory-server": "^10.1.4",
     "supertest-light": "^1.0.3"
   },
-  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/test-utils",
+  "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/test-utils",
   "publishConfig": {
     "access": "public"
   }

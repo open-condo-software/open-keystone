@@ -17,7 +17,7 @@
   "devDependencies": {
     "express": "^4.17.1"
   },
-  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/app-static",
+  "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/app-static",
   "publishConfig": {
     "access": "public"
   }

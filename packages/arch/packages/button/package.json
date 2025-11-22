@@ -23,7 +23,7 @@
     "react-router-dom": "5.2.0"
   },
   "module": "dist/button.esm.js",
-  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/arch/packages/button",
+  "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/arch/packages/button",
   "publishConfig": {
     "access": "public"
   }

@@ -2,7 +2,7 @@
   "name": "@open-keystone/fields",
   "description": "KeystoneJS Field Types including Text, Password, DateTime, Integer, and more.",
   "homepage": "https://github.com/keystonejs/keystone-5",
-  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/fields",
+  "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/fields",
   "version": "0.0.0-development",
   "main": "dist/fields.cjs.js",
   "module": "dist/fields.esm.js",
