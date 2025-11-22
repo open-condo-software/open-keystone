@@ -18,7 +18,7 @@
   "dependencies": {
     "@babel/runtime": "^7.14.6"
   },
-  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/arch/packages/icons",
+  "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/arch/packages/icons",
   "publishConfig": {
     "access": "public"
   }

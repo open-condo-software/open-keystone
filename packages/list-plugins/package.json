@@ -11,7 +11,7 @@
     "@open-keystone/fields": "workspace:^",
     "@open-keystone/fields-authed-relationship": "workspace:^"
   },
-  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/list-plugins",
+  "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/list-plugins",
   "publishConfig": {
     "access": "public"
   }

@@ -5,7 +5,7 @@
   "version": "0.0.0",
   "author": "The KeystoneJS Development Team",
   "license": "MIT",
-  "repository": "https://github.com/keystonejs/keystone-5",
+  "repository": "https://github.com/open-condo-software/open-keystone",
   "homepage": "https://github.com/keystonejs/keystone-5",
   "scripts": {
     "prisma": "prisma",

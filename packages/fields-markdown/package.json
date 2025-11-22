@@ -33,7 +33,7 @@
   },
   "main": "dist/fields-markdown.cjs.js",
   "module": "dist/fields-markdown.esm.js",
-  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/fields-markdown",
+  "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/fields-markdown",
   "publishConfig": {
     "access": "public"
   }

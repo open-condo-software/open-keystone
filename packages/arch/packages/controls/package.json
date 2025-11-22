@@ -21,7 +21,7 @@
     "react-radios": "^1.1.0"
   },
   "module": "dist/controls.esm.js",
-  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/arch/packages/controls",
+  "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/arch/packages/controls",
   "publishConfig": {
     "access": "public"
   }

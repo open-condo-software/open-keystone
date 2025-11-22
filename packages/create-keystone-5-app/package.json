@@ -27,5 +27,5 @@
     "prompts": "^2.4.1",
     "terminal-link": "^2.1.1"
   },
-  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/create-keystone-5-app"
+  "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/create-keystone-5-app"
 }

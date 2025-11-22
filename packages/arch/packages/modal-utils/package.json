@@ -21,7 +21,7 @@
     "react-transition-group": "^4.4.2"
   },
   "module": "dist/modal-utils.esm.js",
-  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/arch/packages/modal-utils",
+  "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/arch/packages/modal-utils",
   "publishConfig": {
     "access": "public"
   }

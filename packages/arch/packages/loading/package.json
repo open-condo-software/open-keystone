@@ -19,7 +19,7 @@
     "@open-arch-ui/typography": "workspace:^"
   },
   "module": "dist/loading.esm.js",
-  "repository": "https://github.com/keystonejs/keystone-5/tree/main/packages/arch/packages/loading",
+  "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/arch/packages/loading",
   "publishConfig": {
     "access": "public"
   }

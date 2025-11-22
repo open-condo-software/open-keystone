@@ -22,5 +22,5 @@
     "@open-keystone/keystone": "workspace:^",
     "cross-env": "^7.0.3"
   },
-  "repository": "https://github.com/keystonejs/keystone-5/tree/main/examples/todo"
+  "repository": "https://github.com/open-condo-software/open-keystone/tree/main/examples/todo"
 }
