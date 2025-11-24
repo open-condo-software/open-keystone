@@ -2,7 +2,7 @@
 
 import { jsx } from '@emotion/core';
 import { useRef, forwardRef, useState, useCallback } from 'react';
-import debounce from 'lodash.debounce';
+import { debounce } from 'lodash';
 
 import { SearchIcon, XIcon } from '@primer/octicons-react';
 // import { Input } from '@open-arch-ui/input';

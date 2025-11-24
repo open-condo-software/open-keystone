@@ -12,7 +12,7 @@ import { Box, HeaderInset } from './components';
 import { useAdminMeta } from '../../providers/AdminMeta';
 
 import useResizeObserver from 'use-resize-observer';
-import throttle from 'lodash.throttle';
+import { throttle } from 'lodash';
 
 const getCountQuery = lists => {
   if (!lists) return null;
