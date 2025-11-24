@@ -5952,9 +5952,7 @@ __metadata:
     file-loader: ^6.2.0
     graphql: ^16.10.0
     html-webpack-plugin: ^5.6.3
-    lodash.debounce: ^4.0.8
-    lodash.set: ^4.3.2
-    lodash.throttle: ^4.1.1
+    lodash: ^4.17.21
     memoize-one: ^5.2.1
     prop-types: ^15.7.2
     raf-schd: ^4.0.3
@@ -24375,13 +24373,6 @@ __metadata:
   version: 4.6.0
   resolution: "lodash.reject@npm:4.6.0"
   checksum: 730acc78d29ab0a60e0f3cd87bbfe9071625a835791ef66daac7a405c43ec21209fd795fdf9b7485aecead4869f645801bd65c27b9acadce80dee26393793111
-  languageName: node
-  linkType: hard
-
-"lodash.set@npm:^4.3.2":
-  version: 4.3.2
-  resolution: "lodash.set@npm:4.3.2"
-  checksum: a9122f49eef9f2d0fc9061a33d87f8e5b8c6b23d46e8b9e9ce1529d3588d79741bd1145a3abdfa3b13082703e65af27ff18d8a07bfc22b9be32f3fc36f763f70
   languageName: node
   linkType: hard
 
