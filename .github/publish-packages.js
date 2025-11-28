@@ -49,7 +49,7 @@ publish(
       },
     }),
     commitAnalyzer({
-      patchTypes: ['fix', 'hotfix', 'revert', 'perf', 'deps'],
+      patchTypes: ['fix', 'hotfix', 'revert', 'perf', 'deps', 'chore'],
       breakingNoteKeywords: BREAKING_KEYWORDS,
     }),
     builder,
