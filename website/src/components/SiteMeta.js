@@ -17,7 +17,7 @@ export const SiteMeta = ({ pathname }) => (
     `}
     render={({
       site: {
-        siteMetadata: { siteUrl, title, twitter },
+        siteMetadata: { siteUrl, title },
       },
     }) => {
       // NOTE: site.webmanifest is handled in "gatsby-config.js" by "gatsby-plugin-manifest"
@@ -32,13 +32,9 @@ export const SiteMeta = ({ pathname }) => (
           <meta name="robots" content="noindex" />
           <meta name="robots" content="nofollow" />
 
-          <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-          <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32X32.png" />
-          <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16X16.png" />
-          <link rel="mask-icon" color="#2684FF" href="/safari-pinned-tab.svg" />
-          <link rel="shortcut icon" href="/favicon.ico" />
-          <meta name="msapplication-TileColor" content="#2684FF" />
-          <meta name="msapplication-config" content="/browserconfig.xml" />
+          <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg" />
+          <link rel="icon" type="image/svg" sizes="32x32" href="/safari-pinned-tab.svg" />
+          <link rel="shortcut icon" href="/favicon.svg" />
           <meta name="theme-color" content="#ffffff" />
 
           <meta property="og:url" content={siteUrl} />
@@ -48,10 +44,6 @@ export const SiteMeta = ({ pathname }) => (
           <meta property="og:image" content={`${siteUrl}/og-image-landscape.png`} />
           <meta property="og:image:width" content="761" />
           <meta property="og:image:height" content="410" />
-
-          <meta name="twitter:card" content="summary" />
-          <meta name="twitter:site" content={twitter} />
-          <meta name="twitter:image" content={`${siteUrl}/og-image-square.png`} />
         </Helmet>
       );
     }}
