@@ -1,10 +1,10 @@
 {
   "scripts": {
-    "start": "yarn todo dev",
-    "blog": "yarn --cwd blog",
-    "meetup": "yarn --cwd meetup",
-    "todo": "yarn --cwd todo",
-    "custom-fields": "yarn --cwd custom-fields"
+    "start": "yarn workspace @open-keystone/demo-project-todo dev",
+    "blog": "yarn workspace @open-keystone/demo-project-blog dev",
+    "meetup": "yarn workspace @open-keystone/demo-project-meetup dev",
+    "todo": "yarn workspace @open-keystone/demo-project-todo dev",
+    "custom-fields": "yarn workspace @open-keystone/demo-custom-fields dev"
   },
   "repository": "https://github.com/open-condo-software/open-keystone.git",
   "homepage": "https://github.com/open-condo-software/open-keystone",
