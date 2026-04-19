@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: ${REGISTRY}postgres:16.8
@@ -39,9 +37,9 @@ services:
       - app-network
     volumes:
       - redis-data:/data
-    command: ["redis-server", "--databases", "64", "--requirepass", "open-keystone-demo-password"]
+    command: sh -c "redis-server --databases 64 --requirepass \"$${REDIS_PASSWORD}\""
     healthcheck:
-      test: ["CMD", "redis-cli", "-a", "open-keystone-demo-password", "ping"]
+      test: ["CMD-SHELL", "redis-cli ping"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -58,8 +56,8 @@ services:
     volumes:
       - mongo-data:/data/db
     healthcheck:
-      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
-      interval: 5s
+      test: ["CMD-SHELL", "mongosh --quiet --username \"$MONGO_INITDB_ROOT_USERNAME\" --password \"$MONGO_INITDB_ROOT_PASSWORD\" --authenticationDatabase admin --eval \"db.adminCommand('ping')\""]
+      interval: 10s
       timeout: 5s
       retries: 5
 
