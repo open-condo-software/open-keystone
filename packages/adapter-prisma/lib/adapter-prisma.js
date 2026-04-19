@@ -47,6 +47,8 @@ class PrismaAdapter extends BaseKeystoneAdapter {
     // TODO: Should we default to 'public' or null?
     if (this.provider === 'postgresql') {
       return this.dbSchemaName ? `${this.url}?schema=${this.dbSchemaName}` : this.url;
+    } else if (this.provider === 'sqlite') {
+      return this.url;
     }
   }
 
