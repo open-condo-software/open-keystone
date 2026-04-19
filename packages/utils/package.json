@@ -9,7 +9,7 @@
   "main": "dist/utils.cjs.js",
   "module": "dist/utils.esm.js",
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=22.0.0"
   },
   "dependencies": {
     "@babel/runtime": "^7.14.6",
