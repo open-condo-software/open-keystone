@@ -209,9 +209,6 @@ class PrismaAdapter extends BaseKeystoneAdapter {
       listAdapter._postConnect({ rels, prisma: this.prisma });
     });
 
-    if (this.config.dropDatabase && process.env.NODE_ENV !== 'production') {
-      await this.dropDatabase();
-    }
     return [];
   }
 

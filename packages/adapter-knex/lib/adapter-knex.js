@@ -72,12 +72,7 @@ class KnexAdapter extends BaseKeystoneAdapter {
       listAdapter._postConnect({ rels });
     });
 
-    if (this.config.dropDatabase && process.env.NODE_ENV !== 'production') {
-      await this.dropDatabase();
-      return this._createTables();
-    } else {
-      return [];
-    }
+    return this._createTables();
   }
 
   async _verifyTables() {
@@ -216,19 +211,25 @@ class KnexAdapter extends BaseKeystoneAdapter {
   }
 
   // This will drop all the tables in the backing database. Use wisely.
-  dropDatabase() {
+  async dropDatabase() {
     if (process.env.NODE_ENV !== 'test') {
       console.log('Knex adapter: Dropping database');
     }
-    const tables = [
-      ...Object.values(this.listAdapters).map(
-        listAdapter => `"${this.schemaName}"."${listAdapter.tableName}"`
-      ),
-      ...this.rels
-        .filter(({ cardinality }) => cardinality === 'N:N')
-        .map(({ tableName }) => `"${this.schemaName}"."${tableName}"`),
-    ].join(',');
-    return this.knex.raw(`DROP TABLE IF EXISTS ${tables} CASCADE`);
+
+    if (this.schemaName && this.schemaName !== 'public') {
+      await this.knex.raw(`DROP SCHEMA IF EXISTS "${this.schemaName}" CASCADE`);
+      await this.knex.raw(`CREATE SCHEMA IF NOT EXISTS "${this.schemaName}"`);
+    } else {
+      const tables = [
+        ...Object.values(this.listAdapters).map(
+          listAdapter => `"${this.schemaName}"."${listAdapter.tableName}"`
+        ),
+        ...this.rels
+          .filter(({ cardinality }) => cardinality === 'N:N')
+          .map(({ tableName }) => `"${this.schemaName}"."${tableName}"`),
+      ].join(',');
+      await this.knex.raw(`DROP TABLE IF EXISTS ${tables} CASCADE`);
+    }
   }
 
   getDefaultPrimaryKeyConfig() {
