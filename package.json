@@ -9,7 +9,7 @@
   "homepage": "https://github.com/open-condo-software/open-keystone",
   "scripts": {
     "prisma": "prisma",
-    "dev": "yarn demo todo dev",
+    "dev": "yarn --cwd examples/todo dev",
     "demo": "yarn --cwd ./examples",
     "website": "manypkg run @open-keystone/website",
     "arch-docs": "manypkg run arch/docs",
