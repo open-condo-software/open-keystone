@@ -1,9 +1,9 @@
 {
   "name": "@open-keystone/demo-project-todo",
-  "description": "An example KeystoneJS project showcasing a simple Todo List.",
+  "description": "An example OpenKeystone project showcasing a simple Todo List.",
   "private": true,
   "version": "0.0.0-development",
-  "author": "The KeystoneJS Development Team",
+  "author": "The OpenKeystone Development Team",
   "license": "MIT",
   "engines": {
     "node": ">=16.0.0"
