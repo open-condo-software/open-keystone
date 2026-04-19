@@ -14,7 +14,7 @@
     "start": "cross-env NODE_ENV=production keystone start"
   },
   "dependencies": {
-    "@open-keystone/adapter-mongoose": "workspace:^",
+    "@open-keystone/adapter-prisma": "workspace:^",
     "@open-keystone/app-admin-ui": "workspace:^",
     "@open-keystone/app-graphql": "workspace:^",
     "@open-keystone/app-static": "workspace:^",
