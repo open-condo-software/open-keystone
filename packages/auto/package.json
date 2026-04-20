@@ -1,0 +1,19 @@
+{
+  "name": "@open-keystone/auto",
+  "description": "Package for automatic OpenKeystone configuration",
+  "version": "0.0.0-development",
+  "author": "The OpenKeystone Development Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "dependencies": {
+    "@open-keystone/adapter-knex": "workspace:^",
+    "@open-keystone/adapter-mongoose": "workspace:^",
+    "@open-keystone/adapter-prisma": "workspace:^"
+  },
+  "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/keystone-auto",
+  "publishConfig": {
+    "access": "public"
+  }
+}
