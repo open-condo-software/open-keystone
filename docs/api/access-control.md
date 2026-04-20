@@ -66,7 +66,7 @@ interface AccessInput {
   gqlName?: string;
   itemId?: string;
   itemIds?: [string];
-  args?: Record<string, unknown>
+  args?: Record<string, unknown>;
 }
 
 type StaticAccess = boolean;

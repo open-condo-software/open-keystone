@@ -103,8 +103,10 @@ const argGenerator: Record<AdapterName, () => Promise<AdapterArgs> | AdapterArgs
 };
 
 async function createPostgresSchema(adapterArgs: KnexAdapterArgs | PrismaAdapterArgs) {
-  const schemaName = 'schemaName' in adapterArgs ? adapterArgs.schemaName : adapterArgs.getDbSchemaName();
-  const connectionString = 'url' in adapterArgs ? adapterArgs.url : adapterArgs.knexOptions.connection;
+  const schemaName =
+    'schemaName' in adapterArgs ? adapterArgs.schemaName : adapterArgs.getDbSchemaName();
+  const connectionString =
+    'url' in adapterArgs ? adapterArgs.url : adapterArgs.knexOptions.connection;
   const url = connectionString.split('?')[0];
   const baseConnection = url.substring(0, url.lastIndexOf('/')) + '/postgres';
   const _knex = knex({ client: 'postgres', connection: baseConnection });
@@ -116,8 +118,10 @@ async function createPostgresSchema(adapterArgs: KnexAdapterArgs | PrismaAdapter
 }
 
 async function dropPostgresSchema(adapterArgs: KnexAdapterArgs | PrismaAdapterArgs) {
-  const schemaName = 'schemaName' in adapterArgs ? adapterArgs.schemaName : adapterArgs.getDbSchemaName();
-  const connectionString = 'url' in adapterArgs ? adapterArgs.url : adapterArgs.knexOptions.connection;
+  const schemaName =
+    'schemaName' in adapterArgs ? adapterArgs.schemaName : adapterArgs.getDbSchemaName();
+  const connectionString =
+    'url' in adapterArgs ? adapterArgs.url : adapterArgs.knexOptions.connection;
   const url = connectionString.split('?')[0];
   const baseConnection = url.substring(0, url.lastIndexOf('/')) + '/postgres';
   const _knex = knex({ client: 'postgres', connection: baseConnection });

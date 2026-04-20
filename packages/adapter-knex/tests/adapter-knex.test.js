@@ -49,9 +49,7 @@ describe('Knex Adapter', () => {
     });
     const result = await testAdapter._connect().catch(result => result);
 
-    expect(result.message).toMatch(
-      /password authentication failed for user "your_database_user"/
-    );
+    expect(result.message).toMatch(/password authentication failed for user "your_database_user"/);
   });
 
   describe('checkDatabaseVersion', () => {
