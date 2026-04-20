@@ -56,8 +56,13 @@ const argGenerator: Record<AdapterName, () => Promise<AdapterArgs> | AdapterArgs
       process.env.DATABASE_URL ||
       process.env.MONGO_URI ||
       'mongodb://admin:open-keystone-demo-password@localhost:27017';
+    const url = new URL(baseUri);
+    url.pathname = `/${dbName}`;
+    if (!url.search) {
+      url.search = 'authSource=' + url.username;
+    }
     return {
-      mongoUri: `${baseUri}${baseUri.endsWith('/') ? '' : '/'}${dbName}?authSource=admin`,
+      mongoUri: url.toString(),
       dropDatabase: true,
     };
   },
