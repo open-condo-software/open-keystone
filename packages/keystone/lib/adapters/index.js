@@ -17,8 +17,13 @@ class BaseKeystoneAdapter {
   }
 
   async connect({ rels }) {
+    this.rels = rels;
     // Connect to the database
     await this._connect({ rels }, this.config);
+
+    if (this.config.dropDatabase && process.env.NODE_ENV !== 'production') {
+      await this.dropDatabase();
+    }
 
     // Set up all list adapters
     try {

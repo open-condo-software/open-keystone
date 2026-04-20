@@ -1,0 +1,71 @@
+services:
+  postgres:
+    image: ${REGISTRY}postgres:16.8
+    ports:
+      - "127.0.0.1:5432:5432"
+    user: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: main
+      POSTGRES_PASSWORD: open-keystone-demo-password
+      POSTGRES_HOST_AUTH_METHOD: "scram-sha-256\nhost replication all 0.0.0.0/0 scram-sha-256"
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256"
+    command: |
+      postgres
+        -c max_connections=2000
+        -c wal_level=replica
+        -c synchronous_commit=on
+        -c statement_timeout=10s
+        -c shared_buffers=256MB
+    networks:
+      - app-network
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: ${REGISTRY}redis:6.2
+    ports:
+      - "127.0.0.1:6379:6379"
+    environment:
+      REDIS_PASSWORD: open-keystone-demo-password
+    networks:
+      - app-network
+    volumes:
+      - redis-data:/data
+    command: sh -c "redis-server --databases 64 --requirepass \"$${REDIS_PASSWORD}\""
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  mongo:
+    image: ${REGISTRY}mongo:7.0
+    ports:
+      - "127.0.0.1:27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: open-keystone-demo-password
+    networks:
+      - app-network
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD-SHELL", "mongosh --quiet --username \"$MONGO_INITDB_ROOT_USERNAME\" --password \"$MONGO_INITDB_ROOT_PASSWORD\" --authenticationDatabase admin --eval \"db.adminCommand('ping')\""]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  redis-data:
+  mongo-data:

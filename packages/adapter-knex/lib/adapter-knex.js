@@ -1,3 +1,5 @@
+/* global AggregateError */
+
 const { versionGreaterOrEqualTo } = require('@open-keystone/utils');
 
 const { knex } = require('knex');
@@ -49,13 +51,23 @@ class KnexAdapter extends BaseKeystoneAdapter {
       error: result.error || result,
     }));
     if (connectResult.error) {
-      const connectionError = connectResult.error;
-      let dbName;
-      if (typeof knexConnection === 'string') {
-        dbName = knexConnection.split('/').pop();
-      } else {
-        dbName = knexConnection.database;
+      let connectionError = connectResult.error;
+      if (
+        (typeof AggregateError !== 'undefined' && connectionError instanceof AggregateError) ||
+        connectionError.constructor.name === 'AggregateError'
+      ) {
+        if (
+          !connectionError.message &&
+          connectionError.errors &&
+          connectionError.errors.length > 0
+        ) {
+          connectionError.message = connectionError.errors[0].message;
+        }
       }
+      const dbName =
+        typeof knexConnection === 'string'
+          ? knexConnection.split('/').pop()
+          : knexConnection.database;
       console.error(`Could not connect to database: '${dbName}'`);
       console.warn(
         `If this is the first time you've run Keystone, you can create your database with the following command:`
@@ -73,7 +85,6 @@ class KnexAdapter extends BaseKeystoneAdapter {
     });
 
     if (this.config.dropDatabase && process.env.NODE_ENV !== 'production') {
-      await this.dropDatabase();
       return this._createTables();
     } else {
       return [];
@@ -216,19 +227,25 @@ class KnexAdapter extends BaseKeystoneAdapter {
   }
 
   // This will drop all the tables in the backing database. Use wisely.
-  dropDatabase() {
+  async dropDatabase() {
     if (process.env.NODE_ENV !== 'test') {
       console.log('Knex adapter: Dropping database');
     }
-    const tables = [
-      ...Object.values(this.listAdapters).map(
-        listAdapter => `"${this.schemaName}"."${listAdapter.tableName}"`
-      ),
-      ...this.rels
-        .filter(({ cardinality }) => cardinality === 'N:N')
-        .map(({ tableName }) => `"${this.schemaName}"."${tableName}"`),
-    ].join(',');
-    return this.knex.raw(`DROP TABLE IF EXISTS ${tables} CASCADE`);
+
+    if (this.schemaName && this.schemaName !== 'public') {
+      await this.knex.raw(`DROP SCHEMA IF EXISTS "${this.schemaName}" CASCADE`);
+      await this.knex.raw(`CREATE SCHEMA IF NOT EXISTS "${this.schemaName}"`);
+    } else {
+      const tables = [
+        ...Object.values(this.listAdapters).map(
+          listAdapter => `"${this.schemaName}"."${listAdapter.tableName}"`
+        ),
+        ...this.rels
+          .filter(({ cardinality }) => cardinality === 'N:N')
+          .map(({ tableName }) => `"${this.schemaName}"."${tableName}"`),
+      ].join(',');
+      await this.knex.raw(`DROP TABLE IF EXISTS ${tables} CASCADE`);
+    }
   }
 
   getDefaultPrimaryKeyConfig() {

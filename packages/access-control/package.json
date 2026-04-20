@@ -7,7 +7,7 @@
   "main": "dist/access-control.cjs.js",
   "module": "dist/access-control.esm.js",
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=22.0.0"
   },
   "dependencies": {
     "@open-keystone/utils": "workspace:^"

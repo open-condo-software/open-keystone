@@ -5,6 +5,7 @@ const { multiAdapterRunners, setupServer } = require('@open-keystone/test-utils'
 const testModules = globby.sync(`packages/**/src/**/test-fixtures.js`, {
   absolute: true,
 });
+
 multiAdapterRunners().map(({ runner, adapterName, after }) =>
   describe(`Adapter: ${adapterName}`, () => {
     testModules

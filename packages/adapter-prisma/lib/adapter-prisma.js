@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const { execSync } = require('child_process');
 const cuid = require('cuid');
 const {
@@ -8,6 +9,8 @@ const {
   BaseFieldAdapter,
 } = require('@open-keystone/keystone');
 const { defaultObj, mapKeys, identity, flatten } = require('@open-keystone/utils');
+
+const lastAppliedSchema = new Map();
 
 class PrismaAdapter extends BaseKeystoneAdapter {
   constructor() {
@@ -32,12 +35,27 @@ class PrismaAdapter extends BaseKeystoneAdapter {
     this.clientPath = path.resolve(`${prismaPath}/${clientDir}`);
     this.dbSchemaName = this.getDbSchemaName({ prismaSchema });
 
+    const rawHash = crypto.createHash('sha256').update(prismaSchema).digest('hex');
+    const hashPath = `${this.schemaPath}.hash`;
+
+    if (fs.existsSync(this.schemaPath) && fs.existsSync(hashPath)) {
+      const existingHash = fs.readFileSync(hashPath, 'utf-8');
+      if (existingHash.startsWith(`${rawHash}:`)) {
+        const formattedSchema = fs.readFileSync(this.schemaPath, { encoding: 'utf-8' });
+        return {
+          prismaSchema: formattedSchema,
+          hash: existingHash,
+        };
+      }
+    }
+
     fs.mkdirSync(path.dirname(this.schemaPath), { recursive: true });
     fs.writeFileSync(this.schemaPath, prismaSchema);
     this._runPrismaCmd('format');
     const formattedSchema = fs.readFileSync(this.schemaPath, { encoding: 'utf-8' });
 
-    return { prismaSchema: formattedSchema };
+    const formattedHash = crypto.createHash('sha256').update(formattedSchema).digest('hex');
+    return { prismaSchema: formattedSchema, hash: `${rawHash}:${formattedHash}` };
   }
 
   _url() {
@@ -47,11 +65,23 @@ class PrismaAdapter extends BaseKeystoneAdapter {
     // TODO: Should we default to 'public' or null?
     if (this.provider === 'postgresql') {
       return this.dbSchemaName ? `${this.url}?schema=${this.dbSchemaName}` : this.url;
+    } else if (this.provider === 'sqlite') {
+      return this.url;
     }
   }
 
   _runPrismaCmd(cmd) {
-    return execSync(`npx prisma ${cmd} --schema ${this.schemaPath}`, {
+    // speed up npx command
+    const localBin = path.join(__dirname, '../node_modules/.bin/prisma');
+    const rootBin = path.join(__dirname, '../../../node_modules/.bin/prisma');
+    let bin = 'npx prisma';
+    if (fs.existsSync(rootBin)) {
+      bin = rootBin;
+    } else if (fs.existsSync(localBin)) {
+      bin = localBin;
+    }
+
+    return execSync(`${bin} ${cmd} --schema ${this.schemaPath}`, {
       env: { ...process.env, DATABASE_URL: this._url() },
       encoding: 'utf-8',
     });
@@ -76,21 +106,39 @@ class PrismaAdapter extends BaseKeystoneAdapter {
 
   async _generateClient(rels) {
     // 1. Generate a formatted schema
-    const { prismaSchema } = await this._prepareSchema(rels);
+    const { hash } = await this._prepareSchema(rels);
 
-    await this._writePrismaSchema({ prismaSchema });
+    const hashPath = `${this.schemaPath}.hash`;
+    const isClientValid =
+      fs.existsSync(hashPath) &&
+      fs.existsSync(this.clientPath) &&
+      fs.readFileSync(hashPath, 'utf-8') === hash;
 
-    // Generate prisma client
-    await this._generatePrismaClient();
+    if (!isClientValid) {
+      // Generate prisma client
+      await this._generatePrismaClient();
+      fs.writeFileSync(hashPath, hash);
+    }
 
-    // Run prisma migrations
-    await this._runMigrations();
+    // 2. Run prisma migrations if the schema has not been applied to this DB yet
+    if (lastAppliedSchema.get(this._url()) !== hash) {
+      if (this.migrationMode === 'prototype' && isClientValid) {
+        // When running Prisma tests with different database schemas, we can skip migrations
+        // if the client is already valid and the schema is in the correct state.
+        // ONE_MIGRATION_RUN_ON_CREATE_PRISMA_CLIENT
+        // TODO(pahaz): need to add database url and schema to skip this step right!
+        //  And use own hash file for that action!
+      } else {
+        await this._runMigrations();
+      }
+      lastAppliedSchema.set(this._url(), hash);
+    }
   }
 
   async _runMigrations() {
     if (this.migrationMode === 'prototype') {
       // Sync the database directly, without generating any migration
-      this._runPrismaCmd(`db push --accept-data-loss`);
+      this._runPrismaCmd(`db push --accept-data-loss --force-reset`);
     } else if (this.migrationMode === 'createOnly') {
       // Generate a migration, but do not apply it
       this._runPrismaCmd(`migrate dev --create-only --name keystone-${cuid()} --preview-feature`);
@@ -102,14 +150,6 @@ class PrismaAdapter extends BaseKeystoneAdapter {
     } else {
       throw new Error(`migrationMode must be one of 'dev', 'prototype', 'createOnly', or 'none`);
     }
-  }
-
-  async _writePrismaSchema({ prismaSchema }) {
-    // Make output dir (you know, just in case!)
-    fs.mkdirSync(this.clientPath, { recursive: true });
-
-    // Write prisma file
-    fs.writeSync(fs.openSync(this.schemaPath, 'w'), prismaSchema);
   }
 
   async _generatePrismaClient() {
@@ -207,9 +247,6 @@ class PrismaAdapter extends BaseKeystoneAdapter {
       listAdapter._postConnect({ rels, prisma: this.prisma });
     });
 
-    if (this.config.dropDatabase && process.env.NODE_ENV !== 'production') {
-      await this.dropDatabase();
-    }
     return [];
   }
 

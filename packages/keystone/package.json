@@ -2,10 +2,10 @@
   "name": "@open-keystone/keystone",
   "description": "The main @open-keystone class & CLI. This is where the magic happens.",
   "version": "0.0.0-development",
-  "author": "The KeystoneJS Development Team",
+  "author": "The OpenKeystone Development Team",
   "license": "MIT",
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=22.0.0"
   },
   "bin": "bin/cli.js",
   "dependencies": {
