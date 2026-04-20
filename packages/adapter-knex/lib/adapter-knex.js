@@ -54,12 +54,18 @@ class KnexAdapter extends BaseKeystoneAdapter {
         (typeof AggregateError !== 'undefined' && connectionError instanceof AggregateError) ||
         connectionError.constructor.name === 'AggregateError'
       ) {
-        if (!connectionError.message && connectionError.errors && connectionError.errors.length > 0) {
+        if (
+          !connectionError.message &&
+          connectionError.errors &&
+          connectionError.errors.length > 0
+        ) {
           connectionError.message = connectionError.errors[0].message;
         }
       }
       const dbName =
-        typeof knexConnection === 'string' ? knexConnection.split('/').pop() : knexConnection.database;
+        typeof knexConnection === 'string'
+          ? knexConnection.split('/').pop()
+          : knexConnection.database;
       console.error(`Could not connect to database: '${dbName}'`);
       console.warn(
         `If this is the first time you've run Keystone, you can create your database with the following command:`
