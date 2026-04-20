@@ -126,6 +126,8 @@ class PrismaAdapter extends BaseKeystoneAdapter {
         // When running Prisma tests with different database schemas, we can skip migrations
         // if the client is already valid and the schema is in the correct state.
         // ONE_MIGRATION_RUN_ON_CREATE_PRISMA_CLIENT
+        // TODO(pahaz): need to add database url and schema to skip this step right!
+        //  And use own hash file for that action!
       } else {
         await this._runMigrations();
       }
