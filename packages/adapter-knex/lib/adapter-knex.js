@@ -72,7 +72,11 @@ class KnexAdapter extends BaseKeystoneAdapter {
       listAdapter._postConnect({ rels });
     });
 
-    return this._createTables();
+    if (this.config.dropDatabase && process.env.NODE_ENV !== 'production') {
+      return this._createTables();
+    } else {
+      return [];
+    }
   }
 
   async _verifyTables() {
