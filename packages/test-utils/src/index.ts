@@ -38,7 +38,7 @@ export interface PrismaAdapterArgs {
   url: string;
   provider: 'postgresql';
   getPrismaPath: (args: { prismaSchema: string }) => string;
-  getDbSchemaName: () => string;
+  getDbSchemaName: (args: { prismaSchema: string }) => string;
   enableLogging: boolean;
 }
 
@@ -48,7 +48,7 @@ const ENABLE_SCHEMA_PER_TEST = process.env.ENABLE_SCHEMA_PER_TEST === 'true';
 const ENABLE_CLEANUP_AFTER_TEST = process.env.ENABLE_CLEANUP_AFTER_TEST === 'true';
 
 const argGenerator: Record<AdapterName, () => Promise<AdapterArgs> | AdapterArgs> = {
-  mongoose: async () => {
+  mongoose: () => {
     const dbName = ENABLE_SCHEMA_PER_TEST
       ? `test_${crypto.randomBytes(8).toString('hex')}`
       : 'test_default';
@@ -78,9 +78,6 @@ const argGenerator: Record<AdapterName, () => Promise<AdapterArgs> | AdapterArgs
     };
   },
   prisma_postgresql: () => {
-    const schemaName = ENABLE_SCHEMA_PER_TEST
-      ? `test_${crypto.randomBytes(8).toString('hex')}`
-      : 'public';
     const url =
       process.env.DATABASE_URL || 'postgres://postgres:open-keystone-demo-password@localhost/main';
     return {
@@ -94,8 +91,12 @@ const argGenerator: Record<AdapterName, () => Promise<AdapterArgs> | AdapterArgs
           '.api-test-prisma-clients',
           crypto.createHash('sha256').update(prismaSchema).digest('hex')
         ),
-      // Slice down to the hash make a valid postgres schema name
-      getDbSchemaName: () => schemaName,
+      getDbSchemaName: ({ prismaSchema }: { prismaSchema: string }) => {
+        if (ENABLE_SCHEMA_PER_TEST) return `test_${crypto.randomBytes(8).toString('hex')}`;
+        // each test will have their own db schema name to avoid conflicts
+        // and speed up the second test run. Please check ONE_MIGRATION_RUN_ON_CREATE_PRISMA_CLIENT
+        return crypto.createHash('sha256').update(prismaSchema).digest('hex').slice(0, 16);
+      },
       // Turn this on if you need verbose debug info
       enableLogging: false,
     };
