@@ -40,6 +40,7 @@ export interface PrismaAdapterArgs {
   getPrismaPath: (args: { prismaSchema: string }) => string;
   getDbSchemaName: (args: { prismaSchema: string }) => string;
   enableLogging: boolean;
+  schemaName?: string;
 }
 
 type AdapterArgs = MongooseAdapterArgs | KnexAdapterArgs | PrismaAdapterArgs;
@@ -85,11 +86,15 @@ const argGenerator: Record<AdapterName, () => Promise<AdapterArgs> | AdapterArgs
   prisma_postgresql: () => {
     const url =
       process.env.DATABASE_URL || 'postgres://postgres:open-keystone-demo-password@localhost/main';
+    const schemaName = ENABLE_SCHEMA_PER_TEST
+      ? `test_${crypto.randomBytes(8).toString('hex')}`
+      : undefined;
     return {
       migrationMode: 'prototype',
       dropDatabase: true,
       url,
       provider: 'postgresql',
+      schemaName,
       // Put the generated client at a unique path
       getPrismaPath: ({ prismaSchema }: { prismaSchema: string }) =>
         path.join(
@@ -97,7 +102,7 @@ const argGenerator: Record<AdapterName, () => Promise<AdapterArgs> | AdapterArgs
           crypto.createHash('sha256').update(prismaSchema).digest('hex')
         ),
       getDbSchemaName: ({ prismaSchema }: { prismaSchema: string }) => {
-        if (ENABLE_SCHEMA_PER_TEST) return `test_${crypto.randomBytes(8).toString('hex')}`;
+        if (schemaName) return schemaName;
         // each test will have their own db schema name to avoid conflicts
         // and speed up the second test run. Please check ONE_MIGRATION_RUN_ON_CREATE_PRISMA_CLIENT
         return crypto.createHash('sha256').update(prismaSchema).digest('hex').slice(0, 16);
