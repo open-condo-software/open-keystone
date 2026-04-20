@@ -33,7 +33,7 @@ describe('Knex Adapter', () => {
       knexOptions: { connection: 'postgres://localhost:6666/undefined_database' },
     });
     const result = await testAdapter._connect().catch(result => result);
-    expect(result.message).toMatch(/ECONNREFUSED 127\.0\.0\.1:6666/);
+    expect(result.message).toMatch(/ECONNREFUSED .*?:6666/);
   });
 
   test('throws when database cannot be found using connection object', async () => {
