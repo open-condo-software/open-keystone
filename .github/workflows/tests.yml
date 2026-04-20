@@ -92,7 +92,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [18.x, 22.x, 24.x]
+        node-version: [22.x, 24.x]
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -162,7 +162,7 @@ jobs:
           - test-projects/login
           - test-projects/access-control
           - test-projects/client-validation
-        node-version: [18.x, 22.x, 24.x]
+        node-version: [22.x, 24.x]
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
