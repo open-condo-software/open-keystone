@@ -32,42 +32,42 @@ jobs:
   api-tests:
     name: API Tests
     needs: should_run_tests
+    if: needs.should_run_tests.outputs.shouldRunTests == 'true'
     runs-on: ubuntu-22.04
     env:
-      DATABASE_URL: 'postgres://postgres:open-keystone-demo-password@localhost:5432/main'
       REDIS_URL: 'redis://:open-keystone-demo-password@localhost:6379'
-      MONGO_URL: 'mongodb://admin:open-keystone-demo-password@localhost:27017/admin'
     strategy:
       fail-fast: false
       matrix:
         index: [0, 1, 2, 3, 4, 5, 6, 7, 8]
         adapter: ['mongoose', 'knex', 'prisma_postgresql']
         node-version: [22.x, 24.x]
+        include:
+          - adapter: 'mongoose'
+            database_url: 'mongodb://admin:open-keystone-demo-password@localhost:27017/admin'
+          - adapter: 'knex'
+            database_url: 'postgres://postgres:open-keystone-demo-password@localhost:5432/main'
+          - adapter: 'prisma_postgresql'
+            database_url: 'postgres://postgres:open-keystone-demo-password@localhost:5432/main'
 
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
-        if: needs.should_run_tests.outputs.shouldRunTests == 'true'
 
       - name: Start Docker Compose
-        if: needs.should_run_tests.outputs.shouldRunTests == 'true'
         run: docker compose up -d --wait
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
-        if: needs.should_run_tests.outputs.shouldRunTests == 'true'
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'yarn'
 
       - name: Install Dependencies
         run: yarn --immutable
-        if: needs.should_run_tests.outputs.shouldRunTests == 'true'
       - name: Build packages
         run: yarn build
-        if: needs.should_run_tests.outputs.shouldRunTests == 'true'
       - name: Unit tests
-        if: needs.should_run_tests.outputs.shouldRunTests == 'true'
         run: yarn jest --ci --maxWorkers=1 api-tests --forceExit
         env:
           CLOUDINARY_CLOUD_NAME: keystone-cloudinary
@@ -76,6 +76,7 @@ jobs:
           CI_NODE_TOTAL: 9
           CI_NODE_INDEX: ${{ matrix.index }}
           TEST_ADAPTER: ${{ matrix.adapter }}
+          DATABASE_URL: ${{ matrix.database_url }}
           IFRAMELY_API_KEY: ${{ secrets.IFRAMELY_API_KEY }}
           UNSPLASH_KEY: ${{ secrets.UNSPLASH_KEY}}
           UNSPLASH_SECRET: ${{ secrets.UNSPLASH_SECRET}}
@@ -84,6 +85,7 @@ jobs:
   non-api-tests:
     name: Package Unit Tests
     needs: should_run_tests
+    if: needs.should_run_tests.outputs.shouldRunTests == 'true'
     runs-on: ubuntu-22.04
     env:
       DATABASE_URL: 'postgres://postgres:open-keystone-demo-password@localhost:5432/main'
@@ -147,6 +149,7 @@ jobs:
   cypress:
     name: Cypress tests
     needs: should_run_tests
+    if: needs.should_run_tests.outputs.shouldRunTests == 'true'
     runs-on: ubuntu-22.04
     env:
       DATABASE_URL: 'postgres://postgres:open-keystone-demo-password@localhost:5432/main'
@@ -162,16 +165,13 @@ jobs:
         node-version: [18.x, 22.x, 24.x]
     steps:
       - name: Checkout Repo
-        if: needs.should_run_tests.outputs.shouldRunTests == 'true'
         uses: actions/checkout@v4
 
       - name: Start Docker Compose
-        if: needs.should_run_tests.outputs.shouldRunTests == 'true'
         run: docker compose up -d --wait
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
-        if: needs.should_run_tests.outputs.shouldRunTests == 'true'
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'yarn'
@@ -180,11 +180,8 @@ jobs:
         run: yarn --immutable
       - name: Build packages
         run: yarn build
-        if: needs.should_run_tests.outputs.shouldRunTests == 'true'
       - run: yarn --cwd tests/${{ matrix.project }} cypress install
-        if: needs.should_run_tests.outputs.shouldRunTests == 'true'
       - run: yarn --cwd tests/${{ matrix.project }} cypress:run:ci
-        if: needs.should_run_tests.outputs.shouldRunTests == 'true'
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
