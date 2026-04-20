@@ -53,7 +53,17 @@ class PrismaAdapter extends BaseKeystoneAdapter {
   }
 
   _runPrismaCmd(cmd) {
-    return execSync(`npx prisma ${cmd} --schema ${this.schemaPath}`, {
+    // speed up npx command
+    const localBin = path.join(__dirname, '../node_modules/.bin/prisma');
+    const rootBin = path.join(__dirname, '../../../node_modules/.bin/prisma');
+    let bin = 'npx prisma';
+    if (fs.existsSync(rootBin)) {
+      bin = rootBin;
+    } else if (fs.existsSync(localBin)) {
+      bin = localBin;
+    }
+
+    return execSync(`${bin} ${cmd} --schema ${this.schemaPath}`, {
       env: { ...process.env, DATABASE_URL: this._url() },
       encoding: 'utf-8',
     });
