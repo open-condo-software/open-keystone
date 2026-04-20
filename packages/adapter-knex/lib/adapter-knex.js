@@ -1,3 +1,5 @@
+/* global AggregateError */
+
 const { versionGreaterOrEqualTo } = require('@open-keystone/utils');
 
 const { knex } = require('knex');
