@@ -6,16 +6,20 @@ const { promisify } = require('util');
 
 const pipeline = promisify(stream.pipeline);
 
+const REPO_NAME = 'open-condo-software/open-keystone';
+const PACKAGE_NAME = 'create-open-keystone-app';
+const GITHUB_API_REPO_URL = `https://api.github.com/repos/${REPO_NAME}`;
+const GITHUB_CONTENT_API_URL = `https://raw.githubusercontent.com/${REPO_NAME}`;
+const GITHUB_RELEASE_API_URL = `${GITHUB_API_REPO_URL}/commits?path=.github/release-count`;
+
 let cachedLatestVersionCommit;
 
 const getLatestVersionCommit = async () => {
   if (cachedLatestVersionCommit === undefined) {
-    let commits = await got
-      .get('https://api.github.com/repos/keystonejs/keystone-5/commits?path=.github/release-count')
-      .json();
+    let commits = await got.get(GITHUB_RELEASE_API_URL).json();
     if (!commits.length) {
       throw new Error(
-        'No commits that release keystone were found. Try updating create-keystone-5-app and if this problem persists, please open an issue on GitHub.'
+        `No commits that release keystone were found. Try updating ${PACKAGE_NAME} and if this problem persists, please open an issue on GitHub.`
       );
     }
     cachedLatestVersionCommit = commits[0].sha;
@@ -26,7 +30,7 @@ const getLatestVersionCommit = async () => {
 const writeDirectoryFromGitHubToFs = async (from, to) => {
   const latestVersionCommit = await getLatestVersionCommit();
   const { tree } = await got(
-    `https://api.github.com/repos/keystonejs/keystone-5/git/trees/${latestVersionCommit}?recursive=1`
+    `${GITHUB_API_REPO_URL}/git/trees/${latestVersionCommit}?recursive=1`
   ).json();
   await Promise.all(
     tree.map(async item => {
@@ -34,9 +38,7 @@ const writeDirectoryFromGitHubToFs = async (from, to) => {
         let pathToWrite = path.join(to, item.path.replace(from, ''));
         await fs.ensureDir(path.dirname(pathToWrite));
         await pipeline(
-          got.stream(
-            `https://raw.githubusercontent.com/keystonejs/keystone-5/${latestVersionCommit}/${item.path}`
-          ),
+          got.stream(`${GITHUB_CONTENT_API_URL}/${latestVersionCommit}/${item.path}`),
           fs.createWriteStream(pathToWrite)
         );
       }
@@ -48,26 +50,26 @@ const getExampleProjects = async () => {
   let latestVersionCommit = await getLatestVersionCommit();
   try {
     let { body: rawConfig } = await got.get(
-      `https://raw.githubusercontent.com/keystonejs/keystone-5/${latestVersionCommit}/packages/create-keystone-5-app/example-projects/examples.json`
+      `${GITHUB_CONTENT_API_URL}/${latestVersionCommit}/packages/${PACKAGE_NAME}/example-projects/examples.json`
     );
     let parsedConfig;
     try {
       parsedConfig = JSON.parse(rawConfig);
     } catch (err) {
       throw new Error(
-        'The examples file from GitHub could not be parsed. Try updating create-keystone-5-app and if this problem persists, please open an issue on GitHub.'
+        `The examples file from GitHub could not be parsed. Try updating ${PACKAGE_NAME} and if this problem persists, please open an issue on GitHub.`
       );
     }
     if (parsedConfig.version !== 1) {
       throw new Error(
-        "The version of the examples file from GitHub conflicts with create-keystone-5-app's version. Try updating create-keystone-5-app and if this problem persists, please open an issue on GitHub."
+        `The version of the examples file from GitHub conflicts with ${PACKAGE_NAME}'s version. Try updating ${PACKAGE_NAME} and if this problem persists, please open an issue on GitHub.`
       );
     }
     return parsedConfig.projects;
   } catch (err) {
     if (err instanceof got.HTTPError) {
       throw new Error(
-        'The examples file from GitHub could not be found. Try updating create-keystone-5-app and if this problem persists, please open an issue on GitHub.'
+        `The examples file from GitHub could not be found. Try updating ${PACKAGE_NAME} and if this problem persists, please open an issue on GitHub.`
       );
     }
     throw err;

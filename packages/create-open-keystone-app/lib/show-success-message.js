@@ -19,8 +19,8 @@ ${c.bold('  Before you run Keystone you will need to initialise the tables in yo
 
   For troubleshooting and further information see:
 
-  - https://www.keystonejs.com/quick-start/adapters/
-  - https://www.keystonejs.com/keystonejs/adapter-knex/
+  - https://github.com/open-condo-software/open-keystone/blob/main/docs/quick-start/adapters.md
+  - https://github.com/open-condo-software/open-keystone/blob/main/docs/quick-start/README.md#next-steps
 `;
   }
 
@@ -37,8 +37,7 @@ ${c.bold('  Before you run Keystone you will need to initialise the tables in yo
   - ${terminalLink('View your app', 'http://localhost:3000')}
   - Edit ${c.bold(`${projectDir}${path.sep}index.js`)} to customize your app.
   - ${terminalLink('Open the Admin UI', 'http://localhost:3000/admin')}
-  - ${terminalLink('Read the docs', 'https://keystonejs.com')}
-  - ${terminalLink('Star Keystone on GitHub', 'https://github.com/keystonejs/keystone-5')}
+  - ${terminalLink('Read the docs and star OpenKeystone', 'https://github.com/open-condo-software/open-keystone')}
 `);
 };
 

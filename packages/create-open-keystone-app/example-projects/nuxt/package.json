@@ -3,7 +3,7 @@
   "description": "A NuxtJS example project.",
   "private": true,
   "version": "0.0.0-development",
-  "author": "The KeystoneJS Development Team",
+  "author": "The OpenKeystone Development Team",
   "license": "MIT",
   "engines": {
     "node": ">=22.0.0"
@@ -14,8 +14,8 @@
     "start": "cross-env NODE_ENV=production keystone start",
     "create-tables": "cross-env keystone create-tables"
   },
-  "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/create-keystone-5-app/example-projects/nuxt",
-  "homepage": "https://github.com/keystonejs/keystone-5",
+  "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/create-open-keystone-app/example-projects/nuxt",
+  "homepage": "https://github.com/open-condo-software/open-keystone",
   "dependencies": {
     "@open-keystone/adapter-mongoose": "workspace:^",
     "@open-keystone/app-admin-ui": "workspace:^",

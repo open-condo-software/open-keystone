@@ -72,7 +72,7 @@ const testAdapterConnection = async () => {
       console.log(
         `Please see the database ${terminalLink(
           'setup docs',
-          'https://www.keystonejs.com/quick-start/adapters'
+          'https://github.com/open-condo-software/open-keystone/blob/main/docs/quick-start/adapters.md'
         )} for more help`
       );
       console.log('');

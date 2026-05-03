@@ -1,40 +1,38 @@
 <!--[meta]
 section: api
 subSection: utilities
-title: Create Keystone app
+title: Create OpenKeystone app
 [meta]-->
 
-# Create Keystone app
+# Create OpenKeystone app
 
-> This is the last active development release of this package as **Keystone 5** is now in a 6 to 12 month active maintenance phase. For more information please read our [Keystone 5 and beyond](https://github.com/keystonejs/keystone-5/issues/21) post.
-
-A CLI for Keystone to help generate starter apps.
+A CLI for OpenKeystone to help generate starter apps.
 
 ## Usage
 
 ### Interactive
 
 ```shell
-yarn create keystone-5-app my-app
+yarn create open-keystone-app my-app
 ```
 
 and follow the prompts.
 
 ### Non-Interactive
 
-A non-interactive Keystone app creation could be useful in unattended app generation.
-One such example is creating a Docker image with a generated Keystone app built in.
+A non-interactive OpenKeystone app creation could be useful in unattended app generation.
+One such example is creating a Docker image with a generated OpenKeystone app built in.
 See the list of possible arguments in the **Arguments** section below.
 
 ```shell
-npm init keystone-5-app --name "My App" --template "starter" --database "MongoDB" --connection-string mongodb://localhost/MyApp --test-connection false my-app
+npm init open-keystone-app --name "My App" --template "starter" --database "MongoDB" --connection-string mongodb://localhost/MyApp --test-connection false my-app
 ```
 
 The app generation will fall back to interactive prompts if any of the arguments are
 missing or have incorrect values.
 
 > **Note:** By the time this documentation was written, `yarn create` was not working
-> because the CLI arguments were not passed to the `create-keystone-5-app` script.
+> because the CLI arguments were not passed to the `create-open-keystone-app` script.
 
 ### Arguments
 

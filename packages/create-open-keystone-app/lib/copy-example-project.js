@@ -4,6 +4,8 @@ const { getProjectDirectory, tick, error } = require('./util');
 const { writeDirectoryFromGitHubToFs } = require('./github-api');
 const { getArgs } = require('./get-args');
 
+const PACKAGE_NAME = 'create-open-keystone-app';
+
 const createNewProjectFolder = newProjectFolder => {
   fs.mkdirpSync(newProjectFolder);
   const readDir = fs.readdirSync(newProjectFolder);
@@ -27,7 +29,7 @@ const copyExampleProject = async () => {
   createNewProjectFolder(to);
 
   await writeDirectoryFromGitHubToFs(
-    `packages/create-keystone-5-app/example-projects/${exampleProject.folder}/`,
+    `packages/${PACKAGE_NAME}/example-projects/${exampleProject.folder}/`,
     to
   );
   tick('Writing project files');
