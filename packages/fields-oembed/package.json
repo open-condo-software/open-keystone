@@ -7,7 +7,7 @@
   "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/fields-oembed",
   "homepage": "https://github.com/keystonejs/keystone-5",
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=22.0.0"
   },
   "dependencies": {
     "@babel/runtime": "^7.14.6",

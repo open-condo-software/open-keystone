@@ -47,7 +47,7 @@ RUN apk add --no-cache build-base python2 yarn && \
 ADD ./package.json ./package.json
 ADD ./yarn.lock ./yarn.lock
 
-RUN yarn install 
+RUN yarn install
 
 ADD . /home/node
 

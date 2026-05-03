@@ -6087,6 +6087,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@open-keystone/auto@workspace:packages/auto":
+  version: 0.0.0-use.local
+  resolution: "@open-keystone/auto@workspace:packages/auto"
+  dependencies:
+    "@open-keystone/adapter-knex": "workspace:^"
+    "@open-keystone/adapter-mongoose": "workspace:^"
+    "@open-keystone/adapter-prisma": "workspace:^"
+  languageName: unknown
+  linkType: soft
+
 "@open-keystone/benchmarks@workspace:tests/benchmarks":
   version: 0.0.0-use.local
   resolution: "@open-keystone/benchmarks@workspace:tests/benchmarks"
@@ -6363,7 +6373,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@open-keystone/demo-project-todo@workspace:examples/todo"
   dependencies:
-    "@open-keystone/adapter-mongoose": "workspace:^"
+    "@open-keystone/adapter-prisma": "workspace:^"
     "@open-keystone/app-admin-ui": "workspace:^"
     "@open-keystone/app-graphql": "workspace:^"
     "@open-keystone/app-static": "workspace:^"
@@ -6946,6 +6956,7 @@ __metadata:
     "@open-keystone/app-graphql": "workspace:^"
     "@open-keystone/keystone": "workspace:^"
     express: ^4.17.1
+    knex: ^3.1.0
     mongodb-memory-server: ^10.1.4
     supertest-light: ^1.0.3
   languageName: unknown

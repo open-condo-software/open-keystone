@@ -39,7 +39,7 @@ class MongooseAdapter extends BaseKeystoneAdapter {
   }
 
   async _connect() {
-    const { mongoUri, ...mongooseConfig } = this.config;
+    const { mongoUri, dropDatabase, ...mongooseConfig } = this.config;
     // Default to the localhost instance
     let uri =
       mongoUri ||

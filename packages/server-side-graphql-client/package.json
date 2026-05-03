@@ -7,7 +7,7 @@
   "homepage": "https://github.com/keystonejs/keystone-5",
   "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/server-side-graphql-client",
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=22.0.0"
   },
   "publishConfig": {
     "access": "public"
