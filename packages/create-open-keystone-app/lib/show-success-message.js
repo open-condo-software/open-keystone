@@ -37,7 +37,10 @@ ${c.bold('  Before you run Keystone you will need to initialise the tables in yo
   - ${terminalLink('View your app', 'http://localhost:3000')}
   - Edit ${c.bold(`${projectDir}${path.sep}index.js`)} to customize your app.
   - ${terminalLink('Open the Admin UI', 'http://localhost:3000/admin')}
-  - ${terminalLink('Read the docs and star OpenKeystone', 'https://github.com/open-condo-software/open-keystone')}
+  - ${terminalLink(
+    'Read the docs and star OpenKeystone',
+    'https://github.com/open-condo-software/open-keystone'
+  )}
 `);
 };
 
