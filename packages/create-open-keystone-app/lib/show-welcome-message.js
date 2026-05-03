@@ -1,9 +1,9 @@
 const CFonts = require('cfonts');
 
 const showWelcomeMessage = () => {
-  CFonts.say('KeystoneJS', {
+  CFonts.say('OpenKeystone', {
     font: 'chrome',
-    colors: ['cyan', 'yellow', '#ffa500'],
+    colors: ['cyan', 'yellow', '#00ff15'],
     letterSpacing: 1,
     lineHeight: 1,
     space: true,

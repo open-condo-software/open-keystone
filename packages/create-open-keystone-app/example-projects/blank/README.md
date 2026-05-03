@@ -1,6 +1,6 @@
-# KeystoneJS Blank Starter Template
+# OpenKeystone Blank Starter Template
 
-You've created a KeystoneJS project! This project contains an AdminUI and GraphQL App.
+You've created a OpenKeystone project! This project contains an AdminUI and GraphQL App.
 
 You probably want to add Lists, Authentication, Access control and a front-end application.
 

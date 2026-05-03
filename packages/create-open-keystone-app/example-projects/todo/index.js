@@ -6,7 +6,7 @@ const { StaticApp } = require('@open-keystone/app-static');
 
 /* keystone-cli: generated-code */
 const { MongooseAdapter: Adapter } = require('@open-keystone/adapter-mongoose');
-const PROJECT_NAME = 'My KeystoneJS Project';
+const PROJECT_NAME = 'My OpenKeystone Project';
 const adapterConfig = {};
 /* /keystone-cli: generated-code */
 

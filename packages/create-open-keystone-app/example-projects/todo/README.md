@@ -1,6 +1,6 @@
-# KeystoneJS Todo List Template
+# OpenKeystone Todo List Template
 
-You've created a KeystoneJS project! This project contains an example of a basic Todo list. Look at the `index.js` file to see how the list is configured. It also contains a StaticApp that provides an example of simple front-end application that makes use of the graphQL API. Take a look at the `public` folder to see how this application is built.
+You've created a OpenKeystone project! This project contains an example of a basic Todo list. Look at the `index.js` file to see how the list is configured. It also contains a StaticApp that provides an example of simple front-end application that makes use of the graphQL API. Take a look at the `public` folder to see how this application is built.
 
 ## Running the Project.
 

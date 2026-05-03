@@ -1,11 +1,11 @@
 {
-  "name": "@open-keystone/example-projects-blank",
-  "description": "A blank KeystoneJS starter project.",
+  "name": "@open-keystone/example-projects-todo",
+  "description": "An example OpenKeystone project showcasing a simple Todo List with a Keystone StaticApp front-end.",
   "private": true,
   "version": "0.0.0-development",
   "author": "The KeystoneJS Development Team",
-  "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/create-keystone-5-app/example-projects/blank",
-  "homepage": "https://github.com/keystonejs/keystone-5",
+  "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/create-open-keystone-app/example-projects/todo",
+  "homepage": "https://github.com/open-condo-software/open-keystone",
   "license": "MIT",
   "engines": {
     "node": ">=22.0.0"
@@ -20,6 +20,8 @@
     "@open-keystone/adapter-mongoose": "workspace:^",
     "@open-keystone/app-admin-ui": "workspace:^",
     "@open-keystone/app-graphql": "workspace:^",
+    "@open-keystone/app-static": "workspace:^",
+    "@open-keystone/fields": "workspace:^",
     "@open-keystone/keystone": "workspace:^",
     "cross-env": "^7.0.3"
   },

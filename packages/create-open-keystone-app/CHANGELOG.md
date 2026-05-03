@@ -1,4 +1,10 @@
-# create-keystone-5-app
+# create-open-keystone-app
+
+## 6.0.0
+
+### Major Changes
+
+- Renamed from @open-keystone/create-keystone-5-app to @open-keystone/create-open-keystone-app
 
 ## 5.0.0
 

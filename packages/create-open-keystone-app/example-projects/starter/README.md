@@ -1,6 +1,6 @@
-# KeystoneJS Starter Template
+# OpenKeystone Starter Template
 
-You've created a KeystoneJS project! This project contains a simple list of users and an admin application (`localhost:3000/admin`) with basic authentication.
+You've created a OpenKeystone project! This project contains a simple list of users and an admin application (`localhost:3000/admin`) with basic authentication.
 
 ## Running the Project.
 
