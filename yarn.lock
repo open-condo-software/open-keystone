@@ -6020,7 +6020,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@open-keystone/app-nuxt@workspace:^, @open-keystone/app-nuxt@workspace:packages/app-nuxt":
+"@open-keystone/app-nuxt@workspace:packages/app-nuxt":
   version: 0.0.0-use.local
   resolution: "@open-keystone/app-nuxt@workspace:packages/app-nuxt"
   dependencies:
@@ -6400,62 +6400,6 @@ __metadata:
     mjml-react: ^1.2.0
     react: ^18.3.1
     react-dom: ^18.3.1
-  languageName: unknown
-  linkType: soft
-
-"@open-keystone/example-projects-blank@workspace:packages/create-keystone-5-app/example-projects/blank":
-  version: 0.0.0-use.local
-  resolution: "@open-keystone/example-projects-blank@workspace:packages/create-keystone-5-app/example-projects/blank"
-  dependencies:
-    "@open-keystone/adapter-mongoose": "workspace:^"
-    "@open-keystone/app-admin-ui": "workspace:^"
-    "@open-keystone/app-graphql": "workspace:^"
-    "@open-keystone/keystone": "workspace:^"
-    cross-env: ^7.0.3
-  languageName: unknown
-  linkType: soft
-
-"@open-keystone/example-projects-nuxt@workspace:packages/create-keystone-5-app/example-projects/nuxt":
-  version: 0.0.0-use.local
-  resolution: "@open-keystone/example-projects-nuxt@workspace:packages/create-keystone-5-app/example-projects/nuxt"
-  dependencies:
-    "@open-keystone/adapter-mongoose": "workspace:^"
-    "@open-keystone/app-admin-ui": "workspace:^"
-    "@open-keystone/app-graphql": "workspace:^"
-    "@open-keystone/app-nuxt": "workspace:^"
-    "@open-keystone/fields": "workspace:^"
-    "@open-keystone/keystone": "workspace:^"
-    cross-env: ^7.0.3
-    express: ^4.17.1
-    nuxt: ^2.15.7
-  languageName: unknown
-  linkType: soft
-
-"@open-keystone/example-projects-starter@workspace:packages/create-keystone-5-app/example-projects/starter":
-  version: 0.0.0-use.local
-  resolution: "@open-keystone/example-projects-starter@workspace:packages/create-keystone-5-app/example-projects/starter"
-  dependencies:
-    "@open-keystone/adapter-mongoose": "workspace:^"
-    "@open-keystone/app-admin-ui": "workspace:^"
-    "@open-keystone/app-graphql": "workspace:^"
-    "@open-keystone/auth-password": "workspace:^"
-    "@open-keystone/fields": "workspace:^"
-    "@open-keystone/keystone": "workspace:^"
-    cross-env: ^7.0.3
-  languageName: unknown
-  linkType: soft
-
-"@open-keystone/example-projects-todo@workspace:packages/create-keystone-5-app/example-projects/todo":
-  version: 0.0.0-use.local
-  resolution: "@open-keystone/example-projects-todo@workspace:packages/create-keystone-5-app/example-projects/todo"
-  dependencies:
-    "@open-keystone/adapter-mongoose": "workspace:^"
-    "@open-keystone/app-admin-ui": "workspace:^"
-    "@open-keystone/app-graphql": "workspace:^"
-    "@open-keystone/app-static": "workspace:^"
-    "@open-keystone/fields": "workspace:^"
-    "@open-keystone/keystone": "workspace:^"
-    cross-env: ^7.0.3
   languageName: unknown
   linkType: soft
 
@@ -13752,9 +13696,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"create-keystone-5-app@workspace:packages/create-keystone-5-app":
+"create-open-keystone-app@workspace:packages/create-open-keystone-app":
   version: 0.0.0-use.local
-  resolution: "create-keystone-5-app@workspace:packages/create-keystone-5-app"
+  resolution: "create-open-keystone-app@workspace:packages/create-open-keystone-app"
   dependencies:
     "@open-keystone/adapter-knex": "workspace:^"
     "@open-keystone/adapter-mongoose": "workspace:^"
@@ -13770,7 +13714,7 @@ __metadata:
     prompts: ^2.4.1
     terminal-link: ^2.1.1
   bin:
-    create-keystone-5-app: bin/cli.js
+    create-open-keystone-app: bin/cli.js
   languageName: unknown
   linkType: soft
 
