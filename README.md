@@ -17,8 +17,8 @@
 </div>
 <br>
 
-![CI](https://github.com/open-condo-software/open-keystone/workflows/CI/badge.svg)
-[![Community](https://t.me/OpenKeystone)
+![CI](https://github.com/open-condo-software/open-keystone/actions/workflows/tests.yml/badge.svg)\
+[TG: Community](https://t.me/OpenKeystone)
 
 ## Contents
 
@@ -52,9 +52,7 @@ We do our best to follow SemVer version control within Keystone. This means pack
 
 You can find **changelogs** either by browsing our repository, or by using our [interactive changelog explorer](https://changelogs.xyz/@open-keystone/keystone).
 
-A quick note on dependency management: Keystone is organised into a number of small packages within a monorepo. When packages in the same repository depend on each other, new versions might not be compatible with older versions. If two or more packages are updated, it can result in breaking changes, even though collectively they appear to be non-breaking.
-
-We do our best to catch this but recommend updating Keystone packages together to avoid any potential conflict. This is especially important to be aware of if you use automated dependency management tools like Greenkeeper.
+A quick note on dependency management: Open Keystone is organised into a number of small packages within a monorepo. When packages in the same repository depend on each other, new versions might not be compatible with older versions. If two or more packages are updated, it can result in breaking changes, even though collectively they appear to be non-breaking.
 
 ## Contributing
 
@@ -62,7 +60,7 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 
 **Contributions of any kind are welcome!**
 
-You will find the set-up steps in this readme and full release processes and project guidelines in [`CONTRIBUTING.md`](/CONTRIBUTING.md).
+You will find the set-up steps in this readme and full release processes and project guidelines in [`CONTRIBUTING.md`](./CONTRIBUTING.md).
 
 ### Contributors
 
@@ -70,10 +68,13 @@ We'd like to start by thanking all our wonderful open keystone contributors:
 ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+
 <!-- prettier-ignore-start -->
+
 <!-- markdownlint-disable -->
 
 <!-- markdownlint-restore -->
+
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
@@ -180,5 +181,5 @@ Open Keystone adheres to the [Contributor Covenant Code of Conduct](./code-of-co
 
 ## License
 
-Copyright (c) 2026 Open Condo Software. Licensed under the MIT License.
+Copyright (c) 2026 Open Condo Software. Licensed under the MIT License.  
 Based on the [KeystoneJS](https://github.com/keystonejs/keystone) MIT project.

@@ -1,6 +1,6 @@
 {
-  "name": "create-keystone-5-app",
-  "description": "Generate starter apps for Keystone 5",
+  "name": "create-open-keystone-app",
+  "description": "Generate starter apps for OpenKeystone",
   "version": "0.0.0-development",
   "bin": "bin/cli.js",
   "files": [
@@ -10,7 +10,7 @@
   "keywords": [
     "keystonejs"
   ],
-  "author": "The KeystoneJS Development Team",
+  "author": "The OpenKeystone Development Team",
   "license": "MIT",
   "dependencies": {
     "@open-keystone/adapter-knex": "workspace:^",
@@ -27,5 +27,5 @@
     "prompts": "^2.4.1",
     "terminal-link": "^2.1.1"
   },
-  "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/create-keystone-5-app"
+  "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/create-open-keystone-app"
 }

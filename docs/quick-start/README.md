@@ -7,41 +7,41 @@ slug: /quick-start/
 
 # Getting started
 
-Welcome to KeystoneJS!
+Welcome to OpenKeystone!
 This quick start guide will get you up and running in just a few minutes.
-Let's build a simple Todo app with a fresh install of Keystone!
+Let's build a simple Todo app with a fresh installation of OpenKeystone!
 
 ## Requirements
 
 Before we start, make sure that you have a basic development environment set up, with the following tools installed on your system.
 
-- [Node.js](https://nodejs.org/) >= 10.x: Node.js is a server platform which runs JavaScript.
-- [yarn](https://yarnpkg.com/) or [npm](https://docs.npmjs.com/cli/npm): yarn and npm are different package managers which can be used to install Keystone.
+- [Node.js](https://nodejs.org/) >= 22.x: Node.js is a server platform that runs JavaScript.
+- [yarn](https://yarnpkg.com/) or [npm](https://docs.npmjs.com/cli/npm): yarn and npm are different package managers which can be used to install OpenKeystone.
 
 ```shell allowCopy=false showLanguage=false
 $ node --version
-v12.11.0
+v22.16.0
 $ npm --version
-6.9.0
+10.9.2
 $ yarn --version
-1.17.3
+3.8.7
 ```
 
 ## Database Setup
 
-You will also need to have a database for Keystone to store your application data in.
-You can use either `MongoDB` or `PostgreSQL`.
+You will also need to have a database for OpenKeystone to store your application data in.
+You can use either `MongoDB`, `PostgreSQL` or `Sqlite`.
 
-- [MongoDB](https://www.mongodb.com/) >= 4.x: MongoDB is a powerful NoSQL document storage database.
-- [PostgreSQL](https://www.postgresql.org) >= 9.x: PostgreSQL is an open source relational database that uses the SQL language.
+- [MongoDB](https://www.mongodb.com/) >= 7.x: MongoDB is a powerful NoSQL document storage database.
+- [PostgreSQL](https://www.postgresql.org) >= 16.x: PostgreSQL is an open source relational database that uses the SQL language.
 
 Follow the [database setup](/docs/quick-start/adapters.md) instructions to install and configure your database, and to find out what your `connection string` is.
 
-> **Important:** You will need to make sure you have a valid `connection string` for your database in order to set up Keystone.
+> **Important:** You will need to make sure you have a valid `connection string` for your database in order to set up OpenKeystone.
 
-## Installing Keystone
+## Installing OpenKeystone
 
-To create a new Keystone application, run the following command in your terminal:
+To create a new OpenKeystone application, run the following command in your terminal:
 
 ```shell allowCopy=false showLanguage=false
 npm init keystone-5-app my-app
