@@ -115,7 +115,9 @@ const argGenerator: Record<AdapterName, () => Promise<AdapterArgs> | AdapterArgs
 
 async function createPostgresSchema(adapterArgs: KnexAdapterArgs | PrismaAdapterArgs) {
   const schemaName =
-    'schemaName' in adapterArgs ? adapterArgs.schemaName : adapterArgs.getDbSchemaName();
+    'schemaName' in adapterArgs && adapterArgs.schemaName
+      ? adapterArgs.schemaName
+      : (adapterArgs as PrismaAdapterArgs).getDbSchemaName({ prismaSchema: '' });
   const connectionString =
     'url' in adapterArgs ? adapterArgs.url : adapterArgs.knexOptions.connection;
   const url = connectionString.split('?')[0];
@@ -130,7 +132,9 @@ async function createPostgresSchema(adapterArgs: KnexAdapterArgs | PrismaAdapter
 
 async function dropPostgresSchema(adapterArgs: KnexAdapterArgs | PrismaAdapterArgs) {
   const schemaName =
-    'schemaName' in adapterArgs ? adapterArgs.schemaName : adapterArgs.getDbSchemaName();
+    'schemaName' in adapterArgs && adapterArgs.schemaName
+      ? adapterArgs.schemaName
+      : (adapterArgs as PrismaAdapterArgs).getDbSchemaName({ prismaSchema: '' });
   const connectionString =
     'url' in adapterArgs ? adapterArgs.url : adapterArgs.knexOptions.connection;
   const url = connectionString.split('?')[0];
