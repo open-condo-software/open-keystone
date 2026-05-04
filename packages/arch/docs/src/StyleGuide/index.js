@@ -30,7 +30,7 @@ export default function StyleGuide(props) {
                     key={page}
                     as={Link}
                     isSelected={currentPage === page}
-                    to={page}
+                    to={page.startsWith('/') ? page : `/` + page}
                   >
                     {pages[page]}
                   </SecondaryNavItem>
