@@ -92,29 +92,31 @@ const IconsGuide = () => {
         </Instructions>
       )}
       <Grid gap={16}>
-        {Object.keys(icons).map(name => {
-          const importText = altIsDown ? `import { ${name} } from '@primer/octicons-react';` : name;
-          const isCopied = copyText === importText;
-          const Icon = isCopied ? icons.CheckIcon : icons[name];
-          return (
-            <Cell width={2} key={name}>
-              <IconContainer
-                onClick={() => {
-                  copyToClipboard(importText).then(handleCopy(importText));
-                }}
-              >
-                <Icon
-                  css={{
-                    fill: isCopied ? `${colors.create} !important` : 'inherit',
-                    width: 24,
-                    height: 24,
+        {Object.keys(icons)
+          .filter(name => name.endsWith('Icon'))
+          .map(name => {
+            const importText = altIsDown ? `import { ${name} } from '@primer/octicons-react';` : name;
+            const isCopied = copyText === importText;
+            const Icon = isCopied ? icons.CheckIcon : icons[name];
+            return (
+              <Cell width={2} key={name}>
+                <IconContainer
+                  onClick={() => {
+                    copyToClipboard(importText).then(handleCopy(importText));
                   }}
-                />
-                <IconName className="icon-text">{isCopied ? 'Copied!' : name}</IconName>
-              </IconContainer>
-            </Cell>
-          );
-        })}
+                >
+                  <Icon
+                    css={{
+                      fill: isCopied ? `${colors.create} !important` : 'inherit',
+                      width: 24,
+                      height: 24,
+                    }}
+                  />
+                  <IconName className="icon-text">{isCopied ? 'Copied!' : name}</IconName>
+                </IconContainer>
+              </Cell>
+            );
+          })}
       </Grid>
     </Fragment>
   );
