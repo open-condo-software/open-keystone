@@ -8,7 +8,11 @@
     "lib"
   ],
   "keywords": [
-    "keystonejs", "openkeystone", "open-keystone", "starter", "boilerplate"
+    "keystonejs",
+    "openkeystone",
+    "open-keystone",
+    "starter",
+    "boilerplate"
   ],
   "author": "The OpenKeystone Development Team",
   "license": "MIT",
