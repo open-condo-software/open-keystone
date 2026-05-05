@@ -1,7 +1,7 @@
 const express = require('express');
 const { renderPlaygroundPage } = require('@apollographql/graphql-playground-html');
 const playgroundPkg = require('@apollographql/graphql-playground-react/package.json');
-const falsey = require('falsey');
+const falsey = require('@open-keystone/utils').falsey;
 const { addDevQueryMiddlewares } = require('./lib/devQuery');
 
 class GraphQLPlaygroundApp {
