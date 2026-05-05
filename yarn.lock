@@ -7555,7 +7555,7 @@ __metadata:
     p-is-promise: ^3.0.0
     pino-colada: ^2.2.0
     postcss: ^8.3.4
-    prettier: latest
+    prettier: ^3.8.3
     rehype-highlight: ^4.1.0
     remark-cli: ^6.0.1
     remark-frontmatter: ^1.3.3
@@ -30345,7 +30345,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:latest":
+"prettier@npm:^3.8.3":
   version: 3.8.3
   resolution: "prettier@npm:3.8.3"
   bin:
