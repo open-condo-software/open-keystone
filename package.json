@@ -106,7 +106,6 @@
     "terminal-link-cli": "^2.0.0",
     "testcheck": "^1.0.0-rc.2",
     "tinymce": "^5.8.1",
-    "tmp": "^0.2.1",
     "to-pascal-case": "^1.0.0",
     "typescript": "^4.1.5",
     "unist-util-visit": "^2.0.3",
