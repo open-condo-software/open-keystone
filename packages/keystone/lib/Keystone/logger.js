@@ -1,4 +1,4 @@
-const falsey = require('falsey');
+const falsey = require('@open-keystone/utils').falsey;
 const pino = require('pino');
 
 module.exports = {

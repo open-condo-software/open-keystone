@@ -313,3 +313,5 @@ export const asyncForEach = async <T>(
     await callback(array[index], index, array);
   }
 };
+
+export { falsey, falseyKeywords } from './falsey';
