@@ -99,7 +99,7 @@ const parseFilter = (filter, list) => {
   let parsedValue;
   try {
     parsedValue = JSON.parse(value);
-  } catch (error) {
+  } catch {
     // If filter value is not valid JSON we ignore this filter.
     return null;
   }

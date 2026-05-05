@@ -55,7 +55,7 @@ const getExampleProjects = async () => {
     let parsedConfig;
     try {
       parsedConfig = JSON.parse(rawConfig);
-    } catch (err) {
+    } catch {
       throw new Error(
         `The examples file from GitHub could not be parsed. Try updating ${PACKAGE_NAME} and if this problem persists, please open an issue on GitHub.`
       );

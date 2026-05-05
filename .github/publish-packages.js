@@ -8,7 +8,7 @@ const publish = require('mono-pub');
 /** @type {import('mono-pub').MonoPubPlugin} */
 const builder = {
   name: '@open-keystone/preconstruct-builder',
-  async prepareAll({ foundPackages }, ctx) {
+  async prepareAll(_, ctx) {
     await execa('yarn', ['build'], { cwd: ctx.cwd });
   },
 };
