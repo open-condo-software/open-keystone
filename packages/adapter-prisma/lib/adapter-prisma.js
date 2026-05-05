@@ -348,8 +348,8 @@ class PrismaListAdapter extends BaseListAdapter {
                 : { id: Number(value) },
             }
           : this.fieldAdaptersByPath[path] && this.fieldAdaptersByPath[path].gqlToPrisma
-          ? this.fieldAdaptersByPath[path].gqlToPrisma(value)
-          : value
+            ? this.fieldAdaptersByPath[path].gqlToPrisma(value)
+            : value
       ),
       include: this._include(),
     });
@@ -381,8 +381,8 @@ class PrismaListAdapter extends BaseListAdapter {
             ? { disconnect: true }
             : { connect: { id: Number(value) } }
           : this.fieldAdaptersByPath[path] && this.fieldAdaptersByPath[path].gqlToPrisma
-          ? this.fieldAdaptersByPath[path].gqlToPrisma(value)
-          : value;
+            ? this.fieldAdaptersByPath[path].gqlToPrisma(value)
+            : value;
       }),
       include,
     });

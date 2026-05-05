@@ -163,6 +163,7 @@ The result is passed to [the next function in the execution order](/docs/guides/
 #### Usage
 
 <!-- prettier-ignore -->
+
 ```js
 const resolveInput = ({
   operation,
@@ -205,6 +206,7 @@ Return values are ignored.
 #### Usage
 
 <!-- prettier-ignore -->
+
 ```js
 const validateInput = ({
   operation,
@@ -247,6 +249,7 @@ Return values are ignored.
 #### Usage
 
 <!-- prettier-ignore -->
+
 ```js
 const beforeChange = ({
   operation,
@@ -291,6 +294,7 @@ Return values are ignored.
 #### Usage
 
 <!-- prettier-ignore -->
+
 ```js
 const afterChange = ({
   operation,
@@ -330,6 +334,7 @@ Should throw or register errors with `addFieldValidationError(<String>)` if the 
 #### Usage
 
 <!-- prettier-ignore -->
+
 ```js
 const validateDelete = ({
   operation,
@@ -368,6 +373,7 @@ Return values are ignored.
 #### Usage
 
 <!-- prettier-ignore -->
+
 ```js
 const beforeDelete = ({
   operation,
@@ -406,6 +412,7 @@ Return values are ignored.
 #### Usage
 
 <!-- prettier-ignore -->
+
 ```js
 const afterDelete = ({
   operation,
@@ -442,6 +449,7 @@ The result is passed to [the next function in the execution order](/docs/guides/
 #### Usage
 
 <!-- prettier-ignore -->
+
 ```js
 const resolveAuthInput = ({
   operation,
@@ -480,6 +488,7 @@ Return values are ignored.
 #### Usage
 
 <!-- prettier-ignore -->
+
 ```js
 const validateAuthInput = ({
   operation,
@@ -517,6 +526,7 @@ Return values are ignored.
 #### Usage
 
 <!-- prettier-ignore -->
+
 ```js
 const beforeAuth = ({
   operation,
@@ -559,6 +569,7 @@ Return values are ignored.
 #### Usage
 
 <!-- prettier-ignore -->
+
 ```js
 const afterAuth = ({
   operation,
@@ -597,6 +608,7 @@ Return values are ignored.
 #### Usage
 
 <!-- prettier-ignore -->
+
 ```js
 const beforeUnauth = ({
   operation,
@@ -634,6 +646,7 @@ Return values are ignored.
 #### Usage
 
 <!-- prettier-ignore -->
+
 ```js
 const afterAuth = ({
   operation,

@@ -294,21 +294,17 @@
 - [`0369985e3`](https://github.com/keystonejs/keystone-5/commit/0369985e320afd6112f2664f8a8edc1ed7167130) [#3391](https://github.com/keystonejs/keystone-5/pull/3391) Thanks [@timleslie](https://github.com/timleslie)! - Removed the `MockAdapter`, `MockListAdapter` and `MockIdType` classes from `@keystonejs/test-utils`.
 
 * [`714316718`](https://github.com/keystonejs/keystone-5/commit/7143167187e3e3519b0b58e2b04ff0fee8fc75dc) [#3388](https://github.com/keystonejs/keystone-5/pull/3388) Thanks [@singhArmani](https://github.com/singhArmani)! - Removed the following redundant functions in tests, and used the equivalent `server-side-graphql-client` functions:
-
   - `graphqlRequest`:
     As all the access control checks are disabled by default, you can now use utility functions from `[server-side-graphql-client](https://github.com/keystonejs/keystone-5/blob/master/packages/server-side-graphql-client/lib/server-side-graphql-client.js)` to perform desired CRUD operations.
     Additionally, you can use `runCustomQuery` function to suit your requirements.
 
   `authedGraphqlRequest`
-
   - Similar to above, but you can also supply a custom `context` object if you don't want to override the access control checks.
 
   `matchFilter`
-
   - It has been removed in favour of the `[getItems](https://github.com/keystonejs/keystone-5/blob/cc5bb891579281338ad7fad0873531be81d877d4/packages/server-side-graphql-client/lib/server-side-graphql-client.js#L99)`.
 
   If you are using `multiAdapterRunners`, then the `testFn` function you write for your test will no longer be supplied with the following functions:
-
   - `create`
   - `findById`,
   - `findOne`,
@@ -564,7 +560,6 @@
 ### Major Changes
 
 - [`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310) [#1821](https://github.com/keystonejs/keystone-5/pull/1821) Thanks [@jesstelford](https://github.com/jesstelford)! - Release @keystonejs/\* packages (つ＾ ◡ ＾)つ
-
   - This is the first release of `@keystonejs/*` packages (previously `@keystone-alpha/*`).
   - All packages in the `@keystone-alpha` namespace are now available in the `@keystonejs` namespace, starting at version `5.0.0`.
   - To upgrade your project you must update any `@keystone-alpha/*` dependencies in `package.json` to point to `"@keystonejs/*": "^5.0.0"` and update any `require`/`import` statements in your code.
@@ -776,7 +771,6 @@
 - [dfcabe6a](https://github.com/keystonejs/keystone-5/commit/dfcabe6a):
 
   Specify custom servers from within the index.js file
-
   - Major Changes:
     - The `index.js` export for `admin` must now be exported in the `servers`
       array:
@@ -818,7 +812,6 @@
 ### Patch Changes
 
 - [81dc0be5](https://github.com/keystonejs/keystone-5/commit/81dc0be5):
-
   - Update dependencies
 
 * Updated dependencies [24cd26ee](https://github.com/keystonejs/keystone-5/commit/24cd26ee):
@@ -834,15 +827,12 @@
 ## 2.0.0
 
 - [patch][7b8d254d](https://github.com/keystonejs/keystone-5/commit/7b8d254d):
-
   - Update external dependencies
 
 - [patch][88e6224f](https://github.com/keystonejs/keystone-5/commit/88e6224f):
-
   - Restructure internal code
 
 - [major][21be780b](https://github.com/keystonejs/keystone-5/commit/21be780b):
-
   - Remove `runQuery` from API.
   - `matchFilter` takes `keystone` as the first parameter, rather than `server`.
   - `graphqlRequest` takes a `keystone` parameter, and no longer takes `server`.
@@ -873,31 +863,25 @@
 ## 1.1.1
 
 - [patch][11c372fa](https://github.com/keystonejs/keystone-5/commit/11c372fa):
-
   - Update minor-level dependencies
 
 - [patch][619b17c2](https://github.com/keystonejs/keystone-5/commit/619b17c2):
-
   - Reformat code using latest version of Prettier (1.16.4)
 
 ## 1.1.0
 
 - [minor][c0e64c01](https://github.com/keystonejs/keystone-5/commit/c0e64c01):
-
   - Add `matchFilter` and `runQuery` functions.
 
 - [patch][1f0bc236](https://github.com/keystonejs/keystone-5/commit/1f0bc236):
-
   - Update the package.json author field to "The Keystone Development Team"
 
 - [patch][9534f98f](https://github.com/keystonejs/keystone-5/commit/9534f98f):
-
   - Add README.md to package
 
 ## 1.0.0
 
 - [major] 8b6734ae:
-
   - This is the first release of keystone-alpha (previously voussoir).
     All packages in the `@voussoir` namespace are now available in the `@keystone-alpha` namespace, starting at version `1.0.0`.
     To upgrade your project you must update any `@voussoir/<foo>` dependencies in `package.json` to point to `@keystone-alpha/<foo>: "^1.0.0"` and update any `require`/`import` statements in your code.
@@ -907,28 +891,23 @@
 ## 1.0.1
 
 - [patch] 6fa810f7:
-
   - Rename `@voussoir/core` -> `@voussoir/keystone`. This is to free up the
     `@voussoir/core` package for a different purpose, and make the main import for
     new Keystone projects be `@voussoir/keystone`. The exports have stayed the
     same.
 
 - [patch] 113e16d4:
-
   - Remove unused dependencies
 
 - [patch] b155d942:
-
   - Update mongo/mongoose dependencies
 
 ## 1.0.0
 
 - [minor] dc53492c:
-
   - Add support for the Knex adapter
 
 - [major] 9f2ee393:
-
   - Add adapter parameter to setupServer() and add multiAdapterRunners()
 
 - Updated dependencies [723371a0]:
@@ -949,7 +928,6 @@
 ## 0.1.3
 
 - [patch] fc1a9055:
-
   - Update dependencies to latest patch versions
 
 - Updated dependencies [c83c9ed5]:
@@ -965,7 +943,6 @@
 ## 0.1.2
 
 - [patch] 9c383fe8:
-
   - Always use \$set and { new: true } in the mongoose adapter update() method
 
 - Updated dependencies [45d4c379]:
@@ -986,7 +963,6 @@
 
 - [minor] 47c7dcf6"
   :
-
   - Bump all packages with a minor version to set a new baseline
 
 - Updated dependencies [d94b517]:

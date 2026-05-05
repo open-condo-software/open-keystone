@@ -694,7 +694,6 @@
 - [`6a27fcf1`](https://github.com/keystonejs/keystone-5/commit/6a27fcf1896c5a745308346e5b0e66dd8bdd57a3) [#2749](https://github.com/keystonejs/keystone-5/pull/2749) Thanks [@jesstelford](https://github.com/jesstelford)! - More resilient mongo migration output for Keystone Arcade in the upgrade-relationships command.
 
 * [`98e9f6d1`](https://github.com/keystonejs/keystone-5/commit/98e9f6d16e16ee13d2a8a22eb25be9cd2afc6fc0) [#2314](https://github.com/keystonejs/keystone-5/pull/2314) Thanks [@gautamsi](https://github.com/gautamsi)! - \* Made all values in `adminConfig` list options available to `admin-ui` as part of list's `adminMeta`.
-
   - Added `adminConfig` option to all Fields which are made available to field's `adminMeta` in `admin-ui`.
   - Added `adminMeta` option in `AdminUIApp` constructor which is also made available to `adminMeta` of `admin-ui`.
 
@@ -1014,7 +1013,6 @@
 ### Major Changes
 
 - [`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310) [#1821](https://github.com/keystonejs/keystone-5/pull/1821) Thanks [@jesstelford](https://github.com/jesstelford)! - Release @keystonejs/\* packages (つ＾ ◡ ＾)つ
-
   - This is the first release of `@keystonejs/*` packages (previously `@keystone-alpha/*`).
   - All packages in the `@keystone-alpha` namespace are now available in the `@keystonejs` namespace, starting at version `5.0.0`.
   - To upgrade your project you must update any `@keystone-alpha/*` dependencies in `package.json` to point to `"@keystonejs/*": "^5.0.0"` and update any `require`/`import` statements in your code.
@@ -1164,7 +1162,6 @@
 
 - [decf7319](https://github.com/keystonejs/keystone-5/commit/decf7319): Remove `skipAccessControl` option from `keystone.getTypeDefs()`, `List.getGqlTypes()`, `List.getGqlQueries()`, and `List.getGqlMutations()`.
 - [89c0d7e9](https://github.com/keystonejs/keystone-5/commit/89c0d7e9): The `.access` property of Lists is now keyed by `schemaName`. As such, a number of getters and methods have been replaced with methods which take `{ schemaName }`.
-
   - `getGqlTypes()` -> `getGqlTypes({ schemaName })`
   - `getGqlQueries()` -> `getGqlQueries({ schemaName })`
   - `get gqlFieldResolvers()` -> `gqlFieldResolvers({ schemaName })`
@@ -1420,7 +1417,6 @@
 ### Major Changes
 
 - [1b4cf4e0](https://github.com/keystonejs/keystone-5/commit/1b4cf4e0):
-
   - `PasswordAuthStrategy#validate()` now accepts an object of `{ [identityField], [secretField] }` (was `{ identity, secret }`).
   - Auth Strategies can now add AdminMeta via a `#getAdminMeta()` method which will be attached to the `authStrategy` key of `adminMeta` in the Admin UI.
   - Added (un)authentication GraphQL mutations:
@@ -1500,7 +1496,6 @@
 - [dfcabe6a](https://github.com/keystonejs/keystone-5/commit/dfcabe6a):
 
   Specify custom servers from within the index.js file
-
   - Major Changes:
     - The `index.js` export for `admin` must now be exported in the `servers`
       array:
@@ -1556,11 +1551,9 @@
 ### Major Changes
 
 - [24cd26ee](https://github.com/keystonejs/keystone-5/commit/24cd26ee):
-
   - Remove `.config` property from `Keystone` and `List` classes
 
 - [2ef2658f](https://github.com/keystonejs/keystone-5/commit/2ef2658f):
-
   - Moved Social Login Strategies into its own package `@keystone-alpha/passport-auth`.
   - Created base strategy `PassportAuthStrategy`. This enables quick addition of new Social Login Strategy based on PassportJs.
   - Refactored Twitter and Facebook to extend base `PassportAuthStrategy`.
@@ -1570,7 +1563,6 @@
   - `social-login` project now support for social login with Twitter, Facebook, Google and GitHub inbuilt strategies from `@keystone-alpha/passport-auth` along with an example of how to implement your own PassportJs strategy for WordPress in `WordPressAuthStrategy.js`
 
 - [ae5cf6cc](https://github.com/keystonejs/keystone-5/commit/ae5cf6cc):
-
   - List adapter config must now be specified within the `adapterConfig` field, rather than directly on the `config` object.
 
 - [b22d6c16](https://github.com/keystonejs/keystone-5/commit/b22d6c16):
@@ -1587,25 +1579,20 @@
 ### Minor Changes
 
 - [6f598e83](https://github.com/keystonejs/keystone-5/commit/6f598e83):
-
   - Add `build` and `start` commands
 
 - [6f598e83](https://github.com/keystonejs/keystone-5/commit/6f598e83):
-
   - Add Admin UI static building
 
 ### Patch Changes
 
 - [211b71c1](https://github.com/keystonejs/keystone-5/commit/211b71c1):
-
   - Fix bug in resolver for createMany mutations
 
 - [bd0ea21f](https://github.com/keystonejs/keystone-5/commit/bd0ea21f):
-
   - Add .isRequired and .isUnique properties to field adapters
 
 - [81dc0be5](https://github.com/keystonejs/keystone-5/commit/81dc0be5):
-
   - Update dependencies
 
 - [60181234](https://github.com/keystonejs/keystone-5/commit/60181234):
@@ -1632,15 +1619,12 @@
 ## 3.1.0
 
 - [patch][5180d2fb](https://github.com/keystonejs/keystone-5/commit/5180d2fb):
-
   - Remove erroneous addition of CRUD operations for Auxiliary Lists from GraphQL API
 
 - [minor][cbe80e61](https://github.com/keystonejs/keystone-5/commit/cbe80e61):
-
   - Expose GraphQL `context` object to hooks for advanced use cases.
 
 - [patch][ec76b500](https://github.com/keystonejs/keystone-5/commit/ec76b500):
-
   - Don't exclude aux field resolvers from GraphQL schema
 
 - Updated dependencies [85b74a2c](https://github.com/keystonejs/keystone-5/commit/85b74a2c):
@@ -1649,27 +1633,21 @@
 ## 3.0.0
 
 - [patch][b4dcf44b](https://github.com/keystonejs/keystone-5/commit/b4dcf44b):
-
   - Use named exports from @keystone-alpha/keystone package.
 
 - [patch][b69fb9b7](https://github.com/keystonejs/keystone-5/commit/b69fb9b7):
-
   - Update dev devependencies
 
 - [patch][baff3c89](https://github.com/keystonejs/keystone-5/commit/baff3c89):
-
   - Use the updated logger API
 
 - [patch][302930a4](https://github.com/keystonejs/keystone-5/commit/302930a4):
-
   - Minor internal code cleanups
 
 - [major][656e90c2](https://github.com/keystonejs/keystone-5/commit/656e90c2):
-
   - `WebServer.start()` no longer takes any arguments. Developer must now explicitly call `keystone.connect()` before calling `WebServer.start()`.
 
 - [major][b4dcf44b](https://github.com/keystonejs/keystone-5/commit/b4dcf44b):
-
   - Make all parts of the API available as named exports.
 
 - Updated dependencies [baff3c89](https://github.com/keystonejs/keystone-5/commit/baff3c89):
@@ -1680,11 +1658,9 @@
 ## 2.0.0
 
 - [major][8d385ede](https://github.com/keystonejs/keystone-5/commit/8d385ede):
-
   - Remove keystone.getAuxQueryResolvers method
 
 - [major][52f1c47b](https://github.com/keystonejs/keystone-5/commit/52f1c47b):
-
   - Replace `Keystone.registerGraphQLQueryMethod` with `Keystone.registerSchema`. Add `schemaName` parameter to `getAccessContext`. The `getGraphQLQuery` parameter to `List` now takes a `schemaName` argument. These changes allow us to register more than one ApolloServer instance in our Keystone system.
 
 ## 1.0.4
@@ -1704,15 +1680,12 @@
 ## 1.0.2
 
 - [patch][11c372fa](https://github.com/keystonejs/keystone-5/commit/11c372fa):
-
   - Update minor-level dependencies
 
 - [patch][619b17c2](https://github.com/keystonejs/keystone-5/commit/619b17c2):
-
   - Reformat code using latest version of Prettier (1.16.4)
 
 - [patch][7417ea3a](https://github.com/keystonejs/keystone-5/commit/7417ea3a):
-
   - Update patch-level dependencies
 
 - Updated dependencies [dcb93771](https://github.com/keystonejs/keystone-5/commit/dcb93771):
@@ -1721,17 +1694,14 @@
 ## 1.0.1
 
 - [patch][1f0bc236](https://github.com/keystonejs/keystone-5/commit/1f0bc236):
-
   - Update the package.json author field to "The Keystone Development Team"
 
 - [patch][9534f98f](https://github.com/keystonejs/keystone-5/commit/9534f98f):
-
   - Add README.md to package
 
 ## 1.0.0
 
 - [major] 8b6734ae:
-
   - This is the first release of keystone-alpha (previously voussoir).
     All packages in the `@voussoir` namespace are now available in the `@keystone-alpha` namespace, starting at version `1.0.0`.
     To upgrade your project you must update any `@voussoir/<foo>` dependencies in `package.json` to point to `@keystone-alpha/<foo>: "^1.0.0"` and update any `require`/`import` statements in your code.
@@ -1741,7 +1711,6 @@
 ## 1.0.0
 
 - [major] 6fa810f7:
-
   - Rename `@voussoir/core` -> `@voussoir/keystone`. This is to free up the
     `@voussoir/core` package for a different purpose, and make the main import for
     new Keystone projects be `@voussoir/keystone`. The exports have stayed the
@@ -1756,49 +1725,38 @@
 ## 2.1.0
 
 - [minor] 64e6abcc:
-
   - Allow lists and fields to specify a schemaDoc field
 
 - [minor] 7a4950bf:
-
   - Allow mutations: [{ schema: ..., resolver: ...}] to be specified in createList
 
 ## 2.0.0
 
 - [minor] 5f891cff:
-
   - Add a setupHooks method to BaseFieldAdapter
 
 - [minor] aca26f71:
-
   - Expose access to GraphQL query method within hooks
 
 - [minor] 6471fc4a:
-
   - Add fieldAdaptersByPath object to field adapters
 
 - [patch] 797dc862:
-
   - Move itemsQueryMeta onto the base adapter class
 
 - [patch] 266b5733:
-
   - Don't try to resolve nested mutations which will be later backfilled
 
 - [major] 48773907:
-
   - Move findFieldAdapterForQuerySegment onto the BaseListAdapter
 
 - [minor] f37a8086:
-
   - Can now dump the GraphQL schema with keystone.dumpSchema(filePath)
 
 - [patch] e6e3ea06:
-
   - Explicitly check whether field types are supported by the adapter
 
 - [major] 860c3b80:
-
   - Add a postConnect method to list adapters to capture all the work which needs to be done after the database has been connected to
 
 - Updated dependencies [723371a0]:
@@ -1812,61 +1770,47 @@
 ## 1.1.0
 
 - [patch] 8d8666ad:
-
   - Dependency upgrade: graphql -> 14.0.3, graphql-tools -> 4.0.3
 
 - [minor] 6d8ce0fc:
-
   - Add createMany and updateMany mutations
 
 ## 1.0.0
 
 - [patch] a95e0c69:
-
   - Report correct gqlName when reporting errors in deleteMutation
 
 - [patch] 21626b66:
-
   - preSave/postRead item hooks run consistently
 
 - [patch] 84b62eaa:
-
   - Decouple access of items in the database from operations of them provide room for pre/post hooks
 
 - [patch] cd885800:
-
   - Update the field hooks API to use the officially sanctioned hook names.
 
 - [patch] c6fff24c:
-
   - Call field hooks when deleting many items at once.
 
 - [major] c83c9ed5:
-
   - Add Keystone.getAccessContext and remove List.getAccessControl, List.getFieldAccessControl, and Field.validateAccessControl.
 
 - [patch] ffc98ac4:
-
   - Rename the access control function parameter `item` to `existingItem`
 
 - [minor] c3ebd9e6:
-
   - Update resolver code to make all list access checks explicit
 
 - [minor] ebae2d6f:
-
   - Minor tweaks to the graphQL schema behaviour
 
 - [major] 78fd9555:
-
   - Field configuration now tasks isRequired and isUnique, rather than required and unique
 
 - [patch] 3801e040:
-
   - Separate out the pre-hooks for resolving relationship fields from the field.resolveInput hooks
 
 - [major] d22820b1:
-
   - Rename keystone.session to keystone.sessionManager
     - Rename keystone.session.validate to keystone.sessionManager.populateAuthedItemMiddleware
     - Rename keystone.session.create to keystone.sessionManager.startAuthedSession
@@ -1878,15 +1822,12 @@
 ## 0.7.0
 
 - [patch] d1777cc1:
-
   - Consolidate logging and error handling mechanisms within core/List/index.js
 
 - [minor] 45d4c379:
-
   - Update the functional API for Keystone List objects for consistency
 
 - [patch] 9c383fe8:
-
   - Always use \$set and { new: true } in the mongoose adapter update() method
 
 - Updated dependencies [3ae588b7]:
@@ -1923,7 +1864,6 @@
 
 - [minor] 47c7dcf6"
   :
-
   - Bump all packages with a minor version to set a new baseline
 
 ## 0.4.0
@@ -1975,11 +1915,9 @@
 ## 2.0.3
 
 - [patch][b69fb9b7](https://github.com/keystonejs/keystone-5/commit/b69fb9b7):
-
   - Update dev devependencies
 
 - [patch][78d25c40](https://github.com/keystonejs/keystone-5/commit/78d25c40):
-
   - Restructure internal code
 
 - Updated dependencies [656e90c2](https://github.com/keystonejs/keystone-5/commit/656e90c2):
@@ -1993,13 +1931,11 @@
 ## 2.0.1
 
 - [patch][5ddb2ed6](https://github.com/keystonejs/keystone-5/commit/5ddb2ed6):
-
   - Always display clickable links when starting a server in dev mode
 
 ## 2.0.0
 
 - [major][de616f7e](https://github.com/keystonejs/keystone-5/commit/de616f7e):
-
   - Update authStrategy APIs
     - Removes `authStrategy` from the `config` API of `Webserver`.
     - Removes `authStrategy` from the `serverConfig` of the core `keystone` system builder.
@@ -2010,17 +1946,14 @@
 ## 1.0.1
 
 - [patch][1f0bc236](https://github.com/keystonejs/keystone-5/commit/1f0bc236):
-
   - Update the package.json author field to "The Keystone Development Team"
 
 - [patch][9534f98f](https://github.com/keystonejs/keystone-5/commit/9534f98f):
-
   - Add README.md to package
 
 ## 1.0.0
 
 - [major] 8b6734ae:
-
   - This is the first release of keystone-alpha (previously voussoir).
     All packages in the `@voussoir` namespace are now available in the `@keystone-alpha` namespace, starting at version `1.0.0`.
     To upgrade your project you must update any `@voussoir/<foo>` dependencies in `package.json` to point to `@keystone-alpha/<foo>: "^1.0.0"` and update any `require`/`import` statements in your code.
@@ -2030,17 +1963,14 @@
 ## 3.0.0
 
 - [patch] 113e16d4:
-
   - Remove unused dependencies
 
 - [major] 1db45262:
-
   - Use the `@voussoir/core` package as the entry point for custom servers.
 
     **Migration Guide**
 
       <!-- prettier-ignore -->
-
     1. Ensure your main entry point is `index.js`
     1. Add the new keystone module: `yarn add @voussoir/keystone`
     1. Remove the old keystone module: `yarn remove @voussoir/core`
@@ -2082,7 +2012,6 @@
        ```
     1. If using any custom routes / modifying `server.app` in any way you'll need a
        _Custom Server_:
-
        1. Create a `server.js` along side your `index.js`
        1. Add the new core package: `yarn add @voussoir/core`
        1. Start with this boilerplate custom server in `server.js`:

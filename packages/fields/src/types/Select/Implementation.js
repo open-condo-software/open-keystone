@@ -185,8 +185,8 @@ export class PrismaSelectInterface extends CommonSelectInterface(PrismaFieldAdap
       this.config.dataType === 'enum'
         ? `${this.field.listKey}${inflection.classify(this.path)}Enum`
         : this.config.dataType === 'integer'
-        ? 'Int'
-        : 'String';
+          ? 'Int'
+          : 'String';
   }
 
   getPrismaEnums() {

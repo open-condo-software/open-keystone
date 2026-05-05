@@ -11,9 +11,11 @@ let buildFilenameToMarkdownNodeMap = weakMemoize(getNode =>
     let map = {};
 
     for (let file of files) {
-      const childNode = file.children.map(id => getNode(id)).find(node => node && node.internal.type === 'MarkdownRemark');
+      const childNode = file.children
+        .map(id => getNode(id))
+        .find(node => node && node.internal.type === 'MarkdownRemark');
       if (childNode) {
-          map[file.absolutePath] = childNode;
+        map[file.absolutePath] = childNode;
       }
     }
     return map;

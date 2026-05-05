@@ -366,7 +366,6 @@
 ### Major Changes
 
 - [`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310) [#1821](https://github.com/keystonejs/keystone-5/pull/1821) Thanks [@jesstelford](https://github.com/jesstelford)! - Release @keystonejs/\* packages (つ＾ ◡ ＾)つ
-
   - This is the first release of `@keystonejs/*` packages (previously `@keystone-alpha/*`).
   - All packages in the `@keystone-alpha` namespace are now available in the `@keystonejs` namespace, starting at version `5.0.0`.
   - To upgrade your project you must update any `@keystone-alpha/*` dependencies in `package.json` to point to `"@keystonejs/*": "^5.0.0"` and update any `require`/`import` statements in your code.
@@ -535,7 +534,6 @@
 - [dfcabe6a](https://github.com/keystonejs/keystone-5/commit/dfcabe6a):
 
   Specify custom servers from within the index.js file
-
   - Major Changes:
     - The `index.js` export for `admin` must now be exported in the `servers`
       array:
@@ -628,7 +626,6 @@
 ## 1.0.5
 
 - [patch][656e90c2](https://github.com/keystonejs/keystone-5/commit/656e90c2):
-
   - Explicitly call keystone.connect() before starting the web server.
 
 - Updated dependencies [37dcee37](https://github.com/keystonejs/keystone-5/commit/37dcee37):
@@ -644,7 +641,6 @@
 ## 1.0.4
 
 - [patch][06ca8a99](https://github.com/keystonejs/keystone-5/commit/06ca8a99):
-
   - Adding intro text + link to admin UI
 
 - Updated dependencies [8d385ede](https://github.com/keystonejs/keystone-5/commit/8d385ede):
@@ -658,11 +654,9 @@
 ## 1.0.3
 
 - [patch][08d3ddc9](https://github.com/keystonejs/keystone-5/commit/08d3ddc9):
-
   - Use server.express in TODO demo project
 
 - [patch][ee769467](https://github.com/keystonejs/keystone-5/commit/ee769467):
-
   - Env vars for PORT config and documentation on demos/project templates
 
 - Updated dependencies [9a9f214a](https://github.com/keystonejs/keystone-5/commit/9a9f214a):
@@ -684,13 +678,11 @@
 ## 1.0.1
 
 - [patch][1f0bc236](https://github.com/keystonejs/keystone-5/commit/1f0bc236):
-
   - Update the package.json author field to "The Keystone Development Team"
 
 ## 1.0.0
 
 - [major] 8b6734ae:
-
   - This is the first release of keystone-alpha (previously voussoir).
     All packages in the `@voussoir` namespace are now available in the `@keystone-alpha` namespace, starting at version `1.0.0`.
     To upgrade your project you must update any `@voussoir/<foo>` dependencies in `package.json` to point to `@keystone-alpha/<foo>: "^1.0.0"` and update any `require`/`import` statements in your code.
@@ -700,24 +692,20 @@
 ## 2.0.0
 
 - [patch] 6fa810f7:
-
   - Rename `@voussoir/core` -> `@voussoir/keystone`. This is to free up the
     `@voussoir/core` package for a different purpose, and make the main import for
     new Keystone projects be `@voussoir/keystone`. The exports have stayed the
     same.
 
 - [patch] 113e16d4:
-
   - Remove unused dependencies
 
 - [major] 582464a8:
-
   - Migrate projects to new method of exporting and running keystone instances.
 
 ## 1.0.2
 
 - [patch] 64e6abcc:
-
   - Allow lists and fields to specify a schemaDoc field
 
 ## 1.0.1

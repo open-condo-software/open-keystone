@@ -10,7 +10,8 @@ function getPackagePlugins() {
   });
 
   const packagesDir = path.resolve(rootDir, 'packages');
-  const packages = fs.readdirSync(packagesDir)
+  const packages = fs
+    .readdirSync(packagesDir)
     .map(dir => {
       const fullDir = path.join(packagesDir, dir);
       if (fs.existsSync(fullDir) && fs.lstatSync(fullDir).isDirectory()) {

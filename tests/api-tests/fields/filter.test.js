@@ -71,8 +71,8 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
               const returnFields = readFieldName
                 ? `name ${readFieldName}`
                 : subfieldName
-                ? `name ${fieldName} { ${subfieldName} }`
-                : `name ${fieldName}`;
+                  ? `name ${fieldName} { ${subfieldName} }`
+                  : `name ${fieldName}`;
 
               const match = async (keystone, where, expected, sortBy = 'name_ASC') =>
                 expect(await getItems({ keystone, listKey, where, returnFields, sortBy })).toEqual(

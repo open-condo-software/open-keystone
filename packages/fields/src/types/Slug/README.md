@@ -99,11 +99,9 @@ There is one situation where the `Slug` field cannot guarantee stability; when:
 For example:
 
 1. Perform a `create` mutation: `createPost(data: { slug: "hello-world" }) { slug }`.
-
    - Result: `{ slug: "hello-world" }`
 
 2. Perform a second `create` mutation with the same slug: `createPost(data: { slug: "hello-world" }) { id slug }`.
-
    - Result (approximately): `{ id: "1", slug: "hello-world-weer84fs" }`
 
 3. Perform an update to the second item, with the same slug as the first (again): `updatePost(id: "1", data: { slug: "hello-world" }) { id slug }`.

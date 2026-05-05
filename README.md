@@ -181,5 +181,5 @@ Open Keystone adheres to the [Contributor Covenant Code of Conduct](./code-of-co
 
 ## License
 
-Copyright (c) 2026 Open Condo Software. Licensed under the MIT License.  
+Copyright (c) 2026 Open Condo Software. Licensed under the MIT License.\
 Based on the [KeystoneJS](https://github.com/keystonejs/keystone) MIT project.

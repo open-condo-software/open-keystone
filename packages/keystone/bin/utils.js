@@ -131,13 +131,9 @@ async function executeDefaultServer(args, entryFile, distDir, spinner) {
   // Allow the spinner time to flush its output to the console.
   await new Promise(resolve => setTimeout(resolve, 100));
 
-  const {
-    keystone,
-    apps = [],
-    configureExpress = () => {},
-    cors,
-    pinoOptions,
-  } = require(path.resolve(entryFile));
+  const { keystone, apps = [], configureExpress = () => {}, cors, pinoOptions } = require(
+    path.resolve(entryFile)
+  );
 
   configureExpress(app);
 

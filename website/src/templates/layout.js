@@ -151,44 +151,44 @@ export const Content = props => (
 
       // Styles for Markdown content
       'h1, h2, h3, h4, h5, h6': {
-          fontWeight: 500,
-          lineHeight: 1.2,
-          marginTop: '1.5em',
-          marginBottom: '0.5em',
+        fontWeight: 500,
+        lineHeight: 1.2,
+        marginTop: '1.5em',
+        marginBottom: '0.5em',
       },
-      'h1': { fontSize: '2.5rem' },
-      'h2': { fontSize: '2rem', borderBottom: `1px solid ${colors.N10}`, paddingBottom: '0.3em' },
-      'h3': { fontSize: '1.5rem' },
-      'a': {
-          color: colors.B.base,
-          textDecoration: 'none',
-          ':hover': {
-              textDecoration: 'underline',
-          },
+      h1: { fontSize: '2.5rem' },
+      h2: { fontSize: '2rem', borderBottom: `1px solid ${colors.N10}`, paddingBottom: '0.3em' },
+      h3: { fontSize: '1.5rem' },
+      a: {
+        color: colors.B.base,
+        textDecoration: 'none',
+        ':hover': {
+          textDecoration: 'underline',
+        },
       },
-      'blockquote': {
-          borderLeft: `4px solid ${colors.N20}`,
-          color: colors.N60,
-          margin: '1.5em 0',
-          paddingLeft: '1em',
+      blockquote: {
+        borderLeft: `4px solid ${colors.N20}`,
+        color: colors.N60,
+        margin: '1.5em 0',
+        paddingLeft: '1em',
       },
-      'pre': {
-          backgroundColor: colors.N05,
-          borderRadius,
-          padding: gridSize * 2,
-          overflowX: 'auto',
-          marginBottom: '1.5em',
+      pre: {
+        backgroundColor: colors.N05,
+        borderRadius,
+        padding: gridSize * 2,
+        overflowX: 'auto',
+        marginBottom: '1.5em',
       },
-      'code': {
-          fontFamily: 'SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace',
-          fontSize: '0.85em',
-          backgroundColor: colors.N05,
-          padding: '0.2em 0.4em',
-          borderRadius,
+      code: {
+        fontFamily: 'SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace',
+        fontSize: '0.85em',
+        backgroundColor: colors.N05,
+        padding: '0.2em 0.4em',
+        borderRadius,
       },
       'pre code': {
-          backgroundColor: 'transparent',
-          padding: 0,
+        backgroundColor: 'transparent',
+        padding: 0,
       },
     }}
     {...props}
