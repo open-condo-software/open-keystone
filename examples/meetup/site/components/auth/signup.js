@@ -32,6 +32,7 @@ const SignUp = () => {
       setIsLoading(false);
       setErrorState(false);
     } catch (error) {
+      console.error(error);
       setErrorState(true);
     }
   };

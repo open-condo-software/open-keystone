@@ -316,7 +316,9 @@ describe('utils', () => {
 
       try {
         captureSuspensePromises(funcs);
-      } catch (e) {}
+      } catch {
+        expect(true).toBeFalsey();
+      }
 
       expect(funcs[0]).toHaveBeenCalledTimes(1);
       expect(funcs[1]).toHaveBeenCalledTimes(1);
@@ -327,7 +329,7 @@ describe('utils', () => {
 
       try {
         captureSuspensePromises(funcs);
-      } catch (e) {
+      } catch {
         expect(true).toBeFalsey();
       }
 
@@ -346,7 +348,9 @@ describe('utils', () => {
 
       try {
         captureSuspensePromises(funcs);
-      } catch (e) {}
+      } catch {
+        expect(true).toBeFalsey();
+      }
 
       expect(funcs[0]).toHaveBeenCalledTimes(1);
       expect(funcs[1]).toHaveBeenCalledTimes(1);
