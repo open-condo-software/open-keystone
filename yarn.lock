@@ -7556,8 +7556,6 @@ __metadata:
     remark-cli: ^6.0.1
     remark-frontmatter: ^1.3.3
     remark-toc: ^5.1.1
-    rimraf: ^3.0.2
-    split: ^1.0.1
     stack-utils: ^2.0.3
     start-server-and-test: ^1.12.5
     supertest-light: ^1.0.3
@@ -34415,15 +34413,6 @@ __metadata:
   dependencies:
     through: 2
   checksum: 2e076634c9637cfdc54ab4387b6a243b8c33b360874a25adf6f327a5647f07cb3bf1c755d515248eb3afee4e382278d01f62c62d87263c118f28065b86f74f02
-  languageName: node
-  linkType: hard
-
-"split@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "split@npm:1.0.1"
-  dependencies:
-    through: 2
-  checksum: 12f4554a5792c7e98bb3e22b53c63bfa5ef89aa704353e1db608a55b51f5b12afaad6e4a8ecf7843c15f273f43cdadd67b3705cc43d48a75c2cf4641d51f7e7a
   languageName: node
   linkType: hard
 
