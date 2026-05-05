@@ -19,7 +19,7 @@
     "format": "prettier --write \"**/*.{js,json,ts,tsx,md}\" && remark . --output",
     "fresh": "yarn clean && yarn",
     "clean": "rimraf \"**/cypress/{screenshots,videos,reports}\" \"**/node_modules\" \"**/yarn-error.log\" \"**/out.log\" \"**/.DS_Store\" \"**/website/.cache\" \"**/dist\"",
-    "lint:eslint": "eslint . --ext ts,tsx,js",
+    "lint:eslint": "eslint .",
     "lint:prettier": "prettier --list-different \"**/*.{js,json,ts,tsx}\"",
     "lint:markdown": "remark . --frail --quiet",
     "lint:types": "tsc",
