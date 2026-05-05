@@ -317,7 +317,7 @@ describe('utils', () => {
       try {
         captureSuspensePromises(funcs);
       } catch {
-        expect(true).toBeFalsey();
+        expect(true).toBeFalsy();
       }
 
       expect(funcs[0]).toHaveBeenCalledTimes(1);
@@ -330,7 +330,7 @@ describe('utils', () => {
       try {
         captureSuspensePromises(funcs);
       } catch {
-        expect(true).toBeFalsey();
+        expect(true).toBeFalsy();
       }
 
       expect(funcs[0]).toHaveBeenCalledTimes(1);
@@ -348,8 +348,9 @@ describe('utils', () => {
 
       try {
         captureSuspensePromises(funcs);
-      } catch {
-        expect(true).toBeFalsey();
+        expect(true).toBeFalsy();
+      } catch (e) {
+        expect(isPromise(e)).toBeTruthy();
       }
 
       expect(funcs[0]).toHaveBeenCalledTimes(1);
@@ -368,7 +369,7 @@ describe('utils', () => {
 
       try {
         captureSuspensePromises(funcs);
-        expect(true).toBeFalsey();
+        expect(true).toBeFalsy();
       } catch (maybePromise) {
         expect(isPromise(maybePromise)).toBeTruthy();
       }
@@ -407,7 +408,7 @@ describe('utils', () => {
         });
       }
 
-      expect(true).toBeFalsey();
+      expect(true).toBeFalsy();
     });
 
     test('throws a Error when executor throws a Error', () => {
@@ -421,7 +422,7 @@ describe('utils', () => {
 
       try {
         captureSuspensePromises(funcs);
-        expect(true).toBeFalsey();
+        expect(true).toBeFalsy();
       } catch (maybePromise) {
         expect(!isPromise(maybePromise)).toBeTruthy();
       }
