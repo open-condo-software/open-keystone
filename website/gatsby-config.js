@@ -1,4 +1,3 @@
-const { getPackages } = require('@manypkg/get-packages');
 const fs = require('fs');
 const path = require('path');
 
