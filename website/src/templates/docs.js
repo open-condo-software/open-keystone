@@ -3,9 +3,7 @@
 import { Fragment, useMemo, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link, graphql } from 'gatsby';
-import { MDXRenderer } from 'gatsby-plugin-mdx';
 import Slugger from 'github-slugger';
-import { MDXProvider } from '@mdx-js/react';
 import { jsx } from '@emotion/core';
 import { SkipNavContent } from '@reach/skip-nav';
 import { borderRadius, colors, gridSize } from '@open-arch-ui/theme';
@@ -24,7 +22,7 @@ import { titleCase } from '../utils/case';
 const slugger = new Slugger();
 
 export default function Template({
-  data: { mdx, site }, // this prop will be injected by the GraphQL query below.
+  data: { markdownRemark, site }, // this prop will be injected by the GraphQL query below.
   pageContext: { slug, isBlog, author, date, pageTitle },
 }) {
   let [contentRef, setContentRef] = useState(null);
@@ -42,7 +40,8 @@ export default function Template({
     next = flatNavData[currentPageIndex + 1];
   }
 
-  const { body, fields, headings } = mdx;
+  const { fields, html } = markdownRemark;
+  const { headings } = fields;
 
   const { siteMetadata } = site;
   const suffix = fields.navGroup
@@ -100,14 +99,13 @@ export default function Template({
                   </Fragment>
                 ) : null}
 
-                <MDXProvider components={mdComponents}>
-                  <MDXRenderer>{body}</MDXRenderer>
-                </MDXProvider>
+                <div dangerouslySetInnerHTML={{ __html: html }} />
+
                 <Pagination aria-label="Pagination">
                   {prev ? (
                     <PaginationButton to={prev.path}>
                       <small>&larr; Prev</small>
-                      <span>{prev.context.pageTitle}</span>
+                      <span>{prev.pageContext.pageTitle}</span>
                     </PaginationButton>
                   ) : (
                     <PaginationPlaceholder />
@@ -115,7 +113,7 @@ export default function Template({
                   {next ? (
                     <PaginationButton align="right" to={next.path}>
                       <small>Next &rarr;</small>
-                      <span>{next.context.pageTitle}</span>
+                      <span>{next.pageContext.pageTitle}</span>
                     </PaginationButton>
                   ) : (
                     <PaginationPlaceholder />
@@ -372,16 +370,15 @@ const PaginationButton = ({ align = 'left', ...props }) => (
 // Query
 // ==============================
 
-// To my chagrin and fury, context is spread on to the available query options.
 export const pageQuery = graphql`
   query ($mdPageId: String!) {
-    mdx(id: { eq: $mdPageId }) {
-      body
-      headings {
-        depth
-        value
-      }
+    markdownRemark(id: { eq: $mdPageId }) {
+      html
       fields {
+        headings {
+          depth
+          value
+        }
         heading
         description
         editUrl
