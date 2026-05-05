@@ -1,15 +1,31 @@
-const { emailSender } = require('@open-keystone/email');
+const path = require('path');
+const React = require('react');
+const { renderToStaticMarkup } = require('react-dom/server');
+const Mailgun = require('mailgun-js');
 
-const jsxEmailSender = emailSender.jsx({
-  root: __dirname,
-  transport: 'mailgun',
-});
-
-const sendEmail = (templatePath, rendererProps, options) => {
+const sendEmail = async (templatePath, rendererProps, options) => {
   if (!templatePath) {
-    console.error('No template path provided');
+    throw new Error('No template path provided');
   }
-  return jsxEmailSender(templatePath).send(rendererProps, options);
+
+  const { domain, apiKey, subject, to, from, ...mailData } = options || {};
+
+  if (!domain || !apiKey || !subject || !to || !from) {
+    throw new Error('Missing required mail options: domain, apiKey, subject, to, from');
+  }
+
+  const template = require(path.join(__dirname, templatePath));
+  const html = renderToStaticMarkup(React.createElement(template, rendererProps));
+
+  const mailgun = Mailgun({ apiKey, domain });
+
+  return mailgun.messages().send({
+    ...mailData,
+    from,
+    to,
+    subject,
+    html,
+  });
 };
 
 module.exports = {
