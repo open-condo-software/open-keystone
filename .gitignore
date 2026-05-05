@@ -126,4 +126,4 @@ temp/
 
 .api-test-prisma-clients
 
-tests/test-projects/*/.prisma
+.prisma

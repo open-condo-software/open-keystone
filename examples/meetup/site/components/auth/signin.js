@@ -28,6 +28,7 @@ const SignIn = ({ onSuccess, onClickForgot }) => {
         onSuccess();
       }
     } catch (error) {
+      console.error(error);
       setErrorState(true);
     }
   };
