@@ -1,6 +1,6 @@
 const fs = require('fs');
-const tmp = require('tmp');
 const http = require('http');
+const os = require('os');
 const net = require('net');
 const devCommand = require('../../bin/commands/dev');
 const constants = require('../../constants');
@@ -37,6 +37,24 @@ async function expectServerResponds({ port, host = 'localhost', path = '/' }) {
   expect(statusCode).toBe(200);
 }
 
+function createTempServerFile() {
+  const tempDir = fs.mkdtempSync(`${os.tmpdir()}/keystone-dev-command-`);
+  const serverFilePath = `${tempDir}/server.js`;
+  fs.writeFileSync(
+    serverFilePath,
+    `
+      module.exports = {
+        // A mock keystone instance
+        keystone: {
+          auth: {},
+          prepare: () => Promise.resolve({ middlewares: (req, res, next) => res.sendStatus(200) }),
+          connect: () => Promise.resolve(),
+        }
+      }`
+  );
+  return serverFilePath;
+}
+
 function cleanupServer(server) {
   // Cleanup
   return new Promise((resolve, reject) => {
@@ -68,22 +86,10 @@ describe('dev command', () => {
 
   test('is setup with a default server on default port', async () => {
     const localDevCommand = require('../../bin/commands/dev');
-    const serverFileObj = tmp.fileSync({ postfix: '.js' });
-    fs.writeFileSync(
-      serverFileObj.fd,
-      `
-      module.exports = {
-        // A mock keystone instance
-        keystone: {
-          auth: {},
-          prepare: () => Promise.resolve({ middlewares: (req, res, next) => res.sendStatus(200) }),
-          connect: () => Promise.resolve(),
-        }
-      }`
-    );
+    const serverFilePath = createTempServerFile();
 
     const { server } = await localDevCommand.exec(
-      { '--entry': serverFileObj.name },
+      { '--entry': serverFilePath },
       undefined,
       mockSpinner
     );
@@ -94,25 +100,13 @@ describe('dev command', () => {
 
   test('prepare server with port from --port arg', async () => {
     const localDevCommand = require('../../bin/commands/dev');
-    const serverFileObj = tmp.fileSync({ postfix: '.js' });
-    fs.writeFileSync(
-      serverFileObj.fd,
-      `
-      module.exports = {
-        // A mock keystone instance
-        keystone: {
-          auth: {},
-          prepare: () => Promise.resolve({ middlewares: (req, res, next) => res.sendStatus(200) }),
-          connect: () => Promise.resolve(),
-        }
-      }`
-    );
+    const serverFilePath = createTempServerFile();
 
     const port = await getFreePort();
 
     const { server } = await localDevCommand.exec(
       {
-        '--entry': serverFileObj.name,
+        '--entry': serverFilePath,
         '--port': port,
       },
       undefined,
