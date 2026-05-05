@@ -122,7 +122,6 @@
 ### Patch Changes
 
 - [`59ed6310`](https://github.com/keystonejs/keystone-5/commit/59ed6310bacc76f571639de048689becbedbeac5) [#2930](https://github.com/keystonejs/keystone-5/pull/2930) Thanks [@Vultraz](https://github.com/Vultraz)! - Fixed many usability issues with the CalendarDay field:
-
   - Fixed field not functioning as a proper controlled component in the Create popout.
   - Fixed field initially displaying "Invalid Date" before defaulting to 1970-01-01.
   - Filter input no longer defaults to the current date. This was bugged; submitting the form with no changes would match nothing.
@@ -243,7 +242,6 @@
 ### Patch Changes
 
 - [`33d22c7`](https://github.com/keystonejs/keystone-5/commit/33d22c70971eb047aa670b1cd170248cbd663290) [#2078](https://github.com/keystonejs/keystone-5/pull/2078) - Fixed several issues with the CalendarDay field:
-
   - Ensured format, yearRangeFrom, and yearRangeTo defaults are set correctly
   - Removed non-functional yearPickerType
   - Made displayed date format consistent between list and detailed views
@@ -324,11 +322,9 @@
 ### Patch Changes
 
 - [81b481d0](https://github.com/keystonejs/keystone-5/commit/81b481d0):
-
   - Added support for isMultiline to Text field type
 
 - [81dc0be5](https://github.com/keystonejs/keystone-5/commit/81dc0be5):
-
   - Update dependencies
 
 ## 0.0.5
@@ -342,39 +338,31 @@
 ## 0.0.4
 
 - [patch][39067f44](https://github.com/keystonejs/keystone-5/commit/39067f44):
-
   - Add text date and time pickers
 
 ## 0.0.3
 
 - [patch][11c372fa](https://github.com/keystonejs/keystone-5/commit/11c372fa):
-
   - Update minor-level dependencies
 
 - [patch][3a775092](https://github.com/keystonejs/keystone-5/commit/3a775092):
-
   - Update dependencies
 
 - [patch][619b17c2](https://github.com/keystonejs/keystone-5/commit/619b17c2):
-
   - Reformat code using latest version of Prettier (1.16.4)
 
 - [patch][d9a1be91](https://github.com/keystonejs/keystone-5/commit/d9a1be91):
-
   - Update dependencies
 
 - [patch][96015257](https://github.com/keystonejs/keystone-5/commit/96015257):
-
   - Update dependencies
 
 - [patch][7417ea3a](https://github.com/keystonejs/keystone-5/commit/7417ea3a):
-
   - Update patch-level dependencies
 
 ## 0.0.2
 
 - [patch] 23c3fee5:
-
   - Update babel packages and plugins
 
 - Updated dependencies [113e16d4]:

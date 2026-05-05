@@ -20,21 +20,21 @@ export const fieldConfig = matrixValue => ({
           { label: 'React', value: 'react' },
         ]
       : matrixValue === 'string'
-      ? [
-          { label: 'A string', value: 'a string' },
-          { label: '1number', value: '1number' },
-          { label: '@¯\\_(ツ)_/¯', value: '@¯\\_(ツ)_/¯' },
-          { label: 'something else', value: 'something else' },
-        ]
-      : matrixValue === 'integer'
-      ? [
-          { label: 'One', value: 1 },
-          { label: 'Two', value: 2 },
-          { label: 'Three', value: 3 },
-          { label: 'Four', value: 4 },
-          { label: 'Five', value: 5 },
-        ]
-      : [],
+        ? [
+            { label: 'A string', value: 'a string' },
+            { label: '1number', value: '1number' },
+            { label: '@¯\\_(ツ)_/¯', value: '@¯\\_(ツ)_/¯' },
+            { label: 'something else', value: 'something else' },
+          ]
+        : matrixValue === 'integer'
+          ? [
+              { label: 'One', value: 1 },
+              { label: 'Two', value: 2 },
+              { label: 'Three', value: 3 },
+              { label: 'Four', value: 4 },
+              { label: 'Five', value: 5 },
+            ]
+          : [],
 });
 
 export const fieldName = 'company';

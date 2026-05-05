@@ -254,7 +254,6 @@
 ### Minor Changes
 
 - [`c2ebb51c7`](https://github.com/keystonejs/keystone-5/commit/c2ebb51c786297879fe9fac2007804055631e9e2) [#2258](https://github.com/keystonejs/keystone-5/pull/2258) Thanks [@gautamsi](https://github.com/gautamsi)! - \* Added `isReadOnly` option on field's `adminConfig`. Fields with this option set will be excluded from the `create` form, and set as disabled in the `update` form in the Admin UI.
-
   - Updated the item detail page to include fields with access `{ update: false }` in a disabled state, rather than excluded the form.
   - Updated all Field Views to accept `isDisabled` prop. When set to `true` this will disable the field input.
 
@@ -535,7 +534,6 @@
 ### Major Changes
 
 - [`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310) [#1821](https://github.com/keystonejs/keystone-5/pull/1821) Thanks [@jesstelford](https://github.com/jesstelford)! - Release @keystonejs/\* packages (つ＾ ◡ ＾)つ
-
   - This is the first release of `@keystonejs/*` packages (previously `@keystone-alpha/*`).
   - All packages in the `@keystone-alpha` namespace are now available in the `@keystonejs` namespace, starting at version `5.0.0`.
   - To upgrade your project you must update any `@keystone-alpha/*` dependencies in `package.json` to point to `"@keystonejs/*": "^5.0.0"` and update any `require`/`import` statements in your code.
@@ -592,7 +590,6 @@
 ### Major Changes
 
 - [89c0d7e9](https://github.com/keystonejs/keystone-5/commit/89c0d7e9): The `.access` property of Fields is now keyed by `schemaName`. As such, a number of getters have been replaced with methods which take `{ schemaName }`.
-
   - `get gqlOutputFields()` -> `gqlOutputFields({ schemaName })`
   - `get gqlOutputFieldResolvers()` -> `gqlOutputFieldResolvers({ schemaName })`
   - `get gqlAuxFieldResolvers() -> gqlAuxFieldResolvers({ schemaName })`

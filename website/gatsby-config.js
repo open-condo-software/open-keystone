@@ -1,15 +1,27 @@
-const { getPackages } = require('@manypkg/get-packages');
 const fs = require('fs');
 const path = require('path');
 
-async function getPackagePlugins() {
+function getPackagePlugins() {
   const rootDir = path.resolve(__dirname, '..');
   const docSections = fs.readdirSync(`${rootDir}/docs/`).filter(dir => {
     const fullDir = path.join(`${rootDir}/docs/`, dir);
     return fs.existsSync(fullDir) && fs.lstatSync(fullDir).isDirectory();
   });
 
-  const { packages } = await getPackages(rootDir);
+  const packagesDir = path.resolve(rootDir, 'packages');
+  const packages = fs
+    .readdirSync(packagesDir)
+    .map(dir => {
+      const fullDir = path.join(packagesDir, dir);
+      if (fs.existsSync(fullDir) && fs.lstatSync(fullDir).isDirectory()) {
+        const pkgJsonPath = path.join(fullDir, 'package.json');
+        if (fs.existsSync(pkgJsonPath)) {
+          return { dir: fullDir, packageJson: require(pkgJsonPath) };
+        }
+      }
+      return null;
+    })
+    .filter(Boolean);
 
   return [
     ...docSections.map(name => ({
@@ -33,8 +45,8 @@ async function getPackagePlugins() {
   ];
 }
 
-async function getGatsbyConfig() {
-  const packageFilesPlugins = await getPackagePlugins();
+function getGatsbyConfig() {
+  const packageFilesPlugins = getPackagePlugins();
   return {
     siteMetadata: {
       title: `KeystoneJS`,
@@ -69,38 +81,19 @@ async function getGatsbyConfig() {
         },
       },
       {
-        // https://github.com/gatsbyjs/gatsby/issues/15486#issuecomment-509405867
         resolve: `gatsby-transformer-remark`,
         options: {
-          plugins: [`gatsby-remark-images`],
-        },
-      },
-      {
-        resolve: `gatsby-plugin-mdx`,
-        options: {
-          extensions: ['.mdx', '.md'],
-          defaultLayouts: {
-            default: require.resolve('./src/components/markdown/mdx-renderer.js'),
-          },
-          gatsbyRemarkPlugins: [
+          plugins: [
             {
-              resolve: 'gatsby-remark-autolink-headers',
+              resolve: `gatsby-remark-images`,
               options: {
-                icon: false, // we include our own icon
+                maxWidth: 800,
               },
             },
+            `gatsby-remark-autolink-headers`,
+            `gatsby-remark-copy-linked-files`,
             { resolve: require.resolve('./plugins/gatsby-remark-fix-links') },
-
-            {
-              resolve: 'gatsby-remark-images',
-              options: {
-                maxWidth: 848, // TODO: remove magic number -- width of main col
-              },
-            },
-            // This is needed to resolve svgs
-            { resolve: 'gatsby-remark-copy-linked-files' },
           ],
-          rehypePlugins: [[require('@mapbox/rehype-prism'), { ignoreMissing: true }]],
         },
       },
       {

@@ -8,6 +8,9 @@ website/public/**/*
 examples/todo/.cache
 examples/blog/app/.next
 packages/arch/www/public/**/*
+packages/arch/docs/.cache
+packages/arch/docs/public
+examples/todo/.prisma
 .changeset/**/*
 **/dist
 **/.next

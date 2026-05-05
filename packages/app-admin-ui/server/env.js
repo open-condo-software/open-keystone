@@ -4,5 +4,5 @@ exports.enableDevFeatures =
   process.env.ENABLE_DEV_FEATURES === 'true'
     ? true
     : process.env.ENABLE_DEV_FEATURES === 'false'
-    ? false
-    : exports.mode !== 'production';
+      ? false
+      : exports.mode !== 'production';

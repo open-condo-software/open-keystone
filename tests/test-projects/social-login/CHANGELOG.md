@@ -520,7 +520,6 @@
 ### Major Changes
 
 - [`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310) [#1821](https://github.com/keystonejs/keystone-5/pull/1821) Thanks [@jesstelford](https://github.com/jesstelford)! - Release @keystonejs/\* packages (つ＾ ◡ ＾)つ
-
   - This is the first release of `@keystonejs/*` packages (previously `@keystone-alpha/*`).
   - All packages in the `@keystone-alpha` namespace are now available in the `@keystonejs` namespace, starting at version `5.0.0`.
   - To upgrade your project you must update any `@keystone-alpha/*` dependencies in `package.json` to point to `"@keystonejs/*": "^5.0.0"` and update any `require`/`import` statements in your code.
@@ -747,7 +746,6 @@
 - [dfcabe6a](https://github.com/keystonejs/keystone-5/commit/dfcabe6a):
 
   Specify custom servers from within the index.js file
-
   - Major Changes:
     - The `index.js` export for `admin` must now be exported in the `servers`
       array:
@@ -807,7 +805,6 @@
 ### Minor Changes
 
 - [2ef2658f](https://github.com/keystonejs/keystone-5/commit/2ef2658f):
-
   - Moved Social Login Strategies into its own package `@keystone-alpha/passport-auth`.
   - Created base strategy `PassportAuthStrategy`. This enables quick addition of new Social Login Strategy based on PassportJs.
   - Refactored Twitter and Facebook to extend base `PassportAuthStrategy`.
@@ -848,7 +845,6 @@
 ## 1.0.1
 
 - [patch][656e90c2](https://github.com/keystonejs/keystone-5/commit/656e90c2):
-
   - Explicitly call keystone.connect() before starting the web server.
 
 - Updated dependencies [37dcee37](https://github.com/keystonejs/keystone-5/commit/37dcee37):

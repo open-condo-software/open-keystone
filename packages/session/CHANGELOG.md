@@ -130,7 +130,6 @@
 ### Major Changes
 
 - [`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310) [#1821](https://github.com/keystonejs/keystone-5/pull/1821) Thanks [@jesstelford](https://github.com/jesstelford)! - Release @keystonejs/\* packages (つ＾ ◡ ＾)つ
-
   - This is the first release of `@keystonejs/*` packages (previously `@keystone-alpha/*`).
   - All packages in the `@keystone-alpha` namespace are now available in the `@keystonejs` namespace, starting at version `5.0.0`.
   - To upgrade your project you must update any `@keystone-alpha/*` dependencies in `package.json` to point to `"@keystonejs/*": "^5.0.0"` and update any `require`/`import` statements in your code.
@@ -185,7 +184,6 @@
 ### Major Changes
 
 - [1b4cf4e0](https://github.com/keystonejs/keystone-5/commit/1b4cf4e0):
-
   - Removed `createSessionMiddleware` export. Most functionality has been replaced by the new `authenticate<List>With<Strategy>` & `unauthenticate<List>` mutations (see `@keystone-alpha/keystone` `CHANGELOG.md` for more details), and remaining functionality that was specific to `@keystone-alpha/app-admin-ui` and has been moved there.
   - Auth tokens received by header `Authorization: Bearer <token>` must now
     include the signature (removing a potential attack vector where a client could
@@ -204,21 +202,17 @@
 ## 1.0.2
 
 - [patch][bf364bf0](https://github.com/keystonejs/keystone-5/commit/bf364bf0):
-
   - Restructure internal code
 
 ## 1.0.1
 
 - [patch][62e2d517](https://github.com/keystonejs/keystone-5/commit/62e2d517):
-
   - Fix bug in session audiences
 
 ## 1.0.0
 
 - [minor][d718c016](https://github.com/keystonejs/keystone-5/commit/d718c016):
-
   - `startAuthedSession` now takes an `audiences` paramter, which is attached to the session. `createSessionMiddleware` takes an `audiences` parameter, which is passed through to `startAudthedSession` at `signin`. Added `restrictAudienceMiddleware`, which allows access to an endpoint to be restricted based on which audiences are currently attached to the session.
 
 - [major][5ebf4c3a](https://github.com/keystonejs/keystone-5/commit/5ebf4c3a):
-
   - Create a new package for all session-handling functionality

@@ -62,7 +62,6 @@
   - Made the `keystone` argument optional when a `context` value is provided in any of the utility functions in `server-side-graphql-client` package.
 
 * [`ed2f8c31b`](https://github.com/keystonejs/keystone-5/commit/ed2f8c31b13eadb39a045cc351777add81621ede) [#3345](https://github.com/keystonejs/keystone-5/pull/3345) Thanks [@singhArmani](https://github.com/singhArmani)! - Enhanced the `getItems` functionality by adding:
-
   - `sortBy`
   - `first`
   - `skip`

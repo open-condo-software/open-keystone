@@ -14,16 +14,19 @@ export function useDimensions() {
 
 export const navQuery = graphql`
   query NavQuery {
-    allSitePage(
-      filter: { path: { ne: "/dev-404-page/" }, context: { isIndex: { ne: true } } }
-      sort: {
-        fields: [context___sortOrder, context___sortSubOrder, context___order, context___pageTitle]
-      }
+    allMarkdownRemark(
+      filter: { fields: { isIndex: { ne: true }, draft: { ne: true } } }
+      sort: [
+        { fields: { sortOrder: ASC } }
+        { fields: { sortSubOrder: ASC } }
+        { fields: { order: ASC } }
+        { fields: { pageTitle: ASC } }
+      ]
     ) {
       edges {
         node {
-          path
-          context {
+          fields {
+            slug
             navGroup
             navSubGroup
             order
@@ -39,21 +42,28 @@ export const navQuery = graphql`
 export function useNavData() {
   // We filter out the index.md pages from the nav list
   let data = useStaticQuery(navQuery);
-  const navData = data.allSitePage.edges.reduce(
+  const navData = data.allMarkdownRemark.edges.reduce(
     (
       pageList,
       {
         node,
         node: {
-          context: { navGroup, navSubGroup },
+          fields: { slug, navGroup, navSubGroup },
         },
       }
     ) => {
+      // Map MarkdownRemark node to the structure expected by the rest of the app (which previously used SitePage)
+      const nodeWithContext = {
+        path: slug,
+        context: node.fields,
+        pageContext: node.fields, // for safety
+      };
+
       if (navGroup !== null) {
         // finding out what directory the file is in (eg '/keystone-alpha')
 
         const addPage = page => {
-          page.pages.push(node);
+          page.pages.push(nodeWithContext);
         };
 
         if (Boolean(!pageList.find(obj => obj.navTitle === navGroup))) {

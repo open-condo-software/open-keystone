@@ -6,13 +6,16 @@ let fileExtensions = ['png', 'gif'];
 
 let repoRoot = path.resolve(__dirname, '..', '..', '..');
 
-let buildFilenameToMdxNodeMap = weakMemoize(getNode =>
+let buildFilenameToMarkdownNodeMap = weakMemoize(getNode =>
   weakMemoize(files => {
     let map = {};
 
     for (let file of files) {
-      if (file.children.length === 2) {
-        map[file.absolutePath] = getNode(file.children[1]);
+      const childNode = file.children
+        .map(id => getNode(id))
+        .find(node => node && node.internal.type === 'MarkdownRemark');
+      if (childNode) {
+        map[file.absolutePath] = childNode;
       }
     }
     return map;
@@ -48,33 +51,33 @@ module.exports = async function plugin({ markdownAST, markdownNode, files, getNo
     }
   }
   visit(markdownAST, 'link', visitor);
-  let filenameToMdxNodeMap = buildFilenameToMdxNodeMap(getNode)(files);
+  let filenameToMarkdownNodeMap = buildFilenameToMarkdownNodeMap(getNode)(files);
   links.forEach(link => {
     let originalUrl = link.url;
     if (link.url.startsWith('#')) {
-      link.url = path.relative(repoRoot, markdownNode.fileAbsolutePath) + link.url;
+      link.url = '/' + path.relative(repoRoot, markdownNode.fileAbsolutePath) + link.url;
     }
 
     let url = new URL(link.url, 'https://keystonejs.com'); // note that the second arg here doesn't end up mattering because we only use the pathname
     let absolutePath = path.join(repoRoot, url.pathname);
-    let mdxNode = filenameToMdxNodeMap[absolutePath];
-    if (mdxNode === undefined) {
+    let mdNode = filenameToMarkdownNodeMap[absolutePath];
+    if (mdNode === undefined) {
       throw new Error(
         `Could not find file "${absolutePath}" when resolving link "${originalUrl}" from "${markdownNode.fileAbsolutePath}"`
       );
     }
 
-    if (url.hash !== '' && !mdxNode.fields.headingIds.includes(url.hash.replace(/^#/, ''))) {
+    if (url.hash !== '' && !mdNode.fields.headingIds.includes(url.hash.replace(/^#/, ''))) {
       throw new Error(
         `"${
           markdownNode.fileAbsolutePath
-        }" links to "${originalUrl}" but the heading does not exist in the file being linked to.\nThe headings that do exist in the file being linked to are:\n${mdxNode.fields.headingIds.join(
+        }" links to "${originalUrl}" but the heading does not exist in the file being linked to.\nThe headings that do exist in the file being linked to are:\n${mdNode.fields.headingIds.join(
           '\n'
         )}`
       );
     }
 
-    link.url = mdxNode.fields.slug + url.hash;
+    link.url = mdNode.fields.slug + url.hash;
   });
 
   return markdownAST;

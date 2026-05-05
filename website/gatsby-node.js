@@ -2,14 +2,15 @@ const path = require('path');
 const get = require('lodash.get');
 const slugify = require('@sindresorhus/slugify');
 const visit = require('unist-util-visit');
-const rawMDX = require('@mdx-js/mdx');
+const remark = require('remark');
+const remarkMdx = require('remark-mdx');
 const matter = require('gray-matter');
 const mdastToString = require('mdast-util-to-string');
 const createPaginatedPages = require('gatsby-paginate');
 
 const generateUrl = require('./generateUrl');
 
-const compiler = rawMDX.createMdxAstCompiler({ remarkPlugins: [] });
+const compiler = remark().use(remarkMdx);
 
 // we're using github-slugger for heading ids so that we're consistent with GitHub & because gatsby-remark-autolink-headers which adds the actual links uses github-slugger
 const slugs = require('github-slugger')();
@@ -43,10 +44,13 @@ const SUB_GROUPS = [
 const createDocsPages = async ({ createPage, graphql }) =>
   graphql(`
     {
-      allMdx(
-        sort: {
-          fields: [fields___sortOrder, fields___sortSubOrder, fields___order, fields___pageTitle]
-        }
+      allMarkdownRemark(
+        sort: [
+          { fields: { sortOrder: ASC } }
+          { fields: { sortSubOrder: ASC } }
+          { fields: { order: ASC } }
+          { fields: { pageTitle: ASC } }
+        ]
       ) {
         edges {
           node {
@@ -77,7 +81,7 @@ const createDocsPages = async ({ createPage, graphql }) =>
       return Promise.reject(result.errors);
     }
 
-    const pages = result.data.allMdx.edges.filter(page => {
+    const pages = result.data.allMarkdownRemark.edges.filter(page => {
       const {
         node: {
           fields: { draft },
@@ -131,17 +135,18 @@ exports.createPages = ({ actions, graphql }) => {
 const getEditUrl = absPath =>
   `https://github.com/keystonejs/keystone-5/edit/main/${path.relative(PROJECT_ROOT, absPath)}`;
 
-exports.onCreateNode = async ({ node, actions, getNode }) => {
+exports.onCreateNode = async ({ node, actions, getNode, loadNodeContent }) => {
   const { createNodeField } = actions;
 
   // Only for our markdown files
-  if (get(node, 'internal.type') === `Mdx`) {
+  if (get(node, 'internal.type') === `MarkdownRemark`) {
     // Get the parent node which includes info about the file paths, etc
     const parent = getNode(node.parent);
     const { sourceInstanceName, relativePath } = parent;
 
     const isPackage = !GROUPS.includes(sourceInstanceName);
-    let { data, content } = matter(node.rawBody, { delimiters: ['<!--[meta]', '[meta]-->'] });
+    const nodeContent = await loadNodeContent(parent);
+    let { data, content } = matter(nodeContent, { delimiters: ['<!--[meta]', '[meta]-->'] });
 
     const navGroup = data.section === 'api' ? 'API' : data.section;
     const navSubGroup = data.subSection;
@@ -153,6 +158,7 @@ exports.onCreateNode = async ({ node, actions, getNode }) => {
     let heading;
     slugs.reset();
     let headingIds = [];
+    let headings = [];
 
     visit(ast, node => {
       if (!description && node.type === 'paragraph') {
@@ -162,7 +168,9 @@ exports.onCreateNode = async ({ node, actions, getNode }) => {
         heading = mdastToString(node);
       }
       if (node.type === 'heading') {
-        headingIds.push(slugs.slug(mdastToString(node)));
+        const value = mdastToString(node);
+        headingIds.push(slugs.slug(value));
+        headings.push({ depth: node.depth, value });
       }
     });
 
@@ -175,7 +183,7 @@ exports.onCreateNode = async ({ node, actions, getNode }) => {
       navGroup: navGroup || null, // Empty string is fine
       navSubGroup: navSubGroup || null,
       workspaceSlug: slugify(sourceInstanceName),
-      editUrl: getEditUrl(get(node, 'fileAbsolutePath')),
+      editUrl: getEditUrl(node.fileAbsolutePath),
       // The full path to this "node"
       slug: data.slug || generateUrl(parent),
       sortOrder: GROUPS.indexOf(navGroup) === -1 ? 999999 : GROUPS.indexOf(navGroup),
@@ -186,11 +194,12 @@ exports.onCreateNode = async ({ node, actions, getNode }) => {
       isIndex: !isPackage && relativePath === 'index.md',
       pageTitle: pageTitle,
       author: data.author,
-      date: new Date(data.date).toDateString(),
+      date: data.date ? new Date(data.date).toDateString() : null,
       draft: Boolean(data.draft),
       description,
       heading,
       headingIds,
+      headings,
     };
 
     // see: https://github.com/gatsbyjs/gatsby/issues/1634#issuecomment-388899348

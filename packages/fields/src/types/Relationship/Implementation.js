@@ -427,7 +427,8 @@ export class KnexRelationshipInterface extends KnexFieldAdapter {
 
   getQueryConditions(dbPath) {
     return {
-      [`${this.path}_is_null`]: value => b => value ? b.whereNull(dbPath) : b.whereNotNull(dbPath),
+      [`${this.path}_is_null`]: value => b =>
+        value ? b.whereNull(dbPath) : b.whereNotNull(dbPath),
     };
   }
 }

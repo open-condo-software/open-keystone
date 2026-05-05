@@ -647,10 +647,10 @@ module.exports = class List {
         return create && create[0]
           ? create[0]
           : connect && connect[0]
-          ? connect[0]
-          : disconnect && disconnect[0]
-          ? null
-          : currentValue;
+            ? connect[0]
+            : disconnect && disconnect[0]
+              ? null
+              : currentValue;
       }
     });
 

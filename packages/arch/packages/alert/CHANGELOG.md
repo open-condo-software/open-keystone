@@ -96,7 +96,6 @@
 ### Patch Changes
 
 - [`33d22c7`](https://github.com/keystonejs/keystone-5/commit/33d22c70971eb047aa670b1cd170248cbd663290) [#2078](https://github.com/keystonejs/keystone-5/pull/2078) - Fixed several issues with the CalendarDay field:
-
   - Ensured format, yearRangeFrom, and yearRangeTo defaults are set correctly
   - Removed non-functional yearPickerType
   - Made displayed date format consistent between list and detailed views
@@ -133,7 +132,6 @@
 ### Patch Changes
 
 - [81dc0be5](https://github.com/keystonejs/keystone-5/commit/81dc0be5):
-
   - Update dependencies
 
 ## 0.0.4
@@ -144,13 +142,11 @@
 ## 0.0.3
 
 - [patch][7417ea3a](https://github.com/keystonejs/keystone-5/commit/7417ea3a):
-
   - Update patch-level dependencies
 
 ## 0.0.2
 
 - [patch] 113e16d4:
-
   - Remove unused dependencies
 
 - Updated dependencies [23c3fee5]:

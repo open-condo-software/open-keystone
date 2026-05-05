@@ -727,7 +727,6 @@
 ### Minor Changes
 
 - [`c2ebb51c7`](https://github.com/keystonejs/keystone-5/commit/c2ebb51c786297879fe9fac2007804055631e9e2) [#2258](https://github.com/keystonejs/keystone-5/pull/2258) Thanks [@gautamsi](https://github.com/gautamsi)! - \* Added `isReadOnly` option on field's `adminConfig`. Fields with this option set will be excluded from the `create` form, and set as disabled in the `update` form in the Admin UI.
-
   - Updated the item detail page to include fields with access `{ update: false }` in a disabled state, rather than excluded the form.
   - Updated all Field Views to accept `isDisabled` prop. When set to `true` this will disable the field input.
 
@@ -824,7 +823,6 @@
 * [`54931d75`](https://github.com/keystonejs/keystone-5/commit/54931d75d3f26f4f300c2c4c3ee65ed3183b4a6a) [#2923](https://github.com/keystonejs/keystone-5/pull/2923) Thanks [@timleslie](https://github.com/timleslie)! - Updated documentation for the CalendarDay field type.
 
 - [`59ed6310`](https://github.com/keystonejs/keystone-5/commit/59ed6310bacc76f571639de048689becbedbeac5) [#2930](https://github.com/keystonejs/keystone-5/pull/2930) Thanks [@Vultraz](https://github.com/Vultraz)! - Fixed many usability issues with the CalendarDay field:
-
   - Fixed field not functioning as a proper controlled component in the Create popout.
   - Fixed field initially displaying "Invalid Date" before defaulting to 1970-01-01.
   - Filter input no longer defaults to the current date. This was bugged; submitting the form with no changes would match nothing.
@@ -866,7 +864,6 @@
 - [`285026a0`](https://github.com/keystonejs/keystone-5/commit/285026a04ffce23ab72d7defc18ced2e980b0de4) [#2916](https://github.com/keystonejs/keystone-5/pull/2916) Thanks [@Vultraz](https://github.com/Vultraz)! - Cleaned up handling of defaultValue in field controllers.
 
 * [`d4811b02`](https://github.com/keystonejs/keystone-5/commit/d4811b0231c5d64e95dbbce57531df0931d4defa) [#2708](https://github.com/keystonejs/keystone-5/pull/2708) Thanks [@Vultraz](https://github.com/Vultraz)! - Some minor cleanup to the file field:
-
   - Removed unused `route` and `directory` config options.
   - Added `originalFilename` to the admin meta query.
   - Explicitly added `originalFilename` and `encoding` to the Mongoose schema.
@@ -966,7 +963,6 @@
 - [`9d862edc`](https://github.com/keystonejs/keystone-5/commit/9d862edc506460d4a0456e48ec418b9042b582ad) [#2738](https://github.com/keystonejs/keystone-5/pull/2738) Thanks [@Vultraz](https://github.com/Vultraz)! - Updated react-select dependency to 3.1.0.
 
 * [`98e9f6d1`](https://github.com/keystonejs/keystone-5/commit/98e9f6d16e16ee13d2a8a22eb25be9cd2afc6fc0) [#2314](https://github.com/keystonejs/keystone-5/pull/2314) Thanks [@gautamsi](https://github.com/gautamsi)! - \* Made all values in `adminConfig` list options available to `admin-ui` as part of list's `adminMeta`.
-
   - Added `adminConfig` option to all Fields which are made available to field's `adminMeta` in `admin-ui`.
   - Added `adminMeta` option in `AdminUIApp` constructor which is also made available to `adminMeta` of `admin-ui`.
 
@@ -1362,7 +1358,6 @@
 * [`33d22c7`](https://github.com/keystonejs/keystone-5/commit/33d22c70971eb047aa670b1cd170248cbd663290) [#2078](https://github.com/keystonejs/keystone-5/pull/2078) - Fixed a bug in the Knex field adapter for virtual fields.
 
 - [`33d22c7`](https://github.com/keystonejs/keystone-5/commit/33d22c70971eb047aa670b1cd170248cbd663290) [#2078](https://github.com/keystonejs/keystone-5/pull/2078) - Fixed several issues with the CalendarDay field:
-
   - Ensured format, yearRangeFrom, and yearRangeTo defaults are set correctly
   - Removed non-functional yearPickerType
   - Made displayed date format consistent between list and detailed views
@@ -1428,7 +1423,6 @@
 - [`1a723a54`](https://github.com/keystonejs/keystone-5/commit/1a723a544a918457a9de241a8387f2ce5b555e50) [#1880](https://github.com/keystonejs/keystone-5/pull/1880) Thanks [@gautamsi](https://github.com/gautamsi)! - Replaced `RelationShip` field's implementation of `CreateItemModel` with a prop provided by `admin-ui`
 
   Exported following components from `admin-ui` which can be used outside of `admin-ui` to have same look and feel when working with Lists. One simple use is in custom pages where this can be customized differently than core list pages
-
   - `List`
   - `ListData`
   - `ListLayout`
@@ -1516,7 +1510,6 @@
 ### Major Changes
 
 - [`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310) [#1821](https://github.com/keystonejs/keystone-5/pull/1821) Thanks [@jesstelford](https://github.com/jesstelford)! - Release @keystonejs/\* packages (つ＾ ◡ ＾)つ
-
   - This is the first release of `@keystonejs/*` packages (previously `@keystone-alpha/*`).
   - All packages in the `@keystone-alpha` namespace are now available in the `@keystonejs` namespace, starting at version `5.0.0`.
   - To upgrade your project you must update any `@keystone-alpha/*` dependencies in `package.json` to point to `"@keystonejs/*": "^5.0.0"` and update any `require`/`import` statements in your code.
@@ -1648,7 +1641,6 @@
 ### Major Changes
 
 - [89c0d7e9](https://github.com/keystonejs/keystone-5/commit/89c0d7e9): The `.access` property of Fields is now keyed by `schemaName`. As such, a number of getters have been replaced with methods which take `{ schemaName }`.
-
   - `get gqlOutputFields()` -> `gqlOutputFields({ schemaName })`
   - `get gqlOutputFieldResolvers()` -> `gqlOutputFieldResolvers({ schemaName })`
   - `get gqlAuxFieldResolvers() -> gqlAuxFieldResolvers({ schemaName })`
@@ -1924,7 +1916,6 @@
 ### Major Changes
 
 - [30c1b1e1](https://github.com/keystonejs/keystone-5/commit/30c1b1e1):
-
   - Expose a new method on field Controllers: `field#validateInput()`.
     - ```javascript
       /**
@@ -1965,7 +1956,6 @@
 ### Minor Changes
 
 - [5c28c142](https://github.com/keystonejs/keystone-5/commit/5c28c142):
-
   - Add `OEmbed` field
 
     ```javascript
@@ -1992,7 +1982,6 @@
 ### Patch Changes
 
 - [1b4cf4e0](https://github.com/keystonejs/keystone-5/commit/1b4cf4e0):
-
   - Correctly read auth strategy info for displaying the "setCurrentUser" toggle on Relationship fields in the Admin UI
 
 - [3958a9c7](https://github.com/keystonejs/keystone-5/commit/3958a9c7):
@@ -2027,7 +2016,6 @@
 ### Minor Changes
 
 - [c5a1d301](https://github.com/keystonejs/keystone-5/commit/c5a1d301):
-
   - CloudinaryImage single image block correctly loads and displays saved image
   - AdminUI deserialises fields JIT before rendering
 
@@ -2068,51 +2056,40 @@
   Explicit field config options are no longer available on `field.config` for field Implementaiton objects.
 
 - [119448fc](https://github.com/keystonejs/keystone-5/commit/119448fc):
-
   - Field view Controllers: Rename `.getValue()` to `.serialize()` and add `.deserialize()` to enable handling pre-save to server & post-read from server respectively.
 
 - [1a7b706c](https://github.com/keystonejs/keystone-5/commit/1a7b706c):
-
   - Use build-field-types
 
 - [bd0ea21f](https://github.com/keystonejs/keystone-5/commit/bd0ea21f):
-
   - `{ mongooseOptions: { isRequired: true } }` should be replaced by `{ isRequired: true }`
 
 - [119448fc](https://github.com/keystonejs/keystone-5/commit/119448fc):
-
   - Field view Controllers: Rename `.getIntialData()` to `.getDefaultValue()` to better reflect the purpose of the function.
 
 ### Minor Changes
 
 - [81b481d0](https://github.com/keystonejs/keystone-5/commit/81b481d0):
-
   - Added support for isMultiline to Text field type
 
 - [c9102446](https://github.com/keystonejs/keystone-5/commit/c9102446):
-
   - Add a mechanism for loading multiple Suspense-aware components in parallel
 
 ### Patch Changes
 
 - [ebb858a5](https://github.com/keystonejs/keystone-5/commit/ebb858a5):
-
   - Optimistically open Nested Create Item Modal and show loading spinner
 
 - [81dc0be5](https://github.com/keystonejs/keystone-5/commit/81dc0be5):
-
   - Update dependencies
 
 - [a4c66012](https://github.com/keystonejs/keystone-5/commit/a4c66012):
-
   - Use `.path` rather than `.config.path` in Controllers
 
 - [3aeabc5e](https://github.com/keystonejs/keystone-5/commit/3aeabc5e):
-
   - Refactor Content Type to extend Relationship Type to simplify implementation and enable future enhancements
 
 - [b8fc0a22](https://github.com/keystonejs/keystone-5/commit/b8fc0a22):
-
   - Update dependency
 
 * Updated dependencies [e6e95173](https://github.com/keystonejs/keystone-5/commit/e6e95173):
@@ -2133,49 +2110,38 @@
 ## 5.0.0
 
 - [patch][5c36ea0b](https://github.com/keystonejs/keystone-5/commit/5c36ea0b):
-
   - Content Field no longer throws when no blocks specified or server data is corrupt
 
 - [patch][ec76b500](https://github.com/keystonejs/keystone-5/commit/ec76b500):
-
   - Initialise Block Constructors inside Field Controller
 
 - [major][ec76b500](https://github.com/keystonejs/keystone-5/commit/ec76b500):
-
   - Rename Content Editor field to document for slate.js consistency
 
 - [major][85b74a2c](https://github.com/keystonejs/keystone-5/commit/85b74a2c):
-
   - Expose result of running relationship operations (create/connect/disconnect)
 
 - [patch][e75c105c](https://github.com/keystonejs/keystone-5/commit/e75c105c):
-
   - admin revamp
 
 - [patch][d145fcb9](https://github.com/keystonejs/keystone-5/commit/d145fcb9):
-
   - Correctly return null to the Admin UI for to-single relationship fields which don't have any ID set
 
 - [patch][ec76b500](https://github.com/keystonejs/keystone-5/commit/ec76b500):
-
   - Ensure Content Block views are always loaded even when not imported
 
 ## 4.0.0
 
 - [patch][7b8d254d](https://github.com/keystonejs/keystone-5/commit/7b8d254d):
-
   - Update external dependencies
 
 - [major][37dcee37](https://github.com/keystonejs/keystone-5/commit/37dcee37):
-
   - Generate cjs and esm bundlers for Controller file
 
 - [patch][302930a4](https://github.com/keystonejs/keystone-5/commit/302930a4):
-
   - Minor internal code cleanups
 
 - [patch][21be780b](https://github.com/keystonejs/keystone-5/commit/21be780b):
-
   - Use updated test-utils APIs
 
 - Updated dependencies [545c9464](https://github.com/keystonejs/keystone-5/commit/545c9464):
@@ -2188,7 +2154,6 @@
 ## 3.0.2
 
 - [patch][03ea2b1d](https://github.com/keystonejs/keystone-5/commit/03ea2b1d):
-
   - Bump version of @arch-ui/layout
 
 ## 3.0.1
@@ -2202,37 +2167,29 @@
 ## 3.0.0
 
 - [patch][39067f44](https://github.com/keystonejs/keystone-5/commit/39067f44):
-
   - Add text date and time pickers
 
 - [major][9a9f214a](https://github.com/keystonejs/keystone-5/commit/9a9f214a):
-
   - Build field type views before publishing to npm and stop running Babel on Keystone packages in node_modules in the Admin UI
 
 ## 2.0.0
 
 - [major][dcb93771](https://github.com/keystonejs/keystone-5/commit/dcb93771):
-
   - Put field type views onto field controllers
 
 - [patch][11c372fa](https://github.com/keystonejs/keystone-5/commit/11c372fa):
-
   - Update minor-level dependencies
 
 - [patch][3a775092](https://github.com/keystonejs/keystone-5/commit/3a775092):
-
   - Update dependencies
 
 - [patch][619b17c2](https://github.com/keystonejs/keystone-5/commit/619b17c2):
-
   - Reformat code using latest version of Prettier (1.16.4)
 
 - [patch][d9a1be91](https://github.com/keystonejs/keystone-5/commit/d9a1be91):
-
   - Update dependencies
 
 - [patch][7417ea3a](https://github.com/keystonejs/keystone-5/commit/7417ea3a):
-
   - Update patch-level dependencies
 
 - Updated dependencies [96015257](https://github.com/keystonejs/keystone-5/commit/96015257):
@@ -2241,21 +2198,17 @@
 ## 1.0.1
 
 - [patch][1f0bc236](https://github.com/keystonejs/keystone-5/commit/1f0bc236):
-
   - Update the package.json author field to "The Keystone Development Team"
 
 - [patch][9534f98f](https://github.com/keystonejs/keystone-5/commit/9534f98f):
-
   - Add README.md to package
 
 - [patch][c0e64c01](https://github.com/keystonejs/keystone-5/commit/c0e64c01):
-
   - Move system tests into api-tests package
 
 ## 1.0.0
 
 - [major] 8b6734ae:
-
   - This is the first release of keystone-alpha (previously voussoir).
     All packages in the `@voussoir` namespace are now available in the `@keystone-alpha` namespace, starting at version `1.0.0`.
     To upgrade your project you must update any `@voussoir/<foo>` dependencies in `package.json` to point to `@keystone-alpha/<foo>: "^1.0.0"` and update any `require`/`import` statements in your code.
@@ -2265,26 +2218,21 @@
 ## 3.1.0
 
 - [patch] 6fa810f7:
-
   - Rename `@voussoir/core` -> `@voussoir/keystone`. This is to free up the
     `@voussoir/core` package for a different purpose, and make the main import for
     new Keystone projects be `@voussoir/keystone`. The exports have stayed the
     same.
 
 - [patch] 113e16d4:
-
   - Remove unused dependencies
 
 - [minor] eaab547c:
-
   - Allow adding related items from the Relationship field
 
 - [patch] b155d942:
-
   - Update mongo/mongoose dependencies
 
 - [patch] d035c199:
-
   - Re-enable check for bcrypt regex in <password>\_is_set
 
 - Updated dependencies [23c3fee5]:
@@ -2308,43 +2256,33 @@
 ## 3.0.0
 
 - [patch] 513c7b63:
-
   - Rename MongoSelectInterface to MongoRelationshipInterface in the relationship field type
 
 - [minor] 5f891cff:
-
   - Add a setupHooks method to BaseFieldAdapter
 
 - [patch] 723371a0:
-
   - Correctly surface nested errors from GraphQL
 
 - [major] 53e27d75:
-
   - Removes methods from Mongoose adapter classes: getFieldAdapterByQueryConditionKey, getSimpleQueryConditions, getRelationshipQueryConditions, getQueryConditions, getRelationshipQueryConditions, getRefListAdapter, hasQueryCondition.
 
 - [minor] 4faf5cfd:
-
   - Add withMeta flag to Relationship field for disabling meta queries
 
 - [patch] 306f0b7e:
-
   - Remove recalcHeight prop from Filter props
 
 - [patch] 266b5733:
-
   - Don't try to resolve nested mutations which will be later backfilled
 
 - [minor] dc53492c:
-
   - Add support for the Knex adapter
 
 - [patch] 7ce811ab:
-
   - Converts mongoose ObjectIds to string in File field types
 
 - [major] 5f8043b5:
-
   - Simplify Field component api
     - Replace item prop with value prop which is equal to item[field.path]
     - Replace itemErrors prop with error prop which is equal to itemErrors[field.path]
@@ -2352,15 +2290,12 @@
     - Remove initialData prop which wasn't used in a Field component and was only pass to the Field components in one the places where the Field component is used
 
 - [minor] f37a8086:
-
   - Can now dump the GraphQL schema with keystone.dumpSchema(filePath)
 
 - [patch] 9f2ee393:
-
   - Add adapter parameter to setupServer() and add multiAdapterRunners()
 
 - [patch] 860c3b80:
-
   - Add a postConnect method to list adapters to capture all the work which needs to be done after the database has been connected to
 
 - Updated dependencies [aca26f71]:
@@ -2377,76 +2312,59 @@
 ## 2.0.1
 
 - [patch] 3aede2f5:
-
   - Make relationship select work for large lists
 
 - [patch] c3dd4295:
-
   - Don't clobber DateTime fields during update mutation
 
 - [patch] 8d8666ad:
-
   - Dependency upgrade: graphql -> 14.0.3, graphql-tools -> 4.0.3
 
 ## 2.0.0
 
 - [patch] 21626b66:
-
   - preSave/postRead item hooks run consistently
 
 - [patch] 8145619f:
-
   - update to selecting and managing items in the list view
 
 - [minor] cd885800:
-
   - Update the field hooks API to use the officially sanctioned hook names.
 
 - [major] c83c9ed5:
-
   - Add Keystone.getAccessContext and remove List.getAccessControl, List.getFieldAccessControl, and Field.validateAccessControl.
 
 - [patch] c3ebd9e6:
-
   - Update resolver code to make all list access checks explicit
 
 - [patch] 8ab899dd:
-
   - Internal refactor of nested mutation handling for relationships
 
 - [patch] 929b177c:
-
   - Enable sorting on DateTime fields
 
 - [minor] 33843c9e:
-
   - Update the backlink queue API
 
 - [major] 01718870:
-
   - Field configuration now tasks isRequired and isUnique, rather than required and unique
 
 - [minor] 3801e040:
-
   - Separate out the pre-hooks for resolving relationship fields from the field.resolveInput hooks
 
 - [patch] 023a5c72:
-
   - Enable setting DateTime to null
 
 - [patch] d22820b1:
-
   - Rename keystone.session to keystone.sessionManager
     - Rename keystone.session.validate to keystone.sessionManager.populateAuthedItemMiddleware
     - Rename keystone.session.create to keystone.sessionManager.startAuthedSession
     - Rename keystone.session.destroy to keystone.sessionManager.endAuthedSession
 
 - [patch] 8fc0abb3:
-
   - Make DayPicker scrollable
 
 - [patch] fc1a9055:
-
   - Update dependencies to latest patch versions
 
 - Updated dependencies [ffc98ac4]:
@@ -2455,23 +2373,18 @@
 ## 1.4.0
 
 - [minor] 3ae588b7:
-
   - Rename test*AccessControl functions to validate*AccessControl
 
 - [patch] ff4b98c5:
-
   - Consolidate mongoose schema pre/post hooks for field types
 
 - [patch] 45d4c379:
-
   - Update the functional API for Keystone List objects for consistency
 
 - [minor] 589dbc02:
-
   - navigation improvements and paper cut fixes
 
 - [minor] b0d19c24:
-
   - Use consistent query condition builders across all field types
 
 - Updated dependencies [9c383fe8]:
@@ -2512,7 +2425,6 @@
 
 - [minor] 47c7dcf6"
   :
-
   - Bump all packages with a minor version to set a new baseline
 
 ## 1.1.0

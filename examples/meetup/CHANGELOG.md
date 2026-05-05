@@ -367,7 +367,6 @@
 * [`caf302129`](https://github.com/keystonejs/keystone-5/commit/caf3021295c4136ea48585d1687ad6fbf58ed4aa) [#3229](https://github.com/keystonejs/keystone-5/pull/3229) Thanks [@singhArmani](https://github.com/singhArmani)! - Updated usage of Apollo based on Next.js [example](https://github.com/vercel/next.js/blob/canary/examples/with-apollo).
 
   The **key changes** are:
-
   - Less boilerplate code for setting/initializing Apollo Client
   - Update home, events and about page to opt in for SSG
   - Removed MyApp.getIntialProps as it will stop the [Auto Static optimization](https://nextjs.org/docs/api-reference/data-fetching/getInitialProps#caveats).
@@ -802,7 +801,6 @@
 ### Major Changes
 
 - [`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310) [#1821](https://github.com/keystonejs/keystone-5/pull/1821) Thanks [@jesstelford](https://github.com/jesstelford)! - Release @keystonejs/\* packages (つ＾ ◡ ＾)つ
-
   - This is the first release of `@keystonejs/*` packages (previously `@keystone-alpha/*`).
   - All packages in the `@keystone-alpha` namespace are now available in the `@keystonejs` namespace, starting at version `5.0.0`.
   - To upgrade your project you must update any `@keystone-alpha/*` dependencies in `package.json` to point to `"@keystonejs/*": "^5.0.0"` and update any `require`/`import` statements in your code.
@@ -1030,7 +1028,6 @@
 - [dfcabe6a](https://github.com/keystonejs/keystone-5/commit/dfcabe6a):
 
   Specify custom servers from within the index.js file
-
   - Major Changes:
     - The `index.js` export for `admin` must now be exported in the `servers`
       array:
@@ -1110,7 +1107,6 @@
   ```
 
 - [6f598e83](https://github.com/keystonejs/keystone-5/commit/6f598e83):
-
   - Add Admin UI static building
 
 * Updated dependencies [9dbed649](https://github.com/keystonejs/keystone-5/commit/9dbed649):

@@ -381,8 +381,8 @@ const ItemPage = () => {
         loading || !data
           ? {}
           : data[list.gqlNames.itemQueryName]
-          ? data[list.gqlNames.itemQueryName]
-          : {}
+            ? data[list.gqlNames.itemQueryName]
+            : {}
       ),
   ]);
 

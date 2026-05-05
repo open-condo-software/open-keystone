@@ -219,7 +219,6 @@
 ### Minor Changes
 
 - [`c2ebb51c7`](https://github.com/keystonejs/keystone-5/commit/c2ebb51c786297879fe9fac2007804055631e9e2) [#2258](https://github.com/keystonejs/keystone-5/pull/2258) Thanks [@gautamsi](https://github.com/gautamsi)! - \* Added `isReadOnly` option on field's `adminConfig`. Fields with this option set will be excluded from the `create` form, and set as disabled in the `update` form in the Admin UI.
-
   - Updated the item detail page to include fields with access `{ update: false }` in a disabled state, rather than excluded the form.
   - Updated all Field Views to accept `isDisabled` prop. When set to `true` this will disable the field input.
 
@@ -433,7 +432,6 @@
 ### Major Changes
 
 - [`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310) [#1821](https://github.com/keystonejs/keystone-5/pull/1821) Thanks [@jesstelford](https://github.com/jesstelford)! - Release @keystonejs/\* packages (つ＾ ◡ ＾)つ
-
   - This is the first release of `@keystonejs/*` packages (previously `@keystone-alpha/*`).
   - All packages in the `@keystone-alpha` namespace are now available in the `@keystonejs` namespace, starting at version `5.0.0`.
   - To upgrade your project you must update any `@keystone-alpha/*` dependencies in `package.json` to point to `"@keystonejs/*": "^5.0.0"` and update any `require`/`import` statements in your code.
@@ -526,7 +524,6 @@
 - [dfcabe6a](https://github.com/keystonejs/keystone-5/commit/dfcabe6a):
 
   Specify custom servers from within the index.js file
-
   - Major Changes:
     - The `index.js` export for `admin` must now be exported in the `servers`
       array:
@@ -565,13 +562,11 @@
 ### Major Changes
 
 - [1a7b706c](https://github.com/keystonejs/keystone-5/commit/1a7b706c):
-
   - Use build-field-types
 
 ### Patch Changes
 
 - [81dc0be5](https://github.com/keystonejs/keystone-5/commit/81dc0be5):
-
   - Update dependencies
 
 * Updated dependencies [e6e95173](https://github.com/keystonejs/keystone-5/commit/e6e95173):
@@ -597,7 +592,6 @@
 ## 1.0.1
 
 - [patch][6105d999](https://github.com/keystonejs/keystone-5/commit/6105d999):
-
   - Use compiled Field component to fix webpack compilation error when building Admin UI
 
 - Updated dependencies [37dcee37](https://github.com/keystonejs/keystone-5/commit/37dcee37):
@@ -606,5 +600,4 @@
 ## 1.0.0
 
 - [major][b09983c8](https://github.com/keystonejs/keystone-5/commit/b09983c8):
-
   - Adding WYSIWYG HTML field type powered by TinyMCE

@@ -513,7 +513,6 @@
 ### Major Changes
 
 - [`7b4ed362`](https://github.com/keystonejs/keystone-5/commit/7b4ed3623f5774d7783c39962bfa1ce97938e310) [#1821](https://github.com/keystonejs/keystone-5/pull/1821) Thanks [@jesstelford](https://github.com/jesstelford)! - Release @keystonejs/\* packages (つ＾ ◡ ＾)つ
-
   - This is the first release of `@keystonejs/*` packages (previously `@keystone-alpha/*`).
   - All packages in the `@keystone-alpha` namespace are now available in the `@keystonejs` namespace, starting at version `5.0.0`.
   - To upgrade your project you must update any `@keystone-alpha/*` dependencies in `package.json` to point to `"@keystonejs/*": "^5.0.0"` and update any `require`/`import` statements in your code.
@@ -724,7 +723,6 @@
 - [dfcabe6a](https://github.com/keystonejs/keystone-5/commit/dfcabe6a):
 
   Specify custom servers from within the index.js file
-
   - Major Changes:
     - The `index.js` export for `admin` must now be exported in the `servers`
       array:
@@ -821,15 +819,12 @@
 ## 1.0.6
 
 - [patch][b4dcf44b](https://github.com/keystonejs/keystone-5/commit/b4dcf44b):
-
   - Use named exports from @keystone-alpha/keystone package.
 
 - [patch][b69fb9b7](https://github.com/keystonejs/keystone-5/commit/b69fb9b7):
-
   - Update dev devependencies
 
 - [patch][656e90c2](https://github.com/keystonejs/keystone-5/commit/656e90c2):
-
   - Explicitly call keystone.connect() before starting the web server.
 
 - Updated dependencies [37dcee37](https://github.com/keystonejs/keystone-5/commit/37dcee37):
@@ -845,7 +840,6 @@
 ## 1.0.5
 
 - [patch][5ebf4c3a](https://github.com/keystonejs/keystone-5/commit/5ebf4c3a):
-
   - Use the new @keystone-alpha/session package
 
 - Updated dependencies [8d385ede](https://github.com/keystonejs/keystone-5/commit/8d385ede):
@@ -863,13 +857,11 @@
 ## 1.0.4
 
 - [patch][5ddb2ed6](https://github.com/keystonejs/keystone-5/commit/5ddb2ed6):
-
   - Always display clickable links when starting a server in dev mode
 
 ## 1.0.3
 
 - [patch][de616f7e](https://github.com/keystonejs/keystone-5/commit/de616f7e):
-
   - Use new authStrategy APIs
 
 - Updated dependencies [9a9f214a](https://github.com/keystonejs/keystone-5/commit/9a9f214a):
@@ -884,7 +876,6 @@
 ## 1.0.2
 
 - [patch][3a775092](https://github.com/keystonejs/keystone-5/commit/3a775092):
-
   - Update dependencies
 
 - Updated dependencies [dcb93771](https://github.com/keystonejs/keystone-5/commit/dcb93771):
@@ -895,17 +886,14 @@
 ## 1.0.1
 
 - [patch][1f0bc236](https://github.com/keystonejs/keystone-5/commit/1f0bc236):
-
   - Update the package.json author field to "The Keystone Development Team"
 
 - [patch][c0e64c01](https://github.com/keystonejs/keystone-5/commit/c0e64c01):
-
   - Move system tests into api-tests package
 
 ## 1.0.0
 
 - [major] 8b6734ae:
-
   - This is the first release of keystone-alpha (previously voussoir).
     All packages in the `@voussoir` namespace are now available in the `@keystone-alpha` namespace, starting at version `1.0.0`.
     To upgrade your project you must update any `@voussoir/<foo>` dependencies in `package.json` to point to `@keystone-alpha/<foo>: "^1.0.0"` and update any `require`/`import` statements in your code.
@@ -915,32 +903,26 @@
 ## 2.0.0
 
 - [patch] 70187044:
-
   - Move some dependencies into devDependencies
 
 - [patch] 6fa810f7:
-
   - Rename `@voussoir/core` -> `@voussoir/keystone`. This is to free up the
     `@voussoir/core` package for a different purpose, and make the main import for
     new Keystone projects be `@voussoir/keystone`. The exports have stayed the
     same.
 
 - [patch] 113e16d4:
-
   - Remove unused dependencies
 
 - [patch] 1855d1ba:
-
   - Update dependencies with 'yarn audit' identified issues
 
 - [major] 582464a8:
-
   - Migrate projects to new method of exporting and running keystone instances.
 
 ## 1.2.5
 
 - [patch] 9f2ee393:
-
   - Add adapter parameter to setupServer() and add multiAdapterRunners()
 
 - Updated dependencies [723371a0]:
@@ -965,20 +947,17 @@
 ## 1.2.4
 
 - [patch] e4cc314b:
-
   - Bump
 
 ## 1.2.3
 
 - [patch] d22820b1:
-
   - Rename keystone.session to keystone.sessionManager
     - Rename keystone.session.validate to keystone.sessionManager.populateAuthedItemMiddleware
     - Rename keystone.session.create to keystone.sessionManager.startAuthedSession
     - Rename keystone.session.destroy to keystone.sessionManager.endAuthedSession
 
 - [patch] fc1a9055:
-
   - Update dependencies to latest patch versions
 
 - Updated dependencies [8145619f]:
@@ -1029,7 +1008,6 @@
 
 - [minor] 47c7dcf6"
   :
-
   - Bump all packages with a minor version to set a new baseline
 
 - Updated dependencies [d94b517]:
