@@ -189,7 +189,7 @@ export class SessionManager<SessionMeta extends Record<string, string>> {
         newSessionData.cookie.maxAge = ttl;
       }
 
-      req.sessionStore.set(newSessionId, newSessionData, (err) => {
+      req.sessionStore.set(newSessionId, newSessionData, err => {
         if (err) return reject(err);
 
         // Return the signed cookie string
