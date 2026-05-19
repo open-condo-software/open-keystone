@@ -4,6 +4,7 @@ import expressSession from 'express-session';
 import type { SessionOptions } from 'express-session';
 import { Request, Response, NextFunction } from 'express';
 import cookie from 'cookie';
+import crypto from 'crypto';
 
 // FIXME: In the future this types will need to come from Keystone itself.
 type _Item = { id: string };
@@ -148,7 +149,7 @@ export class SessionManager<SessionMeta extends Record<string, string>> {
 
   startAuthedSession(
     req: Request,
-    { item, list, meta }: { item: _Item; list: _List; meta?: SessionMeta }
+    { item, list, meta, ttl }: { item: _Item; list: _List; meta?: SessionMeta; ttl?: number }
   ) {
     return new Promise((resolve, reject) =>
       req.session.regenerate(err => {
@@ -156,9 +157,46 @@ export class SessionManager<SessionMeta extends Record<string, string>> {
         (req.session as any).keystoneListKey = list.key;
         (req.session as any).keystoneItemId = item.id;
         (req.session as any).keystoneSessionMeta = meta;
+
+        if (ttl !== undefined) {
+          req.session.cookie.maxAge = ttl;
+        }
+
         resolve(cookieSignature.sign(req.session.id, this._cookieSecret));
       })
     );
+  }
+
+  cloneAuthedSession(
+    req: Request,
+    { item, list, meta, ttl }: { item: _Item; list: _List; meta?: SessionMeta; ttl?: number }
+  ) {
+    return new Promise((resolve, reject) => {
+      const newSessionId = crypto.randomBytes(32).toString('hex');
+
+      const oldSession = (req.session as any) || {};
+      const newSessionData: any = { ...oldSession };
+
+      if (list && item) {
+        newSessionData.keystoneListKey = list.key;
+        newSessionData.keystoneItemId = item.id;
+      }
+
+      if (meta !== undefined) newSessionData.keystoneSessionMeta = meta;
+
+      if (ttl !== undefined) {
+        newSessionData.cookie = newSessionData.cookie || {};
+        newSessionData.cookie.maxAge = ttl;
+      }
+
+      req.sessionStore.set(newSessionId, newSessionData, err => {
+        if (err) return reject(err);
+
+        // Return the signed cookie string
+        const signedCookie = cookieSignature.sign(newSessionId, this._cookieSecret);
+        resolve(signedCookie);
+      });
+    });
   }
 
   endAuthedSession(req: Request): Promise<{ success: boolean; listKey: string; itemId: string }> {
@@ -177,11 +215,13 @@ export class SessionManager<SessionMeta extends Record<string, string>> {
         item,
         list,
         meta,
+        ttl,
       }: {
         item: _Item;
         list: _List;
         meta?: SessionMeta;
-      }) => this.startAuthedSession(req, { item, list, meta }),
+        ttl?: number;
+      }) => this.startAuthedSession(req, { item, list, meta, ttl }),
       endAuthedSession: () => this.endAuthedSession(req),
     };
   }
