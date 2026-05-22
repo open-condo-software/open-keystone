@@ -46,7 +46,7 @@
     "react-dom": "^18.3.1",
     "react-toast-notifications": "^2.4.4",
     "react-use-form-state": "^0.13.2",
-    "uuid": "^8.3.2"
+    "uuid": "^14.0.0"
   },
   "repository": "https://github.com/open-condo-software/open-keystone/tree/main/examples/meetup"
 }
