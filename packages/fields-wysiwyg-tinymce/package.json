@@ -20,7 +20,7 @@
     "@tinymce/tinymce-react": "^3.12.6",
     "prop-types": "^15.7.2",
     "react": "^18.3.1",
-    "tinymce": "^5.8.1"
+    "tinymce": "^7.9.3"
   },
   "peerDependencies": {
     "express": "^4.17.1"
