@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.8",
-    "@babel/core": "^7.14.6",
+    "@babel/core": "^7.29.6",
     "@babel/runtime": "^7.14.6",
     "@emotion/core": "^10.1.1",
     "@open-arch-ui/alert": "workspace:^",
