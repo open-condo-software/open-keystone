@@ -51,6 +51,7 @@
     "image-extensions": "^1.1.0",
     "inflection": "^1.13.1",
     "intersection-observer": "0.12.2",
+    "lodash": "^4.17.21",
     "lodash.groupby": "^4.6.0",
     "lodash.isequal": "^4.5.0",
     "luxon": "^1.27.0",
