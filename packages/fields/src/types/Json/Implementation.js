@@ -2,7 +2,7 @@ import { KnexFieldAdapter } from '@open-keystone/adapter-knex';
 import { MongooseFieldAdapter } from '@open-keystone/adapter-mongoose';
 import { PrismaFieldAdapter } from '@open-keystone/adapter-prisma';
 import { Implementation } from '../../Implementation';
-import isFunction from 'lodash/isFunction';
+import isFunction from 'lodash.isfunction';
 
 const stringify = JSON.stringify;
 

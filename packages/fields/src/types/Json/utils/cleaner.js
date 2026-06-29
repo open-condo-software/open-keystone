@@ -1,4 +1,6 @@
-import { isArray, isObject, omit } from 'lodash'
+import isArray from 'lodash.isarray'
+import isObject from 'lodash.isobject'
+import omit from 'lodash.omit'
 
 /**
  * Omits property with given name from object / Array
