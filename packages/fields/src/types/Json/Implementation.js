@@ -3,10 +3,11 @@ import { MongooseFieldAdapter } from '@open-keystone/adapter-mongoose';
 import { PrismaFieldAdapter } from '@open-keystone/adapter-prisma';
 import { Implementation } from '../../Implementation';
 import isFunction from 'lodash.isfunction';
+import { identity } from '@open-keystone/utils';
 
 const stringify = JSON.stringify;
 
-export class JsonImplementation extends Implementation {
+export class Json extends Implementation {
     // NOTE: argument names are based no Virtual field
     constructor (path, {
         isMultiline,
@@ -22,6 +23,10 @@ export class JsonImplementation extends Implementation {
         this.graphQLReturnType = graphQLReturnType
         this.extendGraphQLTypes = extendGraphQLTypes
         this.graphQLAdminFragment = graphQLAdminFragment
+    }
+
+    get _supportsUnique() {
+        return false;
     }
 
     // GQL Output
@@ -106,7 +111,7 @@ const CommonFieldAdapterInterface = superclass =>
         }
     }
 
-export class JsonMongooseFieldAdapter extends CommonFieldAdapterInterface(MongooseFieldAdapter) {
+export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFieldAdapter) {
     /*
      * @param {mongoose.Schema} schema
      */
@@ -119,7 +124,7 @@ export class JsonMongooseFieldAdapter extends CommonFieldAdapterInterface(Mongoo
     }
 }
 
-export class JsonKnexFieldAdapter extends CommonFieldAdapterInterface(KnexFieldAdapter) {
+export class KnexJsonInterface extends CommonFieldAdapterInterface(KnexFieldAdapter) {
     constructor () {
         super(...arguments)
 
@@ -175,15 +180,31 @@ export class JsonKnexFieldAdapter extends CommonFieldAdapterInterface(KnexFieldA
                     b.where(dbPath, f(value)),
             [`${this.path}_not`]: value => b =>
                 value === null
-                    ? b.where(dbPath, '!=', f(value)).whereNotNull(dbPath)
-                    : b.where(dbPath, '!=', f(value)),
+                    ? b.whereNotNull(dbPath).where(dbPath, '!=', f(value))
+                    : b.where(dbPath, '!=', f(value)).orWhereNull(dbPath),
         }
     }
 }
 
-export class JsonPrismaFieldAdapter extends CommonFieldAdapterInterface(PrismaFieldAdapter) {
+export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaFieldAdapter) {
     getPrismaSchema () {
         return [this._schemaField({ type: 'Json' })]
+    }
+
+    equalityConditions (dbPath, f = identity) {
+        const dbNull = this?.listAdapter?.parentAdapter?.prisma?.DbNull || null;
+        return {
+            [this.path]: value =>
+                value === null
+                    ? { OR: [{ [dbPath]: { equals: null } }, { [dbPath]: { equals: dbNull } }] }
+                    : { [dbPath]: { equals: value } },
+            [`${this.path}_not`]: value =>
+                value === null
+                    ? { NOT: { OR: [{ [dbPath]: { equals: null } }, { [dbPath]: { equals: dbNull } }] } }
+                    : {
+                        OR: [{ NOT: { [dbPath]: { equals: value } } }, { [dbPath]: { equals: null } }, { [dbPath]: { equals: dbNull } }],
+                    },
+        }
     }
 }
 

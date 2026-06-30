@@ -1,43 +1,43 @@
-import FieldController from '../../../Controller'
-import { omitRecursively } from '../utils/cleaner'
+import FieldController from '../../../Controller';
+import { omitRecursively } from '../utils/cleaner';
 
-class JsonController extends FieldController {
-    constructor (config, ...args) {
-        const defaultValue = config.defaultValue
-        super({ ...config, defaultValue }, ...args)
+export default class JsonController extends FieldController {
+  constructor(config, ...args) {
+    const defaultValue = config.defaultValue;
+    super({ ...config, defaultValue }, ...args);
+  }
+
+  deserialize = data => {
+    const { path } = this;
+    if (!data || !data[path]) {
+      // Forcibly return null if empty string
+      return null;
+    }
+    return JSON.stringify(omitRecursively(data[path], '__typename'));
+  };
+
+  serialize = data => {
+    const { path } = this;
+    if (!data || !data[path]) {
+      // Forcibly return null if empty string
+      return null;
     }
 
-    deserialize = data => {
-        const { path } = this
-        if (!data || !data[path]) {
-            // Forcibly return null if empty string
-            return null
-        }
-        return JSON.stringify(omitRecursively(data[path], '__typename'))
+    if (Array.isArray(data[path])) {
+      data[path] = JSON.stringify(data[path]);
     }
 
-    serialize = data => {
-        const { path } = this
-        if (!data || !data[path]) {
-            // Forcibly return null if empty string
-            return null
-        }
+    return omitRecursively(JSON.parse(data[path]), '__typename');
+  };
 
-        if (Array.isArray(data[path])) {
-            data[path] = JSON.stringify(data[path])
-        }
-
-        return omitRecursively(JSON.parse(data[path]), '__typename')
-    }
-
-    getQueryFragment = () => {
-        return `
+  getQueryFragment = () => {
+    return `
             ${this.path} ${this.config.graphQLAdminFragment}
-        `
-    }
+        `;
+  };
 
-    // For simplicity let's disable filtering on this field (PRs welcome)
-    getFilterTypes = () => { return [] }
+  // For simplicity let's disable filtering on this field (PRs welcome)
+  getFilterTypes = () => {
+    return [];
+  };
 }
-
-export default JsonController
