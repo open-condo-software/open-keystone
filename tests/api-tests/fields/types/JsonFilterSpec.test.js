@@ -126,17 +126,16 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
       }));
 
       test('Checking for null', runner(setupKeystone, async ({ keystone }) => {
-        const nullMid = await createItem({ keystone, listKey: 'User', item: { name: 'NullMiddleName', metadata: { profile: { middleName: null } } } });
+        await createItem({ keystone, listKey: 'User', item: { name: 'NullMiddleName', metadata: { profile: { middleName: null } } } });
         await createItem({ keystone, listKey: 'User', item: { name: 'WithMiddleName', metadata: { profile: { middleName: 'Alex' } } } });
         
         const { data, errors } = await keystone.executeGraphQL({
           query: `
             query {
               allUsers(where: {
-                id: "${nullMid.id}"
                 metadata_match: {
                   path: ["profile", "middleName"]
-                  is_null: true
+                  exists: true
                 }
               }) {
                 name
@@ -145,7 +144,7 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
           `,
         });
         expect(errors).toBe(undefined);
-        expect(data.allUsers).toEqual([{ name: 'NullMiddleName' }]);
+        expect(data.allUsers).toEqual([{ name: 'WithMiddleName' }]);
       }));
 
       test('Matching strings with string_ends_with', runner(setupKeystone, async ({ keystone }) => {
@@ -254,27 +253,37 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
           expect(names).toContain('WithoutCity');
         }));
 
-        test('is_null: true matches JSON null', runner(setupKeystone, async ({ keystone }) => {
-          await createItem({ keystone, listKey: 'User', item: { name: 'NullCity', metadata: { address: { city: null } } } });
-          
-          const { data, errors } = await keystone.executeGraphQL({
-            query: `
+        test(
+          'exists: false matches JSON null',
+          runner(setupKeystone, async ({ keystone }) => {
+            await createItem({
+              keystone,
+              listKey: 'User',
+              item: { name: 'NullCity', metadata: { address: { city: null } } },
+            });
+
+            const { data, errors } = await keystone.executeGraphQL({
+              query: `
               query {
                 allUsers(where: {
                   metadata_match: {
                     path: ["address", "city"]
-                    is_null: true
+                    exists: false
                   }
                 }) {
                   name
+                  metadata
                 }
               }
             `,
-          });
-          expect(errors).toBe(undefined);
-          const names = data.allUsers.map(u => u.name);
-          expect(names).toContain('NullCity');
-        }));
+            });
+            expect(errors).toBe(undefined);
+            const names = data.allUsers.map(u => u.name);
+            expect(names).toContain('NullCity');
+            // Normalized to null
+            data.allUsers.forEach(u => expect(u.metadata).toEqual(null));
+          })
+        );
       });
 
       describe('Type-specific operators', () => {
@@ -359,7 +368,7 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
             query: `query { allUsers(where: { metadata_match: { path: ["foo"] } }) { id } }`,
           });
           expect(errors).not.toBe(undefined);
-          expect(errors[0].message).toMatch(/At least one condition must be used in JsonMatchInput/);
+          expect(errors[0].message).toMatch(/One condition is required in JsonMatchInput/);
         }));
       });
     });
