@@ -139,6 +139,16 @@ export class Json extends Implementation {
                     throw new Error(`Invalid JSON path segment "${segment}" for ${this.listKey}.${this.path}`);
                 }
             }
+
+            if (this.config.allowedPaths) {
+                const isAllowed = this.config.allowedPaths.some(allowedPath => {
+                    if (allowedPath.length !== path.length) return false;
+                    return allowedPath.every((segment, i) => segment === path[i]);
+                });
+                if (!isAllowed) {
+                    throw new Error(`JSON path ${JSON.stringify(path)} is not allowed for ${this.listKey}.${this.path}`);
+                }
+            }
         }
 
         const conditionKeys = Object.keys(conditions).filter(k => conditions[k] !== undefined);
@@ -146,7 +156,7 @@ export class Json extends Implementation {
             throw new Error(`Only one condition can be used in JsonMatchInput for ${this.listKey}.${this.path}`);
         }
         if (conditionKeys.length === 0) {
-            throw new Error(`At least one condition must be used in JsonMatchInput for ${this.listKey}.${this.path}`);
+            throw new Error(`One condition is required in JsonMatchInput for ${this.listKey}.${this.path}`);
         }
     }
 }
@@ -196,7 +206,18 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
                 const targetPath = fullPath(dbPath, path);
 
                 if ('equals' in conditions) {
-                    query[targetPath] = conditions.equals;
+                    const val = conditions.equals;
+                    if (val === null) {
+                        query[targetPath] = null;
+                    } else if (typeof val === 'number') {
+                        query[targetPath] = { $eq: val, $type: 'number' };
+                    } else if (typeof val === 'string') {
+                        query[targetPath] = { $eq: val, $type: 'string' };
+                    } else if (typeof val === 'boolean') {
+                        query[targetPath] = { $eq: val, $type: 'bool' };
+                    } else {
+                        query[targetPath] = val;
+                    }
                 }
                 if ('not' in conditions) {
                     query[targetPath] = { $ne: conditions.not };
@@ -350,32 +371,32 @@ export class KnexJsonInterface extends CommonFieldAdapterInterface(KnexFieldAdap
 
                 if ('equals' in conditions) {
                     if (path.length > 0) {
-                        b.whereRaw(`${textSelector} = ?`, [...textArgs, stringify(conditions.equals).replace(/^"|"$/g, '')]);
+                        b.whereRaw(`(${jsonSelector} = ?) IS TRUE`, [...jsonArgs, stringify(conditions.equals)]);
                     } else {
-                        b.where(dbPath, stringify(conditions.equals));
+                        b.where(dbPath, stringify(conditions.equals)).whereNotNull(dbPath);
                     }
                 }
                 if ('not' in conditions) {
                     if (path.length > 0) {
-                        b.whereRaw(`${textSelector} != ?`, [...textArgs, stringify(conditions.not).replace(/^"|"$/g, '')]);
+                        b.whereRaw(`(${jsonSelector} != ?) IS TRUE`, [...jsonArgs, stringify(conditions.not)]);
                     } else {
-                        b.where(dbPath, '!=', stringify(conditions.not));
+                        b.where(dbPath, '!=', stringify(conditions.not)).whereNotNull(dbPath);
                     }
                 }
                 if ('in' in conditions) {
-                    const values = conditions.in.map(v => stringify(v).replace(/^"|"$/g, ''));
                     if (path.length > 0) {
-                        b.whereRaw(`${textSelector} IN (${values.map(() => '?').join(',')})`, [...textArgs, ...values]);
+                        const values = conditions.in.map(v => stringify(v));
+                        b.whereRaw(`(${jsonSelector} IN (${values.map(() => '?').join(',')})) IS TRUE`, [...jsonArgs, ...values]);
                     } else {
-                        b.whereIn(dbPath, conditions.in.map(v => stringify(v)));
+                        b.whereIn(dbPath, conditions.in.map(v => stringify(v))).whereNotNull(dbPath);
                     }
                 }
                 if ('not_in' in conditions) {
-                    const values = conditions.not_in.map(v => stringify(v).replace(/^"|"$/g, ''));
                     if (path.length > 0) {
-                        b.whereRaw(`${textSelector} NOT IN (${values.map(() => '?').join(',')})`, [...textArgs, ...values]);
+                        const values = conditions.not_in.map(v => stringify(v));
+                        b.whereRaw(`(${jsonSelector} NOT IN (${values.map(() => '?').join(',')})) IS TRUE`, [...jsonArgs, ...values]);
                     } else {
-                        b.whereNotIn(dbPath, conditions.not_in.map(v => stringify(v)));
+                        b.whereNotIn(dbPath, conditions.not_in.map(v => stringify(v))).whereNotNull(dbPath);
                     }
                 }
                 if ('exists' in conditions) {
@@ -396,9 +417,9 @@ export class KnexJsonInterface extends CommonFieldAdapterInterface(KnexFieldAdap
                 if ('is_null' in conditions) {
                     if (path.length > 0) {
                         if (conditions.is_null) {
-                            b.whereRaw(`jsonb_typeof(${jsonSelector}) = 'null'`, jsonArgs);
+                            b.whereRaw(`(jsonb_typeof(${jsonSelector}) = 'null') IS TRUE`, jsonArgs);
                         } else {
-                            b.whereRaw(`jsonb_typeof(${jsonSelector}) != 'null'`, jsonArgs);
+                            b.whereRaw(`(jsonb_typeof(${jsonSelector}) != 'null' AND ${jsonSelector} IS NOT NULL) IS TRUE`, [...jsonArgs, ...jsonArgs]);
                         }
                     } else {
                         if (conditions.is_null) {
@@ -409,37 +430,37 @@ export class KnexJsonInterface extends CommonFieldAdapterInterface(KnexFieldAdap
                     }
                 }
                 if ('lt' in conditions) {
-                    b.whereRaw(`jsonb_typeof(${jsonSelector}) = 'number' AND CAST(${textSelector} AS FLOAT) < ?`, [...jsonArgs, ...textArgs, conditions.lt]);
+                    b.whereRaw(`(jsonb_typeof(${jsonSelector}) = 'number' AND CAST(${textSelector} AS FLOAT) < ?) IS TRUE`, [...jsonArgs, ...textArgs, conditions.lt]);
                 }
                 if ('lte' in conditions) {
-                    b.whereRaw(`jsonb_typeof(${jsonSelector}) = 'number' AND CAST(${textSelector} AS FLOAT) <= ?`, [...jsonArgs, ...textArgs, conditions.lte]);
+                    b.whereRaw(`(jsonb_typeof(${jsonSelector}) = 'number' AND CAST(${textSelector} AS FLOAT) <= ?) IS TRUE`, [...jsonArgs, ...textArgs, conditions.lte]);
                 }
                 if ('gt' in conditions) {
-                    b.whereRaw(`jsonb_typeof(${jsonSelector}) = 'number' AND CAST(${textSelector} AS FLOAT) > ?`, [...jsonArgs, ...textArgs, conditions.gt]);
+                    b.whereRaw(`(jsonb_typeof(${jsonSelector}) = 'number' AND CAST(${textSelector} AS FLOAT) > ?) IS TRUE`, [...jsonArgs, ...textArgs, conditions.gt]);
                 }
                 if ('gte' in conditions) {
-                    b.whereRaw(`jsonb_typeof(${jsonSelector}) = 'number' AND CAST(${textSelector} AS FLOAT) >= ?`, [...jsonArgs, ...textArgs, conditions.gte]);
+                    b.whereRaw(`(jsonb_typeof(${jsonSelector}) = 'number' AND CAST(${textSelector} AS FLOAT) >= ?) IS TRUE`, [...jsonArgs, ...textArgs, conditions.gte]);
                 }
                 if ('string_contains' in conditions) {
-                    b.whereRaw(`jsonb_typeof(${jsonSelector}) = 'string' AND ${textSelector} LIKE ?`, [...jsonArgs, ...textArgs, `%${conditions.string_contains}%`]);
+                    b.whereRaw(`(jsonb_typeof(${jsonSelector}) = 'string' AND ${textSelector} LIKE ?) IS TRUE`, [...jsonArgs, ...textArgs, `%${conditions.string_contains}%`]);
                 }
                 if ('string_not_contains' in conditions) {
-                    b.whereRaw(`jsonb_typeof(${jsonSelector}) = 'string' AND ${textSelector} NOT LIKE ?`, [...jsonArgs, ...textArgs, `%${conditions.string_not_contains}%`]);
+                    b.whereRaw(`(jsonb_typeof(${jsonSelector}) = 'string' AND ${textSelector} NOT LIKE ?) IS TRUE`, [...jsonArgs, ...textArgs, `%${conditions.string_not_contains}%`]);
                 }
                 if ('string_starts_with' in conditions) {
-                    b.whereRaw(`jsonb_typeof(${jsonSelector}) = 'string' AND ${textSelector} LIKE ?`, [...jsonArgs, ...textArgs, `${conditions.string_starts_with}%`]);
+                    b.whereRaw(`(jsonb_typeof(${jsonSelector}) = 'string' AND ${textSelector} LIKE ?) IS TRUE`, [...jsonArgs, ...textArgs, `${conditions.string_starts_with}%`]);
                 }
                 if ('string_not_starts_with' in conditions) {
-                    b.whereRaw(`jsonb_typeof(${jsonSelector}) = 'string' AND ${textSelector} NOT LIKE ?`, [...jsonArgs, ...textArgs, `${conditions.string_not_starts_with}%`]);
+                    b.whereRaw(`(jsonb_typeof(${jsonSelector}) = 'string' AND ${textSelector} NOT LIKE ?) IS TRUE`, [...jsonArgs, ...textArgs, `${conditions.string_not_starts_with}%`]);
                 }
                 if ('string_ends_with' in conditions) {
-                    b.whereRaw(`jsonb_typeof(${jsonSelector}) = 'string' AND ${textSelector} LIKE ?`, [...jsonArgs, ...textArgs, `%${conditions.string_ends_with}`]);
+                    b.whereRaw(`(jsonb_typeof(${jsonSelector}) = 'string' AND ${textSelector} LIKE ?) IS TRUE`, [...jsonArgs, ...textArgs, `%${conditions.string_ends_with}`]);
                 }
                 if ('string_not_ends_with' in conditions) {
-                    b.whereRaw(`jsonb_typeof(${jsonSelector}) = 'string' AND ${textSelector} NOT LIKE ?`, [...jsonArgs, ...textArgs, `%${conditions.string_not_ends_with}`]);
+                    b.whereRaw(`(jsonb_typeof(${jsonSelector}) = 'string' AND ${textSelector} NOT LIKE ?) IS TRUE`, [...jsonArgs, ...textArgs, `%${conditions.string_not_ends_with}`]);
                 }
                 if ('array_contains' in conditions) {
-                    b.whereRaw(`jsonb_typeof(${jsonSelector}) = 'array' AND ${jsonSelector} @> ?`, [...jsonArgs, ...jsonArgs, stringify([conditions.array_contains])]);
+                    b.whereRaw(`(jsonb_typeof(${jsonSelector}) = 'array' AND ${jsonSelector} @> ?) IS TRUE`, [...jsonArgs, ...jsonArgs, stringify([conditions.array_contains])]);
                 }
 
                 return b;

@@ -821,12 +821,14 @@ class QueryBuilder {
         whereJoiner(q => {
           // AND/OR need to traverse both side of the query
           let subJoiner;
-          if (path == 'AND') {
+          if (path === 'AND') {
             q.whereRaw('true');
             subJoiner = w => q.andWhere(w);
-          } else {
+          } else if (path === 'OR') {
             q.whereRaw('false');
             subJoiner = w => q.orWhere(w);
+          } else {
+            throw new Error('Unknown add wheres condition. If you trying to implement NOT you are in the rignt place')
           }
           where[path].forEach(subWhere =>
             this._addWheres(subJoiner, listAdapter, subWhere, tableAlias)
