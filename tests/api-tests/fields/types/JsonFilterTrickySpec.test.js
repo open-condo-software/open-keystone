@@ -18,6 +18,7 @@ function setupKeystone(adapterName) {
               ['profile', 'name'],
               ['profile', 'middleName'],
               ['profile', 'active'],
+              ['profile', 'company'],
               ['profile', 'company', 'tier'],
               ['tags'],
               ['tags', '0'],
@@ -539,7 +540,7 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
             }
           } else {
             expect(errors).toBe(undefined);
-            expect(ids).toEqual((expect_ids || []).sort());
+            expect(ids.sort()).toEqual((expect_ids || []).sort());
           }
         }));
       });
@@ -665,17 +666,17 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
             const { ids: rightIds } = await runQuery(keystone, right);
 
             if (expect_equal_ids) {
-              expect(leftIds).toEqual(rightIds);
+              expect(leftIds.sort()).toEqual(rightIds.sort());
               if (expect_ids) {
-                expect(leftIds).toEqual(expect_ids.sort());
+                expect(leftIds.sort()).toEqual(expect_ids.sort());
               }
             } else {
-              expect(leftIds).not.toEqual(rightIds);
+              expect(leftIds.sort()).not.toEqual(rightIds.sort());
               if (left_expect_ids) {
-                expect(leftIds).toEqual(left_expect_ids.sort());
+                expect(leftIds.sort()).toEqual(left_expect_ids.sort());
               }
               if (right_expect_ids) {
-                expect(rightIds).toEqual(right_expect_ids.sort());
+                expect(rightIds.sort()).toEqual(right_expect_ids.sort());
               }
             }
           }));
