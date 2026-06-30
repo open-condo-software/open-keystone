@@ -508,13 +508,15 @@ class PrismaListAdapter extends BaseListAdapter {
       );
     const wheres = Object.entries(where).map(([condition, value]) => {
       if (condition === 'AND' || condition === 'OR') {
-        return { [condition]: value.map(w => this.processWheres(w)) };
+        const processed = value.map(w => this.processWheres(w)).filter(w => w !== undefined);
+        return processed.length > 0 ? { [condition]: processed } : undefined;
       } else if (
         this.fieldAdaptersByPath[condition] &&
         this.fieldAdaptersByPath[condition].isRelationship
       ) {
         // Non-many relationship. Traverse the sub-query, using the referenced list as a root.
-        return { [condition]: processRelClause(condition, value) };
+        const processed = processRelClause(condition, value);
+        return processed !== undefined ? { [condition]: processed } : undefined;
       } else {
         // See if any of our fields know what to do with this condition
         let dbPath = condition;
@@ -532,10 +534,14 @@ class PrismaListAdapter extends BaseListAdapter {
         } else {
           // Many relationship
           const [fieldPath, constraintType] = condition.split('_');
-          return { [fieldPath]: { [constraintType]: processRelClause(fieldPath, value) } };
+          const processed = processRelClause(fieldPath, value);
+          return processed !== undefined
+            ? { [fieldPath]: { [constraintType]: processed } }
+            : undefined;
         }
       }
-    });
+    })
+    .filter(w => w !== undefined);
 
     return wheres.length === 0 ? undefined : wheres.length === 1 ? wheres[0] : { AND: wheres };
   }

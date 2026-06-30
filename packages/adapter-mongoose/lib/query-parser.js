@@ -41,7 +41,7 @@ function queryParser({ listAdapter, getUID }, query, pathSoFar = [], include) {
       } else {
         return { matchTerm: simpleTokenizer(listAdapter, query, key, path) };
       }
-    } else if (getType(value) === 'Object') {
+    } else if (getType(value) === 'Object' && !key.includes('_match')) {
       // A relationship query component
       const { matchTerm, relationshipInfo } = relationshipTokenizer(listAdapter, key, path, getUID);
 
