@@ -280,7 +280,8 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
                         query,
                         { [targetPath]: { $exists: false } },
                         { [targetPath]: null },
-                        { [dbPath]: null }
+                        { [dbPath]: null },
+                        { [dbPath]: { $type: 'null' } },
                     ]
                 });
 
@@ -300,7 +301,7 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
                     if (conditions.exists) {
                         return { [targetPath]: { $exists: true, $ne: null } };
                     } else {
-                        return { $or: [{ [targetPath]: { $exists: false } }, { [targetPath]: null }, { [dbPath]: null }] };
+                        return { $or: [{ [targetPath]: { $exists: false } }, { [targetPath]: null }, { [dbPath]: null }, { [dbPath]: { $type: 'null' } }] };
                     }
                 }
                 if ('lt' in conditions) {
@@ -547,6 +548,7 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
     }
 
     matchConditions (dbPath) {
+        const dbNull = this?.listAdapter?.parentAdapter?.prisma?.DbNull || null;
         return {
             [`${this.path}_match`]: value => {
                 if (value === null || value === undefined) {
@@ -559,19 +561,42 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
                     return { [dbPath]: { path, equals: conditions.equals } };
                 }
                 if ('not' in conditions) {
-                    return { NOT: { [dbPath]: { path, equals: conditions.not } } };
+                    return {
+                        OR: [
+                            { NOT: { [dbPath]: { path, equals: conditions.not } } },
+                            { [dbPath]: { path, equals: dbNull } },
+                            { NOT: { [dbPath]: { path, not: null } } },
+                            { [dbPath]: { equals: null } },
+                            { [dbPath]: { equals: dbNull } },
+                        ],
+                    };
                 }
                 if ('in' in conditions) {
                     return { [dbPath]: { path, in: conditions.in } };
                 }
                 if ('not_in' in conditions) {
-                    return { NOT: { [dbPath]: { path, in: conditions.not_in } } };
+                    return {
+                        OR: [
+                            { NOT: { [dbPath]: { path, in: conditions.not_in } } },
+                            { [dbPath]: { path, equals: dbNull } },
+                            { NOT: { [dbPath]: { path, not: null } } },
+                            { [dbPath]: { equals: null } },
+                            { [dbPath]: { equals: dbNull } },
+                        ],
+                    };
                 }
                 if ('exists' in conditions) {
                     if (conditions.exists) {
                         return { [dbPath]: { path, not: null } };
                     } else {
-                        return { NOT: { [dbPath]: { path, not: null } } };
+                        return {
+                            OR: [
+                                { [dbPath]: { path, equals: dbNull } },
+                                { NOT: { [dbPath]: { path, not: null } } },
+                                { [dbPath]: { equals: null } },
+                                { [dbPath]: { equals: dbNull } },
+                            ],
+                        };
                     }
                 }
                 if ('lt' in conditions) {
@@ -590,22 +615,49 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
                     return { [dbPath]: { path, string_contains: conditions.string_contains } };
                 }
                 if ('string_not_contains' in conditions) {
-                    return { NOT: { [dbPath]: { path, string_contains: conditions.string_not_contains } } };
+                    return {
+                        OR: [
+                            { NOT: { [dbPath]: { path, string_contains: conditions.string_not_contains } } },
+                            { [dbPath]: { path, equals: dbNull } },
+                            { NOT: { [dbPath]: { path, not: null } } },
+                            { [dbPath]: { equals: null } },
+                            { [dbPath]: { equals: dbNull } },
+                        ],
+                    };
                 }
                 if ('string_starts_with' in conditions) {
                     return { [dbPath]: { path, string_starts_with: conditions.string_starts_with } };
                 }
                 if ('string_not_starts_with' in conditions) {
-                    return { NOT: { [dbPath]: { path, string_starts_with: conditions.string_not_starts_with } } };
+                    return {
+                        OR: [
+                            { NOT: { [dbPath]: { path, string_starts_with: conditions.string_not_starts_with } } },
+                            { [dbPath]: { path, equals: dbNull } },
+                            { NOT: { [dbPath]: { path, not: null } } },
+                            { [dbPath]: { equals: null } },
+                            { [dbPath]: { equals: dbNull } },
+                        ],
+                    };
                 }
                 if ('string_ends_with' in conditions) {
                     return { [dbPath]: { path, string_ends_with: conditions.string_ends_with } };
                 }
                 if ('string_not_ends_with' in conditions) {
-                    return { NOT: { [dbPath]: { path, string_ends_with: conditions.string_not_ends_with } } };
+                    return {
+                        OR: [
+                            { NOT: { [dbPath]: { path, string_ends_with: conditions.string_not_ends_with } } },
+                            { [dbPath]: { path, equals: dbNull } },
+                            { NOT: { [dbPath]: { path, not: null } } },
+                            { [dbPath]: { equals: null } },
+                            { [dbPath]: { equals: dbNull } },
+                        ],
+                    };
                 }
                 if ('array_contains' in conditions) {
                     return { [dbPath]: { path, array_contains: conditions.array_contains } };
+                }
+                if ('in' in conditions) {
+                    return { [dbPath]: { path, in: conditions.in } };
                 }
 
                 return {};

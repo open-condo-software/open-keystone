@@ -180,8 +180,9 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
 
       describe('Tricky values', () => {
         const trickyValues = [
-          { name: 'empty object', value: {} },
-          { name: 'empty array', value: [] },
+          { name: 'null object', value: null, expected: null },
+          { name: 'empty object', value: {}, expected: null },
+          { name: 'empty array', value: [], expected: null },
           { name: 'boolean true', value: true },
           { name: 'boolean false', value: false },
           { name: 'number', value: 123 },
@@ -190,11 +191,15 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
           { name: 'empty string', value: '' },
           { name: 'string', value: 'simple string' },
           { name: 'unicode', value: '🚀 unicode' },
-          { name: 'complex nested', value: { nested: { a: 1, b: null, c: [true, false, 'str', {}] } } },
-          { name: 'mixed array', value: [null, 1, 'a', {}] },
+          {
+            name: 'complex nested',
+            value: { nested: { a: 1, b: null, c: [true, false, 'str', {}, []] } },
+            expected: { nested: { a: 1, c: [true, false, 'str', null, null] } },
+          },
+          { name: 'mixed array', value: [null, 1, 'a', {}], expected: [null, 1, 'a', null] },
         ];
 
-        trickyValues.forEach(({ name, value }) => {
+        trickyValues.forEach(({ name, value, expected }) => {
           test(
             `correctly handles ${name}`,
             runner(setupKeystone, async ({ keystone }) => {
@@ -214,14 +219,8 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
               expect(data).toHaveProperty('Post.meta');
 
               // Mongoose minimizes empty objects to null by default
-              if (
-                adapterName === 'mongoose' &&
-                value !== null &&
-                typeof value === 'object' &&
-                Object.keys(value).length === 0 &&
-                !Array.isArray(value)
-              ) {
-                expect(data.Post.meta).toBe(null);
+              if (typeof expected !== 'undefined') {
+                expect(data.Post.meta).toEqual(expected);
               } else {
                 expect(data.Post.meta).toEqual(value);
               }
