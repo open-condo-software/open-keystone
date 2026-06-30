@@ -1,6 +1,6 @@
-import isArray from 'lodash.isarray'
-import isObject from 'lodash.isobject'
-import omit from 'lodash.omit'
+import isArray from 'lodash.isarray';
+import isObject from 'lodash.isobject';
+import omit from 'lodash.omit';
 
 /**
  * Omits property with given name from object / Array
@@ -9,10 +9,13 @@ import omit from 'lodash.omit'
  * @return {*}
  */
 export const omitRecursively = (obj, propToOmit) => {
-    if (isArray(obj)) {
-        return obj.map((item) => omitRecursively(item, propToOmit))
-    }
-    if (!isObject(obj)) return obj
-    const cleaned = omit(obj, propToOmit)
-    return Object.assign({}, ...Object.keys(cleaned).map((key) => ({ [key]: omitRecursively(cleaned[key], propToOmit) })))
-}
+  if (isArray(obj)) {
+    return obj.map(item => omitRecursively(item, propToOmit));
+  }
+  if (!isObject(obj)) return obj;
+  const cleaned = omit(obj, propToOmit);
+  return Object.assign(
+    {},
+    ...Object.keys(cleaned).map(key => ({ [key]: omitRecursively(cleaned[key], propToOmit) }))
+  );
+};

@@ -828,7 +828,9 @@ class QueryBuilder {
             q.whereRaw('false');
             subJoiner = w => q.orWhere(w);
           } else {
-            throw new Error('Unknown add wheres condition. If you trying to implement NOT you are in the rignt place')
+            throw new Error(
+              'Unknown add wheres condition. If you trying to implement NOT you are in the rignt place'
+            );
           }
           where[path].forEach(subWhere =>
             this._addWheres(subJoiner, listAdapter, subWhere, tableAlias)

@@ -45,7 +45,14 @@ const fixture = [
   {
     id: 'u1',
     metadata: {
-      profile: { country: 'DE', age: 29, email: 'alex@example.com', name: 'Alex', middleName: null, active: true },
+      profile: {
+        country: 'DE',
+        age: 29,
+        email: 'alex@example.com',
+        name: 'Alex',
+        middleName: null,
+        active: true,
+      },
       tags: ['beta', 'paid'],
       score: 10,
       addresses: [{ city: 'Berlin', zip: '10115' }],
@@ -65,7 +72,13 @@ const fixture = [
   {
     id: 'u3',
     metadata: {
-      profile: { country: 'FR', age: 35, email: 'clara@example.org', name: 'Clara', company: { tier: 'gold' } },
+      profile: {
+        country: 'FR',
+        age: 35,
+        email: 'clara@example.org',
+        name: 'Clara',
+        company: { tier: 'gold' },
+      },
       tags: ['beta', 'internal'],
       score: 15,
       addresses: [],
@@ -511,8 +524,7 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
         },
         {
           id: 'json_match_050_complex_missing_or_null_logic',
-          title:
-            'Компания отсутствует, но email существует и заканчивается на .com',
+          title: 'Компания отсутствует, но email существует и заканчивается на .com',
           where: {
             AND: [
               { metadata_match: { path: ['profile', 'company'], exists: false } },
@@ -525,24 +537,28 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
       ];
 
       testCases.forEach(({ id, title, where, expect_ids, expect_error }) => {
-        test(`${id}: ${title}`, runner(setupKeystone, async ({ keystone }) => {
-          await createFixture(keystone);
-          const { ids, errors } = await runQuery(keystone, where);
-          if (expect_error) {
-            expect(errors).not.toBe(undefined);
-            if (expect_error.code) {
-              const hasExpectedCode = errors[0].extensions && errors[0].extensions.code === expect_error.code;
-              const hasExpectedMessage = errors[0].message.includes(expect_error.code);
-              expect(hasExpectedCode || hasExpectedMessage).toBe(true);
+        test(
+          `${id}: ${title}`,
+          runner(setupKeystone, async ({ keystone }) => {
+            await createFixture(keystone);
+            const { ids, errors } = await runQuery(keystone, where);
+            if (expect_error) {
+              expect(errors).not.toBe(undefined);
+              if (expect_error.code) {
+                const hasExpectedCode =
+                  errors[0].extensions && errors[0].extensions.code === expect_error.code;
+                const hasExpectedMessage = errors[0].message.includes(expect_error.code);
+                expect(hasExpectedCode || hasExpectedMessage).toBe(true);
+              }
+              if (expect_error.message_contains) {
+                expect(errors[0].message).toContain(expect_error.message_contains);
+              }
+            } else {
+              expect(errors).toBe(undefined);
+              expect(ids.sort()).toEqual((expect_ids || []).sort());
             }
-            if (expect_error.message_contains) {
-              expect(errors[0].message).toContain(expect_error.message_contains);
-            }
-          } else {
-            expect(errors).toBe(undefined);
-            expect(ids.sort()).toEqual((expect_ids || []).sort());
-          }
-        }));
+          })
+        );
       });
 
       describe('Invalid input test cases', () => {
@@ -622,18 +638,22 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
         ];
 
         invalidTestCases.forEach(({ id, title, where, expect_error }) => {
-          test(`${id}: ${title}`, runner(setupKeystone, async ({ keystone }) => {
-            const { errors } = await runQuery(keystone, where);
-            expect(errors).not.toBe(undefined);
-            if (expect_error.code) {
-              const hasExpectedCode = errors[0].extensions && errors[0].extensions.code === expect_error.code;
-              const hasExpectedMessage = errors[0].message.includes(expect_error.code);
-              expect(hasExpectedCode || hasExpectedMessage).toBe(true);
-            }
-            if (expect_error.message_contains) {
-              expect(errors[0].message).toContain(expect_error.message_contains);
-            }
-          }));
+          test(
+            `${id}: ${title}`,
+            runner(setupKeystone, async ({ keystone }) => {
+              const { errors } = await runQuery(keystone, where);
+              expect(errors).not.toBe(undefined);
+              if (expect_error.code) {
+                const hasExpectedCode =
+                  errors[0].extensions && errors[0].extensions.code === expect_error.code;
+                const hasExpectedMessage = errors[0].message.includes(expect_error.code);
+                expect(hasExpectedCode || hasExpectedMessage).toBe(true);
+              }
+              if (expect_error.message_contains) {
+                expect(errors[0].message).toContain(expect_error.message_contains);
+              }
+            })
+          );
         });
       });
 
@@ -656,31 +676,46 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
           },
         ];
 
-        equivalenceTestCases.forEach(({ id, title, left, right, expect_equal_ids, expect_ids, left_expect_ids, right_expect_ids, skip }) => {
-          test(`${id}: ${title}`, runner(setupKeystone, async ({ keystone }) => {
-            if (skip && skip.includes(adapterName)) {
-              return;
-            }
-            await createFixture(keystone);
-            const { ids: leftIds } = await runQuery(keystone, left);
-            const { ids: rightIds } = await runQuery(keystone, right);
+        equivalenceTestCases.forEach(
+          ({
+            id,
+            title,
+            left,
+            right,
+            expect_equal_ids,
+            expect_ids,
+            left_expect_ids,
+            right_expect_ids,
+            skip,
+          }) => {
+            test(
+              `${id}: ${title}`,
+              runner(setupKeystone, async ({ keystone }) => {
+                if (skip && skip.includes(adapterName)) {
+                  return;
+                }
+                await createFixture(keystone);
+                const { ids: leftIds } = await runQuery(keystone, left);
+                const { ids: rightIds } = await runQuery(keystone, right);
 
-            if (expect_equal_ids) {
-              expect(leftIds.sort()).toEqual(rightIds.sort());
-              if (expect_ids) {
-                expect(leftIds.sort()).toEqual(expect_ids.sort());
-              }
-            } else {
-              expect(leftIds.sort()).not.toEqual(rightIds.sort());
-              if (left_expect_ids) {
-                expect(leftIds.sort()).toEqual(left_expect_ids.sort());
-              }
-              if (right_expect_ids) {
-                expect(rightIds.sort()).toEqual(right_expect_ids.sort());
-              }
-            }
-          }));
-        });
+                if (expect_equal_ids) {
+                  expect(leftIds.sort()).toEqual(rightIds.sort());
+                  if (expect_ids) {
+                    expect(leftIds.sort()).toEqual(expect_ids.sort());
+                  }
+                } else {
+                  expect(leftIds.sort()).not.toEqual(rightIds.sort());
+                  if (left_expect_ids) {
+                    expect(leftIds.sort()).toEqual(left_expect_ids.sort());
+                  }
+                  if (right_expect_ids) {
+                    expect(rightIds.sort()).toEqual(right_expect_ids.sort());
+                  }
+                }
+              })
+            );
+          }
+        );
       });
     });
   })

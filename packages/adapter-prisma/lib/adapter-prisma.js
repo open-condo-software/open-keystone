@@ -506,42 +506,43 @@ class PrismaListAdapter extends BaseListAdapter {
       this.getListAdapterByKey(this.fieldAdaptersByPath[fieldPath].refListKey).processWheres(
         clause
       );
-    const wheres = Object.entries(where).map(([condition, value]) => {
-      if (condition === 'AND' || condition === 'OR') {
-        const processed = value.map(w => this.processWheres(w)).filter(w => w !== undefined);
-        return processed.length > 0 ? { [condition]: processed } : undefined;
-      } else if (
-        this.fieldAdaptersByPath[condition] &&
-        this.fieldAdaptersByPath[condition].isRelationship
-      ) {
-        // Non-many relationship. Traverse the sub-query, using the referenced list as a root.
-        const processed = processRelClause(condition, value);
-        return processed !== undefined ? { [condition]: processed } : undefined;
-      } else {
-        // See if any of our fields know what to do with this condition
-        let dbPath = condition;
-        let fieldAdapter = this.fieldAdaptersByPath[dbPath];
-        while (!fieldAdapter && dbPath.includes('_')) {
-          dbPath = dbPath.split('_').slice(0, -1).join('_');
-          fieldAdapter = this.fieldAdaptersByPath[dbPath];
-        }
-
-        // FIXME: ask the field adapter if it supports the condition type
-        const supported =
-          fieldAdapter && fieldAdapter.getQueryConditions(fieldAdapter.dbPath)[condition];
-        if (supported) {
-          return supported(value);
+    const wheres = Object.entries(where)
+      .map(([condition, value]) => {
+        if (condition === 'AND' || condition === 'OR') {
+          const processed = value.map(w => this.processWheres(w)).filter(w => w !== undefined);
+          return processed.length > 0 ? { [condition]: processed } : undefined;
+        } else if (
+          this.fieldAdaptersByPath[condition] &&
+          this.fieldAdaptersByPath[condition].isRelationship
+        ) {
+          // Non-many relationship. Traverse the sub-query, using the referenced list as a root.
+          const processed = processRelClause(condition, value);
+          return processed !== undefined ? { [condition]: processed } : undefined;
         } else {
-          // Many relationship
-          const [fieldPath, constraintType] = condition.split('_');
-          const processed = processRelClause(fieldPath, value);
-          return processed !== undefined
-            ? { [fieldPath]: { [constraintType]: processed } }
-            : undefined;
+          // See if any of our fields know what to do with this condition
+          let dbPath = condition;
+          let fieldAdapter = this.fieldAdaptersByPath[dbPath];
+          while (!fieldAdapter && dbPath.includes('_')) {
+            dbPath = dbPath.split('_').slice(0, -1).join('_');
+            fieldAdapter = this.fieldAdaptersByPath[dbPath];
+          }
+
+          // FIXME: ask the field adapter if it supports the condition type
+          const supported =
+            fieldAdapter && fieldAdapter.getQueryConditions(fieldAdapter.dbPath)[condition];
+          if (supported) {
+            return supported(value);
+          } else {
+            // Many relationship
+            const [fieldPath, constraintType] = condition.split('_');
+            const processed = processRelClause(fieldPath, value);
+            return processed !== undefined
+              ? { [fieldPath]: { [constraintType]: processed } }
+              : undefined;
+          }
         }
-      }
-    })
-    .filter(w => w !== undefined);
+      })
+      .filter(w => w !== undefined);
 
     return wheres.length === 0 ? undefined : wheres.length === 1 ? wheres[0] : { AND: wheres };
   }

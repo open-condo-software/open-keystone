@@ -3,7 +3,7 @@ const net = require('net');
 const CHECK_TIMEOUT = 1000;
 
 async function checkPort(port, host = '127.0.0.1') {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const socket = new net.Socket();
     const onError = () => {
       socket.destroy();
@@ -23,7 +23,7 @@ async function checkPort(port, host = '127.0.0.1') {
 
 async function checkInfrastructure() {
   const adapter = process.env.TEST_ADAPTER;
-  
+
   const checks = [
     { name: 'PostgreSQL', port: 5432, adapters: ['knex', 'prisma_postgresql'] },
     { name: 'MongoDB', port: 27017, adapters: ['mongoose'] },
@@ -48,7 +48,7 @@ async function checkInfrastructure() {
     });
     console.error('\nTo start the infrastructure, run:');
     console.error('\x1b[32m%s\x1b[0m', '  docker compose up -d\n');
-    
+
     // In CI we might want to fail, but locally it's a strong recommendation
     if (process.env.CI) {
       process.exit(1);

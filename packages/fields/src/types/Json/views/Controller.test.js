@@ -24,12 +24,12 @@ describe('JsonController', () => {
   });
 
   test('serialize() - should handle arrays', () => {
-      const controller = new JsonController(config, 'adminMeta');
-      const data = {
-          testField: JSON.stringify([{ a: 1, __typename: 'A' }, { b: 2 }]),
-      };
-      const result = controller.serialize(data);
-      expect(result).toEqual([{ a: 1 }, { b: 2 }]);
+    const controller = new JsonController(config, 'adminMeta');
+    const data = {
+      testField: JSON.stringify([{ a: 1, __typename: 'A' }, { b: 2 }]),
+    };
+    const result = controller.serialize(data);
+    expect(result).toEqual([{ a: 1 }, { b: 2 }]);
   });
 
   test('deserialize() - should clean __typename and stringify JSON', () => {
@@ -55,7 +55,10 @@ describe('JsonController', () => {
   });
 
   test('getQueryFragment() - should include admin fragment', () => {
-      const controller = new JsonController({ ...config, graphQLAdminFragment: '{ a b }' }, 'adminMeta');
-      expect(controller.getQueryFragment().trim()).toBe('testField { a b }');
+    const controller = new JsonController(
+      { ...config, graphQLAdminFragment: '{ a b }' },
+      'adminMeta'
+    );
+    expect(controller.getQueryFragment().trim()).toBe('testField { a b }');
   });
 });
