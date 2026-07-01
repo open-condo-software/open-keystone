@@ -2,7 +2,7 @@ const { Text } = require('@open-keystone/fields');
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
-import { OEmbed, IframelyOEmbedAdapter } from './';
+import { OEmbed } from './';
 
 export const name = 'OEmbed';
 export const type = OEmbed;
@@ -12,7 +12,41 @@ export const supportsUnique = false;
 export const fieldName = 'portfolio';
 export const subfieldName = 'originalUrl';
 
-const iframelyAdapter = new IframelyOEmbedAdapter({
+class MockOEmbedAdapter {
+  constructor({ apiKey, parameters } = {}) {
+    this.apiKey = apiKey;
+    this.parameters = parameters;
+  }
+  fetch(parameters = {}) {
+    return Promise.resolve({
+      type: 'link',
+      version: '1.0',
+      title: 'Mock Title',
+      author_name: 'Mock Author',
+      author_url: 'https://mock.com/author',
+      provider_name: 'Mock Provider',
+      provider_url: 'https://mock.com/provider',
+      cache_age: 3600,
+      thumbnail_url: 'https://mock.com/thumbnail.png',
+      thumbnail_width: 100,
+      thumbnail_height: 100,
+      url: parameters.url,
+      html: '<div>Mock HTML</div>',
+      width: 800,
+      height: 600,
+    });
+  }
+  getAdminViews() {
+    return [];
+  }
+  getViewOptions() {
+    return {
+      clientApiKey: this.apiKey,
+    };
+  }
+}
+
+const iframelyAdapter = new MockOEmbedAdapter({
   apiKey: process.env.IFRAMELY_API_KEY || 'iframely_api_key',
 });
 

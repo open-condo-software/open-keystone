@@ -115,9 +115,7 @@ Example:
 
 ```graphql
 mutation {
-  updateUser(id: "1", data: {
-    metadata: null
-  }) {
+  updateUser(id: "1", data: { metadata: null }) {
     id
   }
 }
@@ -126,7 +124,7 @@ mutation {
 Means:
 
 ```ts
-metadata = null
+metadata = null;
 ```
 
 And not:
@@ -180,7 +178,7 @@ where: {
 All three options mean:
 
 ```ts
-metadata === null
+metadata === null;
 ```
 
 ### Nested JSON null
@@ -237,9 +235,9 @@ does not match.
 Examples of missing path:
 
 ```ts
-metadata.profile.country // key is missing
-metadata.tags[10]         // index is missing
-metadata.profile.age.x    // age is a number, cannot go further
+metadata.profile.country; // key is missing
+metadata.tags[10]; // index is missing
+metadata.profile.age.x; // age is a number, cannot go further
 ```
 
 If the field itself is `null`, any nested path is considered missing.
@@ -347,7 +345,7 @@ where: {
 Means:
 
 ```ts
-metadata === null
+metadata === null;
 ```
 
 ```graphql
@@ -363,7 +361,7 @@ where: {
 Means:
 
 ```ts
-deepEqual(metadata, { profile: { country: "DE" } })
+deepEqual(metadata, { profile: { country: 'DE' } });
 ```
 
 ### `{field}_not`
@@ -377,7 +375,7 @@ where: {
 Means:
 
 ```ts
-metadata !== null
+metadata !== null;
 ```
 
 ```graphql
@@ -393,7 +391,7 @@ where: {
 Means:
 
 ```ts
-metadata === null || !deepEqual(metadata, { profile: { country: "DE" } })
+metadata === null || !deepEqual(metadata, { profile: { country: 'DE' } });
 ```
 
 ### `{field}_in`
@@ -410,7 +408,7 @@ where: {
 Means:
 
 ```ts
-metadata !== null && values.some(value => deepEqual(metadata, value))
+metadata !== null && values.some(value => deepEqual(metadata, value));
 ```
 
 `{field}_in` must be a non-empty array.
@@ -440,7 +438,7 @@ where: {
 Means:
 
 ```ts
-metadata === null || values.every(value => !deepEqual(metadata, value))
+metadata === null || values.every(value => !deepEqual(metadata, value));
 ```
 
 `{field}_not_in` must be a non-empty array.
@@ -559,21 +557,15 @@ metadata_match: {
 Correct:
 
 ```ts
-["profile", "country"]
-["profile", "age"]
-["addresses", "0", "city"]
-["tags", "1"]
+['profile', 'country'][('profile', 'age')][('addresses', '0', 'city')][('tags', '1')];
 ```
 
 Incorrect:
 
 ```ts
-["profile.country"]
-["$.profile.country"]
-["profile", "*", "country"]
-["profile", "__proto__"]
-["profile", "constructor"]
-["profile", "__typename"]
+['profile.country']['$.profile.country'][('profile', '*', 'country')][('profile', '__proto__')][
+  ('profile', 'constructor')
+][('profile', '__typename')];
 ```
 
 ## Path segment rules
@@ -590,18 +582,14 @@ const JSON_PATH_KEY_SEGMENT_REGEX =
 Array index:
 
 ```ts
-const JSON_PATH_INDEX_SEGMENT_REGEX =
-  /^(?:0|[1-9][0-9]{0,3})$/;
+const JSON_PATH_INDEX_SEGMENT_REGEX = /^(?:0|[1-9][0-9]{0,3})$/;
 ```
 
 General segment validator:
 
 ```ts
 function isValidJsonPathSegment(segment: string) {
-  return (
-    JSON_PATH_KEY_SEGMENT_REGEX.test(segment) ||
-    JSON_PATH_INDEX_SEGMENT_REGEX.test(segment)
-  );
+  return JSON_PATH_KEY_SEGMENT_REGEX.test(segment) || JSON_PATH_INDEX_SEGMENT_REGEX.test(segment);
 }
 ```
 
@@ -667,7 +655,7 @@ metadata_match: {
 Means:
 
 ```ts
-metadata !== null
+metadata !== null;
 ```
 
 ```graphql
@@ -679,7 +667,7 @@ metadata_match: {
 Means:
 
 ```ts
-metadata === null
+metadata === null;
 ```
 
 With `path`:
@@ -727,7 +715,7 @@ metadata_match: {
 Means:
 
 ```ts
-metadata === null
+metadata === null;
 ```
 
 ```graphql
@@ -739,7 +727,7 @@ metadata_match: {
 Means:
 
 ```ts
-deepEqual(metadata, {})
+deepEqual(metadata, {});
 ```
 
 With `path`:
@@ -796,7 +784,7 @@ metadata_match: {
 Means:
 
 ```ts
-metadata !== null
+metadata !== null;
 ```
 
 With `path`:
@@ -851,7 +839,7 @@ metadata !== null && path exists && values.some(item => deepEqual(value, item))
 If `path` is not passed:
 
 ```ts
-metadata !== null && values.some(item => deepEqual(metadata, item))
+metadata !== null && values.some(item => deepEqual(metadata, item));
 ```
 
 `in` must be a non-empty array.
@@ -906,7 +894,7 @@ metadata === null || path is missing || values.every(item => !deepEqual(value, i
 If `path` is not passed:
 
 ```ts
-metadata === null || values.every(item => !deepEqual(metadata, item))
+metadata === null || values.every(item => !deepEqual(metadata, item));
 ```
 
 `not_in` must be a non-empty array.
@@ -950,16 +938,17 @@ metadata !== null && path exists && typeof value === "number" && value >= expect
 If `path` is not passed:
 
 ```ts
-metadata !== null && typeof metadata === "number" && metadata >= expected
+metadata !== null && typeof metadata === 'number' && metadata >= expected;
 ```
 
 If the value is missing, `null`, string, boolean, object, or array, the condition does not match.
 
 ```ts
-"18" // not a number
-null // not a number
-{}   // not a number
-[]   // not a number
+'18'; // not a number
+null; // not a number
+{
+} // not a number
+[]; // not a number
 ```
 
 ### `string_contains`
@@ -980,7 +969,7 @@ metadata !== null && path exists && typeof value === "string" && value.includes(
 If `path` is not passed:
 
 ```ts
-metadata !== null && typeof metadata === "string" && metadata.includes(expected)
+metadata !== null && typeof metadata === 'string' && metadata.includes(expected);
 ```
 
 ### `string_not_contains`
@@ -1001,7 +990,7 @@ metadata === null || path is missing || typeof value !== "string" || !value.incl
 If `path` is not passed:
 
 ```ts
-metadata === null || typeof metadata !== "string" || !metadata.includes(expected)
+metadata === null || typeof metadata !== 'string' || !metadata.includes(expected);
 ```
 
 ### `string_starts_with`
@@ -1069,8 +1058,8 @@ metadata === null || path is missing || typeof value !== "string" || !value.ends
 String filters are case-sensitive.
 
 ```ts
-"Alex".includes("A") === true
-"Alex".includes("a") === false
+'Alex'.includes('A') === true;
+'Alex'.includes('a') === false;
 ```
 
 Case-insensitive mode is not supported in this version of the API.
@@ -1096,9 +1085,7 @@ metadata !== null
 If `path` is not passed:
 
 ```ts
-metadata !== null
-  && Array.isArray(metadata)
-  && metadata.some(item => deepEqual(item, expected))
+metadata !== null && Array.isArray(metadata) && metadata.some(item => deepEqual(item, expected));
 ```
 
 Any JSON values are allowed:
@@ -1152,9 +1139,7 @@ metadata === null
 If `path` is not passed:
 
 ```ts
-metadata === null
-  || !Array.isArray(metadata)
-  || metadata.every(item => !deepEqual(item, expected))
+metadata === null || !Array.isArray(metadata) || metadata.every(item => !deepEqual(item, expected));
 ```
 
 If you need to apply `array_not_contains` only to existing arrays, use `AND` with `exists: true`.
@@ -1530,9 +1515,7 @@ This version of the API does not support:
 
 ```graphql
 query {
-  allUsers(where: {
-    metadata: null
-  }) {
+  allUsers(where: { metadata: null }) {
     id
   }
 }
@@ -1542,11 +1525,7 @@ Equivalent:
 
 ```graphql
 query {
-  allUsers(where: {
-    metadata_match: {
-      exists: false
-    }
-  }) {
+  allUsers(where: { metadata_match: { exists: false } }) {
     id
   }
 }
@@ -1556,9 +1535,7 @@ query {
 
 ```graphql
 query {
-  allUsers(where: {
-    metadata_not: null
-  }) {
+  allUsers(where: { metadata_not: null }) {
     id
   }
 }
@@ -1568,11 +1545,7 @@ Equivalent:
 
 ```graphql
 query {
-  allUsers(where: {
-    metadata_match: {
-      exists: true
-    }
-  }) {
+  allUsers(where: { metadata_match: { exists: true } }) {
     id
   }
 }
@@ -1582,12 +1555,7 @@ query {
 
 ```graphql
 query {
-  allUsers(where: {
-    metadata_match: {
-      path: ["profile", "country"]
-      equals: "DE"
-    }
-  }) {
+  allUsers(where: { metadata_match: { path: ["profile", "country"], equals: "DE" } }) {
     id
   }
 }
@@ -1597,12 +1565,7 @@ query {
 
 ```graphql
 query {
-  allUsers(where: {
-    metadata_match: {
-      path: ["profile", "country"]
-      exists: false
-    }
-  }) {
+  allUsers(where: { metadata_match: { path: ["profile", "country"], exists: false } }) {
     id
   }
 }
@@ -1614,12 +1577,7 @@ This also matches rows where `metadata` itself is `null`.
 
 ```graphql
 query {
-  allUsers(where: {
-    metadata_match: {
-      path: ["profile", "country"]
-      equals: null
-    }
-  }) {
+  allUsers(where: { metadata_match: { path: ["profile", "country"], equals: null } }) {
     id
   }
 }
@@ -1631,12 +1589,7 @@ This does not match rows where `metadata` is `null` or where `profile.country` i
 
 ```graphql
 query {
-  allUsers(where: {
-    metadata_match: {
-      path: ["profile", "age"]
-      gte: 18
-    }
-  }) {
+  allUsers(where: { metadata_match: { path: ["profile", "age"], gte: 18 } }) {
     id
   }
 }
@@ -1646,12 +1599,7 @@ query {
 
 ```graphql
 query {
-  allUsers(where: {
-    metadata_match: {
-      path: ["tags"]
-      array_contains: "beta"
-    }
-  }) {
+  allUsers(where: { metadata_match: { path: ["tags"], array_contains: "beta" } }) {
     id
   }
 }
@@ -1661,12 +1609,7 @@ query {
 
 ```graphql
 query {
-  allUsers(where: {
-    metadata_match: {
-      path: ["tags"]
-      array_not_contains: "beta"
-    }
-  }) {
+  allUsers(where: { metadata_match: { path: ["tags"], array_not_contains: "beta" } }) {
     id
   }
 }
@@ -1678,22 +1621,14 @@ This also matches users where `metadata` is `null`, `tags` is missing, or `tags`
 
 ```graphql
 query {
-  allUsers(where: {
-    AND: [
-      {
-        metadata_match: {
-          path: ["tags"]
-          exists: true
-        }
-      },
-      {
-        metadata_match: {
-          path: ["tags"]
-          array_not_contains: "beta"
-        }
-      }
-    ]
-  }) {
+  allUsers(
+    where: {
+      AND: [
+        { metadata_match: { path: ["tags"], exists: true } }
+        { metadata_match: { path: ["tags"], array_not_contains: "beta" } }
+      ]
+    }
+  ) {
     id
   }
 }
@@ -1703,44 +1638,21 @@ query {
 
 ```graphql
 query {
-  allUsers(where: {
-    AND: [
-      {
-        OR: [
-          {
-            metadata_match: {
-              path: ["profile", "country"]
-              equals: "DE"
-            }
-          },
-          {
-            metadata_match: {
-              path: ["profile", "country"]
-              equals: "FR"
-            }
-          }
-        ]
-      },
-      {
-        metadata_match: {
-          path: ["profile", "age"]
-          gte: 18
+  allUsers(
+    where: {
+      AND: [
+        {
+          OR: [
+            { metadata_match: { path: ["profile", "country"], equals: "DE" } }
+            { metadata_match: { path: ["profile", "country"], equals: "FR" } }
+          ]
         }
-      },
-      {
-        metadata_match: {
-          path: ["profile", "email"]
-          string_not_contains: "spam"
-        }
-      },
-      {
-        metadata_match: {
-          path: ["tags"]
-          array_contains: "beta"
-        }
-      }
-    ]
-  }) {
+        { metadata_match: { path: ["profile", "age"], gte: 18 } }
+        { metadata_match: { path: ["profile", "email"], string_not_contains: "spam" } }
+        { metadata_match: { path: ["tags"], array_contains: "beta" } }
+      ]
+    }
+  ) {
     id
   }
 }
