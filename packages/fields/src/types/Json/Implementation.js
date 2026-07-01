@@ -83,6 +83,8 @@ function assertJsonFieldIsNullable(field) {
 
 const JSON_PATH_SEGMENT_REGEX =
   /^(?!(?:__proto__|prototype|constructor|__typename)$)(?:[_A-Za-z][_A-Za-z0-9]*|0|[1-9][0-9]{0,3})$/;
+const JSON_OBJECT_PATTERN_KEY_REGEX =
+  /^(?!(?:__proto__|prototype|constructor|__typename)$)[_A-Za-z][_A-Za-z0-9]*$/;
 
 export class Json extends Implementation {
   // NOTE: argument names are based on Virtual field
@@ -257,8 +259,22 @@ export class Json extends Implementation {
     const [operator] = conditionKeys;
     const conditionValue = conditions[operator];
 
-    if ((operator === 'in' || operator === 'not_in') && conditionValue.length === 0) {
-      throw new Error(`${operator} must be a non-empty array for ${this.listKey}.${this.path}`);
+    if (operator === 'in' || operator === 'not_in') {
+      if (!Array.isArray(conditionValue)) {
+        throw new Error(`${operator} must be an array for ${this.listKey}.${this.path}`);
+      }
+      if (conditionValue.length === 0) {
+        throw new Error(`${operator} must be a non-empty array for ${this.listKey}.${this.path}`);
+      }
+    }
+    if (operator.startsWith('string_') && typeof conditionValue !== 'string') {
+      throw new Error(`${operator} must be a string for ${this.listKey}.${this.path}`);
+    }
+    if (operator.startsWith('number_') && typeof conditionValue !== 'number') {
+      throw new Error(`${operator} must be a number for ${this.listKey}.${this.path}`);
+    }
+    if (operator === 'exists' && typeof conditionValue !== 'boolean') {
+      throw new Error(`exists must be a boolean for ${this.listKey}.${this.path}`);
     }
   }
 }
@@ -306,6 +322,10 @@ function isEmptyPlainObject(value) {
   return (
     value && typeof value === 'object' && !Array.isArray(value) && Object.keys(value).length === 0
   );
+}
+
+function isPlainObject(value) {
+  return value && typeof value === 'object' && !Array.isArray(value);
 }
 
 function mongoPathEqualsEmptyObject(dbPath, targetPath) {
@@ -428,14 +448,69 @@ function buildMongoPositiveJsonQuery(dbPath, path, operator, value) {
   }
 
   if (operator === 'array_contains') {
+    return mongoArrayContains(dbPath, targetPath, value);
+  }
+
+  throw new Error(`Unsupported JSON match operator: ${operator}`);
+}
+
+function assertSafeObjectPattern(value, fieldPath, depth = 0) {
+  if (!isPlainObject(value)) return;
+
+  if (depth > 8) {
+    throw new Error(`JSON object pattern is too deep for ${fieldPath}`);
+  }
+
+  for (const key of Object.keys(value)) {
+    if (!JSON_OBJECT_PATTERN_KEY_REGEX.test(key)) {
+      throw new Error(`Invalid JSON object pattern key "${key}" for ${fieldPath}`);
+    }
+
+    assertSafeObjectPattern(value[key], fieldPath, depth + 1);
+  }
+}
+
+function mongoObjectSubsetClauses(pattern, prefix = []) {
+  const entries = Object.entries(pattern);
+
+  if (entries.length === 0) {
+    if (prefix.length === 0) return [{ $type: 'object' }];
+    return [{ [prefix.join('.')]: { $type: 'object' } }];
+  }
+
+  return entries.flatMap(([key, expected]) => {
+    const nextPath = [...prefix, key];
+
+    if (isPlainObject(expected)) {
+      return mongoObjectSubsetClauses(expected, nextPath);
+    }
+
+    return [
+      {
+        [nextPath.join('.')]: { $eq: expected },
+      },
+    ];
+  });
+}
+
+function mongoArrayContains(dbPath, targetPath, value) {
+  if (isPlainObject(value)) {
+    assertSafeObjectPattern(value, dbPath);
+
     return {
       [targetPath]: {
-        $elemMatch: { $eq: value },
+        $elemMatch: {
+          $and: mongoObjectSubsetClauses(value),
+        },
       },
     };
   }
 
-  throw new Error(`Unsupported JSON match operator: ${operator}`);
+  return {
+    [targetPath]: {
+      $elemMatch: { $eq: value },
+    },
+  };
 }
 
 export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFieldAdapter) {
@@ -457,17 +532,13 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
 
   equalityConditions(dbPath) {
     const equals = value =>
-      value === null
-        ? mongoFieldNull(dbPath)
-        : { [dbPath]: { $eq: value } };
+      value === null ? mongoFieldNull(dbPath) : { [dbPath]: { $eq: value } };
 
     return {
       [this.path]: value => equals(value),
 
       [`${this.path}_not`]: value =>
-        value === null
-          ? mongoFieldNotNull(dbPath)
-          : { $nor: [equals(value)] },
+        value === null ? mongoFieldNotNull(dbPath) : { $nor: [equals(value)] },
     };
   }
 

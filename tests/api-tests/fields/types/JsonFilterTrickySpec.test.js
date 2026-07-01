@@ -644,6 +644,310 @@ const jsonMatchFilterTests = [
   },
 ];
 
+const additionalJsonMatchFilterTests = [
+  {
+    id: 'json_match_060_whole_field_partial_object_is_not_containment',
+    title: 'whole-field object equality is not containment',
+    result:
+      'No record has metadata exactly equal to { profile: { country: DE } }; whole-field filters must use deep equality, not subset matching.',
+    where: { metadata: { profile: { country: 'DE' } } },
+    expect_ids: [],
+  },
+  {
+    id: 'json_match_061_whole_field_not_partial_object_matches_all',
+    title: 'whole-field not also uses exact deep equality',
+    result:
+      'Because no metadata value is exactly { profile: { country: DE } }, every record matches, including the root field null record.',
+    where: { metadata_not: { profile: { country: 'DE' } } },
+    expect_ids: ['u1', 'u2', 'u3', 'u4', 'u5', 'u6', 'u7', 'u8', 'u9'],
+  },
+  {
+    id: 'json_match_062_whole_field_in_partial_object_has_no_match',
+    title: 'whole-field in is not containment',
+    result:
+      'metadata_in compares the whole JSON field against each list value; a partial object does not match any full metadata object.',
+    where: { metadata_in: [{ profile: { country: 'DE' } }] },
+    expect_ids: [],
+  },
+  {
+    id: 'json_match_063_whole_field_not_in_partial_object_matches_all',
+    title: 'whole-field not_in includes root null',
+    result:
+      'No full metadata value equals the partial object, and metadata_not_in includes root field null by whole-field negative semantics.',
+    where: { metadata_not_in: [{ profile: { country: 'DE' } }] },
+    expect_ids: ['u1', 'u2', 'u3', 'u4', 'u5', 'u6', 'u7', 'u8', 'u9'],
+  },
+  {
+    id: 'json_match_064_tags_equals_exact_array_order',
+    title: 'array equality is order-sensitive',
+    result: 'Only u1 has tags exactly equal to [beta, paid] in that order.',
+    where: { metadata_match: { path: ['tags'], equals: ['beta', 'paid'] } },
+    expect_ids: ['u1'],
+  },
+  {
+    id: 'json_match_065_tags_equals_reversed_order_does_not_match',
+    title: 'reversed array order does not match',
+    result: 'Array order is significant, so [paid, beta] does not equal u1 tags [beta, paid].',
+    where: { metadata_match: { path: ['tags'], equals: ['paid', 'beta'] } },
+    expect_ids: [],
+  },
+  {
+    id: 'json_match_066_tags_in_with_array_values',
+    title: 'in can compare array values',
+    result:
+      'u1 has tags [beta, paid] and u2 has tags [free]; other arrays differ by value or order.',
+    where: { metadata_match: { path: ['tags'], in: [['beta', 'paid'], ['free']] } },
+    expect_ids: ['u1', 'u2'],
+  },
+  {
+    id: 'json_match_067_tags_not_in_with_array_values',
+    title: 'not_in can compare array values',
+    result:
+      'u1 and u2 are excluded by exact array equality; all other arrays, missing paths, and root null match negative semantics.',
+    where: { metadata_match: { path: ['tags'], not_in: [['beta', 'paid'], ['free']] } },
+    expect_ids: ['u3', 'u4', 'u5', 'u6', 'u7', 'u8', 'u9'],
+  },
+  {
+    id: 'json_match_068_addresses_array_contains_object_key_order_ignored',
+    title: 'object key order is ignored inside array_contains',
+    result:
+      'u1 contains an address object with the same keys and values even though the expected object lists zip before city.',
+    where: {
+      metadata_match: { path: ['addresses'], array_contains: { zip: '10115', city: 'Berlin' } },
+    },
+    expect_ids: ['u1'],
+  },
+  {
+    id: 'json_match_069_addresses_array_contains_partial_object_is_subset',
+    title: 'array_contains object is subset matching',
+    result:
+      'u6 has an exact { city: Berlin } address; u1 match because its Berlin address also has zip.',
+    where: { metadata_match: { path: ['addresses'], array_contains: { city: 'Berlin' } } },
+    expect_ids: ['u1', 'u6'],
+  },
+  {
+    id: 'json_match_070_addresses_array_not_contains_partial_object',
+    title: 'array_not_contains uses containment object match',
+    result:
+      'Only u6 contains an exact { city: Berlin } object; u1 matches because its object has an extra zip key.',
+    where: { metadata_match: { path: ['addresses'], array_not_contains: { city: 'Berlin' } } },
+    expect_ids: ['u2', 'u3', 'u4', 'u5', 'u7', 'u8', 'u9'],
+  },
+  {
+    id: 'json_match_071_tags_third_index_equals_null',
+    title: 'array index can point to explicit JSON null',
+    result: 'Only u8 has tags[3] and that value is explicit JSON null.',
+    where: { metadata_match: { path: ['tags', '3'], equals: null } },
+    expect_ids: ['u8'],
+  },
+  {
+    id: 'json_match_072_tags_third_index_exists_false',
+    title: 'missing array index includes root null',
+    result:
+      'Every record except u8 is missing tags[3]; u9 also matches because root field null makes nested paths missing.',
+    where: { metadata_match: { path: ['tags', '3'], exists: false } },
+    expect_ids: ['u1', 'u2', 'u3', 'u4', 'u5', 'u6', 'u7', 'u9'],
+  },
+  {
+    id: 'json_match_073_tags_third_index_not_null',
+    title: 'not null excludes explicit array null only',
+    result:
+      'Negative not:null includes missing paths and root null, but excludes u8 because tags[3] is explicit JSON null.',
+    where: { metadata_match: { path: ['tags', '3'], not: null } },
+    expect_ids: ['u1', 'u2', 'u3', 'u4', 'u5', 'u6', 'u7', 'u9'],
+  },
+  {
+    id: 'json_match_074_settings_equals_nested_null',
+    title: 'root child can be explicit JSON null',
+    result: 'Only u4 has settings present with explicit JSON null.',
+    where: { metadata_match: { path: ['settings'], equals: null } },
+    expect_ids: ['u4'],
+  },
+  {
+    id: 'json_match_075_settings_exists_true_for_null_value',
+    title: 'exists true treats JSON null as present',
+    result: 'settings exists for u4 even though its value is JSON null.',
+    where: { metadata_match: { path: ['settings'], exists: true } },
+    expect_ids: ['u4'],
+  },
+  {
+    id: 'json_match_076_settings_exists_false_for_missing_or_root_null',
+    title: 'exists false excludes explicit JSON null',
+    result:
+      'Every record except u4 is missing settings or has root field null; u4 is present because JSON null is a value.',
+    where: { metadata_match: { path: ['settings'], exists: false } },
+    expect_ids: ['u1', 'u2', 'u3', 'u5', 'u6', 'u7', 'u8', 'u9'],
+  },
+  {
+    id: 'json_match_077_empty_array_exists_true',
+    title: 'empty array is an existing value',
+    result: 'Only u5 has misc.emptyArray, and [] counts as present.',
+    where: { metadata_match: { path: ['misc', 'emptyArray'], exists: true } },
+    expect_ids: ['u5'],
+  },
+  {
+    id: 'json_match_078_empty_object_exists_true',
+    title: 'empty object is an existing value',
+    result: 'Only u5 has misc.emptyObject, and {} counts as present.',
+    where: { metadata_match: { path: ['misc', 'emptyObject'], exists: true } },
+    expect_ids: ['u5'],
+  },
+  {
+    id: 'json_match_079_existing_empty_array_not_contains_beta',
+    title: 'array_not_contains on an existing empty array',
+    result:
+      'The AND removes missing paths and root null; the existing empty array in u5 does not contain beta.',
+    where: {
+      AND: [
+        { metadata_match: { path: ['misc', 'emptyArray'], exists: true } },
+        { metadata_match: { path: ['misc', 'emptyArray'], array_not_contains: 'beta' } },
+      ],
+    },
+    expect_ids: ['u5'],
+  },
+  {
+    id: 'json_match_080_string_contains_empty_string',
+    title: 'empty substring is still an operator value',
+    result:
+      'Every existing profile.name string contains the empty string, including the empty name in u8; root null does not match the positive operator.',
+    where: { metadata_match: { path: ['profile', 'name'], string_contains: '' } },
+    expect_ids: ['u1', 'u2', 'u3', 'u4', 'u5', 'u6', 'u7', 'u8'],
+  },
+  {
+    id: 'json_match_081_string_not_contains_empty_string',
+    title: 'negative empty substring only leaves root null here',
+    result:
+      'All existing strings contain the empty string, so only u9 matches via root field null negative semantics.',
+    where: { metadata_match: { path: ['profile', 'name'], string_not_contains: '' } },
+    expect_ids: ['u9'],
+  },
+  {
+    id: 'json_match_082_score_equals_zero',
+    title: 'equals zero must not be treated as missing operator',
+    result: 'Only u2 has numeric score 0; this catches truthy/falsy validation bugs.',
+    where: { metadata_match: { path: ['score'], equals: 0 } },
+    expect_ids: ['u2'],
+  },
+  {
+    id: 'json_match_083_preferences_not_false',
+    title: 'not false excludes explicit false only',
+    result:
+      'u7 is excluded because newsletter is explicitly false; all missing paths and root null match negative semantics.',
+    where: { metadata_match: { path: ['preferences', 'newsletter'], not: false } },
+    expect_ids: ['u1', 'u2', 'u3', 'u4', 'u5', 'u6', 'u8', 'u9'],
+  },
+  {
+    id: 'json_match_084_score_number_lte_zero',
+    title: 'number_lte includes zero boundary',
+    result:
+      'u2 has score 0 and u8 has score -1; string score "10" in u5 does not match numeric comparison.',
+    where: { metadata_match: { path: ['score'], number_lte: 0 } },
+    expect_ids: ['u2', 'u8'],
+  },
+  {
+    id: 'json_match_085_score_number_gt_zero',
+    title: 'number_gt excludes zero boundary',
+    result:
+      'Only positive numeric scores match; zero, negative, string number, and root null do not match.',
+    where: { metadata_match: { path: ['score'], number_gt: 0 } },
+    expect_ids: ['u1', 'u3', 'u4', 'u6', 'u7'],
+  },
+  {
+    id: 'json_match_086_string_not_contains_on_number_path',
+    title: 'negative string operator matches non-strings',
+    result:
+      'profile.age is numeric for u1-u8 and root null for u9, so every record matches string_not_contains.',
+    where: { metadata_match: { path: ['profile', 'age'], string_not_contains: '2' } },
+    expect_ids: ['u1', 'u2', 'u3', 'u4', 'u5', 'u6', 'u7', 'u8', 'u9'],
+    // This is the same class of issue: by contract, a negative operator is
+    // equivalent to NOT(positive), including type mismatches. That means
+    // non-string values should match string_not_contains, and non-array values
+    // should match array_not_contains.
+    prisma_postgresql: 'skip',
+  },
+  {
+    id: 'json_match_087_number_comparison_on_boolean_returns_false',
+    title: 'numeric operator does not coerce booleans',
+    result:
+      'profile.active is boolean where present and missing elsewhere; number_gte requires an existing JSON number.',
+    where: { metadata_match: { path: ['profile', 'active'], number_gte: 0 } },
+    expect_ids: [],
+  },
+  {
+    id: 'json_match_088_active_in_boolean_values',
+    title: 'in can compare boolean JSON values',
+    result: 'u1 has active true and u2 has active false; missing paths do not match positive in.',
+    where: { metadata_match: { path: ['profile', 'active'], in: [true, false] } },
+    expect_ids: ['u1', 'u2'],
+  },
+  {
+    id: 'json_match_089_active_not_in_boolean_values',
+    title: 'not_in includes missing booleans',
+    result:
+      'u1 and u2 are excluded because their values are in the list; missing paths and root null match negative semantics.',
+    where: { metadata_match: { path: ['profile', 'active'], not_in: [true, false] } },
+    expect_ids: ['u3', 'u4', 'u5', 'u6', 'u7', 'u8', 'u9'],
+  },
+  {
+    id: 'json_match_090_array_contains_object_superset_is_not_subset',
+    title: 'array_contains does not match object supersets either',
+    result:
+      'u5 contains { code: x }, but not { code: x, extra: true }; no subset or superset semantics are used.',
+    where: { metadata_match: { path: ['tags'], array_contains: { code: 'x', extra: true } } },
+    expect_ids: [],
+  },
+  {
+    id: 'json_match_091_array_not_contains_object_superset_matches_all',
+    title: 'array_not_contains on absent object superset',
+    result:
+      'No tags array contains that exact object, and missing/root/null/nonmatching arrays all satisfy the negative operator.',
+    where: { metadata_match: { path: ['tags'], array_not_contains: { code: 'x', extra: true } } },
+    expect_ids: ['u1', 'u2', 'u3', 'u4', 'u5', 'u6', 'u7', 'u8', 'u9'],
+  },
+  {
+    id: 'json_match_092_root_array_contains_on_objects_returns_false',
+    title: 'path omitted array_contains sees the whole field',
+    result:
+      'The root metadata values are objects or null in this fixture, so no root value is an array containing beta.',
+    where: { metadata_match: { array_contains: 'beta' } },
+    expect_ids: [],
+  },
+  {
+    id: 'json_match_093_root_array_not_contains_on_objects_matches_all',
+    title: 'path omitted array_not_contains matches non-arrays',
+    result:
+      'All non-null root metadata values are objects and u9 is root null, so every record matches the negative array operator.',
+    where: { metadata_match: { array_not_contains: 'beta' } },
+    expect_ids: ['u1', 'u2', 'u3', 'u4', 'u5', 'u6', 'u7', 'u8', 'u9'],
+    // This is the same class of issue: by contract, a negative operator is
+    // equivalent to NOT(positive), including type mismatches. That means
+    // non-string values should match string_not_contains, and non-array values
+    // should match array_not_contains.
+    prisma_postgresql: 'skip',
+  },
+  {
+    id: 'json_match_094_root_number_gte_on_objects_returns_false',
+    title: 'path omitted number operator does not inspect nested values',
+    result:
+      'metadata is never a root JSON number in this fixture; nested score values are irrelevant when path is omitted.',
+    where: { metadata_match: { number_gte: 0 } },
+    expect_ids: [],
+  },
+  {
+    id: 'json_match_095_root_string_not_contains_on_objects_matches_all',
+    title: 'path omitted negative string operator matches non-strings',
+    result:
+      'All non-null root metadata values are objects and u9 is root null, so every record matches string_not_contains.',
+    where: { metadata_match: { string_not_contains: 'example.com' } },
+    expect_ids: ['u1', 'u2', 'u3', 'u4', 'u5', 'u6', 'u7', 'u8', 'u9'],
+    // This is the same class of issue: by contract, a negative operator is
+    // equivalent to NOT(positive), including type mismatches. That means
+    // non-string values should match string_not_contains, and non-array values
+    // should match array_not_contains.
+    prisma_postgresql: 'skip',
+  },
+];
+
 const jsonMatchInvalidInputTests = [
   {
     id: 'json_match_invalid_001_empty_path',
@@ -818,6 +1122,84 @@ const jsonMatchInvalidInputTests = [
   },
 ];
 
+const additionalJsonMatchInvalidInputTests = [
+  {
+    id: 'json_match_invalid_022_leading_zero_index',
+    title: 'array index cannot have a leading zero',
+    where: { metadata_match: { path: ['tags', '01'], equals: 'beta' } },
+    expect_error: { code: 'BAD_USER_INPUT', message_contains: 'Invalid JSON path segment' },
+  },
+  {
+    id: 'json_match_invalid_023_empty_string_segment',
+    title: 'path segment cannot be an empty string',
+    where: { metadata_match: { path: [''], equals: 'x' } },
+    expect_error: { code: 'BAD_USER_INPUT', message_contains: 'Invalid JSON path segment' },
+  },
+  {
+    id: 'json_match_invalid_024_segment_starting_with_digit',
+    title: 'object key segment cannot start with a digit',
+    where: { metadata_match: { path: ['profile', '1abc'], equals: 'x' } },
+    expect_error: { code: 'BAD_USER_INPUT', message_contains: 'Invalid JSON path segment' },
+  },
+  {
+    id: 'json_match_invalid_025_hyphenated_segment',
+    title: 'object key segment cannot contain hyphen',
+    where: { metadata_match: { path: ['profile', 'first-name'], equals: 'x' } },
+    expect_error: { code: 'BAD_USER_INPUT', message_contains: 'Invalid JSON path segment' },
+  },
+  {
+    id: 'json_match_invalid_026_recursive_descent_segment',
+    title: 'recursive descent is not a valid path segment',
+    where: { metadata_match: { path: ['profile', '..', 'country'], equals: 'DE' } },
+    expect_error: { code: 'BAD_USER_INPUT', message_contains: 'Invalid JSON path segment' },
+  },
+  {
+    id: 'json_match_invalid_027_exists_null',
+    title: 'exists cannot be null',
+    where: { metadata_match: { path: ['profile', 'country'], exists: null } },
+    expect_error: { code: 'BAD_USER_INPUT', message_contains: 'exists must be a boolean' },
+  },
+  {
+    id: 'json_match_invalid_028_number_operator_null',
+    title: 'number_gte cannot be null',
+    where: { metadata_match: { path: ['score'], number_gte: null } },
+    expect_error: { code: 'BAD_USER_INPUT', message_contains: 'number_gte must be a number' },
+  },
+  {
+    id: 'json_match_invalid_029_string_operator_null',
+    title: 'string_contains cannot be null',
+    where: { metadata_match: { path: ['profile', 'email'], string_contains: null } },
+    expect_error: { code: 'BAD_USER_INPUT', message_contains: 'string_contains must be a string' },
+  },
+  {
+    id: 'json_match_invalid_030_in_null',
+    title: 'in cannot be null',
+    where: { metadata_match: { path: ['profile', 'country'], in: null } },
+    expect_error: {
+      code: 'BAD_USER_INPUT',
+      message_contains: 'in must be an array for User.metadata',
+    },
+  },
+  {
+    id: 'json_match_invalid_031_not_in_contains_null',
+    title: 'not_in list cannot contain null',
+    where: { metadata_match: { path: ['profile', 'country'], not_in: [null] } },
+    expect_error: {
+      code: 'GRAPHQL_VALIDATION_FAILED',
+      message_contains: 'Expected non-nullable type',
+    },
+  },
+  {
+    id: 'json_match_invalid_032_whole_field_in_contains_null',
+    title: 'metadata_in list cannot contain null',
+    where: { metadata_in: [null] },
+    expect_error: {
+      code: 'GRAPHQL_VALIDATION_FAILED',
+      message_contains: 'Expected non-nullable type',
+    },
+  },
+];
+
 const jsonMatchSemanticComparisonTests = [
   {
     id: 'json_match_semantic_001_root_null_forms_are_equivalent',
@@ -939,6 +1321,49 @@ const jsonMatchSemanticComparisonTests = [
   },
 ];
 
+const additionalJsonMatchSemanticComparisonTests = [
+  {
+    id: 'json_match_semantic_010_whole_field_partial_object_vs_path_equals',
+    title: 'whole-field exact object is not the same as path equality',
+    left: { metadata: { profile: { country: 'DE' } } },
+    right: { metadata_match: { path: ['profile', 'country'], equals: 'DE' } },
+    expect_equal_ids: false,
+    left_expect_ids: [],
+    right_expect_ids: ['u1', 'u2', 'u7', 'u8'],
+  },
+  {
+    id: 'json_match_semantic_011_array_order_matters',
+    title: 'same array values in different order are not equal',
+    left: { metadata_match: { path: ['tags'], equals: ['beta', 'paid'] } },
+    right: { metadata_match: { path: ['tags'], equals: ['paid', 'beta'] } },
+    expect_equal_ids: false,
+    left_expect_ids: ['u1'],
+    right_expect_ids: [],
+  },
+  {
+    id: 'json_match_semantic_012_array_contains_object_is_path_predicate',
+    title: 'array_contains object is nested object predicate matching',
+    left: { metadata_match: { path: ['addresses'], array_contains: { city: 'Berlin' } } },
+    right: { metadata_match: { path: ['addresses', '0', 'city'], equals: 'Berlin' } },
+    expect_equal_ids: false,
+    left_expect_ids: ['u1', 'u6'],
+    right_expect_ids: ['u1'],
+  },
+  {
+    id: 'json_match_semantic_013_in_scalar_equivalent_to_or_equals',
+    title: 'in over scalar values is equivalent to OR of equals for the same path',
+    left: { metadata_match: { path: ['profile', 'country'], in: ['DE', 'FR'] } },
+    right: {
+      OR: [
+        { metadata_match: { path: ['profile', 'country'], equals: 'DE' } },
+        { metadata_match: { path: ['profile', 'country'], equals: 'FR' } },
+      ],
+    },
+    expect_equal_ids: true,
+    expect_ids: ['u1', 'u2', 'u3', 'u7', 'u8'],
+  },
+];
+
 function setupKeystone(adapterName) {
   return setupServer({
     adapterName,
@@ -1000,10 +1425,23 @@ const runQuery = async (keystone, where) => {
 multiAdapterRunners().map(({ runner, adapterName }) =>
   describe(`Adapter: ${adapterName}`, () => {
     describe('JsonFilterTrickySpec', () => {
-      const testCases = [...jsonMatchFilterTests, ...jsonMatchInvalidInputTests];
+      const testCases = [
+        ...jsonMatchFilterTests,
+        ...jsonMatchInvalidInputTests,
+        ...additionalJsonMatchFilterTests,
+        ...additionalJsonMatchInvalidInputTests,
+      ];
+
+      const equivalenceTestCases = [
+        ...jsonMatchSemanticComparisonTests,
+        ...additionalJsonMatchSemanticComparisonTests,
+      ];
 
       testCases.forEach(({ id, title, where, expect_ids, expect_error, ...expected }) => {
-        test(
+        const shouldSkip = adapterName in expected && expected[adapterName] === 'skip';
+        const testFn = shouldSkip ? test.skip : test;
+
+        testFn(
           `${id} : ${title}`,
           runner(setupKeystone, async ({ keystone }) => {
             await createFixture(keystone);
@@ -1022,50 +1460,46 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
         );
       });
 
-      describe('Equivalence tests', () => {
-        const equivalenceTestCases = [...jsonMatchSemanticComparisonTests];
+      equivalenceTestCases.forEach(
+        ({
+          id,
+          title,
+          left,
+          right,
+          expect_equal_ids,
+          expect_ids,
+          left_expect_ids,
+          right_expect_ids,
+          skip,
+        }) => {
+          test(
+            `${id}: ${title}`,
+            runner(setupKeystone, async ({ keystone }) => {
+              if (skip && skip.includes(adapterName)) {
+                return;
+              }
+              await createFixture(keystone);
+              const { ids: leftIds } = await runQuery(keystone, left);
+              const { ids: rightIds } = await runQuery(keystone, right);
 
-        equivalenceTestCases.forEach(
-          ({
-            id,
-            title,
-            left,
-            right,
-            expect_equal_ids,
-            expect_ids,
-            left_expect_ids,
-            right_expect_ids,
-            skip,
-          }) => {
-            test(
-              `${id}: ${title}`,
-              runner(setupKeystone, async ({ keystone }) => {
-                if (skip && skip.includes(adapterName)) {
-                  return;
+              if (expect_equal_ids) {
+                expect(leftIds.sort()).toEqual(rightIds.sort());
+                if (expect_ids) {
+                  expect(leftIds.sort()).toEqual(expect_ids.sort());
                 }
-                await createFixture(keystone);
-                const { ids: leftIds } = await runQuery(keystone, left);
-                const { ids: rightIds } = await runQuery(keystone, right);
-
-                if (expect_equal_ids) {
-                  expect(leftIds.sort()).toEqual(rightIds.sort());
-                  if (expect_ids) {
-                    expect(leftIds.sort()).toEqual(expect_ids.sort());
-                  }
-                } else {
-                  expect(leftIds.sort()).not.toEqual(rightIds.sort());
-                  if (left_expect_ids) {
-                    expect(leftIds.sort()).toEqual(left_expect_ids.sort());
-                  }
-                  if (right_expect_ids) {
-                    expect(rightIds.sort()).toEqual(right_expect_ids.sort());
-                  }
+              } else {
+                expect(leftIds.sort()).not.toEqual(rightIds.sort());
+                if (left_expect_ids) {
+                  expect(leftIds.sort()).toEqual(left_expect_ids.sort());
                 }
-              })
-            );
-          }
-        );
-      });
+                if (right_expect_ids) {
+                  expect(rightIds.sort()).toEqual(right_expect_ids.sort());
+                }
+              }
+            })
+          );
+        }
+      );
     });
   })
 );
