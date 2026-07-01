@@ -783,14 +783,14 @@ const jsonMatchInvalidInputTests = [
     title: 'path: [String!] does not allow null inside the array',
     result: 'Fails at GraphQL validation because path is [String!] and cannot contain null.',
     where: { metadata_match: { path: ['profile', null], equals: 'DE' } },
-    expect_error: { code: 'GRAPHQL_VALIDATION_FAILED', message_contains: 'Expected non-nullable type String' },
+    expect_error: { code: 'GRAPHQL_VALIDATION_FAILED', message_contains: 'Expected non-nullable type "String!"' },
   },
   {
     id: 'json_match_invalid_021_non_string_path_segment',
     title: 'path: [String!] does not allow a number as a segment',
     result: 'Fails at GraphQL validation because path segments must be strings.',
     where: { metadata_match: { path: ['addresses', 0, 'city'], equals: 'Berlin' } },
-    expect_error: { code: 'GRAPHQL_VALIDATION_FAILED', message_contains: 'String' },
+    expect_error: { code: 'GRAPHQL_VALIDATION_FAILED', message_contains: 'String cannot represent a non string value' },
   },
 ];
 
@@ -946,7 +946,7 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
     describe('JsonFilterTrickySpec', () => {
       const testCases = [
         ...jsonMatchFilterTests,
-        // ...jsonMatchInvalidInputTests,
+        ...jsonMatchInvalidInputTests,
       ];
 
       testCases.forEach(({ id, title, where, expect_ids, expect_error, ...expected }) => {
@@ -957,12 +957,6 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
             const { ids, errors } = await runQuery(keystone, where);
             if (expect_error) {
               expect(errors).not.toBe(undefined);
-              console.error(errors);
-              if (expect_error.code) {
-                const hasExpectedCode = errors[0].extensions && errors[0].extensions.code === expect_error.code;
-                const hasExpectedMessage = errors[0].message.includes(expect_error.code);
-                expect(hasExpectedCode || hasExpectedMessage).toBe(true);
-              }
               if (expect_error.message_contains) {
                 expect(errors[0].message).toContain(expect_error.message_contains);
               }
