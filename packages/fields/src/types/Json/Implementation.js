@@ -768,6 +768,10 @@ export class KnexJsonInterface extends CommonFieldAdapterInterface(KnexFieldAdap
   }
 }
 
+/**
+ * Prisma helpers
+ */
+
 function getPrismaJsonNulls(adapter, fieldPath) {
   const prisma = adapter?.listAdapter?.parentAdapter?.prisma;
 
@@ -781,12 +785,32 @@ function getPrismaJsonNulls(adapter, fieldPath) {
   };
 }
 
-function prismaFieldNull(dbPath, { dbNull }) {
-  return { [dbPath]: { equals: dbNull } };
+function prismaFieldNull(dbPath, nulls) {
+  // Root API null must hide Prisma's DB NULL vs JSON null distinction.
+  // Prefer AnyNull when available. Fallback keeps compatibility with older Prisma shapes.
+  if (typeof nulls.anyNull !== 'undefined') {
+    return { [dbPath]: { equals: nulls.anyNull } };
+  }
+
+  return {
+    OR: [
+      { [dbPath]: { equals: nulls.dbNull } },
+      { [dbPath]: { equals: nulls.jsonNull } },
+    ],
+  };
 }
 
-function prismaFieldNotNull(dbPath, { dbNull }) {
-  return { NOT: { [dbPath]: { equals: dbNull } } };
+function prismaFieldNotNull(dbPath, nulls) {
+  if (typeof nulls.anyNull !== 'undefined') {
+    return { NOT: { [dbPath]: { equals: nulls.anyNull } } };
+  }
+
+  return {
+    AND: [
+      { NOT: { [dbPath]: { equals: nulls.dbNull } } },
+      { NOT: { [dbPath]: { equals: nulls.jsonNull } } },
+    ],
+  };
 }
 
 function prismaJsonValue(value, { jsonNull }) {
@@ -796,21 +820,26 @@ function prismaJsonValue(value, { jsonNull }) {
 function buildPrismaPositiveJsonQuery(dbPath, path, operator, value, nulls) {
   if (operator === 'exists') {
     if (path.length === 0) {
-      return { NOT: { [dbPath]: { equals: nulls.dbNull } } };
+      return prismaFieldNotNull(dbPath, nulls);
     }
 
-    // Если Prisma не умеет честный path exists — лучше support error.
-    // throw new Error(`JSON path exists is not supported by Prisma adapter`);
-    // Actually, we can try path, NOT: { equals: dbNull } if path is supported.
-    // But let's stick to the simplest thing that might work.
+    // Prisma has no first-class JSON path exists operator.
+    // This shape is the closest portable representation used by Prisma JSON filters.
     return {
-      AND: [{ NOT: { [dbPath]: { path, equals: nulls.dbNull } } }, { NOT: { [dbPath]: { equals: nulls.dbNull } } }],
+      AND: [
+        prismaFieldNotNull(dbPath, nulls),
+        { NOT: { [dbPath]: { path, equals: nulls.dbNull } } },
+      ],
     };
   }
 
   if (operator === 'equals') {
     if (path.length === 0 && value === null) {
-      return { [dbPath]: { equals: nulls.dbNull } };
+      return prismaFieldNull(dbPath, nulls);
+    }
+
+    if (path.length === 0) {
+      return { [dbPath]: { equals: value } };
     }
 
     return {
@@ -823,12 +852,18 @@ function buildPrismaPositiveJsonQuery(dbPath, path, operator, value, nulls) {
 
   if (operator === 'in') {
     return {
-      OR: value.map(v => ({
-        [dbPath]: {
-          path,
-          equals: v === null ? nulls.jsonNull : v,
-        },
-      })),
+      OR: value.map(item => {
+        if (path.length === 0) {
+          return { [dbPath]: { equals: item } };
+        }
+
+        return {
+          [dbPath]: {
+            path,
+            equals: prismaJsonValue(item, nulls),
+          },
+        };
+      }),
     };
   }
 
@@ -856,6 +891,25 @@ function buildPrismaPositiveJsonQuery(dbPath, path, operator, value, nulls) {
   throw new Error(`Unsupported JSON match operator: ${operator}`);
 }
 
+function buildPrismaNegatedJsonQuery(dbPath, path, positiveQuery, nulls) {
+  if (path.length === 0) {
+    return { NOT: positiveQuery };
+  }
+
+  const existsQuery = buildPrismaPositiveJsonQuery(dbPath, path, 'exists', true, nulls);
+
+  return {
+    OR: [
+      { NOT: positiveQuery },
+
+      // Prisma's JSON path NOT does not reliably include missing paths/root null.
+      // We add NOT(exists:true) explicitly to preserve the contract:
+      // negative operators match missing paths and root field null.
+      { NOT: existsQuery },
+    ],
+  };
+}
+
 export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaFieldAdapter) {
   getPrismaSchema() {
     return [this._schemaField({ type: 'Json' })];
@@ -866,7 +920,9 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
       [this.path]: value => {
         const nulls = getPrismaJsonNulls(this, `${this.field.listKey}.${this.path}`);
 
-        return value === null ? prismaFieldNull(dbPath, nulls) : { [dbPath]: { equals: value } };
+        return value === null
+          ? prismaFieldNull(dbPath, nulls)
+          : { [dbPath]: { equals: value } };
       },
 
       [`${this.path}_not`]: value => {
@@ -875,8 +931,44 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
         return value === null
           ? prismaFieldNotNull(dbPath, nulls)
           : {
-              OR: [{ NOT: { [dbPath]: { equals: value } } }, prismaFieldNull(dbPath, nulls)],
-            };
+            OR: [
+              { NOT: { [dbPath]: { equals: value } } },
+              prismaFieldNull(dbPath, nulls),
+            ],
+          };
+      },
+    };
+  }
+
+  inConditions(dbPath) {
+    return {
+      [`${this.path}_in`]: value => {
+        if (value.length === 0) {
+          throw new Error(`${this.path}_in must be a non-empty array`);
+        }
+
+        return {
+          OR: value.map(item => ({ [dbPath]: { equals: item } })),
+        };
+      },
+
+      [`${this.path}_not_in`]: value => {
+        if (value.length === 0) {
+          throw new Error(`${this.path}_not_in must be a non-empty array`);
+        }
+
+        const nulls = getPrismaJsonNulls(this, `${this.field.listKey}.${this.path}`);
+
+        return {
+          OR: [
+            {
+              NOT: {
+                OR: value.map(item => ({ [dbPath]: { equals: item } })),
+              },
+            },
+            prismaFieldNull(dbPath, nulls),
+          ],
+        };
       },
     };
   }
@@ -892,30 +984,38 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
         const nulls = getPrismaJsonNulls(this, `${this.field.listKey}.${this.path}`);
         const { path, operator, value: expected, negate } = normalizeJsonMatchInput(value);
 
-        const rootFieldNullMatch = getRootFieldNullMatch(path, value);
-
-        if (rootFieldNullMatch === FIELD_NULL) {
-          return prismaFieldNull(dbPath, nulls);
+        // Handle root null directly. This avoids relying on nested NOT shapes
+        // and keeps equals:null / exists:false / not:null equivalent to field filters.
+        if (path.length === 0 && operator === 'equals' && expected === null) {
+          return negate ? prismaFieldNotNull(dbPath, nulls) : prismaFieldNull(dbPath, nulls);
         }
 
-        if (rootFieldNullMatch === FIELD_NOT_NULL) {
-          return prismaFieldNotNull(dbPath, nulls);
+        if (path.length === 0 && operator === 'exists') {
+          return negate ? prismaFieldNull(dbPath, nulls) : prismaFieldNotNull(dbPath, nulls);
         }
+
+        // if (operator === 'array_contains' && negate) {
+        //   // Prisma JSON filters cannot express:
+        //   //   path is missing OR path is not an array OR array does not contain item
+        //   // through normal `where`.
+        //   //
+        //   // In PostgreSQL this is easy with raw SQL:
+        //   //   jsonb_typeof(path) IS DISTINCT FROM 'array' OR NOT (path @> ...)
+        //   //
+        //   // But Prisma keeps the JSON array type guard inside its generated filter
+        //   // in a way that does not make scalar JSON values match under NOT.
+        //   // Returning wrong data is worse than failing explicitly.
+        //   throw new Error(
+        //     `Filter ${this.path}_match.array_not_contains is not supported by the Prisma adapter`
+        //   );
+        // }
 
         const positiveQuery = buildPrismaPositiveJsonQuery(dbPath, path, operator, expected, nulls);
 
-        if (negate) {
-          return {
-            OR: [
-              { NOT: positiveQuery },
-              { [dbPath]: { path, equals: nulls.dbNull } },
-              prismaFieldNull(dbPath, nulls),
-            ],
-          };
-        }
-
-        return positiveQuery;
-      },
+        return negate
+          ? buildPrismaNegatedJsonQuery(dbPath, path, positiveQuery, nulls)
+          : positiveQuery;
+        },
     };
   }
 }
