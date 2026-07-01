@@ -133,13 +133,15 @@ And not:
 metadata = JSON null value inside existing document
 ```
 
-## Root null vs nested null
+## Field null vs nested JSON null
 
 The API has two different practical cases.
 
-### Root null
+### Field null
 
-Root null is the `null` of the entire field.
+`field null` is the `null` of the entire JSON field.
+
+The API does not expose a separate root-level JSON `null` state. If a database can distinguish database `NULL` from root JSON `null`, the adapter must hide that difference and treat both as API-level `field null`.
 
 ```json
 {
@@ -147,7 +149,7 @@ Root null is the `null` of the entire field.
 }
 ```
 
-Root null is searched as follows:
+`field null` is searched as follows:
 
 ```graphql
 where: {
@@ -557,15 +559,21 @@ metadata_match: {
 Correct:
 
 ```ts
-['profile', 'country'][('profile', 'age')][('addresses', '0', 'city')][('tags', '1')];
+["profile", "country"];
+["profile", "age"];
+["addresses", "0", "city"];
+["tags", "1"];
 ```
 
 Incorrect:
 
 ```ts
-['profile.country']['$.profile.country'][('profile', '*', 'country')][('profile', '__proto__')][
-  ('profile', 'constructor')
-][('profile', '__typename')];
+["profile.country"];
+["$.profile.country"];
+["profile", "*", "country"];
+["profile", "__proto__"];
+["profile", "constructor"];
+["profile", "__typename"];
 ```
 
 ## Path segment rules
@@ -848,7 +856,7 @@ Due to the type `[JSON!]`, the `in` list cannot contain `null`.
 
 If you need to check for `null` along with other values, use `OR`.
 
-For root null:
+For field null:
 
 ```graphql
 OR: [
@@ -1142,7 +1150,9 @@ If `path` is not passed:
 metadata === null || !Array.isArray(metadata) || metadata.every(item => !deepEqual(item, expected));
 ```
 
-If you need to apply `array_not_contains` only to existing arrays, use `AND` with `exists: true`.
+If you need to exclude missing path and `field null`, use `AND` with `exists: true`.
+
+This does not require the selected value to be an array. Existing non-array values still match `array_not_contains`. This version of the API does not have a separate `is_array` type filter.
 
 ```graphql
 AND: [
@@ -1163,7 +1173,9 @@ AND: [
 
 ## Positive and negative operators
 
-Positive operators require an existing value of a suitable type.
+Positive operators require an existing value of a suitable type when `path` is passed.
+
+When `path` is not passed, the operator is applied to the whole JSON field. In that mode, whole-field semantics from each operator section apply. For example, `metadata_match: { equals: null }` matches `field null`, and `metadata_match: { not: null }` excludes `field null`.
 
 Positive operators:
 
@@ -1181,7 +1193,9 @@ Positive operators:
 - array_contains
 ```
 
-Negative operators include missing path and root null.
+When `path` is passed, negative operators include missing path and `field null`.
+
+When `path` is not passed, there is no nested path to resolve, so negative operators are evaluated against the whole field value.
 
 Negative operators:
 
@@ -1210,7 +1224,7 @@ means:
 metadata === null || country is missing || country !== "DE"
 ```
 
-If missing path and root null need to be excluded:
+If missing path and `field null` need to be excluded:
 
 ```graphql
 AND: [
@@ -1342,6 +1356,8 @@ exists: false
 `string_*` must be strings.
 
 `in`, `not_in`, `{field}_in`, `{field}_not_in` must be non-empty arrays.
+
+The presence of a key counts as passing an operator even when the value is `null`. However, `null` is valid only for JSON-valued operators: `equals`, `not`, `array_contains`, and `array_not_contains`. For other operators, values such as `exists: null`, `number_gte: null`, `string_contains: null`, `in: null`, and `not_in: null` are invalid.
 
 `equals`, `not`, `array_contains`, `array_not_contains` accept any JSON value, including:
 
@@ -1617,7 +1633,7 @@ query {
 
 This also matches users where `metadata` is `null`, `tags` is missing, or `tags` is not an array.
 
-### Find users where tags exists and does not contain beta
+### Find users where tags path exists and does not contain beta
 
 ```graphql
 query {
@@ -1666,10 +1682,10 @@ Final contract:
 JsonField:
   nullable: true
   required: false
-  root_null:
+  field_null:
     graphql_input: metadata: null
-    meaning: field null
-    separate_json_root_null: not supported
+    meaning: whole JSON field is null
+    separate_root_json_null: not supported
 
 JsonMatchInput:
   path:
@@ -1703,12 +1719,20 @@ JsonMatchInput:
     can_be_filtered_with_equals: true
 
   positive_operators:
-    missing_path_matches: false
-    field_null_matches: false
+    with_path:
+      missing_path_matches: false
+      field_null_matches: false
+    without_path:
+      applies_to_whole_field: true
+      see_operator_specific_semantics: true
 
   negative_operators:
-    missing_path_matches: true
-    field_null_matches: true
+    with_path:
+      missing_path_matches: true
+      field_null_matches: true
+    without_path:
+      applies_to_whole_field: true
+      see_operator_specific_semantics: true
 
   array_contains:
     requires_existing_array: true
