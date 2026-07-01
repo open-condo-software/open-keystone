@@ -64,10 +64,10 @@ input JsonMatchInput {
 
   exists: Boolean
 
-  lt: Float
-  lte: Float
-  gt: Float
-  gte: Float
+  number_lt: Float
+  number_lte: Float
+  number_gt: Float
+  number_gte: Float
 
   string_contains: String
   string_not_contains: String
@@ -468,10 +468,10 @@ Operators:
 - in
 - not_in
 - exists
-- lt
-- lte
-- gt
-- gte
+- number_lt
+- number_lte
+- number_gt
+- number_gte
 - string_contains
 - string_not_contains
 - string_starts_with
@@ -920,14 +920,14 @@ AND: [
 ]
 ```
 
-### `lt`, `lte`, `gt`, `gte`
+### `number_lt`, `number_lte`, `number_gt`, `number_gte`
 
 Numeric operators are applied only to existing JSON number values.
 
 ```graphql
 metadata_match: {
   path: ["profile", "age"]
-  gte: 18
+  number_gte: 18
 }
 ```
 
@@ -1171,10 +1171,10 @@ Positive operators:
 - equals
 - in
 - exists: true
-- lt
-- lte
-- gt
-- gte
+- number_lt
+- number_lte
+- number_gt
+- number_gte
 - string_contains
 - string_starts_with
 - string_ends_with
@@ -1244,7 +1244,7 @@ AND: [
   {
     metadata_match: {
       path: ["profile", "age"]
-      gte: 18
+      number_gte: 18
     }
   }
 ]
@@ -1304,8 +1304,8 @@ You cannot pass multiple operators:
 ```graphql
 metadata_match: {
   path: ["profile", "age"]
-  gte: 18
-  lt: 65
+  number_gte: 18
+  number_lt: 65
 }
 ```
 
@@ -1316,13 +1316,13 @@ AND: [
   {
     metadata_match: {
       path: ["profile", "age"]
-      gte: 18
+      number_gte: 18
     }
   },
   {
     metadata_match: {
       path: ["profile", "age"]
-      lt: 65
+      number_lt: 65
     }
   }
 ]
@@ -1337,7 +1337,7 @@ exists: true
 exists: false
 ```
 
-`lt`, `lte`, `gt`, `gte` must be numbers.
+`number_lt`, `number_lte`, `number_gt`, `number_gte` must be numbers.
 
 `string_*` must be strings.
 
@@ -1589,7 +1589,7 @@ This does not match rows where `metadata` is `null` or where `profile.country` i
 
 ```graphql
 query {
-  allUsers(where: { metadata_match: { path: ["profile", "age"], gte: 18 } }) {
+  allUsers(where: { metadata_match: { path: ["profile", "age"], number_gte: 18 } }) {
     id
   }
 }
@@ -1647,7 +1647,7 @@ query {
             { metadata_match: { path: ["profile", "country"], equals: "FR" } }
           ]
         }
-        { metadata_match: { path: ["profile", "age"], gte: 18 } }
+        { metadata_match: { path: ["profile", "age"], number_gte: 18 } }
         { metadata_match: { path: ["profile", "email"], string_not_contains: "spam" } }
         { metadata_match: { path: ["tags"], array_contains: "beta" } }
       ]
