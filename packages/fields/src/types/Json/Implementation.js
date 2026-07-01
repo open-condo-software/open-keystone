@@ -456,12 +456,18 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
   }
 
   equalityConditions(dbPath) {
+    const equals = value =>
+      value === null
+        ? mongoFieldNull(dbPath)
+        : { [dbPath]: { $eq: value } };
+
     return {
-      [this.path]: value =>
-        value === null ? mongoFieldNull(dbPath) : { [dbPath]: { $eq: value } },
+      [this.path]: value => equals(value),
 
       [`${this.path}_not`]: value =>
-        value === null ? mongoFieldNotNull(dbPath) : { $nor: [{ [dbPath]: { $eq: value } }] },
+        value === null
+          ? mongoFieldNotNull(dbPath)
+          : { $nor: [equals(value)] },
     };
   }
 
