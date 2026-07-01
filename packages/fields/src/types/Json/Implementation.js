@@ -5,12 +5,60 @@ import { Implementation } from '../../Implementation';
 import isFunction from 'lodash.isfunction';
 import { escapeRegExp } from '@open-keystone/utils';
 
+function fullPath(dbPath, path) {
+  if (path.length === 0) return dbPath;
+  return `${dbPath}.${path.join('.')}`;
+}
+
 const stringify = JSON.stringify;
 
 const FIELD_NULL = 'FIELD_NULL';
 const FIELD_NOT_NULL = 'FIELD_NOT_NULL';
 
+const NEGATED_OPERATOR = {
+  not: 'equals',
+  not_in: 'in',
+
+  string_not_contains: 'string_contains',
+  string_not_starts_with: 'string_starts_with',
+  string_not_ends_with: 'string_ends_with',
+
+  array_not_contains: 'array_contains',
+};
+
 const hasOwn = (obj, key) => Object.prototype.hasOwnProperty.call(obj, key);
+
+function normalizeJsonMatchInput(value) {
+  const { path = [], ...conditions } = value;
+
+  const conditionKey = Object.keys(conditions).find(key => conditions[key] !== undefined);
+  const rawValue = conditions[conditionKey];
+
+  if (conditionKey === 'exists') {
+    return {
+      path,
+      operator: 'exists',
+      value: true,
+      negate: rawValue === false,
+    };
+  }
+
+  if (hasOwn(NEGATED_OPERATOR, conditionKey)) {
+    return {
+      path,
+      operator: NEGATED_OPERATOR[conditionKey],
+      value: rawValue,
+      negate: true,
+    };
+  }
+
+  return {
+    path,
+    operator: conditionKey,
+    value: rawValue,
+    negate: false,
+  };
+}
 
 function getRootFieldNullMatch(path, conditions) {
   if (path.length > 0) return null;
@@ -243,6 +291,136 @@ function mongoFieldNotNull(dbPath) {
   return { [dbPath]: { $exists: true, $ne: null } };
 }
 
+function mongoPathEqualsNull(dbPath, targetPath) {
+  return {
+    $and: [mongoFieldNotNull(dbPath), { [targetPath]: null }, { [targetPath]: { $exists: true } }],
+  };
+}
+
+function isEmptyPlainObject(value) {
+  return (
+    value &&
+    typeof value === 'object' &&
+    !Array.isArray(value) &&
+    Object.keys(value).length === 0
+  );
+}
+
+function mongoPathEqualsEmptyObject(targetPath) {
+  const ref = `$${targetPath}`;
+
+  return {
+    $expr: {
+      $eq: [
+        {
+          $size: {
+            $objectToArray: {
+              $cond: [{ $eq: [{ $type: ref }, 'object'] }, ref, { __notEmptyObject: true }],
+            },
+          },
+        },
+        0,
+      ],
+    },
+  };
+}
+
+function buildMongoPositiveJsonQuery(dbPath, path, operator, value) {
+  const targetPath = fullPath(dbPath, path);
+
+  if (operator === 'exists') {
+    if (path.length === 0) {
+      return mongoFieldNotNull(dbPath);
+    }
+
+    return {
+      [dbPath]: { $exists: true, $ne: null },
+      [targetPath]: { $exists: true },
+    };
+  }
+
+  if (operator === 'equals') {
+    if (path.length > 0) {
+      if (value === null) {
+        return {
+          [dbPath]: { $exists: true, $ne: null },
+          [targetPath]: { $type: 'null' },
+        };
+      }
+
+      if (isEmptyPlainObject(value)) {
+        // NOTE(pahaz): this hack really don't work
+        return {
+          $and: [mongoFieldNotNull(dbPath), mongoPathEqualsEmptyObject(targetPath)],
+        };
+      }
+      return { [targetPath]: { $eq: value } };
+    }
+
+    return { [targetPath]: { $eq: value } };
+  }
+
+  if (operator === 'in') {
+    return {
+      [dbPath]: { $exists: true, $ne: null },
+      [targetPath]: { $in: value },
+    };
+  }
+
+  if (operator === 'number_lt') {
+    return { [targetPath]: { $type: 'number', $lt: value } };
+  }
+
+  if (operator === 'number_lte') {
+    return { [targetPath]: { $type: 'number', $lte: value } };
+  }
+
+  if (operator === 'number_gt') {
+    return { [targetPath]: { $type: 'number', $gt: value } };
+  }
+
+  if (operator === 'number_gte') {
+    return { [targetPath]: { $type: 'number', $gte: value } };
+  }
+
+  if (operator === 'string_contains') {
+    return {
+      [targetPath]: {
+        $type: 'string',
+        $regex: new RegExp(escapeRegExp(value)),
+      },
+    };
+  }
+
+  if (operator === 'string_starts_with') {
+    return {
+      [targetPath]: {
+        $type: 'string',
+        $regex: new RegExp(`^${escapeRegExp(value)}`),
+      },
+    };
+  }
+
+  if (operator === 'string_ends_with') {
+    return {
+      [targetPath]: {
+        $type: 'string',
+        $regex: new RegExp(`${escapeRegExp(value)}$`),
+      },
+    };
+  }
+
+  if (operator === 'array_contains') {
+    return {
+      [targetPath]: {
+        $elemMatch: { $eq: value },
+      },
+    };
+  }
+
+  throw new Error(`Unsupported JSON match operator: ${operator}`);
+}
+
 export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFieldAdapter) {
   /*
    * @param {mongoose.Schema} schema
@@ -257,8 +435,7 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
 
   equalityConditions(dbPath) {
     return {
-      [this.path]: value =>
-        value === null ? mongoFieldNull(dbPath) : { [dbPath]: { $eq: value } },
+      [this.path]: value => (value === null ? mongoFieldNull(dbPath) : { [dbPath]: { $eq: value } }),
 
       [`${this.path}_not`]: value =>
         value === null ? mongoFieldNotNull(dbPath) : { [dbPath]: { $ne: value } },
@@ -272,9 +449,10 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
           return {};
         }
         this.field.validateMatchCondition(value);
-        const { path = [], ...conditions } = value;
 
-        const rootFieldNullMatch = getRootFieldNullMatch(path, conditions);
+        const { path, operator, value: expected, negate } = normalizeJsonMatchInput(value);
+
+        const rootFieldNullMatch = getRootFieldNullMatch(path, value); // use raw value here to find operator
 
         if (rootFieldNullMatch === FIELD_NULL) {
           return mongoFieldNull(dbPath);
@@ -284,154 +462,133 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
           return mongoFieldNotNull(dbPath);
         }
 
-        const targetPath = fullPath(dbPath, path);
+        const positiveQuery = buildMongoPositiveJsonQuery(dbPath, path, operator, expected);
 
-        if ('equals' in conditions) {
-          if (path.length > 0) {
-            return {
-              [dbPath]: { $exists: true, $ne: null },
-              [targetPath]: conditions.equals === null ? { $type: 'null' } : conditions.equals,
-            };
-          }
-          return { [targetPath]: conditions.equals };
-        }
-        if ('not' in conditions) {
-          if (path.length > 0) {
-            if (conditions.not === null) {
-              return { [targetPath]: { $not: { $type: 10 } } };
-            }
-            return {
-              $or: [{ [targetPath]: { $ne: conditions.not } }, { [targetPath]: { $exists: false } }, mongoFieldNull(dbPath)],
-            };
-          }
-          return { [targetPath]: { $ne: conditions.not } };
-        }
-        if ('in' in conditions) {
-          if (path.length > 0) {
-            return {
-              [dbPath]: { $exists: true, $ne: null },
-              [targetPath]: { $in: conditions.in },
-            };
-          }
-          return { [targetPath]: { $in: conditions.in } };
-        }
-        if ('not_in' in conditions) {
-          if (path.length > 0) {
-            return {
-              $or: [{ [targetPath]: { $nin: conditions.not_in } }, { [targetPath]: { $exists: false } }],
-            };
-          }
-          return { [targetPath]: { $nin: conditions.not_in } };
-        }
-        if ('exists' in conditions) {
-          if (path.length === 0) {
-            if (conditions.exists) {
-              return { [targetPath]: { $exists: true, $ne: null } };
-            } else {
-              return { [targetPath]: null };
-            }
-          } else {
-            if (conditions.exists) {
-              return {
-                [dbPath]: { $exists: true, $ne: null },
-                [targetPath]: { $exists: true },
-              };
-            } else {
-              return {
-                $or: [{ [targetPath]: { $exists: false } }, { [dbPath]: null }],
-              };
-            }
-          }
-        }
-        if ('number_lt' in conditions) {
-          return { [targetPath]: { $lt: conditions.number_lt, $type: 'number' } };
-        }
-        if ('number_lte' in conditions) {
-          return { [targetPath]: { $lte: conditions.number_lte, $type: 'number' } };
-        }
-        if ('number_gt' in conditions) {
-          return { [targetPath]: { $gt: conditions.number_gt, $type: 'number' } };
-        }
-        if ('number_gte' in conditions) {
-          return { [targetPath]: { $gte: conditions.number_gte, $type: 'number' } };
-        }
-        if ('string_contains' in conditions) {
-          return {
-            [targetPath]: {
-              $regex: new RegExp(escapeRegExp(conditions.string_contains)),
-              $type: 'string',
-            },
-          };
-        }
-        if ('string_not_contains' in conditions) {
-          return {
-            $or: [
-              { [targetPath]: { $not: new RegExp(escapeRegExp(conditions.string_not_contains)) } },
-              { [targetPath]: { $not: { $type: 'string' } } },
-            ],
-          };
-        }
-        if ('string_starts_with' in conditions) {
-          return {
-            [targetPath]: {
-              $regex: new RegExp(`^${escapeRegExp(conditions.string_starts_with)}`),
-              $type: 'string',
-            },
-          };
-        }
-        if ('string_not_starts_with' in conditions) {
-          return {
-            $or: [
-              {
-                [targetPath]: {
-                  $not: new RegExp(`^${escapeRegExp(conditions.string_not_starts_with)}`),
-                },
-              },
-              { [targetPath]: { $not: { $type: 'string' } } },
-            ],
-          };
-        }
-        if ('string_ends_with' in conditions) {
-          return {
-            [targetPath]: {
-              $regex: new RegExp(`${escapeRegExp(conditions.string_ends_with)}$`),
-              $type: 'string',
-            },
-          };
-        }
-        if ('string_not_ends_with' in conditions) {
-          return {
-            $or: [
-              {
-                [targetPath]: {
-                  $not: new RegExp(`${escapeRegExp(conditions.string_not_ends_with)}$`),
-                },
-              },
-              { [targetPath]: { $not: { $type: 'string' } } },
-            ],
-          };
-        }
-        if ('array_contains' in conditions) {
-          return { [targetPath]: { $elemMatch: { $eq: conditions.array_contains } } };
-        }
-        if ('array_not_contains' in conditions) {
-          return {
-            $or: [
-              { [targetPath]: { $not: { $elemMatch: { $eq: conditions.array_not_contains } } } },
-              { [targetPath]: { $not: { $type: 'array' } } },
-            ],
-          };
-        }
-
-        return {};
+        return negate ? { $nor: [positiveQuery] } : positiveQuery;
       },
     };
   }
 }
 
-function fullPath(dbPath, path) {
-  if (path.length === 0) return dbPath;
-  return `${dbPath}.${path.join('.')}`;
+function knexJsonSelector(dbPath, path) {
+  if (path.length === 0) {
+    return {
+      json: '??',
+      jsonArgs: [dbPath],
+      text: '??',
+      textArgs: [dbPath],
+    };
+  }
+
+  return {
+    json: '?? #> ?',
+    jsonArgs: [dbPath, path],
+    text: '?? #>> ?',
+    textArgs: [dbPath, path],
+  };
+}
+
+function applyKnexJsonPredicate(b, negate, sql, args) {
+  return b.whereRaw(`(${sql}) IS ${negate ? 'NOT ' : ''}TRUE`, args);
+}
+
+function buildKnexPositiveJsonPredicate(dbPath, path, operator, value) {
+  const s = knexJsonSelector(dbPath, path);
+
+  if (operator === 'exists') {
+    if (path.length === 0) {
+      return {
+        sql: '?? IS NOT NULL',
+        args: [dbPath],
+      };
+    }
+
+    return {
+      sql: `jsonb_typeof(${s.json}) IS NOT NULL`,
+      args: s.jsonArgs,
+    };
+  }
+
+  if (operator === 'equals') {
+    if (path.length === 0 && value === null) {
+      return {
+        sql: '?? IS NULL',
+        args: [dbPath],
+      };
+    }
+
+    return {
+      sql: `${s.json} = ?::jsonb`,
+      args: [...s.jsonArgs, stringify(value)],
+    };
+  }
+
+  if (operator === 'in') {
+    const values = value.map(v => stringify(v));
+
+    return {
+      sql: `${s.json} IN (${values.map(() => '?::jsonb').join(',')})`,
+      args: [...s.jsonArgs, ...values],
+    };
+  }
+
+  if (operator === 'number_lt') {
+    return {
+      sql: `jsonb_typeof(${s.json}) = 'number' AND CAST(${s.text} AS FLOAT) < ?`,
+      args: [...s.jsonArgs, ...s.textArgs, value],
+    };
+  }
+
+  if (operator === 'number_lte') {
+    return {
+      sql: `jsonb_typeof(${s.json}) = 'number' AND CAST(${s.text} AS FLOAT) <= ?`,
+      args: [...s.jsonArgs, ...s.textArgs, value],
+    };
+  }
+
+  if (operator === 'number_gt') {
+    return {
+      sql: `jsonb_typeof(${s.json}) = 'number' AND CAST(${s.text} AS FLOAT) > ?`,
+      args: [...s.jsonArgs, ...s.textArgs, value],
+    };
+  }
+
+  if (operator === 'number_gte') {
+    return {
+      sql: `jsonb_typeof(${s.json}) = 'number' AND CAST(${s.text} AS FLOAT) >= ?`,
+      args: [...s.jsonArgs, ...s.textArgs, value],
+    };
+  }
+
+  if (operator === 'string_contains') {
+    return {
+      sql: `jsonb_typeof(${s.json}) = 'string' AND ${s.text} LIKE ?`,
+      args: [...s.jsonArgs, ...s.textArgs, `%${value}%`],
+    };
+  }
+
+  if (operator === 'string_starts_with') {
+    return {
+      sql: `jsonb_typeof(${s.json}) = 'string' AND ${s.text} LIKE ?`,
+      args: [...s.jsonArgs, ...s.textArgs, `${value}%`],
+    };
+  }
+
+  if (operator === 'string_ends_with') {
+    return {
+      sql: `jsonb_typeof(${s.json}) = 'string' AND ${s.text} LIKE ?`,
+      args: [...s.jsonArgs, ...s.textArgs, `%${value}`],
+    };
+  }
+
+  if (operator === 'array_contains') {
+    return {
+      sql: `jsonb_typeof(${s.json}) = 'array' AND ${s.json} @> ?`,
+      args: [...s.jsonArgs, ...s.jsonArgs, stringify([value])],
+    };
+  }
+
+  throw new Error(`Unsupported JSON match operator: ${operator}`);
 }
 
 function knexFieldNull(b, dbPath) {
@@ -515,9 +672,9 @@ export class KnexJsonInterface extends CommonFieldAdapterInterface(KnexFieldAdap
 
         this.field.validateMatchCondition(value);
 
-        const { path = [], ...conditions } = value;
+        const { path, operator, value: expected, negate } = normalizeJsonMatchInput(value);
 
-        const rootFieldNullMatch = getRootFieldNullMatch(path, conditions);
+        const rootFieldNullMatch = getRootFieldNullMatch(path, value);
 
         if (rootFieldNullMatch === FIELD_NULL) {
           return knexFieldNull(b, dbPath);
@@ -527,188 +684,9 @@ export class KnexJsonInterface extends CommonFieldAdapterInterface(KnexFieldAdap
           return knexFieldNotNull(b, dbPath);
         }
 
-        const jsonSelector = path.length > 0 ? `?? #> ?` : `??`;
-        const jsonArgs = path.length > 0 ? [dbPath, path] : [dbPath];
+        const predicate = buildKnexPositiveJsonPredicate(dbPath, path, operator, expected);
 
-        const textSelector = path.length > 0 ? `?? #>> ?` : `??`;
-        const textArgs = path.length > 0 ? [dbPath, path] : [dbPath];
-
-        if ('equals' in conditions) {
-          if (path.length > 0) {
-            b.whereRaw(`(?? #> ? = ?::jsonb) IS TRUE`, [
-              dbPath,
-              path,
-              stringify(conditions.equals),
-            ]);
-          } else {
-            b.where(dbPath, stringify(conditions.equals));
-          }
-
-          return b;
-        }
-
-        if ('not' in conditions) {
-          if (path.length > 0) {
-            b.whereRaw(`(?? #> ? != ?::jsonb OR ?? #> ? IS NULL) IS TRUE`, [
-              dbPath,
-              path,
-              stringify(conditions.not),
-              dbPath,
-              path,
-            ]);
-          } else {
-            knexNotEqualOrNull(b, dbPath, stringify(conditions.not));
-          }
-
-          return b;
-        }
-
-        if ('in' in conditions) {
-          const values = conditions.in.map(v => stringify(v));
-
-          if (path.length > 0) {
-            b.whereRaw(`(${jsonSelector} IN (${values.map(() => '?::jsonb').join(',')})) IS TRUE`, [
-              ...jsonArgs,
-              ...values,
-            ]);
-          } else {
-            b.whereIn(dbPath, values);
-          }
-
-          return b;
-        }
-
-        if ('not_in' in conditions) {
-          const values = conditions.not_in.map(v => stringify(v));
-
-          if (path.length > 0) {
-            b.whereRaw(
-              `(${jsonSelector} NOT IN (${values
-                .map(() => '?::jsonb')
-                .join(',')}) OR ${jsonSelector} IS NULL) IS TRUE`,
-              [...jsonArgs, ...values, ...jsonArgs]
-            );
-          } else {
-            knexNotInOrNull(b, dbPath, values);
-          }
-
-          return b;
-        }
-
-        if ('exists' in conditions) {
-          if (path.length > 0) {
-            b.whereRaw(
-              `jsonb_typeof(${jsonSelector}) IS ${conditions.exists ? 'NOT ' : ''}NULL`,
-              jsonArgs
-            );
-          } else {
-            conditions.exists ? knexFieldNotNull(b, dbPath) : knexFieldNull(b, dbPath);
-          }
-
-          return b;
-        }
-
-        if ('number_lt' in conditions) {
-          b.whereRaw(
-            `(jsonb_typeof(${jsonSelector}) = 'number' AND CAST(${textSelector} AS FLOAT) < ?)`,
-            [...jsonArgs, ...textArgs, conditions.number_lt]
-          );
-          return b;
-        }
-
-        if ('number_lte' in conditions) {
-          b.whereRaw(
-            `(jsonb_typeof(${jsonSelector}) = 'number' AND CAST(${textSelector} AS FLOAT) <= ?)`,
-            [...jsonArgs, ...textArgs, conditions.number_lte]
-          );
-          return b;
-        }
-
-        if ('number_gt' in conditions) {
-          b.whereRaw(
-            `(jsonb_typeof(${jsonSelector}) = 'number' AND CAST(${textSelector} AS FLOAT) > ?)`,
-            [...jsonArgs, ...textArgs, conditions.number_gt]
-          );
-          return b;
-        }
-
-        if ('number_gte' in conditions) {
-          b.whereRaw(
-            `(jsonb_typeof(${jsonSelector}) = 'number' AND CAST(${textSelector} AS FLOAT) >= ?)`,
-            [...jsonArgs, ...textArgs, conditions.number_gte]
-          );
-          return b;
-        }
-
-        if ('string_contains' in conditions) {
-          b.whereRaw(`(jsonb_typeof(${jsonSelector}) = 'string' AND ${textSelector} LIKE ?)`, [
-            ...jsonArgs,
-            ...textArgs,
-            `%${conditions.string_contains}%`,
-          ]);
-          return b;
-        }
-
-        if ('string_not_contains' in conditions) {
-          b.whereRaw(
-            `(jsonb_typeof(${jsonSelector}) IS DISTINCT FROM 'string' OR ${textSelector} NOT LIKE ?)`,
-            [...jsonArgs, ...textArgs, `%${conditions.string_not_contains}%`]
-          );
-          return b;
-        }
-
-        if ('string_starts_with' in conditions) {
-          b.whereRaw(`(jsonb_typeof(${jsonSelector}) = 'string' AND ${textSelector} LIKE ?)`, [
-            ...jsonArgs,
-            ...textArgs,
-            `${conditions.string_starts_with}%`,
-          ]);
-          return b;
-        }
-
-        if ('string_not_starts_with' in conditions) {
-          b.whereRaw(
-            `(jsonb_typeof(${jsonSelector}) IS DISTINCT FROM 'string' OR ${textSelector} NOT LIKE ?)`,
-            [...jsonArgs, ...textArgs, `${conditions.string_not_starts_with}%`]
-          );
-          return b;
-        }
-
-        if ('string_ends_with' in conditions) {
-          b.whereRaw(`(jsonb_typeof(${jsonSelector}) = 'string' AND ${textSelector} LIKE ?)`, [
-            ...jsonArgs,
-            ...textArgs,
-            `%${conditions.string_ends_with}`,
-          ]);
-          return b;
-        }
-
-        if ('string_not_ends_with' in conditions) {
-          b.whereRaw(
-            `(jsonb_typeof(${jsonSelector}) IS DISTINCT FROM 'string' OR ${textSelector} NOT LIKE ?)`,
-            [...jsonArgs, ...textArgs, `%${conditions.string_not_ends_with}`]
-          );
-          return b;
-        }
-
-        if ('array_contains' in conditions) {
-          b.whereRaw(`(jsonb_typeof(${jsonSelector}) = 'array' AND ${jsonSelector} @> ?)`, [
-            ...jsonArgs,
-            ...jsonArgs,
-            stringify([conditions.array_contains]),
-          ]);
-          return b;
-        }
-
-        if ('array_not_contains' in conditions) {
-          b.whereRaw(
-            `(jsonb_typeof(${jsonSelector}) IS DISTINCT FROM 'array' OR NOT (${jsonSelector} @> ?))`,
-            [...jsonArgs, ...jsonArgs, stringify([conditions.array_not_contains])]
-          );
-          return b;
-        }
-
-        return b;
+        return applyKnexJsonPredicate(b, negate, predicate.sql, predicate.args);
       },
     };
   }
@@ -737,6 +715,69 @@ function prismaFieldNotNull(dbPath, { dbNull }) {
 
 function prismaJsonValue(value, { jsonNull }) {
   return value === null ? jsonNull : value;
+}
+
+function buildPrismaPositiveJsonQuery(dbPath, path, operator, value, nulls) {
+  if (operator === 'exists') {
+    if (path.length === 0) {
+      return { NOT: { [dbPath]: { equals: nulls.dbNull } } };
+    }
+
+    // Если Prisma не умеет честный path exists — лучше support error.
+    // throw new Error(`JSON path exists is not supported by Prisma adapter`);
+    // Actually, we can try path, NOT: { equals: dbNull } if path is supported.
+    // But let's stick to the simplest thing that might work.
+    return {
+      AND: [{ NOT: { [dbPath]: { path, equals: nulls.dbNull } } }, { NOT: { [dbPath]: { equals: nulls.dbNull } } }],
+    };
+  }
+
+  if (operator === 'equals') {
+    if (path.length === 0 && value === null) {
+      return { [dbPath]: { equals: nulls.dbNull } };
+    }
+
+    return {
+      [dbPath]: {
+        path,
+        equals: value === null ? nulls.jsonNull : value,
+      },
+    };
+  }
+
+  if (operator === 'in') {
+    return {
+      OR: value.map(v => ({
+        [dbPath]: {
+          path,
+          equals: v === null ? nulls.jsonNull : v,
+        },
+      })),
+    };
+  }
+
+  if (operator === 'number_lt') return { [dbPath]: { path, lt: value } };
+  if (operator === 'number_lte') return { [dbPath]: { path, lte: value } };
+  if (operator === 'number_gt') return { [dbPath]: { path, gt: value } };
+  if (operator === 'number_gte') return { [dbPath]: { path, gte: value } };
+
+  if (operator === 'string_contains') {
+    return { [dbPath]: { path, string_contains: value } };
+  }
+
+  if (operator === 'string_starts_with') {
+    return { [dbPath]: { path, string_starts_with: value } };
+  }
+
+  if (operator === 'string_ends_with') {
+    return { [dbPath]: { path, string_ends_with: value } };
+  }
+
+  if (operator === 'array_contains') {
+    return { [dbPath]: { path, array_contains: [value] } };
+  }
+
+  throw new Error(`Unsupported JSON match operator: ${operator}`);
 }
 
 export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaFieldAdapter) {
@@ -771,10 +812,11 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
           return {};
         }
         this.field.validateMatchCondition(value);
-        const { path = [], ...conditions } = value;
 
         const nulls = getPrismaJsonNulls(this, `${this.field.listKey}.${this.path}`);
-        const rootFieldNullMatch = getRootFieldNullMatch(path, conditions);
+        const { path, operator, value: expected, negate } = normalizeJsonMatchInput(value);
+
+        const rootFieldNullMatch = getRootFieldNullMatch(path, value);
 
         if (rootFieldNullMatch === FIELD_NULL) {
           return prismaFieldNull(dbPath, nulls);
@@ -784,95 +826,19 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
           return prismaFieldNotNull(dbPath, nulls);
         }
 
-        if ('equals' in conditions) {
+        const positiveQuery = buildPrismaPositiveJsonQuery(dbPath, path, operator, expected, nulls);
+
+        if (negate) {
           return {
-            [dbPath]: {
-              path,
-              equals: prismaJsonValue(conditions.equals, nulls),
-            },
-          };
-        }
-        if ('not' in conditions) {
-          return {
-            NOT: {
-              [dbPath]: {
-                path,
-                equals: prismaJsonValue(conditions.not, nulls),
-              },
-            },
-          };
-        }
-        if ('in' in conditions) {
-          return {
-            OR: conditions.in.map(value => ({
-              [dbPath]: { path, equals: prismaJsonValue(value, nulls) },
-            })),
-          };
-        }
-        if ('not_in' in conditions) {
-          return {
-            AND: conditions.not_in.map(value => ({
-              NOT: { [dbPath]: { path, equals: prismaJsonValue(value, nulls) } },
-            })),
-          };
-        }
-        if ('exists' in conditions) {
-          if (conditions.exists) {
-            return {
-              AND: [{ NOT: { [dbPath]: { path, equals: nulls.dbNull } } }, prismaFieldNotNull(dbPath, nulls)],
-            };
-          } else {
-            return {
-              OR: [{ [dbPath]: { path, equals: nulls.dbNull } }, prismaFieldNull(dbPath, nulls)],
-            };
-          }
-        }
-        if ('number_lt' in conditions) {
-          return { [dbPath]: { path, lt: conditions.number_lt } };
-        }
-        if ('number_lte' in conditions) {
-          return { [dbPath]: { path, lte: conditions.number_lte } };
-        }
-        if ('number_gt' in conditions) {
-          return { [dbPath]: { path, gt: conditions.number_gt } };
-        }
-        if ('number_gte' in conditions) {
-          return { [dbPath]: { path, gte: conditions.number_gte } };
-        }
-        if ('string_contains' in conditions) {
-          return { [dbPath]: { path, string_contains: conditions.string_contains } };
-        }
-        if ('string_not_contains' in conditions) {
-          return {
-            NOT: { [dbPath]: { path, string_contains: conditions.string_not_contains } },
-          };
-        }
-        if ('string_starts_with' in conditions) {
-          return { [dbPath]: { path, string_starts_with: conditions.string_starts_with } };
-        }
-        if ('string_not_starts_with' in conditions) {
-          return {
-            NOT: { [dbPath]: { path, string_starts_with: conditions.string_not_starts_with } },
-          };
-        }
-        if ('string_ends_with' in conditions) {
-          return { [dbPath]: { path, string_ends_with: conditions.string_ends_with } };
-        }
-        if ('string_not_ends_with' in conditions) {
-          return {
-            NOT: { [dbPath]: { path, string_ends_with: conditions.string_not_ends_with } },
-          };
-        }
-        if ('array_contains' in conditions) {
-          return { [dbPath]: { path, array_contains: [conditions.array_contains] } };
-        }
-        if ('array_not_contains' in conditions) {
-          return {
-            NOT: { [dbPath]: { path, array_contains: [conditions.array_not_contains] } },
+            OR: [
+              { NOT: positiveQuery },
+              { [dbPath]: { path, equals: nulls.dbNull } },
+              prismaFieldNull(dbPath, nulls),
+            ],
           };
         }
 
-        return {};
+        return positiveQuery;
       },
     };
   }
