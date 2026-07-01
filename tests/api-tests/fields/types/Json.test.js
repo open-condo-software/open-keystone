@@ -181,8 +181,7 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
       describe('Tricky values', () => {
         const trickyValues = [
           { name: 'null object', value: null },
-          // NOTE(pahaz): Mongoose minimizes empty objects to null by default
-          { name: 'empty object', value: {}, mongoose: null },
+          { name: 'empty object', value: {} },
           { name: 'empty array', value: [] },
           { name: 'boolean true', value: true },
           { name: 'boolean false', value: false },

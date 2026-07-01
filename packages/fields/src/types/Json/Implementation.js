@@ -68,12 +68,6 @@ function getRootFieldNullMatch(path, conditions) {
 }
 
 function assertJsonFieldIsNullable(field) {
-  if (field.isRequired || field.config.isRequired || field.config.required) {
-    throw new Error(
-      `JSON field "${field.listKey}.${field.path}" cannot be required. JSON fields are always nullable.`
-    );
-  }
-
   if (field.config.knexOptions && field.config.knexOptions.isNotNullable) {
     throw new Error(
       `JSON field "${field.listKey}.${field.path}" cannot be not nullable. JSON fields are always nullable.`
@@ -310,12 +304,6 @@ function mongoFieldNull(dbPath) {
 
 function mongoFieldNotNull(dbPath) {
   return { [dbPath]: { $exists: true, $ne: null } };
-}
-
-function mongoPathEqualsNull(dbPath, targetPath) {
-  return {
-    $and: [mongoFieldNotNull(dbPath), { [targetPath]: null }, { [targetPath]: { $exists: true } }],
-  };
 }
 
 function isEmptyPlainObject(value) {
