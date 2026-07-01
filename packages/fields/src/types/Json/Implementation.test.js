@@ -74,9 +74,7 @@ describe('Json implementation', () => {
         'Only one condition can be used'
       );
       expect(() => impl.validateMatchCondition({ path: [] })).toThrow('JSON path cannot be empty');
-      expect(() => impl.validateMatchCondition({ path: [1] })).toThrow(
-        'Segment must be a string'
-      );
+      expect(() => impl.validateMatchCondition({ path: [1] })).toThrow('Segment must be a string');
       expect(() => impl.validateMatchCondition({ path: ['__proto__'] })).toThrow(
         'Invalid JSON path segment'
       );

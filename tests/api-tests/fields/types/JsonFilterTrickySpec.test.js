@@ -727,14 +727,20 @@ const jsonMatchInvalidInputTests = [
     title: 'only one operator can be used in one JsonMatchInput',
     result: 'Fails because one JsonMatchInput may contain exactly one operator.',
     where: { metadata_match: { path: ['profile', 'country'], equals: 'DE', exists: true } },
-    expect_error: { code: 'BAD_USER_INPUT', message_contains: 'Only one condition can be used in JsonMatchInput' },
+    expect_error: {
+      code: 'BAD_USER_INPUT',
+      message_contains: 'Only one condition can be used in JsonMatchInput',
+    },
   },
   {
     id: 'json_match_invalid_013_no_condition',
     title: 'JsonMatchInput must contain one operator',
     result: 'Fails because path alone is not an operator and one operator is required.',
     where: { metadata_match: { path: ['profile', 'country'] } },
-    expect_error: { code: 'BAD_USER_INPUT', message_contains: 'One condition is required in JsonMatchInput' },
+    expect_error: {
+      code: 'BAD_USER_INPUT',
+      message_contains: 'One condition is required in JsonMatchInput',
+    },
   },
   {
     id: 'json_match_invalid_014_empty_in',
@@ -755,50 +761,70 @@ const jsonMatchInvalidInputTests = [
     title: 'metadata_in must be a non-empty array',
     result: 'Fails because metadata_in must receive a non-empty array.',
     where: { metadata_in: [] },
-    expect_error: { code: 'BAD_USER_INPUT', message_contains: 'metadata_in must be a non-empty array' },
+    expect_error: {
+      code: 'BAD_USER_INPUT',
+      message_contains: 'metadata_in must be a non-empty array',
+    },
   },
   {
     id: 'json_match_invalid_017_empty_whole_field_not_in',
     title: 'metadata_not_in must be a non-empty array',
     result: 'Fails because metadata_not_in must receive a non-empty array.',
     where: { metadata_not_in: [] },
-    expect_error: { code: 'BAD_USER_INPUT', message_contains: 'metadata_not_in must be a non-empty array' },
+    expect_error: {
+      code: 'BAD_USER_INPUT',
+      message_contains: 'metadata_not_in must be a non-empty array',
+    },
   },
   {
     id: 'json_match_invalid_018_is_null_not_supported',
     title: 'is_null is not part of JsonMatchInput',
     result: 'Fails because is_null is not part of the JsonMatchInput schema.',
     where: { metadata_match: { path: ['profile', 'middleName'], is_null: true } },
-    expect_error: { code: 'GRAPHQL_VALIDATION_FAILED', message_contains: 'Field "is_null" is not defined by type "JsonMatchInput"' },
+    expect_error: {
+      code: 'GRAPHQL_VALIDATION_FAILED',
+      message_contains: 'Field "is_null" is not defined by type "JsonMatchInput"',
+    },
   },
   {
     id: 'json_match_invalid_019_global_not_not_supported',
     title: 'global NOT is not part of this JSON filter specification',
     result: 'Fails because global NOT is outside this JSON filter specification.',
     where: { NOT: [{ metadata_match: { path: ['profile', 'country'], equals: 'DE' } }] },
-    expect_error: { code: 'GRAPHQL_VALIDATION_FAILED', message_contains: 'Field "NOT" is not defined by type' },
+    expect_error: {
+      code: 'GRAPHQL_VALIDATION_FAILED',
+      message_contains: 'Field "NOT" is not defined by type',
+    },
   },
   {
     id: 'json_match_invalid_020_null_inside_path_array',
     title: 'path: [String!] does not allow null inside the array',
     result: 'Fails at GraphQL validation because path is [String!] and cannot contain null.',
     where: { metadata_match: { path: ['profile', null], equals: 'DE' } },
-    expect_error: { code: 'GRAPHQL_VALIDATION_FAILED', message_contains: 'Expected non-nullable type "String!"' },
+    expect_error: {
+      code: 'GRAPHQL_VALIDATION_FAILED',
+      message_contains: 'Expected non-nullable type "String!"',
+    },
   },
   {
     id: 'json_match_invalid_021_non_string_path_segment',
     title: 'path: [String!] does not allow a number as a segment',
     result: 'Fails at GraphQL validation because path segments must be strings.',
     where: { metadata_match: { path: ['addresses', 0, 'city'], equals: 'Berlin' } },
-    expect_error: { code: 'GRAPHQL_VALIDATION_FAILED', message_contains: 'String cannot represent a non string value' },
+    expect_error: {
+      code: 'GRAPHQL_VALIDATION_FAILED',
+      message_contains: 'String cannot represent a non string value',
+    },
   },
 ];
 
 const jsonMatchSemanticComparisonTests = [
   {
     id: 'json_match_semantic_001_root_null_forms_are_equivalent',
-    title: 'metadata: null, metadata_match exists:false, and metadata_match equals:null are equivalent for root field null',
-    result: 'Both forms select only u9 because root field null is equivalent to exists:false when path is omitted.',
+    title:
+      'metadata: null, metadata_match exists:false, and metadata_match equals:null are equivalent for root field null',
+    result:
+      'Both forms select only u9 because root field null is equivalent to exists:false when path is omitted.',
     left: { metadata: null },
     right: { metadata_match: { exists: false } },
     expect_equal_ids: true,
@@ -806,8 +832,10 @@ const jsonMatchSemanticComparisonTests = [
   },
   {
     id: 'json_match_semantic_002_root_null_exists_false_equals_null_equivalent',
-    title: 'metadata_match exists:false and metadata_match equals:null are equivalent when path is omitted',
-    result: 'Both forms select only u9 because equals:null without path means the whole metadata field is null.',
+    title:
+      'metadata_match exists:false and metadata_match equals:null are equivalent when path is omitted',
+    result:
+      'Both forms select only u9 because equals:null without path means the whole metadata field is null.',
     left: { metadata_match: { exists: false } },
     right: { metadata_match: { equals: null } },
     expect_equal_ids: true,
@@ -815,7 +843,8 @@ const jsonMatchSemanticComparisonTests = [
   },
   {
     id: 'json_match_semantic_003_root_not_null_field_filter_vs_exists_true',
-    title: 'metadata_not:null and metadata_match exists:true are equivalent for root field not null',
+    title:
+      'metadata_not:null and metadata_match exists:true are equivalent for root field not null',
     result: 'Both forms select u1 through u8 because they all have a non-null metadata document.',
     left: { metadata_not: null },
     right: { metadata_match: { exists: true } },
@@ -824,8 +853,10 @@ const jsonMatchSemanticComparisonTests = [
   },
   {
     id: 'json_match_semantic_004_root_not_null_exists_true_vs_not_null',
-    title: 'metadata_match exists:true and metadata_match not:null are equivalent when path is omitted',
-    result: 'Both forms select u1 through u8 because exists:true and not:null are equivalent at the root field level.',
+    title:
+      'metadata_match exists:true and metadata_match not:null are equivalent when path is omitted',
+    result:
+      'Both forms select u1 through u8 because exists:true and not:null are equivalent at the root field level.',
     left: { metadata_match: { exists: true } },
     right: { metadata_match: { not: null } },
     expect_equal_ids: true,
@@ -834,7 +865,8 @@ const jsonMatchSemanticComparisonTests = [
   {
     id: 'json_match_semantic_005_nested_null_is_not_missing',
     title: 'nested equals:null is not equivalent to exists:false',
-    result: 'The left side selects explicit nested null in u1 and u4, while the right side selects missing path or root null records.',
+    result:
+      'The left side selects explicit nested null in u1 and u4, while the right side selects missing path or root null records.',
     left: { metadata_match: { path: ['profile', 'middleName'], equals: null } },
     right: { metadata_match: { path: ['profile', 'middleName'], exists: false } },
     expect_equal_ids: false,
@@ -844,9 +876,15 @@ const jsonMatchSemanticComparisonTests = [
   {
     id: 'json_match_semantic_006_not_vs_existing_only_not',
     title: 'not includes missing path and root null unless paired with exists:true',
-    result: 'Plain not includes u4 and u9 due to missing/root-null semantics; the exists:true version keeps only existing non-DE values.',
+    result:
+      'Plain not includes u4 and u9 due to missing/root-null semantics; the exists:true version keeps only existing non-DE values.',
     left: { metadata_match: { path: ['profile', 'country'], not: 'DE' } },
-    right: { AND: [{ metadata_match: { path: ['profile', 'country'], exists: true } }, { metadata_match: { path: ['profile', 'country'], not: 'DE' } }] },
+    right: {
+      AND: [
+        { metadata_match: { path: ['profile', 'country'], exists: true } },
+        { metadata_match: { path: ['profile', 'country'], not: 'DE' } },
+      ],
+    },
     expect_equal_ids: false,
     left_expect_ids: ['u3', 'u4', 'u5', 'u6', 'u9'],
     right_expect_ids: ['u3', 'u5', 'u6'],
@@ -854,9 +892,15 @@ const jsonMatchSemanticComparisonTests = [
   {
     id: 'json_match_semantic_007_not_in_vs_existing_only_not_in',
     title: 'not_in includes missing path and root null unless paired with exists:true',
-    result: 'Plain not_in includes u4 and u9 due to missing/root-null semantics; the guarded version keeps only existing country values outside DE/FR.',
+    result:
+      'Plain not_in includes u4 and u9 due to missing/root-null semantics; the guarded version keeps only existing country values outside DE/FR.',
     left: { metadata_match: { path: ['profile', 'country'], not_in: ['DE', 'FR'] } },
-    right: { AND: [{ metadata_match: { path: ['profile', 'country'], exists: true } }, { metadata_match: { path: ['profile', 'country'], not_in: ['DE', 'FR'] } }] },
+    right: {
+      AND: [
+        { metadata_match: { path: ['profile', 'country'], exists: true } },
+        { metadata_match: { path: ['profile', 'country'], not_in: ['DE', 'FR'] } },
+      ],
+    },
     expect_equal_ids: false,
     left_expect_ids: ['u4', 'u5', 'u6', 'u9'],
     right_expect_ids: ['u5', 'u6'],
@@ -864,9 +908,15 @@ const jsonMatchSemanticComparisonTests = [
   {
     id: 'json_match_semantic_008_string_not_contains_vs_existing_only',
     title: 'string_not_contains includes missing path and root null unless paired with exists:true',
-    result: 'Plain string_not_contains includes u9 because root null matches negative string operators; the guarded version requires an existing email.',
+    result:
+      'Plain string_not_contains includes u9 because root null matches negative string operators; the guarded version requires an existing email.',
     left: { metadata_match: { path: ['profile', 'email'], string_not_contains: 'example.com' } },
-    right: { AND: [{ metadata_match: { path: ['profile', 'email'], exists: true } }, { metadata_match: { path: ['profile', 'email'], string_not_contains: 'example.com' } }] },
+    right: {
+      AND: [
+        { metadata_match: { path: ['profile', 'email'], exists: true } },
+        { metadata_match: { path: ['profile', 'email'], string_not_contains: 'example.com' } },
+      ],
+    },
     expect_equal_ids: false,
     left_expect_ids: ['u2', 'u3', 'u7', 'u9'],
     right_expect_ids: ['u2', 'u3', 'u7'],
@@ -874,9 +924,15 @@ const jsonMatchSemanticComparisonTests = [
   {
     id: 'json_match_semantic_009_array_not_contains_vs_existing_only',
     title: 'array_not_contains includes missing path and root null unless paired with exists:true',
-    result: 'Plain array_not_contains includes u9 because root null matches negative array operators; the guarded version requires an existing tags value.',
+    result:
+      'Plain array_not_contains includes u9 because root null matches negative array operators; the guarded version requires an existing tags value.',
     left: { metadata_match: { path: ['tags'], array_not_contains: 'beta' } },
-    right: { AND: [{ metadata_match: { path: ['tags'], exists: true } }, { metadata_match: { path: ['tags'], array_not_contains: 'beta' } }] },
+    right: {
+      AND: [
+        { metadata_match: { path: ['tags'], exists: true } },
+        { metadata_match: { path: ['tags'], array_not_contains: 'beta' } },
+      ],
+    },
     expect_equal_ids: false,
     left_expect_ids: ['u2', 'u4', 'u6', 'u8', 'u9'],
     right_expect_ids: ['u2', 'u4', 'u6', 'u8'],
@@ -944,10 +1000,7 @@ const runQuery = async (keystone, where) => {
 multiAdapterRunners().map(({ runner, adapterName }) =>
   describe(`Adapter: ${adapterName}`, () => {
     describe('JsonFilterTrickySpec', () => {
-      const testCases = [
-        ...jsonMatchFilterTests,
-        ...jsonMatchInvalidInputTests,
-      ];
+      const testCases = [...jsonMatchFilterTests, ...jsonMatchInvalidInputTests];
 
       testCases.forEach(({ id, title, where, expect_ids, expect_error, ...expected }) => {
         test(
@@ -970,9 +1023,7 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
       });
 
       describe('Equivalence tests', () => {
-        const equivalenceTestCases = [
-          ...jsonMatchSemanticComparisonTests,
-        ];
+        const equivalenceTestCases = [...jsonMatchSemanticComparisonTests];
 
         equivalenceTestCases.forEach(
           ({

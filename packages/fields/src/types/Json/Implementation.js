@@ -249,7 +249,9 @@ export class Json extends Implementation {
       );
     }
     if (conditionKeys.length === 0) {
-      throw new Error(`One condition is required in JsonMatchInput for ${this.listKey}.${this.path}`);
+      throw new Error(
+        `One condition is required in JsonMatchInput for ${this.listKey}.${this.path}`
+      );
     }
 
     const [operator] = conditionKeys;
@@ -296,20 +298,13 @@ function mongoFieldNotNull(dbPath) {
 
 function mongoPathEqualsNull(dbPath, targetPath) {
   return {
-    $and: [
-      mongoFieldNotNull(dbPath),
-      { [targetPath]: null },
-      { [targetPath]: { $exists: true } },
-    ],
+    $and: [mongoFieldNotNull(dbPath), { [targetPath]: null }, { [targetPath]: { $exists: true } }],
   };
 }
 
 function isEmptyPlainObject(value) {
   return (
-    value &&
-    typeof value === 'object' &&
-    !Array.isArray(value) &&
-    Object.keys(value).length === 0
+    value && typeof value === 'object' && !Array.isArray(value) && Object.keys(value).length === 0
   );
 }
 
@@ -328,11 +323,7 @@ function mongoPathEqualsEmptyObject(dbPath, targetPath) {
                   // $objectToArray fails on non-objects. The guard turns
                   // non-objects/missing values into a one-key object, so size=0
                   // only matches a real empty object.
-                  $cond: [
-                    { $eq: [{ $type: ref }, 'object'] },
-                    ref,
-                    { __notEmptyObject: true },
-                  ],
+                  $cond: [{ $eq: [{ $type: ref }, 'object'] }, ref, { __notEmptyObject: true }],
                 },
               },
             },
@@ -365,10 +356,10 @@ function buildMongoPositiveJsonQuery(dbPath, path, operator, value) {
 
   if (operator === 'equals') {
     if (path.length > 0 && value === null) {
-        return {
-          [dbPath]: { $exists: true, $ne: null },
-          [targetPath]: { $type: 'null' },
-        };
+      return {
+        [dbPath]: { $exists: true, $ne: null },
+        [targetPath]: { $type: 'null' },
+      };
     }
 
     if (path.length === 0 && value === null) {
@@ -466,7 +457,8 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
 
   equalityConditions(dbPath) {
     return {
-      [this.path]: value => (value === null ? mongoFieldNull(dbPath) : { [dbPath]: { $eq: value } }),
+      [this.path]: value =>
+        value === null ? mongoFieldNull(dbPath) : { [dbPath]: { $eq: value } },
 
       [`${this.path}_not`]: value =>
         value === null ? mongoFieldNotNull(dbPath) : { $nor: [{ [dbPath]: { $eq: value } }] },
@@ -732,11 +724,7 @@ export class KnexJsonInterface extends CommonFieldAdapterInterface(KnexFieldAdap
           throw new Error(`${this.path}_not_in must be a non-empty array`);
         }
 
-        return knexWhereNotInOrNull(
-          b,
-          dbPath,
-          value.map(f)
-        );
+        return knexWhereNotInOrNull(b, dbPath, value.map(f));
       },
     };
   }
@@ -793,10 +781,7 @@ function prismaFieldNull(dbPath, nulls) {
   }
 
   return {
-    OR: [
-      { [dbPath]: { equals: nulls.dbNull } },
-      { [dbPath]: { equals: nulls.jsonNull } },
-    ],
+    OR: [{ [dbPath]: { equals: nulls.dbNull } }, { [dbPath]: { equals: nulls.jsonNull } }],
   };
 }
 
@@ -920,9 +905,7 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
       [this.path]: value => {
         const nulls = getPrismaJsonNulls(this, `${this.field.listKey}.${this.path}`);
 
-        return value === null
-          ? prismaFieldNull(dbPath, nulls)
-          : { [dbPath]: { equals: value } };
+        return value === null ? prismaFieldNull(dbPath, nulls) : { [dbPath]: { equals: value } };
       },
 
       [`${this.path}_not`]: value => {
@@ -931,11 +914,8 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
         return value === null
           ? prismaFieldNotNull(dbPath, nulls)
           : {
-            OR: [
-              { NOT: { [dbPath]: { equals: value } } },
-              prismaFieldNull(dbPath, nulls),
-            ],
-          };
+              OR: [{ NOT: { [dbPath]: { equals: value } } }, prismaFieldNull(dbPath, nulls)],
+            };
       },
     };
   }
@@ -1015,7 +995,7 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
         return negate
           ? buildPrismaNegatedJsonQuery(dbPath, path, positiveQuery, nulls)
           : positiveQuery;
-        },
+      },
     };
   }
 }

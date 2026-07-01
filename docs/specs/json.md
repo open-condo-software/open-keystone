@@ -559,21 +559,21 @@ metadata_match: {
 Correct:
 
 ```ts
-["profile", "country"];
-["profile", "age"];
-["addresses", "0", "city"];
-["tags", "1"];
+['profile', 'country'];
+['profile', 'age'];
+['addresses', '0', 'city'];
+['tags', '1'];
 ```
 
 Incorrect:
 
 ```ts
-["profile.country"];
-["$.profile.country"];
-["profile", "*", "country"];
-["profile", "__proto__"];
-["profile", "constructor"];
-["profile", "__typename"];
+['profile.country'];
+['$.profile.country'];
+['profile', '*', 'country'];
+['profile', '__proto__'];
+['profile', 'constructor'];
+['profile', '__typename'];
 ```
 
 ## Path segment rules

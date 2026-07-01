@@ -197,7 +197,7 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
             value: { nested: { a: 1, b: null, c: [true, false, 'str', {}, []] } },
           },
           { name: 'mixed array', value: [null, 1, 'a', {}] },
-          { name: 'nested arrays', value: [[[null,[]]], false, 0, '', 'a', {}] },
+          { name: 'nested arrays', value: [[[null, []]], false, 0, '', 'a', {}] },
         ];
 
         trickyValues.forEach(({ name, value, ...expected }) => {
@@ -304,7 +304,11 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
           'filters by null value',
           runner(setupKeystone, async ({ keystone }) => {
             await createItem({ keystone, listKey: 'Post', item: { title: 'v1', meta: null } });
-            await createItem({ keystone, listKey: 'Post', item: { title: 'v2', meta: 'not null' } });
+            await createItem({
+              keystone,
+              listKey: 'Post',
+              item: { title: 'v2', meta: 'not null' },
+            });
             const { data } = await keystone.executeGraphQL({
               query: 'query($v: JSON) { allPosts(where: { meta: $v }) { title } }',
               variables: { v: null },
