@@ -971,7 +971,7 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
 
       describe('Equivalence tests', () => {
         const equivalenceTestCases = [
-          // ...jsonMatchSemanticComparisonTests,
+          ...jsonMatchSemanticComparisonTests,
         ];
 
         equivalenceTestCases.forEach(
