@@ -492,7 +492,7 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
           runner(setupKeystone, async ({ keystone }) => {
             const invalidSegments = ['profile.country', '$', '*', '__proto__', 'constructor'];
             for (const segment of invalidSegments) {
-              const {  errors } = await keystone.executeGraphQL({
+              const { errors } = await keystone.executeGraphQL({
                 query: `query { allUsers(where: { metadata_match: { path: ["${segment}"], equals: "foo" } }) { id } }`,
               });
               expect(errors).not.toBe(undefined);
