@@ -525,8 +525,10 @@ function knexJsonSelector(dbPath, path) {
     return {
       json: '??',
       jsonArgs: [dbPath],
-      text: '??',
-      textArgs: [dbPath],
+      // Root string operators must still use text extraction.
+      // jsonb #>> '{}' returns the root JSON scalar as text.
+      text: '?? #>> ?',
+      textArgs: [dbPath, []],
     };
   }
 
