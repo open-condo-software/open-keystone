@@ -180,9 +180,10 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
 
       describe('Tricky values', () => {
         const trickyValues = [
-          { name: 'null object', value: null, expected: null },
-          { name: 'empty object', value: {}, expected: null },
-          { name: 'empty array', value: [], expected: null },
+          { name: 'null object', value: null },
+          // NOTE(pahaz): Mongoose minimizes empty objects to null by default
+          { name: 'empty object', value: {}, mongoose: null },
+          { name: 'empty array', value: [] },
           { name: 'boolean true', value: true },
           { name: 'boolean false', value: false },
           { name: 'number', value: 123 },
@@ -194,12 +195,12 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
           {
             name: 'complex nested',
             value: { nested: { a: 1, b: null, c: [true, false, 'str', {}, []] } },
-            expected: { nested: { a: 1, c: [true, false, 'str', null, null] } },
           },
-          { name: 'mixed array', value: [null, 1, 'a', {}], expected: [null, 1, 'a', null] },
+          { name: 'mixed array', value: [null, 1, 'a', {}] },
+          { name: 'nested arrays', value: [[[null,[]]], false, 0, '', 'a', {}] },
         ];
 
-        trickyValues.forEach(({ name, value, expected }) => {
+        trickyValues.forEach(({ name, value, ...expected }) => {
           test(
             `correctly handles ${name}`,
             runner(setupKeystone, async ({ keystone }) => {
@@ -218,9 +219,8 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
               expect(errors).toBe(undefined);
               expect(data).toHaveProperty('Post.meta');
 
-              // Mongoose minimizes empty objects to null by default
-              if (typeof expected !== 'undefined') {
-                expect(data.Post.meta).toEqual(expected);
+              if (typeof expected[adapterName] !== 'undefined') {
+                expect(data.Post.meta).toEqual(expected[adapterName]);
               } else {
                 expect(data.Post.meta).toEqual(value);
               }
@@ -295,6 +295,19 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
             const { data } = await keystone.executeGraphQL({
               query: 'query($v: JSON) { allPosts(where: { meta: $v }) { title } }',
               variables: { v: [1, 2] },
+            });
+            expect(data.allPosts).toEqual([{ title: 'v1' }]);
+          })
+        );
+
+        test(
+          'filters by null value',
+          runner(setupKeystone, async ({ keystone }) => {
+            await createItem({ keystone, listKey: 'Post', item: { title: 'v1', meta: null } });
+            await createItem({ keystone, listKey: 'Post', item: { title: 'v2', meta: 'not null' } });
+            const { data } = await keystone.executeGraphQL({
+              query: 'query($v: JSON) { allPosts(where: { meta: $v }) { title } }',
+              variables: { v: null },
             });
             expect(data.allPosts).toEqual([{ title: 'v1' }]);
           })
