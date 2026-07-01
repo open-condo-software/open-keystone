@@ -3,7 +3,7 @@ import { MongooseFieldAdapter } from '@open-keystone/adapter-mongoose';
 import { PrismaFieldAdapter } from '@open-keystone/adapter-prisma';
 import { Implementation } from '../../Implementation';
 import isFunction from 'lodash.isfunction';
-import { identity, escapeRegExp } from '@open-keystone/utils';
+import { escapeRegExp } from '@open-keystone/utils';
 
 const stringify = JSON.stringify;
 
@@ -414,12 +414,6 @@ function fullPath(dbPath, path) {
   return `${dbPath}.${path.join('.')}`;
 }
 
-function fullPathExists(dbPath, path) {
-  if (path.length === 0) return dbPath;
-  const pathParts = path.join('.').split('.');
-  return `${dbPath}.${pathParts.join('.')}`;
-}
-
 export class KnexJsonInterface extends CommonFieldAdapterInterface(KnexFieldAdapter) {
   constructor() {
     super(...arguments);
@@ -434,7 +428,7 @@ export class KnexJsonInterface extends CommonFieldAdapterInterface(KnexFieldAdap
     }
   }
 
-  setupHooks({ addPreSaveHook, addPostReadHook }) {
+  setupHooks({ addPreSaveHook }) {
     addPreSaveHook(item => {
       // Only run the hook if the item actually contains the field
       // NOTE: Can't use hasOwnProperty here
@@ -648,7 +642,7 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
     return [this._schemaField({ type: 'Json' })];
   }
 
-  equalityConditions(dbPath, f = identity) {
+  equalityConditions(dbPath) {
     const dbNull = this?.listAdapter?.parentAdapter?.prisma?.DbNull || null;
     return {
       [this.path]: value =>

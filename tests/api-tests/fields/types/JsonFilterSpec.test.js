@@ -479,7 +479,7 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
         test(
           'Error when path is an empty array',
           runner(setupKeystone, async ({ keystone }) => {
-            const { data, errors } = await keystone.executeGraphQL({
+            const { errors } = await keystone.executeGraphQL({
               query: `query { allUsers(where: { metadata_match: { path: [], equals: "foo" } }) { id } }`,
             });
             expect(errors).not.toBe(undefined);
@@ -492,7 +492,7 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
           runner(setupKeystone, async ({ keystone }) => {
             const invalidSegments = ['profile.country', '$', '*', '__proto__', 'constructor'];
             for (const segment of invalidSegments) {
-              const { data, errors } = await keystone.executeGraphQL({
+              const {  errors } = await keystone.executeGraphQL({
                 query: `query { allUsers(where: { metadata_match: { path: ["${segment}"], equals: "foo" } }) { id } }`,
               });
               expect(errors).not.toBe(undefined);
@@ -504,7 +504,7 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
         test(
           'Error when multiple conditions are provided',
           runner(setupKeystone, async ({ keystone }) => {
-            const { data, errors } = await keystone.executeGraphQL({
+            const { errors } = await keystone.executeGraphQL({
               query: `query { allUsers(where: { metadata_match: { equals: "foo", exists: true } }) { id } }`,
             });
             expect(errors).not.toBe(undefined);
@@ -515,7 +515,7 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
         test(
           'Error when no conditions are provided',
           runner(setupKeystone, async ({ keystone }) => {
-            const { data, errors } = await keystone.executeGraphQL({
+            const { errors } = await keystone.executeGraphQL({
               query: `query { allUsers(where: { metadata_match: { path: ["foo"] } }) { id } }`,
             });
             expect(errors).not.toBe(undefined);

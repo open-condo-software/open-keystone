@@ -1,5 +1,5 @@
 import Json from './';
-import { Text } from '@open-keystone/fields';
+import Text from '../Text';
 
 export const name = 'Json';
 export const type = Json;
@@ -10,7 +10,7 @@ export const fieldName = 'testField';
 
 export const getTestFields = () => ({
   name: { type: Text },
-  testField: { type },
+  testField: { type: Json },
 });
 
 export const initItems = () => {
