@@ -1193,9 +1193,9 @@ Positive operators:
 - array_contains
 ```
 
-When `path` is passed, negative operators include missing path and `field null`.
+When `path` is passed, negative operators include missing path, `field null`, and values of a different type (type mismatches).
 
-When `path` is not passed, there is no nested path to resolve, so negative operators are evaluated against the whole field value.
+When `path` is not passed, there is no nested path to resolve, so negative operators are evaluated against the whole field value. In that mode, negative operators also include `field null` and values of a different type.
 
 Negative operators:
 
@@ -1219,9 +1219,8 @@ metadata_match: {
 ```
 
 means:
-
 ```ts
-metadata === null || country is missing || country !== "DE"
+metadata === null || country is missing || country is not a string || country !== "DE"
 ```
 
 If missing path and `field null` need to be excluded:
@@ -1490,8 +1489,10 @@ Adapters must:
 5. preserve type-sensitive semantics;
 6. preserve the distinction between field null, missing path, and nested JSON null;
 7. preserve the distinction between scalar, object, and array;
-8. maintain identical behavior for negative operators;
+8. maintain identical behavior for negative operators (negative operator is equivalent to `NOT(positive)`, including type mismatches);
 9. not create a root-level JSON `null` distinct from field null.
+
+NOTE: Some adapters (e.g. `Prisma` with `postgresql`) may have limitations in implementing negative operators exactly according to the `NOT(positive)` contract for all edge cases (like non-array values in `array_not_contains`). See implementation tests for details.
 
 If the database or driver distinguishes between database `NULL` and root JSON `null`, the adapter must hide this difference at the GraphQL API level:
 
