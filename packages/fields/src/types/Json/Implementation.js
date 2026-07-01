@@ -524,6 +524,10 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
   }
 }
 
+/**
+ * Knex / PostgreSQL helpers
+ */
+
 function knexJsonSelector(dbPath, path) {
   if (path.length === 0) {
     return {
@@ -543,6 +547,8 @@ function knexJsonSelector(dbPath, path) {
 }
 
 function applyKnexJsonPredicate(b, negate, sql, args) {
+  // SQL boolean expressions involving NULL produce UNKNOWN.
+  // `IS NOT TRUE` is intentional: it turns FALSE and UNKNOWN into TRUE.
   return b.whereRaw(`(${sql}) IS ${negate ? 'NOT ' : ''}TRUE`, args);
 }
 
@@ -653,13 +659,13 @@ function knexFieldNotNull(b, dbPath) {
   return b.whereNotNull(dbPath);
 }
 
-function knexNotEqualOrNull(b, dbPath, value) {
+function knexWhereNotEqualOrNull(b, dbPath, value) {
   return b.where(q => {
     q.where(dbPath, '!=', value).orWhereNull(dbPath);
   });
 }
 
-function knexNotInOrNull(b, dbPath, values) {
+function knexWhereNotInOrNull(b, dbPath, values) {
   return b.where(q => {
     q.whereNotIn(dbPath, values).orWhereNull(dbPath);
   });
@@ -687,7 +693,8 @@ export class KnexJsonInterface extends CommonFieldAdapterInterface(KnexFieldAdap
     addPreSaveHook(item => {
       if (!(this.path in item)) return item;
 
-      // API null is DB NULL. We do not store root JSON null.
+      // API-level root null is stored as DB NULL.
+      // We intentionally do not store root JSONB 'null'.
       item[this.path] = item[this.path] === null ? null : stringify(item[this.path]);
 
       return item;
@@ -703,19 +710,34 @@ export class KnexJsonInterface extends CommonFieldAdapterInterface(KnexFieldAdap
 
   equalityConditions(dbPath, f = stringify) {
     return {
-      [this.path]: value => b =>
-        value === null ? knexFieldNull(b, dbPath) : b.where(dbPath, f(value)),
+      [this.path]: value => b => (value === null ? b.whereNull(dbPath) : b.where(dbPath, f(value))),
 
       [`${this.path}_not`]: value => b =>
-        value === null ? knexFieldNotNull(b, dbPath) : knexNotEqualOrNull(b, dbPath, f(value)),
+        value === null ? b.whereNotNull(dbPath) : knexWhereNotEqualOrNull(b, dbPath, f(value)),
     };
   }
 
   inConditions(dbPath, f = stringify) {
     return {
-      [`${this.path}_in`]: value => b => b.whereIn(dbPath, value.map(f)),
+      [`${this.path}_in`]: value => b => {
+        if (value.length === 0) {
+          throw new Error(`${this.path}_in must be a non-empty array`);
+        }
 
-      [`${this.path}_not_in`]: value => b => knexNotInOrNull(b, dbPath, value.map(f)),
+        return b.whereIn(dbPath, value.map(f));
+      },
+
+      [`${this.path}_not_in`]: value => b => {
+        if (value.length === 0) {
+          throw new Error(`${this.path}_not_in must be a non-empty array`);
+        }
+
+        return knexWhereNotInOrNull(
+          b,
+          dbPath,
+          value.map(f)
+        );
+      },
     };
   }
 
