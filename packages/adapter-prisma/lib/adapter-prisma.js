@@ -101,6 +101,8 @@ class PrismaAdapter extends BaseKeystoneAdapter {
       datasources: { [this.provider]: { url: this._url() } },
     });
     this.prisma.DbNull = Prisma.DbNull;
+    this.prisma.JsonNull = Prisma.JsonNull;
+    this.prisma.AnyNull = Prisma.AnyNull;
     await this.prisma.$connect();
   }
 
