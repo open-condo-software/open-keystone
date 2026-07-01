@@ -5,11 +5,6 @@ import { Implementation } from '../../Implementation';
 import isFunction from 'lodash.isfunction';
 import { escapeRegExp } from '@open-keystone/utils';
 
-function fullPath(dbPath, path) {
-  if (path.length === 0) return dbPath;
-  return `${dbPath}.${path.join('.')}`;
-}
-
 const stringify = JSON.stringify;
 
 const FIELD_NULL = 'FIELD_NULL';
@@ -30,32 +25,31 @@ const hasOwn = (obj, key) => Object.prototype.hasOwnProperty.call(obj, key);
 
 function normalizeJsonMatchInput(value) {
   const { path = [], ...conditions } = value;
+  const operator = Object.keys(conditions).find(key => conditions[key] !== undefined);
+  const expected = conditions[operator];
 
-  const conditionKey = Object.keys(conditions).find(key => conditions[key] !== undefined);
-  const rawValue = conditions[conditionKey];
-
-  if (conditionKey === 'exists') {
+  if (operator === 'exists') {
     return {
       path,
       operator: 'exists',
       value: true,
-      negate: rawValue === false,
+      negate: expected === false,
     };
   }
 
-  if (hasOwn(NEGATED_OPERATOR, conditionKey)) {
+  if (hasOwn(NEGATED_OPERATOR, operator)) {
     return {
       path,
-      operator: NEGATED_OPERATOR[conditionKey],
-      value: rawValue,
+      operator: NEGATED_OPERATOR[operator],
+      value: expected,
       negate: true,
     };
   }
 
   return {
     path,
-    operator: conditionKey,
-    value: rawValue,
+    operator,
+    value: expected,
     negate: false,
   };
 }
@@ -91,7 +85,7 @@ const JSON_PATH_SEGMENT_REGEX =
   /^(?!(?:__proto__|prototype|constructor|__typename)$)(?:[_A-Za-z][_A-Za-z0-9]*|0|[1-9][0-9]{0,3})$/;
 
 export class Json extends Implementation {
-  // NOTE: argument names are based no Virtual field
+  // NOTE: argument names are based on Virtual field
   constructor(
     path,
     {
@@ -255,9 +249,14 @@ export class Json extends Implementation {
       );
     }
     if (conditionKeys.length === 0) {
-      throw new Error(
-        `One condition is required in JsonMatchInput for ${this.listKey}.${this.path}`
-      );
+      throw new Error(`One condition is required in JsonMatchInput for ${this.listKey}.${this.path}`);
+    }
+
+    const [operator] = conditionKeys;
+    const conditionValue = conditions[operator];
+
+    if ((operator === 'in' || operator === 'not_in') && conditionValue.length === 0) {
+      throw new Error(`${operator} must be a non-empty array for ${this.listKey}.${this.path}`);
     }
   }
 }
@@ -283,6 +282,10 @@ const CommonFieldAdapterInterface = superclass =>
     }
   };
 
+/**
+ * Mongo / Mongoose helpers
+ */
+
 function mongoFieldNull(dbPath) {
   return { [dbPath]: null };
 }
@@ -293,7 +296,11 @@ function mongoFieldNotNull(dbPath) {
 
 function mongoPathEqualsNull(dbPath, targetPath) {
   return {
-    $and: [mongoFieldNotNull(dbPath), { [targetPath]: null }, { [targetPath]: { $exists: true } }],
+    $and: [
+      mongoFieldNotNull(dbPath),
+      { [targetPath]: null },
+      { [targetPath]: { $exists: true } },
+    ],
   };
 }
 
@@ -306,23 +313,40 @@ function isEmptyPlainObject(value) {
   );
 }
 
-function mongoPathEqualsEmptyObject(targetPath) {
+function mongoPathEqualsEmptyObject(dbPath, targetPath) {
   const ref = `$${targetPath}`;
 
   return {
-    $expr: {
-      $eq: [
-        {
-          $size: {
-            $objectToArray: {
-              $cond: [{ $eq: [{ $type: ref }, 'object'] }, ref, { __notEmptyObject: true }],
+    $and: [
+      mongoFieldNotNull(dbPath),
+      {
+        $expr: {
+          $eq: [
+            {
+              $size: {
+                $objectToArray: {
+                  // $objectToArray fails on non-objects. The guard turns
+                  // non-objects/missing values into a one-key object, so size=0
+                  // only matches a real empty object.
+                  $cond: [
+                    { $eq: [{ $type: ref }, 'object'] },
+                    ref,
+                    { __notEmptyObject: true },
+                  ],
+                },
+              },
             },
-          },
+            0,
+          ],
         },
-        0,
-      ],
-    },
+      },
+    ],
   };
+}
+
+function fullPath(dbPath, path) {
+  if (path.length === 0) return dbPath;
+  return `${dbPath}.${path.join('.')}`;
 }
 
 function buildMongoPositiveJsonQuery(dbPath, path, operator, value) {
@@ -340,27 +364,29 @@ function buildMongoPositiveJsonQuery(dbPath, path, operator, value) {
   }
 
   if (operator === 'equals') {
-    if (path.length > 0) {
-      if (value === null) {
+    if (path.length > 0 && value === null) {
         return {
           [dbPath]: { $exists: true, $ne: null },
           [targetPath]: { $type: 'null' },
         };
-      }
+    }
 
-      if (isEmptyPlainObject(value)) {
-        // NOTE(pahaz): this hack really don't work
-        return {
-          $and: [mongoFieldNotNull(dbPath), mongoPathEqualsEmptyObject(targetPath)],
-        };
-      }
-      return { [targetPath]: { $eq: value } };
+    if (path.length === 0 && value === null) {
+      return mongoFieldNull(dbPath);
+    }
+
+    if (path.length > 0 && isEmptyPlainObject(value)) {
+      return mongoPathEqualsEmptyObject(dbPath, targetPath);
     }
 
     return { [targetPath]: { $eq: value } };
   }
 
   if (operator === 'in') {
+    if (path.length === 0) {
+      return { [dbPath]: { $in: value } };
+    }
+
     return {
       [dbPath]: { $exists: true, $ne: null },
       [targetPath]: { $in: value },
@@ -430,6 +456,11 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
       type: Object,
     };
     schema.add({ [this.path]: this.mergeSchemaOptions(schemaOptions, this.config) });
+
+    // Mixed/Object JSON values may contain intentionally empty objects.
+    // Mongoose removes empty objects by default, which breaks equals: {}.
+    schema.set('minimize', false);
+
     schema.set('strict', false);
   }
 
@@ -438,7 +469,27 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
       [this.path]: value => (value === null ? mongoFieldNull(dbPath) : { [dbPath]: { $eq: value } }),
 
       [`${this.path}_not`]: value =>
-        value === null ? mongoFieldNotNull(dbPath) : { [dbPath]: { $ne: value } },
+        value === null ? mongoFieldNotNull(dbPath) : { $nor: [{ [dbPath]: { $eq: value } }] },
+    };
+  }
+
+  inConditions(dbPath) {
+    return {
+      [`${this.path}_in`]: value => {
+        if (value.length === 0) {
+          throw new Error(`${this.path}_in must be a non-empty array`);
+        }
+
+        return { [dbPath]: { $in: value } };
+      },
+
+      [`${this.path}_not_in`]: value => {
+        if (value.length === 0) {
+          throw new Error(`${this.path}_not_in must be a non-empty array`);
+        }
+
+        return { $nor: [{ [dbPath]: { $in: value } }] };
+      },
     };
   }
 
@@ -464,6 +515,9 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
 
         const positiveQuery = buildMongoPositiveJsonQuery(dbPath, path, operator, expected);
 
+        // Negative operators are defined as the exact negation of their
+        // positive pair. This makes missing paths, root null and type
+        // mismatches predictable and consistent.
         return negate ? { $nor: [positiveQuery] } : positiveQuery;
       },
     };

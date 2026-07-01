@@ -563,14 +563,6 @@ const jsonMatchFilterTests = [
     result: 'Only u5 preserves misc.emptyObject as an explicit empty object.',
     where: { metadata_match: { path: ['misc', 'emptyObject'], equals: {} } },
     expect_ids: ['u5'],
-    // NOTE(pahaz): The issue is almost certainly not with the query itself,
-    // but with how the document is stored. By default, Mongoose uses `minimize: true`,
-    // which removes empty objects when saving. The official Mongoose documentation states
-    // that empty objects are not persisted unless `minimize: false` is set;
-    // with `minimize: false`, empty objects are stored as `{}`.
-    // So `u5.metadata.misc.emptyObject = {}` most likely does not physically exist in MongoDB.
-    // That's why neither `{ $eq: {} }`, nor `{}`, nor `$type` queries are able to match it.
-    mongoose: [],
   },
   {
     id: 'json_match_055_string_operator_on_number_returns_false',
