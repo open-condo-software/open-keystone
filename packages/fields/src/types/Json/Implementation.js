@@ -10,43 +10,6 @@ const stringify = JSON.stringify;
 const JSON_PATH_SEGMENT_REGEX =
   /^(?!(?:__proto__|prototype|constructor|__typename)$)(?:[_A-Za-z][_A-Za-z0-9]*|0|[1-9][0-9]{0,3})$/;
 
-function normalize(value, isInsideArray = false) {
-  if (value === null || value === undefined) {
-    return isInsideArray ? null : undefined;
-  }
-
-  if (Array.isArray(value)) {
-    if (value.length === 0) {
-      return isInsideArray ? null : undefined;
-    }
-    return value.map(item => normalize(item, true));
-  }
-
-  if (typeof value === 'object') {
-    const keys = Object.keys(value);
-    if (keys.length === 0) {
-      return isInsideArray ? null : undefined;
-    }
-
-    const result = {};
-    let hasVisibleKeys = false;
-    for (const key of keys) {
-      const normalizedValue = normalize(value[key], false);
-      if (normalizedValue !== undefined) {
-        result[key] = normalizedValue;
-        hasVisibleKeys = true;
-      }
-    }
-
-    if (!hasVisibleKeys) {
-      return isInsideArray ? null : undefined;
-    }
-    return result;
-  }
-
-  return value;
-}
-
 export class Json extends Implementation {
   // NOTE: argument names are based no Virtual field
   constructor(
@@ -89,7 +52,8 @@ export class Json extends Implementation {
   gqlQueryInputFields() {
     return [
       ...this.equalityInputFields(this.graphQLInputType),
-      ...this.inInputFields(this.graphQLInputType),
+      `${this.path}_in: [${this.graphQLInputType}!]`,
+      `${this.path}_not_in: [${this.graphQLInputType}!]`,
       `${this.path}_match: JsonMatchInput`,
     ];
   }
@@ -120,10 +84,10 @@ export class Json extends Implementation {
                 in: [JSON!]
                 not_in: [JSON!]
                 exists: Boolean
-                lt: Float
-                lte: Float
-                gt: Float
-                gte: Float
+                number_lt: Float
+                number_lte: Float
+                number_gt: Float
+                number_gte: Float
                 string_contains: String
                 string_not_contains: String
                 string_starts_with: String
@@ -131,6 +95,7 @@ export class Json extends Implementation {
                 string_ends_with: String
                 string_not_ends_with: String
                 array_contains: JSON
+                array_not_contains: JSON
             }`,
     ];
   }
@@ -161,9 +126,7 @@ export class Json extends Implementation {
     if (!(this.path in resolvedData)) {
       return undefined;
     }
-    const value = resolvedData[this.path];
-    const normalizedValue = normalize(value);
-    return normalizedValue === undefined ? null : normalizedValue;
+    return resolvedData[this.path];
   }
 
   validateMatchCondition(value) {
@@ -205,47 +168,12 @@ export class Json extends Implementation {
     const conditionKeys = Object.keys(conditions).filter(k => conditions[k] !== undefined);
     if (conditionKeys.length > 1) {
       throw new Error(
-        `Only one condition can be used in JsonMatchInput for ${this.listKey}.${this.path}`
+        `Only one condition can be used in JsonMatchInput for ${this.listKey}.${this.path}. Use OR / AND to combine conditions.`
       );
     }
     if (conditionKeys.length === 0) {
       throw new Error(
         `One condition is required in JsonMatchInput for ${this.listKey}.${this.path}`
-      );
-    }
-
-    if ('is_null' in conditions) {
-      throw new Error(`is_null is not supported. Use exists: false instead.`);
-    }
-
-    const isDeletedValue = val =>
-      val === null ||
-      (Array.isArray(val) && val.length === 0) ||
-      (typeof val === 'object' && val !== null && Object.keys(val).length === 0);
-
-    if ('equals' in conditions && isDeletedValue(conditions.equals)) {
-      throw new Error(
-        `Empty object, empty array and null are treated as deleted values and cannot be used as JsonMatchInput values. Use exists: false instead.`
-      );
-    }
-
-    if ('in' in conditions && Array.isArray(conditions.in) && conditions.in.some(isDeletedValue)) {
-      throw new Error(`JSON null is not a valid filter value for in. Use exists: false instead.`);
-    }
-
-    if (
-      'not_in' in conditions &&
-      Array.isArray(conditions.not_in) &&
-      conditions.not_in.some(isDeletedValue)
-    ) {
-      throw new Error(
-        `JSON null is not a valid filter value for not_in. Use exists: false instead.`
-      );
-    }
-
-    if ('array_contains' in conditions && isDeletedValue(conditions.array_contains)) {
-      throw new Error(
-        `Empty object, empty array and null are treated as deleted values and cannot be used as JsonMatchInput values. Use array_contains: null instead.`
       );
     }
   }
@@ -294,42 +222,36 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
         const { path = [], ...conditions } = value;
         const targetPath = fullPath(dbPath, path);
 
-        // Helper for negative operators in MongoDB to include missing and nulls
-        const withMissing = query => {
-          if (path.length === 0) {
+        if ('equals' in conditions) {
+          if (path.length > 0) {
             return {
-              $or: [query, { [targetPath]: null }],
+              [dbPath]: { $exists: true, $ne: null },
+              [targetPath]: conditions.equals === null ? { $type: 'null' } : conditions.equals,
             };
           }
-          return {
-            $or: [query, { [targetPath]: { $exists: false } }],
-          };
-        };
-
-        if ('equals' in conditions) {
           return { [targetPath]: conditions.equals };
         }
         if ('not' in conditions) {
-          return withMissing({ [targetPath]: { $ne: conditions.not } });
+          return { [targetPath]: { $ne: conditions.not } };
         }
         if ('in' in conditions) {
+          if (path.length > 0) {
+            return {
+              [dbPath]: { $exists: true, $ne: null },
+              [targetPath]: { $in: conditions.in },
+            };
+          }
           return { [targetPath]: { $in: conditions.in } };
         }
         if ('not_in' in conditions) {
-          return withMissing({ [targetPath]: { $nin: conditions.not_in } });
+          return { [targetPath]: { $nin: conditions.not_in } };
         }
         if ('exists' in conditions) {
           if (path.length === 0) {
             if (conditions.exists) {
               return { [targetPath]: { $exists: true, $ne: null } };
             } else {
-              return {
-                $or: [
-                  { [targetPath]: { $exists: false } },
-                  { [targetPath]: null },
-                  { [dbPath]: null },
-                ],
-              };
+              return { [targetPath]: null };
             }
           } else {
             if (conditions.exists) {
@@ -339,17 +261,17 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
             }
           }
         }
-        if ('lt' in conditions) {
-          return { [targetPath]: { $lt: conditions.lt, $type: 'number' } };
+        if ('number_lt' in conditions) {
+          return { [targetPath]: { $lt: conditions.number_lt, $type: 'number' } };
         }
-        if ('lte' in conditions) {
-          return { [targetPath]: { $lte: conditions.lte, $type: 'number' } };
+        if ('number_lte' in conditions) {
+          return { [targetPath]: { $lte: conditions.number_lte, $type: 'number' } };
         }
-        if ('gt' in conditions) {
-          return { [targetPath]: { $gt: conditions.gt, $type: 'number' } };
+        if ('number_gt' in conditions) {
+          return { [targetPath]: { $gt: conditions.number_gt, $type: 'number' } };
         }
-        if ('gte' in conditions) {
-          return { [targetPath]: { $gte: conditions.gte, $type: 'number' } };
+        if ('number_gte' in conditions) {
+          return { [targetPath]: { $gte: conditions.number_gte, $type: 'number' } };
         }
         if ('string_contains' in conditions) {
           return {
@@ -360,12 +282,12 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
           };
         }
         if ('string_not_contains' in conditions) {
-          return withMissing({
-            [targetPath]: {
-              $not: new RegExp(escapeRegExp(conditions.string_not_contains)),
-              $type: 'string',
-            },
-          });
+          return {
+            $or: [
+              { [targetPath]: { $not: new RegExp(escapeRegExp(conditions.string_not_contains)) } },
+              { [targetPath]: { $not: { $type: 'string' } } },
+            ],
+          };
         }
         if ('string_starts_with' in conditions) {
           return {
@@ -376,12 +298,16 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
           };
         }
         if ('string_not_starts_with' in conditions) {
-          return withMissing({
-            [targetPath]: {
-              $not: new RegExp(`^${escapeRegExp(conditions.string_not_starts_with)}`),
-              $type: 'string',
-            },
-          });
+          return {
+            $or: [
+              {
+                [targetPath]: {
+                  $not: new RegExp(`^${escapeRegExp(conditions.string_not_starts_with)}`),
+                },
+              },
+              { [targetPath]: { $not: { $type: 'string' } } },
+            ],
+          };
         }
         if ('string_ends_with' in conditions) {
           return {
@@ -392,15 +318,27 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
           };
         }
         if ('string_not_ends_with' in conditions) {
-          return withMissing({
-            [targetPath]: {
-              $not: new RegExp(`${escapeRegExp(conditions.string_not_ends_with)}$`),
-              $type: 'string',
-            },
-          });
+          return {
+            $or: [
+              {
+                [targetPath]: {
+                  $not: new RegExp(`${escapeRegExp(conditions.string_not_ends_with)}$`),
+                },
+              },
+              { [targetPath]: { $not: { $type: 'string' } } },
+            ],
+          };
         }
         if ('array_contains' in conditions) {
           return { [targetPath]: { $elemMatch: { $eq: conditions.array_contains } } };
+        }
+        if ('array_not_contains' in conditions) {
+          return {
+            $or: [
+              { [targetPath]: { $not: { $elemMatch: { $eq: conditions.array_not_contains } } } },
+              { [targetPath]: { $not: { $type: 'array' } } },
+            ],
+          };
         }
 
         return {};
@@ -504,8 +442,8 @@ export class KnexJsonInterface extends CommonFieldAdapterInterface(KnexFieldAdap
         if ('not' in conditions) {
           if (path.length > 0) {
             b.whereRaw(
-              `(?? #> ? != ?::jsonb OR ?? #> ? IS NULL OR jsonb_typeof(?? #> ?) = 'null') IS TRUE`,
-              [dbPath, path, stringify(conditions.not), dbPath, path, dbPath, path]
+              `(?? #> ? != ?::jsonb OR ?? #> ? IS NULL) IS TRUE`,
+              [dbPath, path, stringify(conditions.not), dbPath, path]
             );
           } else {
             b.where(dbPath, '!=', stringify(conditions.not)).orWhereNull(dbPath);
@@ -529,8 +467,8 @@ export class KnexJsonInterface extends CommonFieldAdapterInterface(KnexFieldAdap
           if (path.length > 0) {
             const values = conditions.not_in.map(v => stringify(v));
             b.whereRaw(
-              `(${jsonSelector} NOT IN (${values.map(() => '?::jsonb').join(',')}) OR ${jsonSelector} IS NULL OR jsonb_typeof(${jsonSelector}) = 'null') IS TRUE`,
-              [...jsonArgs, ...values, ...jsonArgs, ...jsonArgs]
+              `(${jsonSelector} NOT IN (${values.map(() => '?::jsonb').join(',')}) OR ${jsonSelector} IS NULL) IS TRUE`,
+              [...jsonArgs, ...values, ...jsonArgs]
             );
           } else {
             b.whereNotIn(
@@ -542,15 +480,9 @@ export class KnexJsonInterface extends CommonFieldAdapterInterface(KnexFieldAdap
         if ('exists' in conditions) {
           if (path.length > 0) {
             if (conditions.exists) {
-              b.whereRaw(
-                `jsonb_typeof(${jsonSelector}) IS NOT NULL AND jsonb_typeof(${jsonSelector}) != 'null'`,
-                [...jsonArgs, ...jsonArgs]
-              );
+              b.whereRaw(`jsonb_typeof(${jsonSelector}) IS NOT NULL`, jsonArgs);
             } else {
-              b.whereRaw(
-                `jsonb_typeof(${jsonSelector}) IS NULL OR jsonb_typeof(${jsonSelector}) = 'null'`,
-                [...jsonArgs, ...jsonArgs]
-              );
+              b.whereRaw(`jsonb_typeof(${jsonSelector}) IS NULL`, jsonArgs);
             }
           } else {
             if (conditions.exists) {
@@ -560,28 +492,28 @@ export class KnexJsonInterface extends CommonFieldAdapterInterface(KnexFieldAdap
             }
           }
         }
-        if ('lt' in conditions) {
+        if ('number_lt' in conditions) {
           b.whereRaw(
             `(jsonb_typeof(${jsonSelector}) = 'number' AND CAST(${textSelector} AS FLOAT) < ?)`,
-            [...jsonArgs, ...textArgs, conditions.lt]
+            [...jsonArgs, ...textArgs, conditions.number_lt]
           );
         }
-        if ('lte' in conditions) {
+        if ('number_lte' in conditions) {
           b.whereRaw(
             `(jsonb_typeof(${jsonSelector}) = 'number' AND CAST(${textSelector} AS FLOAT) <= ?)`,
-            [...jsonArgs, ...textArgs, conditions.lte]
+            [...jsonArgs, ...textArgs, conditions.number_lte]
           );
         }
-        if ('gt' in conditions) {
+        if ('number_gt' in conditions) {
           b.whereRaw(
             `(jsonb_typeof(${jsonSelector}) = 'number' AND CAST(${textSelector} AS FLOAT) > ?)`,
-            [...jsonArgs, ...textArgs, conditions.gt]
+            [...jsonArgs, ...textArgs, conditions.number_gt]
           );
         }
-        if ('gte' in conditions) {
+        if ('number_gte' in conditions) {
           b.whereRaw(
             `(jsonb_typeof(${jsonSelector}) = 'number' AND CAST(${textSelector} AS FLOAT) >= ?)`,
-            [...jsonArgs, ...textArgs, conditions.gte]
+            [...jsonArgs, ...textArgs, conditions.number_gte]
           );
         }
         if ('string_contains' in conditions) {
@@ -630,6 +562,12 @@ export class KnexJsonInterface extends CommonFieldAdapterInterface(KnexFieldAdap
             stringify([conditions.array_contains]),
           ]);
         }
+        if ('array_not_contains' in conditions) {
+          b.whereRaw(
+            `(jsonb_typeof(${jsonSelector}) IS DISTINCT FROM 'array' OR NOT (${jsonSelector} @> ?))`,
+            [...jsonArgs, ...jsonArgs, stringify([conditions.array_not_contains])]
+          );
+        }
 
         return b;
       },
@@ -643,29 +581,41 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
   }
 
   equalityConditions(dbPath) {
-    const dbNull = this?.listAdapter?.parentAdapter?.prisma?.DbNull || null;
     return {
-      [this.path]: value =>
-        value === null
-          ? { OR: [{ [dbPath]: { equals: null } }, { [dbPath]: { equals: dbNull } }] }
-          : { [dbPath]: { equals: value } },
-      [`${this.path}_not`]: value =>
-        value === null
-          ? { NOT: { OR: [{ [dbPath]: { equals: null } }, { [dbPath]: { equals: dbNull } }] } }
+      [this.path]: value => {
+        const prisma = this?.listAdapter?.parentAdapter?.prisma;
+        const dbNull = prisma?.DbNull || null;
+        const jsonNull = prisma?.JsonNull || null;
+
+        return value === null
+          ? { OR: [{ [dbPath]: { equals: dbNull } }, { [dbPath]: { equals: jsonNull } }] }
+          : { [dbPath]: { equals: value } };
+      },
+      [`${this.path}_not`]: value => {
+        const prisma = this?.listAdapter?.parentAdapter?.prisma;
+        const dbNull = prisma?.DbNull || null;
+        const jsonNull = prisma?.JsonNull || null;
+
+        return value === null
+          ? { NOT: { OR: [{ [dbPath]: { equals: dbNull } }, { [dbPath]: { equals: jsonNull } }] } }
           : {
               OR: [
                 { NOT: { [dbPath]: { equals: value } } },
-                { [dbPath]: { equals: null } },
                 { [dbPath]: { equals: dbNull } },
+                { [dbPath]: { equals: jsonNull } },
               ],
-            },
+            };
+      },
     };
   }
 
   matchConditions(dbPath) {
-    const dbNull = this?.listAdapter?.parentAdapter?.prisma?.DbNull || null;
     return {
       [`${this.path}_match`]: value => {
+        const prisma = this?.listAdapter?.parentAdapter?.prisma;
+        const dbNull = prisma?.DbNull || null;
+        const jsonNull = prisma?.JsonNull || null;
+
         if (value === null || value === undefined) {
           return {};
         }
@@ -673,22 +623,31 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
         const { path = [], ...conditions } = value;
 
         if ('equals' in conditions) {
-          return { [dbPath]: { path, equals: conditions.equals } };
+          return {
+            [dbPath]: { path, equals: conditions.equals === null ? jsonNull : conditions.equals },
+          };
         }
         if ('not' in conditions) {
           return {
             OR: [
-              { NOT: { [dbPath]: { path, equals: conditions.not } } },
+              {
+                NOT: {
+                  [dbPath]: {
+                    path,
+                    equals: conditions.not === null ? jsonNull : conditions.not,
+                  },
+                },
+              },
               { [dbPath]: { path, equals: dbNull } },
-              { NOT: { [dbPath]: { path, not: null } } },
-              { [dbPath]: { equals: null } },
               { [dbPath]: { equals: dbNull } },
             ],
           };
         }
         if ('in' in conditions) {
           return {
-            OR: conditions.in.map(value => ({ [dbPath]: { path, equals: value } })),
+            OR: conditions.in.map(value => ({
+              [dbPath]: { path, equals: value === null ? jsonNull : value },
+            })),
           };
         }
         if ('not_in' in conditions) {
@@ -696,41 +655,36 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
             OR: [
               {
                 AND: conditions.not_in.map(value => ({
-                  NOT: { [dbPath]: { path, equals: value } },
+                  NOT: { [dbPath]: { path, equals: value === null ? jsonNull : value } },
                 })),
               },
               { [dbPath]: { path, equals: dbNull } },
-              { NOT: { [dbPath]: { path, not: null } } },
-              { [dbPath]: { equals: null } },
               { [dbPath]: { equals: dbNull } },
             ],
           };
         }
         if ('exists' in conditions) {
           if (conditions.exists) {
-            return { [dbPath]: { path, not: null } };
+            return {
+              AND: [{ NOT: { [dbPath]: { path, equals: dbNull } } }, { [dbPath]: { not: dbNull } }],
+            };
           } else {
             return {
-              OR: [
-                { [dbPath]: { path, equals: dbNull } },
-                { NOT: { [dbPath]: { path, not: null } } },
-                { [dbPath]: { equals: null } },
-                { [dbPath]: { equals: dbNull } },
-              ],
+              OR: [{ [dbPath]: { path, equals: dbNull } }, { [dbPath]: { equals: dbNull } }],
             };
           }
         }
-        if ('lt' in conditions) {
-          return { [dbPath]: { path, lt: conditions.lt } };
+        if ('number_lt' in conditions) {
+          return { [dbPath]: { path, lt: conditions.number_lt } };
         }
-        if ('lte' in conditions) {
-          return { [dbPath]: { path, lte: conditions.lte } };
+        if ('number_lte' in conditions) {
+          return { [dbPath]: { path, lte: conditions.number_lte } };
         }
-        if ('gt' in conditions) {
-          return { [dbPath]: { path, gt: conditions.gt } };
+        if ('number_gt' in conditions) {
+          return { [dbPath]: { path, gt: conditions.number_gt } };
         }
-        if ('gte' in conditions) {
-          return { [dbPath]: { path, gte: conditions.gte } };
+        if ('number_gte' in conditions) {
+          return { [dbPath]: { path, gte: conditions.number_gte } };
         }
         if ('string_contains' in conditions) {
           return { [dbPath]: { path, string_contains: conditions.string_contains } };
@@ -740,8 +694,6 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
             OR: [
               { NOT: { [dbPath]: { path, string_contains: conditions.string_not_contains } } },
               { [dbPath]: { path, equals: dbNull } },
-              { NOT: { [dbPath]: { path, not: null } } },
-              { [dbPath]: { equals: null } },
               { [dbPath]: { equals: dbNull } },
             ],
           };
@@ -756,8 +708,6 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
                 NOT: { [dbPath]: { path, string_starts_with: conditions.string_not_starts_with } },
               },
               { [dbPath]: { path, equals: dbNull } },
-              { NOT: { [dbPath]: { path, not: null } } },
-              { [dbPath]: { equals: null } },
               { [dbPath]: { equals: dbNull } },
             ],
           };
@@ -770,14 +720,21 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
             OR: [
               { NOT: { [dbPath]: { path, string_ends_with: conditions.string_not_ends_with } } },
               { [dbPath]: { path, equals: dbNull } },
-              { NOT: { [dbPath]: { path, not: null } } },
-              { [dbPath]: { equals: null } },
               { [dbPath]: { equals: dbNull } },
             ],
           };
         }
         if ('array_contains' in conditions) {
           return { [dbPath]: { path, array_contains: [conditions.array_contains] } };
+        }
+        if ('array_not_contains' in conditions) {
+          return {
+            OR: [
+              { NOT: { [dbPath]: { path, array_contains: [conditions.array_not_contains] } } },
+              { [dbPath]: { path, equals: dbNull } },
+              { [dbPath]: { equals: dbNull } },
+            ],
+          };
         }
 
         return {};
