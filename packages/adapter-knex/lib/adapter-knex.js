@@ -829,7 +829,7 @@ class QueryBuilder {
             subJoiner = w => q.orWhere(w);
           } else {
             throw new Error(
-              'Unknown add wheres condition. If you trying to implement NOT you are in the rignt place'
+              'Unknown add wheres condition. If you are trying to implement NOT, you are in the right place'
             );
           }
           where[path].forEach(subWhere =>
