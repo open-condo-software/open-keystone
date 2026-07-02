@@ -1067,7 +1067,7 @@ const jsonMatchInvalidInputTests = [
     where: { metadata_in: [] },
     expect_error: {
       code: 'BAD_USER_INPUT',
-      message_contains: 'metadata_in must be a non-empty array',
+      message_contains: '_in must be a non-empty array',
     },
   },
   {
@@ -1077,7 +1077,7 @@ const jsonMatchInvalidInputTests = [
     where: { metadata_not_in: [] },
     expect_error: {
       code: 'BAD_USER_INPUT',
-      message_contains: 'metadata_not_in must be a non-empty array',
+      message_contains: '_not_in must be a non-empty array',
     },
   },
   {
@@ -1184,15 +1184,6 @@ const additionalJsonMatchInvalidInputTests = [
     id: 'json_match_invalid_031_not_in_contains_null',
     title: 'not_in list cannot contain null',
     where: { metadata_match: { path: ['profile', 'country'], not_in: [null] } },
-    expect_error: {
-      code: 'GRAPHQL_VALIDATION_FAILED',
-      message_contains: 'Expected non-nullable type',
-    },
-  },
-  {
-    id: 'json_match_invalid_032_whole_field_in_contains_null',
-    title: 'metadata_in list cannot contain null',
-    where: { metadata_in: [null] },
     expect_error: {
       code: 'GRAPHQL_VALIDATION_FAILED',
       message_contains: 'Expected non-nullable type',
