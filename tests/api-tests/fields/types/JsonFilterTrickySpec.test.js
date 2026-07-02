@@ -1163,7 +1163,10 @@ const additionalJsonMatchInvalidInputTests = [
     id: 'json_match_invalid_028_number_operator_null',
     title: 'number_gte cannot be null',
     where: { metadata_match: { path: ['score'], number_gte: null } },
-    expect_error: { code: 'BAD_USER_INPUT', message_contains: 'number_gte must be a number' },
+    expect_error: {
+      code: 'BAD_USER_INPUT',
+      message_contains: 'number_gte must be a finite number',
+    },
   },
   {
     id: 'json_match_invalid_029_string_operator_null',

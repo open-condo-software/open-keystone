@@ -4,69 +4,18 @@ import { PrismaFieldAdapter } from '@open-keystone/adapter-prisma';
 import { Implementation } from '../../Implementation';
 import isFunction from 'lodash.isfunction';
 import { escapeRegExp, identity, escapeLike } from '@open-keystone/utils';
+import {
+  normalizeJsonMatchInput,
+  validateJsonFieldListFilter,
+  validateJsonFieldValue,
+  getRootFieldNullMatch,
+} from './utils/validators';
 
 const stringify = JSON.stringify;
 
 const FIELD_NULL = 'FIELD_NULL';
 const FIELD_NOT_NULL = 'FIELD_NOT_NULL';
 const JSON_NULL = stringify(null);
-
-const NEGATED_OPERATOR = {
-  not: 'equals',
-  not_in: 'in',
-
-  string_not_contains: 'string_contains',
-  string_not_starts_with: 'string_starts_with',
-  string_not_ends_with: 'string_ends_with',
-
-  array_not_contains: 'array_contains',
-};
-
-const hasOwn = (obj, key) => Object.prototype.hasOwnProperty.call(obj, key);
-
-function normalizeJsonMatchInput(value) {
-  const { path = [], ...conditions } = value;
-  const operator = Object.keys(conditions).find(key => conditions[key] !== undefined);
-  const expected = conditions[operator];
-
-  if (operator === 'exists') {
-    return {
-      path,
-      operator: 'exists',
-      value: true,
-      negate: expected === false,
-    };
-  }
-
-  if (hasOwn(NEGATED_OPERATOR, operator)) {
-    return {
-      path,
-      operator: NEGATED_OPERATOR[operator],
-      value: expected,
-      negate: true,
-    };
-  }
-
-  return {
-    path,
-    operator,
-    value: expected,
-    negate: false,
-  };
-}
-
-function getRootFieldNullMatch(path, conditions) {
-  if (path.length > 0) return null;
-
-  if (hasOwn(conditions, 'equals') && conditions.equals === null) return FIELD_NULL;
-  if (hasOwn(conditions, 'not') && conditions.not === null) return FIELD_NOT_NULL;
-
-  if (hasOwn(conditions, 'exists')) {
-    return conditions.exists ? FIELD_NOT_NULL : FIELD_NULL;
-  }
-
-  return null;
-}
 
 function assertJsonFieldIsNullable(field) {
   if (field.config.knexOptions && field.config.knexOptions.isNotNullable) {
@@ -76,8 +25,6 @@ function assertJsonFieldIsNullable(field) {
   }
 }
 
-const JSON_PATH_SEGMENT_REGEX =
-  /^(?!(?:__proto__|prototype|constructor|__typename)$)(?:[_A-Za-z][_A-Za-z0-9]*|0|[1-9][0-9]{0,3})$/;
 const JSON_OBJECT_PATTERN_KEY_REGEX =
   /^(?!(?:__proto__|prototype|constructor|__typename)$)[_A-Za-z][_A-Za-z0-9]*$/;
 
@@ -124,8 +71,10 @@ export class Json extends Implementation {
 
   gqlQueryInputFields() {
     return [
-      ...this.equalityInputFields(this.graphQLInputType),
-      ...this.inInputFields(this.graphQLInputType),
+      `${this.path}: ${this.graphQLInputType}`,
+      `${this.path}_not: ${this.graphQLInputType}`,
+      `${this.path}_in: [${this.graphQLInputType}]`,
+      `${this.path}_not_in: [${this.graphQLInputType}]`,
       `${this.path}_match: JsonMatchInput`,
     ];
   }
@@ -202,92 +151,78 @@ export class Json extends Implementation {
   }
 
   validateMatchCondition(value) {
-    const { path, ...conditions } = value;
+    return normalizeJsonMatchInput(value, {
+      listKey: this.listKey,
+      fieldPath: this.path,
+      allowedPaths: this.config.allowedPaths,
+      allowUnsafeLiteralObjectKeys: false,
+      allowNullInLists: false, // sonMatchInput.in is [JSON!]
+    });
+  }
 
-    if (path !== undefined) {
-      if (!Array.isArray(path)) {
-        throw new Error(`JSON path must be an array of strings for ${this.listKey}.${this.path}`);
-      }
-      if (path.length === 0) {
-        throw new Error(`JSON path cannot be empty for ${this.listKey}.${this.path}`);
-      }
-      for (const segment of path) {
-        if (typeof segment !== 'string') {
-          throw new Error(
-            `Invalid JSON path segment "${segment}" for ${this.listKey}.${this.path}. Segment must be a string.`
-          );
-        }
-        if (!JSON_PATH_SEGMENT_REGEX.test(segment)) {
-          throw new Error(
-            `Invalid JSON path segment "${segment}" for ${this.listKey}.${this.path}`
-          );
-        }
-      }
+  validateFieldFilterValue(value) {
+    validateJsonFieldValue(value, {
+      listKey: this.listKey,
+      fieldPath: this.path,
+      allowUnsafeLiteralObjectKeys: false,
+    });
+    return value;
+  }
 
-      if (this.config.allowedPaths) {
-        const isAllowed = this.config.allowedPaths.some(allowedPath => {
-          if (allowedPath.length !== path.length) return false;
-          return allowedPath.every((segment, i) => segment === path[i]);
-        });
-        if (!isAllowed) {
-          throw new Error(
-            `JSON path ${JSON.stringify(path)} is not allowed for ${this.listKey}.${this.path}`
-          );
-        }
-      }
-    }
-
-    const conditionKeys = Object.keys(conditions).filter(k => conditions[k] !== undefined);
-    if (conditionKeys.length > 1) {
-      throw new Error(
-        `Only one condition can be used in JsonMatchInput for ${this.listKey}.${this.path}. Use OR / AND to combine conditions.`
-      );
-    }
-    if (conditionKeys.length === 0) {
-      throw new Error(
-        `One condition is required in JsonMatchInput for ${this.listKey}.${this.path}`
-      );
-    }
-
-    const [operator] = conditionKeys;
-    const conditionValue = conditions[operator];
-
-    if (operator === 'in' || operator === 'not_in') {
-      if (!Array.isArray(conditionValue)) {
-        throw new Error(`${operator} must be an array for ${this.listKey}.${this.path}`);
-      }
-      if (conditionValue.length === 0) {
-        throw new Error(`${operator} must be a non-empty array for ${this.listKey}.${this.path}`);
-      }
-    }
-    if (operator.startsWith('string_') && typeof conditionValue !== 'string') {
-      throw new Error(`${operator} must be a string for ${this.listKey}.${this.path}`);
-    }
-    if (operator.startsWith('number_') && typeof conditionValue !== 'number') {
-      throw new Error(`${operator} must be a number for ${this.listKey}.${this.path}`);
-    }
-    if (operator === 'exists' && typeof conditionValue !== 'boolean') {
-      throw new Error(`exists must be a boolean for ${this.listKey}.${this.path}`);
-    }
+  validateFieldListFilterValue(value, operatorName) {
+    validateJsonFieldListFilter(value, operatorName, {
+      listKey: this.listKey,
+      fieldPath: this.path,
+      allowUnsafeLiteralObjectKeys: false,
+      allowNullInLists: true, // {this.path}_in is [JSON]
+    });
+    return value;
   }
 }
 
 const CommonFieldAdapterInterface = superclass =>
   class extends superclass {
-    getQueryConditions(dbPath) {
-      return {
-        ...this.equalityConditions(dbPath),
-        ...this.inConditions(dbPath),
-        ...this.matchConditions(dbPath),
-      };
+    equalsOp(dbPath, value) {
+      throw new Error(`${dbPath} is not implemented for ${this.constructor.name}`);
+    }
+    notOp(dbPath, value) {
+      throw new Error(`${dbPath}_not is not implemented for ${this.constructor.name}`);
+    }
+    inOp(dbPath, value) {
+      throw new Error(`${dbPath}_in is not implemented for ${this.constructor.name}`);
+    }
+    notInOp(dbPath, value) {
+      throw new Error(`${dbPath}_not_in is not implemented for ${this.constructor.name}`);
+    }
+    matchOp(dbPath, value) {
+      throw new Error(`${dbPath}_match is not implemented for ${this.constructor.name}`);
     }
 
-    matchConditions() {
+    getQueryConditions(dbPath) {
       return {
-        [`${this.path}_match`]: () => {
-          throw new Error(
-            `Filter ${this.path}_match is not supported by the ${this.listAdapter.parentAdapter.name} adapter`
-          );
+        [this.path]: value => {
+          const normalized = this.field.validateFieldFilterValue(value);
+          return this.equalsOp(dbPath, normalized);
+        },
+
+        [`${this.path}_not`]: value => {
+          const normalized = this.field.validateFieldFilterValue(value);
+          return this.notOp(dbPath, normalized);
+        },
+
+        [`${this.path}_in`]: value => {
+          const normalized = this.field.validateFieldListFilterValue(value, `${this.path}_in`);
+          return this.inOp(dbPath, normalized);
+        },
+
+        [`${this.path}_not_in`]: value => {
+          const normalized = this.field.validateFieldListFilterValue(value, `${this.path}_not_in`);
+          return this.notInOp(dbPath, normalized);
+        },
+
+        [`${this.path}_match`]: value => {
+          const normalized = this.field.validateMatchCondition(value);
+          return this.matchOp(dbPath, normalized);
         },
       };
     }
@@ -500,7 +435,7 @@ function assertSafeObjectPattern(value, fieldPath, depth = 0) {
 
   for (const key of Object.keys(value)) {
     if (!JSON_OBJECT_PATTERN_KEY_REGEX.test(key)) {
-      throw new Error(`Invalid JSON object pattern key "${key}" for ${fieldPath}`);
+      throw new Error(`Invalid JSON object key "${key}" for ${fieldPath}`);
     }
 
     assertSafeObjectPattern(value[key], fieldPath, depth + 1);
@@ -567,51 +502,43 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
     schema.set('strict', false);
   }
 
-  equalityConditions(dbPath) {
-    return {
-      [this.path]: value => mongoFieldEqual(dbPath, value),
-      [`${this.path}_not`]: value => mongoFieldNotEqual(dbPath, value),
-    };
+  equalsOp(dbPath, value) {
+    return mongoFieldEqual(dbPath, value);
   }
-
-  inConditions(dbPath) {
-    return {
-      [`${this.path}_in`]: value => mongoFieldIn(dbPath, value),
-      [`${this.path}_not_in`]: value => mongoFieldNotIn(dbPath, value),
-    };
+  notOp(dbPath, value) {
+    return mongoFieldNotEqual(dbPath, value);
   }
+  inOp(dbPath, value) {
+    return mongoFieldIn(dbPath, value);
+  }
+  notInOp(dbPath, value) {
+    return mongoFieldNotIn(dbPath, value);
+  }
+  matchOp(dbPath, normalized) {
+    if (!normalized) {
+      return {};
+    }
 
-  matchConditions(dbPath) {
-    return {
-      [`${this.path}_match`]: value => {
-        if (value === null || value === undefined) {
-          return {};
-        }
-        this.field.validateMatchCondition(value);
+    const { path, operator, value: expected, negate } = normalized;
+    const rootFieldNullMatch = getRootFieldNullMatch(normalized); // use raw value here to find operator
 
-        const { path, operator, value: expected, negate } = normalizeJsonMatchInput(value);
+    // NOTE: common {field}_in, {field}_not_in, {field}_not, {filed} and NULL cases
+    if (rootFieldNullMatch === FIELD_NULL) {
+      return mongoFieldNull(dbPath);
+    } else if (rootFieldNullMatch === FIELD_NOT_NULL) {
+      return mongoFieldNotNull(dbPath);
+    } else if (path.length === 0 && operator === 'equals') {
+      return negate ? mongoFieldNotEqual(dbPath, expected) : mongoFieldEqual(dbPath, expected);
+    } else if (path.length === 0 && operator === 'in') {
+      return negate ? mongoFieldNotIn(dbPath, expected) : mongoFieldIn(dbPath, expected);
+    }
 
-        const rootFieldNullMatch = getRootFieldNullMatch(path, value); // use raw value here to find operator
+    const positiveQuery = buildMongoPositiveJsonQuery(dbPath, path, operator, expected);
 
-        // NOTE: common {field}_in, {field}_not_in, {field}_not, {filed} and NULL cases
-        if (rootFieldNullMatch === FIELD_NULL) {
-          return mongoFieldNull(dbPath);
-        } else if (rootFieldNullMatch === FIELD_NOT_NULL) {
-          return mongoFieldNotNull(dbPath);
-        } else if (path.length === 0 && operator === 'equals') {
-          return negate ? mongoFieldNotEqual(dbPath, expected) : mongoFieldEqual(dbPath, expected);
-        } else if (path.length === 0 && operator === 'in') {
-          return negate ? mongoFieldNotIn(dbPath, expected) : mongoFieldIn(dbPath, expected);
-        }
-
-        const positiveQuery = buildMongoPositiveJsonQuery(dbPath, path, operator, expected);
-
-        // Negative operators are defined as the exact negation of their
-        // positive pair. This makes missing paths, root null and type
-        // mismatches predictable and consistent.
-        return negate ? { $nor: [positiveQuery] } : positiveQuery;
-      },
-    };
+    // Negative operators are defined as the exact negation of their
+    // positive pair. This makes missing paths, root null and type
+    // mismatches predictable and consistent.
+    return negate ? { $nor: [positiveQuery] } : positiveQuery;
   }
 }
 
@@ -851,50 +778,44 @@ export class KnexJsonInterface extends CommonFieldAdapterInterface(KnexFieldAdap
     if (this.defaultTo) column.defaultTo(this.defaultTo);
   }
 
-  equalityConditions(dbPath, f = stringify) {
-    return {
-      [this.path]: value => b => whereJsonFieldEqualKnexOperator(b, dbPath, value, f),
-      [`${this.path}_not`]: value => b => whereJsonFieldNotEqualKnexOperator(b, dbPath, value, f),
-    };
+  equalsOp(dbPath, value) {
+    return b => whereJsonFieldEqualKnexOperator(b, dbPath, value, stringify);
   }
-
-  inConditions(dbPath, f = stringify) {
-    return {
-      [`${this.path}_in`]: value => b => whereJsonFieldInKnexOperator(b, dbPath, value, f),
-      [`${this.path}_not_in`]: value => b => whereJsonFieldNotInKnexOperator(b, dbPath, value, f),
-    };
+  notOp(dbPath, value) {
+    return b => whereJsonFieldNotEqualKnexOperator(b, dbPath, value, stringify);
   }
+  inOp(dbPath, value) {
+    return b => whereJsonFieldInKnexOperator(b, dbPath, value, stringify);
+  }
+  notInOp(dbPath, value) {
+    return b => whereJsonFieldNotInKnexOperator(b, dbPath, value, stringify);
+  }
+  matchOp(dbPath, normalized) {
+    return b => {
+      if (!normalized) return b;
 
-  matchConditions(dbPath, f = stringify) {
-    return {
-      [`${this.path}_match`]: value => b => {
-        if (value === null || value === undefined) return b;
+      const { path, operator, value: expected, negate } = normalized;
 
-        this.field.validateMatchCondition(value);
+      const rootFieldNullMatch = getRootFieldNullMatch(normalized);
 
-        const { path, operator, value: expected, negate } = normalizeJsonMatchInput(value);
+      // NOTE: common {field}_in, {field}_not_in, {field}_not, {filed} and NULL cases
+      if (rootFieldNullMatch === FIELD_NULL) {
+        return whereJsonFieldNull(b, dbPath);
+      } else if (rootFieldNullMatch === FIELD_NOT_NULL) {
+        return whereJsonFieldNotNull(b, dbPath);
+      } else if (path.length === 0 && operator === 'equals') {
+        return negate
+          ? whereJsonFieldNotEqualKnexOperator(b, dbPath, expected, stringify)
+          : whereJsonFieldEqualKnexOperator(b, dbPath, expected, stringify);
+      } else if (path.length === 0 && operator === 'in') {
+        return negate
+          ? whereJsonFieldNotInKnexOperator(b, dbPath, expected, stringify)
+          : whereJsonFieldInKnexOperator(b, dbPath, expected, stringify);
+      }
 
-        const rootFieldNullMatch = getRootFieldNullMatch(path, value);
+      const predicate = buildKnexPositiveJsonPredicate(dbPath, path, operator, expected);
 
-        // NOTE: common {field}_in, {field}_not_in, {field}_not, {filed} and NULL cases
-        if (rootFieldNullMatch === FIELD_NULL) {
-          return whereJsonFieldNull(b, dbPath);
-        } else if (rootFieldNullMatch === FIELD_NOT_NULL) {
-          return whereJsonFieldNotNull(b, dbPath);
-        } else if (path.length === 0 && operator === 'equals') {
-          return negate
-            ? whereJsonFieldNotEqualKnexOperator(b, dbPath, expected, f)
-            : whereJsonFieldEqualKnexOperator(b, dbPath, expected, f);
-        } else if (path.length === 0 && operator === 'in') {
-          return negate
-            ? whereJsonFieldNotInKnexOperator(b, dbPath, expected, f)
-            : whereJsonFieldInKnexOperator(b, dbPath, expected, f);
-        }
-
-        const predicate = buildKnexPositiveJsonPredicate(dbPath, path, operator, expected);
-
-        return applyKnexJsonPredicate(b, negate, predicate.sql, predicate.args);
-      },
+      return applyKnexJsonPredicate(b, negate, predicate.sql, predicate.args);
     };
   }
 }
@@ -1043,142 +964,122 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
     return [this._schemaField({ type: 'Json' })];
   }
 
-  equalityConditions(dbPath) {
+  equalsOp(dbPath, value) {
+    const nulls = getPrismaJsonNulls(this, `${this.field.listKey}.${this.path}`);
+    return value === null ? prismaFieldNull(dbPath, nulls) : { [dbPath]: { equals: value } };
+  }
+  notOp(dbPath, value) {
+    const nulls = getPrismaJsonNulls(this, `${this.field.listKey}.${this.path}`);
+
+    return value === null
+      ? prismaFieldNotNull(dbPath, nulls)
+      : {
+          OR: [{ NOT: { [dbPath]: { equals: value } } }, prismaFieldNull(dbPath, nulls)],
+        };
+  }
+  inOp(dbPath, value) {
+    if (value.length === 0) {
+      throw new Error(`${this.path}_in must be a non-empty array`);
+    }
+
+    const nulls = getPrismaJsonNulls(this, `${this.field.listKey}.${this.path}`);
+
+    if (value.includes(null)) {
+      const nonNullQuery = value
+        .filter(x => x !== null)
+        .map(x => ({
+          [dbPath]: { equals: x },
+        }));
+      if (nonNullQuery.length > 0) {
+        return {
+          OR: [...nonNullQuery, prismaFieldNull(dbPath, nulls)],
+        };
+      } else {
+        return prismaFieldNull(dbPath, nulls);
+      }
+    }
+
     return {
-      [this.path]: value => {
-        const nulls = getPrismaJsonNulls(this, `${this.field.listKey}.${this.path}`);
-
-        return value === null ? prismaFieldNull(dbPath, nulls) : { [dbPath]: { equals: value } };
-      },
-
-      [`${this.path}_not`]: value => {
-        const nulls = getPrismaJsonNulls(this, `${this.field.listKey}.${this.path}`);
-
-        return value === null
-          ? prismaFieldNotNull(dbPath, nulls)
-          : {
-              OR: [{ NOT: { [dbPath]: { equals: value } } }, prismaFieldNull(dbPath, nulls)],
-            };
-      },
+      AND: [
+        prismaFieldNotNull(dbPath, nulls),
+        {
+          OR: value.map(x => ({
+            [dbPath]: { equals: x },
+          })),
+        },
+      ],
     };
   }
+  notInOp(dbPath, value) {
+    if (value.length === 0) {
+      throw new Error(`${this.path}_not_in must be a non-empty array`);
+    }
 
-  inConditions(dbPath, f = identity) {
+    const nulls = getPrismaJsonNulls(this, `${this.field.listKey}.${this.path}`);
+
+    if (value.includes(null)) {
+      const nonNullQuery = value
+        .filter(x => x !== null)
+        .map(x => ({
+          NOT: { [dbPath]: { equals: x } },
+        }));
+
+      if (nonNullQuery.length > 0) {
+        return {
+          AND: [...nonNullQuery, prismaFieldNotNull(dbPath, nulls)],
+        };
+      } else {
+        return prismaFieldNotNull(dbPath, nulls);
+      }
+    }
+
     return {
-      [`${this.path}_in`]: value => {
-        if (value.length === 0) {
-          throw new Error(`${this.path}_in must be a non-empty array`);
-        }
-
-        const nulls = getPrismaJsonNulls(this, `${this.field.listKey}.${this.path}`);
-
-        if (value.includes(null)) {
-          const nonNullQuery = value
-            .filter(x => x !== null)
-            .map(x => ({
-              [dbPath]: { equals: x },
-            }));
-          if (nonNullQuery.length > 0) {
-            return {
-              OR: [...nonNullQuery, prismaFieldNull(dbPath, nulls)],
-            };
-          } else {
-            return prismaFieldNull(dbPath, nulls);
-          }
-        }
-
-        return {
-          AND: [
-            prismaFieldNotNull(dbPath, nulls),
-            {
-              OR: value.map(x => ({
-                [dbPath]: { equals: x },
-              })),
-            },
-          ],
-        };
-      },
-
-      [`${this.path}_not_in`]: value => {
-        if (value.length === 0) {
-          throw new Error(`${this.path}_not_in must be a non-empty array`);
-        }
-
-        const nulls = getPrismaJsonNulls(this, `${this.field.listKey}.${this.path}`);
-
-        if (value.includes(null)) {
-          const nonNullQuery = value
-            .filter(x => x !== null)
-            .map(x => ({
-              NOT: { [dbPath]: { equals: x } },
-            }));
-
-          if (nonNullQuery.length > 0) {
-            return {
-              AND: [...nonNullQuery, prismaFieldNotNull(dbPath, nulls)],
-            };
-          } else {
-            return prismaFieldNotNull(dbPath, nulls);
-          }
-        }
-
-        return {
-          OR: [
-            {
-              NOT: {
-                OR: value.map(item => ({ [dbPath]: { equals: item } })),
-              },
-            },
-            prismaFieldNull(dbPath, nulls),
-          ],
-        };
-      },
+      OR: [
+        {
+          NOT: {
+            OR: value.map(item => ({ [dbPath]: { equals: item } })),
+          },
+        },
+        prismaFieldNull(dbPath, nulls),
+      ],
     };
   }
+  matchOp(dbPath, normalized) {
+    if (!normalized) {
+      return {};
+    }
 
-  matchConditions(dbPath) {
-    return {
-      [`${this.path}_match`]: value => {
-        if (value === null || value === undefined) {
-          return {};
-        }
-        this.field.validateMatchCondition(value);
+    const { path, operator, value: expected, negate } = normalized;
+    const nulls = getPrismaJsonNulls(this, `${this.field.listKey}.${this.path}`);
 
-        const nulls = getPrismaJsonNulls(this, `${this.field.listKey}.${this.path}`);
-        const { path, operator, value: expected, negate } = normalizeJsonMatchInput(value);
+    // Handle root null directly. This avoids relying on nested NOT shapes
+    // and keeps equals:null / exists:false / not:null equivalent to field filters.
+    if (path.length === 0 && operator === 'equals' && expected === null) {
+      return negate ? prismaFieldNotNull(dbPath, nulls) : prismaFieldNull(dbPath, nulls);
+    }
 
-        // Handle root null directly. This avoids relying on nested NOT shapes
-        // and keeps equals:null / exists:false / not:null equivalent to field filters.
-        if (path.length === 0 && operator === 'equals' && expected === null) {
-          return negate ? prismaFieldNotNull(dbPath, nulls) : prismaFieldNull(dbPath, nulls);
-        }
+    if (path.length === 0 && operator === 'exists') {
+      return negate ? prismaFieldNull(dbPath, nulls) : prismaFieldNotNull(dbPath, nulls);
+    }
 
-        if (path.length === 0 && operator === 'exists') {
-          return negate ? prismaFieldNull(dbPath, nulls) : prismaFieldNotNull(dbPath, nulls);
-        }
+    // if (operator === 'array_contains' && negate) {
+    //   // Prisma JSON filters cannot express:
+    //   //   path is missing OR path is not an array OR array does not contain item
+    //   // through normal `where`.
+    //   //
+    //   // In PostgreSQL this is easy with raw SQL:
+    //   //   jsonb_typeof(path) IS DISTINCT FROM 'array' OR NOT (path @> ...)
+    //   //
+    //   // But Prisma keeps the JSON array type guard inside its generated filter
+    //   // in a way that does not make scalar JSON values match under NOT.
+    //   // Returning wrong data is worse than failing explicitly.
+    //   throw new Error(
+    //     `Filter ${this.path}_match.array_not_contains is not supported by the Prisma adapter`
+    //   );
+    // }
 
-        // if (operator === 'array_contains' && negate) {
-        //   // Prisma JSON filters cannot express:
-        //   //   path is missing OR path is not an array OR array does not contain item
-        //   // through normal `where`.
-        //   //
-        //   // In PostgreSQL this is easy with raw SQL:
-        //   //   jsonb_typeof(path) IS DISTINCT FROM 'array' OR NOT (path @> ...)
-        //   //
-        //   // But Prisma keeps the JSON array type guard inside its generated filter
-        //   // in a way that does not make scalar JSON values match under NOT.
-        //   // Returning wrong data is worse than failing explicitly.
-        //   throw new Error(
-        //     `Filter ${this.path}_match.array_not_contains is not supported by the Prisma adapter`
-        //   );
-        // }
+    const positiveQuery = buildPrismaPositiveJsonQuery(dbPath, path, operator, expected, nulls);
 
-        const positiveQuery = buildPrismaPositiveJsonQuery(dbPath, path, operator, expected, nulls);
-
-        return negate
-          ? buildPrismaNegatedJsonQuery(dbPath, path, positiveQuery, nulls)
-          : positiveQuery;
-      },
-    };
+    return negate ? buildPrismaNegatedJsonQuery(dbPath, path, positiveQuery, nulls) : positiveQuery;
   }
 }
