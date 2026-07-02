@@ -3,7 +3,7 @@ import { MongooseFieldAdapter } from '@open-keystone/adapter-mongoose';
 import { PrismaFieldAdapter } from '@open-keystone/adapter-prisma';
 import { Implementation } from '../../Implementation';
 import isFunction from 'lodash.isfunction';
-import { escapeRegExp, identity } from '@open-keystone/utils';
+import { escapeRegExp, identity, escapeLike } from '@open-keystone/utils';
 
 const stringify = JSON.stringify;
 
@@ -716,21 +716,21 @@ function buildKnexPositiveJsonPredicate(dbPath, path, operator, value) {
   if (operator === 'string_contains') {
     return {
       sql: `jsonb_typeof(${s.json}) = 'string' AND ${s.text} LIKE ?`,
-      args: [...s.jsonArgs, ...s.textArgs, `%${value}%`],
+      args: [...s.jsonArgs, ...s.textArgs, `%${escapeLike(value)}%`],
     };
   }
 
   if (operator === 'string_starts_with') {
     return {
       sql: `jsonb_typeof(${s.json}) = 'string' AND ${s.text} LIKE ?`,
-      args: [...s.jsonArgs, ...s.textArgs, `${value}%`],
+      args: [...s.jsonArgs, ...s.textArgs, `${escapeLike(value)}%`],
     };
   }
 
   if (operator === 'string_ends_with') {
     return {
       sql: `jsonb_typeof(${s.json}) = 'string' AND ${s.text} LIKE ?`,
-      args: [...s.jsonArgs, ...s.textArgs, `%${value}`],
+      args: [...s.jsonArgs, ...s.textArgs, `%${escapeLike(value)}`],
     };
   }
 
@@ -1001,15 +1001,15 @@ function buildPrismaPositiveJsonQuery(dbPath, path, operator, value, nulls) {
   if (operator === 'number_gte') return { [dbPath]: { path, gte: value } };
 
   if (operator === 'string_contains') {
-    return { [dbPath]: { path, string_contains: value } };
+    return { [dbPath]: { path, string_contains: escapeLike(value) } };
   }
 
   if (operator === 'string_starts_with') {
-    return { [dbPath]: { path, string_starts_with: value } };
+    return { [dbPath]: { path, string_starts_with: escapeLike(value) } };
   }
 
   if (operator === 'string_ends_with') {
-    return { [dbPath]: { path, string_ends_with: value } };
+    return { [dbPath]: { path, string_ends_with: escapeLike(value) } };
   }
 
   if (operator === 'array_contains') {
