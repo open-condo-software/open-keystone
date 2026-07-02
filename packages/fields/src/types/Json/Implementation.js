@@ -3,7 +3,7 @@ import { MongooseFieldAdapter } from '@open-keystone/adapter-mongoose';
 import { PrismaFieldAdapter } from '@open-keystone/adapter-prisma';
 import { Implementation } from '../../Implementation';
 import isFunction from 'lodash.isfunction';
-import { escapeRegExp, identity, escapeLike } from '@open-keystone/utils';
+import { escapeRegExp, escapeLike } from '@open-keystone/utils';
 import {
   normalizeJsonMatchInput,
   validateJsonFieldListFilter,
@@ -182,19 +182,19 @@ export class Json extends Implementation {
 
 const CommonFieldAdapterInterface = superclass =>
   class extends superclass {
-    equalsOp(dbPath, value) {
+    equalsOp(dbPath) {
       throw new Error(`${dbPath} is not implemented for ${this.constructor.name}`);
     }
-    notOp(dbPath, value) {
+    notOp(dbPath) {
       throw new Error(`${dbPath}_not is not implemented for ${this.constructor.name}`);
     }
-    inOp(dbPath, value) {
+    inOp(dbPath) {
       throw new Error(`${dbPath}_in is not implemented for ${this.constructor.name}`);
     }
-    notInOp(dbPath, value) {
+    notInOp(dbPath) {
       throw new Error(`${dbPath}_not_in is not implemented for ${this.constructor.name}`);
     }
-    matchOp(dbPath, value) {
+    matchOp(dbPath) {
       throw new Error(`${dbPath}_match is not implemented for ${this.constructor.name}`);
     }
 
@@ -222,6 +222,24 @@ const CommonFieldAdapterInterface = superclass =>
 
         [`${this.path}_match`]: value => {
           const normalized = this.field.validateMatchCondition(value);
+          if (!normalized) {
+            return this.matchOp(dbPath, normalized);
+          }
+
+          const rootFieldNullMatch = getRootFieldNullMatch(normalized);
+          const { path, operator, value: expected, negate } = normalized;
+
+          // NOTE: common {field}_in, {field}_not_in, {field}_not, {filed} and NULL cases
+          if (rootFieldNullMatch === FIELD_NULL) {
+            return this.equalsOp(dbPath, null);
+          } else if (rootFieldNullMatch === FIELD_NOT_NULL) {
+            return this.notOp(dbPath, null);
+          } else if (path.length === 0 && operator === 'equals') {
+            return negate ? this.notOp(dbPath, expected) : this.equalsOp(dbPath, expected);
+          } else if (path.length === 0 && operator === 'in') {
+            return negate ? this.notInOp(dbPath, expected) : this.inOp(dbPath, expected);
+          }
+
           return this.matchOp(dbPath, normalized);
         },
       };
@@ -515,24 +533,9 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
     return mongoFieldNotIn(dbPath, value);
   }
   matchOp(dbPath, normalized) {
-    if (!normalized) {
-      return {};
-    }
+    if (!normalized) return {};
 
     const { path, operator, value: expected, negate } = normalized;
-    const rootFieldNullMatch = getRootFieldNullMatch(normalized); // use raw value here to find operator
-
-    // NOTE: common {field}_in, {field}_not_in, {field}_not, {filed} and NULL cases
-    if (rootFieldNullMatch === FIELD_NULL) {
-      return mongoFieldNull(dbPath);
-    } else if (rootFieldNullMatch === FIELD_NOT_NULL) {
-      return mongoFieldNotNull(dbPath);
-    } else if (path.length === 0 && operator === 'equals') {
-      return negate ? mongoFieldNotEqual(dbPath, expected) : mongoFieldEqual(dbPath, expected);
-    } else if (path.length === 0 && operator === 'in') {
-      return negate ? mongoFieldNotIn(dbPath, expected) : mongoFieldIn(dbPath, expected);
-    }
-
     const positiveQuery = buildMongoPositiveJsonQuery(dbPath, path, operator, expected);
 
     // Negative operators are defined as the exact negation of their
@@ -793,28 +796,8 @@ export class KnexJsonInterface extends CommonFieldAdapterInterface(KnexFieldAdap
   matchOp(dbPath, normalized) {
     return b => {
       if (!normalized) return b;
-
       const { path, operator, value: expected, negate } = normalized;
-
-      const rootFieldNullMatch = getRootFieldNullMatch(normalized);
-
-      // NOTE: common {field}_in, {field}_not_in, {field}_not, {filed} and NULL cases
-      if (rootFieldNullMatch === FIELD_NULL) {
-        return whereJsonFieldNull(b, dbPath);
-      } else if (rootFieldNullMatch === FIELD_NOT_NULL) {
-        return whereJsonFieldNotNull(b, dbPath);
-      } else if (path.length === 0 && operator === 'equals') {
-        return negate
-          ? whereJsonFieldNotEqualKnexOperator(b, dbPath, expected, stringify)
-          : whereJsonFieldEqualKnexOperator(b, dbPath, expected, stringify);
-      } else if (path.length === 0 && operator === 'in') {
-        return negate
-          ? whereJsonFieldNotInKnexOperator(b, dbPath, expected, stringify)
-          : whereJsonFieldInKnexOperator(b, dbPath, expected, stringify);
-      }
-
       const predicate = buildKnexPositiveJsonPredicate(dbPath, path, operator, expected);
-
       return applyKnexJsonPredicate(b, negate, predicate.sql, predicate.args);
     };
   }
@@ -1045,41 +1028,11 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
     };
   }
   matchOp(dbPath, normalized) {
-    if (!normalized) {
-      return {};
-    }
+    if (!normalized) return {};
 
     const { path, operator, value: expected, negate } = normalized;
     const nulls = getPrismaJsonNulls(this, `${this.field.listKey}.${this.path}`);
-
-    // Handle root null directly. This avoids relying on nested NOT shapes
-    // and keeps equals:null / exists:false / not:null equivalent to field filters.
-    if (path.length === 0 && operator === 'equals' && expected === null) {
-      return negate ? prismaFieldNotNull(dbPath, nulls) : prismaFieldNull(dbPath, nulls);
-    }
-
-    if (path.length === 0 && operator === 'exists') {
-      return negate ? prismaFieldNull(dbPath, nulls) : prismaFieldNotNull(dbPath, nulls);
-    }
-
-    // if (operator === 'array_contains' && negate) {
-    //   // Prisma JSON filters cannot express:
-    //   //   path is missing OR path is not an array OR array does not contain item
-    //   // through normal `where`.
-    //   //
-    //   // In PostgreSQL this is easy with raw SQL:
-    //   //   jsonb_typeof(path) IS DISTINCT FROM 'array' OR NOT (path @> ...)
-    //   //
-    //   // But Prisma keeps the JSON array type guard inside its generated filter
-    //   // in a way that does not make scalar JSON values match under NOT.
-    //   // Returning wrong data is worse than failing explicitly.
-    //   throw new Error(
-    //     `Filter ${this.path}_match.array_not_contains is not supported by the Prisma adapter`
-    //   );
-    // }
-
     const positiveQuery = buildPrismaPositiveJsonQuery(dbPath, path, operator, expected, nulls);
-
     return negate ? buildPrismaNegatedJsonQuery(dbPath, path, positiveQuery, nulls) : positiveQuery;
   }
 }
