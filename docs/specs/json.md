@@ -1175,7 +1175,7 @@ AND: [
 
 Positive operators require an existing value of a suitable type when `path` is passed.
 
-When `path` is not passed, the operator is applied to the whole JSON field. In that mode, whole-field semantics from each operator section apply. 
+When `path` is not passed, the operator is applied to the whole JSON field. In that mode, whole-field semantics from each operator section apply.
 For example, `metadata_match: { equals: null }` matches `field null`, and `metadata_match: { not: null }` excludes `field null`.
 
 Positive operators:
@@ -1220,6 +1220,7 @@ metadata_match: {
 ```
 
 means:
+
 ```ts
 metadata === null || country is missing || country is not a string || country !== "DE"
 ```
@@ -1476,6 +1477,7 @@ then this means `field null`.
 The API does not provide a separate way to write a root-level JSON `null` distinct from `field null`.
 
 Queries are equivalent:
+
 ```
 metadata_match: { equals: null }
 metadata_match: { exists: false }
@@ -1483,6 +1485,7 @@ metadata: null
 ```
 
 And that:
+
 ```
 metadata_match: { not: null }
 metadata_match: { exists: true }

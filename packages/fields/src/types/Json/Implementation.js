@@ -305,6 +305,56 @@ function mongoFieldNotNull(dbPath) {
   return { [dbPath]: { $exists: true, $ne: null } };
 }
 
+function mongoFieldEqual(dbPath, value) {
+  return value === null ? mongoFieldNull(dbPath) : { [dbPath]: { $eq: value } };
+}
+
+function mongoFieldNotEqual(dbPath, value) {
+  return value === null ? mongoFieldNotNull(dbPath) : { $nor: [mongoFieldEqual(dbPath, value)] };
+}
+
+function mongoFieldIn(dbPath, value) {
+  if (!Array.isArray(value) || value.length === 0) {
+    throw new Error(`_in must be a non-empty array`);
+  }
+
+  const hasNull = value.some(item => item === null);
+  const values = value.filter(item => item !== null);
+
+  if (!hasNull) {
+    return { [dbPath]: { $in: values } };
+  }
+
+  if (values.length === 0) {
+    return mongoFieldNull(dbPath);
+  }
+
+  return {
+    $or: [mongoFieldNull(dbPath), { [dbPath]: { $in: values } }],
+  };
+}
+
+function mongoFieldNotIn(dbPath, value) {
+  if (!Array.isArray(value) || value.length === 0) {
+    throw new Error(`_not_in must be a non-empty array`);
+  }
+
+  const hasNull = value.some(item => item === null);
+  const values = value.filter(item => item !== null);
+
+  if (!hasNull) {
+    return { $nor: [{ [dbPath]: { $in: values } }] };
+  }
+
+  if (values.length === 0) {
+    return mongoFieldNotNull(dbPath);
+  }
+
+  return {
+    $and: [mongoFieldNotNull(dbPath), { $nor: [{ [dbPath]: { $in: values } }] }],
+  };
+}
+
 function isEmptyPlainObject(value) {
   return (
     value && typeof value === 'object' && !Array.isArray(value) && Object.keys(value).length === 0
@@ -518,66 +568,16 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
   }
 
   equalityConditions(dbPath) {
-    const equals = value =>
-      value === null ? mongoFieldNull(dbPath) : { [dbPath]: { $eq: value } };
-
     return {
-      [this.path]: value => equals(value),
-
-      [`${this.path}_not`]: value =>
-        value === null ? mongoFieldNotNull(dbPath) : { $nor: [equals(value)] },
+      [this.path]: value => mongoFieldEqual(dbPath, value),
+      [`${this.path}_not`]: value => mongoFieldNotEqual(dbPath, value),
     };
   }
 
   inConditions(dbPath) {
     return {
-      [`${this.path}_in`]: value => {
-        if (!Array.isArray(value) || value.length === 0) {
-          throw new Error(`${this.path}_in must be a non-empty array`);
-        }
-
-        const hasNull = value.some(item => item === null);
-        const values = value.filter(item => item !== null);
-
-        if (!hasNull) {
-          return { [dbPath]: { $in: values } };
-        }
-
-        if (values.length === 0) {
-          return { [dbPath]: null };
-        }
-
-        return {
-          $or: [
-            { [dbPath]: null },
-            { [dbPath]: { $in: values } },
-          ],
-        };
-      },
-
-      [`${this.path}_not_in`]: value => {
-        if (!Array.isArray(value) || value.length === 0) {
-          throw new Error(`${this.path}_not_in must be a non-empty array`);
-        }
-
-        const hasNull = value.some(item => item === null);
-        const values = value.filter(item => item !== null);
-
-        if (!hasNull) {
-          return { $nor: [{ [dbPath]: { $in: values } }] };
-        }
-
-        if (values.length === 0) {
-          return { [dbPath]: { $exists: true, $ne: null } };
-        }
-
-        return {
-          $and: [
-            { [dbPath]: { $exists: true, $ne: null } },
-            { $nor: [{ [dbPath]: { $in: values } }] },
-          ],
-        };
-      },
+      [`${this.path}_in`]: value => mongoFieldIn(dbPath, value),
+      [`${this.path}_not_in`]: value => mongoFieldNotIn(dbPath, value),
     };
   }
 
@@ -593,12 +593,15 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
 
         const rootFieldNullMatch = getRootFieldNullMatch(path, value); // use raw value here to find operator
 
+        // NOTE: common {field}_in, {field}_not_in, {field}_not, {filed} and NULL cases
         if (rootFieldNullMatch === FIELD_NULL) {
           return mongoFieldNull(dbPath);
-        }
-
-        if (rootFieldNullMatch === FIELD_NOT_NULL) {
+        } else if (rootFieldNullMatch === FIELD_NOT_NULL) {
           return mongoFieldNotNull(dbPath);
+        } else if (path.length === 0 && operator === 'equals') {
+          return negate ? mongoFieldNotEqual(dbPath, expected) : mongoFieldEqual(dbPath, expected);
+        } else if (path.length === 0 && operator === 'in') {
+          return negate ? mongoFieldNotIn(dbPath, expected) : mongoFieldIn(dbPath, expected);
         }
 
         const positiveQuery = buildMongoPositiveJsonQuery(dbPath, path, operator, expected);
@@ -777,9 +780,7 @@ function whereJsonFieldNotInOrNull(b, dbPath, values) {
 }
 
 function whereJsonFieldEqualKnexOperator(b, dbPath, value, f = stringify) {
-  return value === null
-    ? whereJsonFieldNull(b, dbPath)
-    : whereJsonFieldEqual(b, dbPath, f(value))
+  return value === null ? whereJsonFieldNull(b, dbPath) : whereJsonFieldEqual(b, dbPath, f(value));
 }
 
 function whereJsonFieldNotEqualKnexOperator(b, dbPath, value, f = stringify) {
@@ -881,13 +882,13 @@ export class KnexJsonInterface extends CommonFieldAdapterInterface(KnexFieldAdap
         } else if (rootFieldNullMatch === FIELD_NOT_NULL) {
           return whereJsonFieldNotNull(b, dbPath);
         } else if (path.length === 0 && operator === 'equals') {
-          return whereJsonFieldEqualKnexOperator(b, dbPath, expected, f);
-        } else if (path.length === 0 && operator === 'not') {
-          return whereJsonFieldNotEqualKnexOperator(b, dbPath, expected, f);
+          return negate
+            ? whereJsonFieldNotEqualKnexOperator(b, dbPath, expected, f)
+            : whereJsonFieldEqualKnexOperator(b, dbPath, expected, f);
         } else if (path.length === 0 && operator === 'in') {
-          return whereJsonFieldInKnexOperator(b, dbPath, expected, f);
-        } else if (path.length === 0 && operator === 'not_in') {
-          return whereJsonFieldNotInKnexOperator(b, dbPath, expected, f);
+          return negate
+            ? whereJsonFieldNotInKnexOperator(b, dbPath, expected, f)
+            : whereJsonFieldInKnexOperator(b, dbPath, expected, f);
         }
 
         const predicate = buildKnexPositiveJsonPredicate(dbPath, path, operator, expected);
@@ -1076,7 +1077,7 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
             .filter(x => x !== null)
             .map(x => ({
               [dbPath]: { equals: x },
-            }))
+            }));
           if (nonNullQuery.length > 0) {
             return {
               OR: [...nonNullQuery, prismaFieldNull(dbPath, nulls)],
