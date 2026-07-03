@@ -516,8 +516,6 @@ export class MongoJsonInterface extends CommonFieldAdapterInterface(MongooseFiel
     // Mixed/Object JSON values may contain intentionally empty objects.
     // Mongoose removes empty objects by default, which breaks equals: {}.
     schema.set('minimize', false);
-
-    schema.set('strict', false);
   }
 
   equalsOp(dbPath, value) {
