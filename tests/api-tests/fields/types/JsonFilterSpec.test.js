@@ -9,7 +9,7 @@ function setupKeystone(adapterName) {
       keystone.createList('User', {
         fields: {
           name: { type: Text },
-          metadata: { type: Json },
+          metadata: { type: Json, enableMatchFilter: true },
         },
       });
     },

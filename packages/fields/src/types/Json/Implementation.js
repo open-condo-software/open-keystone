@@ -54,6 +54,9 @@ export class Json extends Implementation {
       graphQLReturnType = 'JSON',
       extendGraphQLTypes = [],
       graphQLAdminFragment = '',
+      enableMatchFilter = false,
+      allowedMatchFilterPaths = undefined,
+      strictWriteValidation = false,
     }
   ) {
     super(...arguments);
@@ -87,13 +90,16 @@ export class Json extends Implementation {
   // GQL Input
 
   gqlQueryInputFields() {
-    return [
+    const filters = [
       `${this.path}: ${this.graphQLInputType}`,
       `${this.path}_not: ${this.graphQLInputType}`,
       `${this.path}_in: [${this.graphQLInputType}]`,
       `${this.path}_not_in: [${this.graphQLInputType}]`,
-      `${this.path}_match: JsonMatchInput`,
     ];
+    if (this.config.enableMatchFilter) {
+      filters.push(`${this.path}_match: JsonMatchInput`);
+    }
+    return filters;
   }
 
   gqlUpdateInputFields() {
@@ -164,14 +170,22 @@ export class Json extends Implementation {
     if (!(this.path in resolvedData)) {
       return undefined;
     }
-    return resolvedData[this.path];
+    const value = resolvedData[this.path];
+    if (this.config.strictWriteValidation) {
+      validateJsonFieldValue(value, {
+        listKey: this.listKey,
+        fieldPath: this.path,
+        allowUnsafeLiteralObjectKeys: false,
+      });
+    }
+    return value;
   }
 
   validateMatchCondition(value) {
     return normalizeJsonMatchInput(value, {
       listKey: this.listKey,
       fieldPath: this.path,
-      allowedPaths: this.config.allowedPaths,
+      allowedPaths: this.config.allowedMatchFilterPaths,
       allowUnsafeLiteralObjectKeys: false,
       allowNullInLists: false, // JsonMatchInput.in is [JSON!]
     });
@@ -259,7 +273,7 @@ const CommonFieldAdapterInterface = superclass =>
     }
 
     getQueryConditions(dbPath) {
-      return {
+      const conditions = {
         [this.path]: value => {
           const normalized = this.field.validateFieldFilterValue(value);
           return this.equalsOp(dbPath, normalized);
@@ -279,8 +293,10 @@ const CommonFieldAdapterInterface = superclass =>
           const normalized = this.field.validateFieldListFilterValue(value, `${this.path}_not_in`);
           return this.notInOp(dbPath, normalized);
         },
+      };
 
-        [`${this.path}_match`]: value => {
+      if (this.field.config.enableMatchFilter) {
+        conditions[`${this.path}_match`] = value => {
           const normalized = this.field.validateMatchCondition(value);
           const rootMatchCondition = buildRootJsonMatchCondition(this, dbPath, normalized);
           if (rootMatchCondition !== undefined) {
@@ -288,8 +304,10 @@ const CommonFieldAdapterInterface = superclass =>
           }
 
           return this.matchOp(dbPath, normalized);
-        },
-      };
+        };
+      }
+
+      return conditions;
     }
   };
 

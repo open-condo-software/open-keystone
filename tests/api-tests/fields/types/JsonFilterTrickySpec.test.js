@@ -1021,8 +1021,9 @@ const jsonMatchInvalidInputTests = [
   },
   {
     id: 'json_match_invalid_011_path_not_allowlisted',
-    title: 'syntactically valid path that is not in allowedPaths',
-    result: 'Fails because the path is syntactically valid but not present in allowedPaths.',
+    title: 'syntactically valid path that is not in allowedMatchFilterPaths',
+    result:
+      'Fails because the path is syntactically valid but not present in allowedMatchFilterPaths.',
     where: { metadata_match: { path: ['profile', 'secretToken'], equals: 'abc' } },
     expect_error: { code: 'BAD_USER_INPUT', message_contains: 'is not allowed' },
   },
@@ -1333,7 +1334,8 @@ function setupKeystone(adapterName) {
           name: { type: Text },
           metadata: {
             type: Json,
-            allowedPaths: [
+            enableMatchFilter: true,
+            allowedMatchFilterPaths: [
               ['profile', 'country'],
               ['profile', 'age'],
               ['profile', 'email'],

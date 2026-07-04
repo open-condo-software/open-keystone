@@ -614,14 +614,15 @@ Rules:
 9. a numeric segment is considered an array index;
 10. object keys like `"0"` are not supported as queryable path keys.
 
-## allowedPaths
+## allowedMatchFilterPaths
 
 An allow-list of permitted paths can be specified for each `JSON` field.
 
 ```ts
 metadata: {
   type: Json,
-  allowedPaths: [
+  enableMatchFilter: true,
+  allowedMatchFilterPaths: [
     ["profile", "country"],
     ["profile", "age"],
     ["profile", "email"],
@@ -636,9 +637,9 @@ If `path` is passed, it must:
 
 1. be a non-empty array;
 2. consist only of valid path segments;
-3. exactly match one of the paths in `allowedPaths`.
+3. exactly match one of the paths in `allowedMatchFilterPaths`.
 
-If a path is syntactically valid but is not in `allowedPaths`, the request should fail with a user input error.
+If a path is syntactically valid but is not in `allowedMatchFilterPaths`, the request should fail with a user input error.
 
 ```text
 JSON path "profile.secretToken" is not allowed for User.metadata
@@ -1501,7 +1502,7 @@ Adapters should not concatenate the user-provided `path` into a raw query.
 Adapters must:
 
 1. check the `path` against a regex;
-2. check the `path` against `allowedPaths`;
+2. check the `path` against `allowedMatchFilterPaths`;
 3. translate path tokens into the native database mechanism;
 4. pass filter values as parameters;
 5. preserve type-sensitive semantics;
@@ -1711,7 +1712,7 @@ JsonMatchInput:
     omitted: apply operator to whole JSON field
     provided: apply operator to selected JSON path
     format: array of safe path segments
-    validation: regex + allowedPaths
+    validation: regex + allowedMatchFilterPaths
 
   normalization:
     enabled: false
