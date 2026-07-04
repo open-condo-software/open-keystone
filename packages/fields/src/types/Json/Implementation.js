@@ -1,20 +1,20 @@
+import isFunction from 'lodash.isfunction';
 import { KnexFieldAdapter } from '@open-keystone/adapter-knex';
 import { MongooseFieldAdapter } from '@open-keystone/adapter-mongoose';
 import { PrismaFieldAdapter } from '@open-keystone/adapter-prisma';
-import { Implementation } from '../../Implementation';
-import isFunction from 'lodash.isfunction';
 import { escapeRegExp, escapeLike } from '@open-keystone/utils';
+import { Implementation } from '../../Implementation';
 import {
   normalizeJsonMatchInput,
   validateJsonFieldListFilter,
   validateJsonFieldValue,
   getRootFieldNullMatch,
+  FIELD_NOT_NULL,
+  FIELD_NULL,
 } from './utils/validators';
 
 const stringify = JSON.stringify;
 
-const ROOT_API_NULL_MATCH = 'FIELD_NULL';
-const ROOT_API_NOT_NULL_MATCH = 'FIELD_NOT_NULL';
 const POSTGRES_JSONB_NULL = stringify(null);
 
 const JsonMatchOperator = {
@@ -218,11 +218,11 @@ function buildRootJsonMatchCondition(adapter, dbPath, match) {
   const rootApiNullMatch = getRootFieldNullMatch(match);
   const { path: jsonPath, operator, value: expectedValue, negate } = match;
 
-  if (rootApiNullMatch === ROOT_API_NULL_MATCH) {
+  if (rootApiNullMatch === FIELD_NULL) {
     return adapter.equalsOp(dbPath, null);
   }
 
-  if (rootApiNullMatch === ROOT_API_NOT_NULL_MATCH) {
+  if (rootApiNullMatch === FIELD_NOT_NULL) {
     return adapter.notOp(dbPath, null);
   }
 
