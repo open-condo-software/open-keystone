@@ -1,6 +1,6 @@
 const { multiAdapterRunners, setupServer } = require('@open-keystone/test-utils');
 const { Text, Json } = require('@open-keystone/fields');
-const { createItem, updateItem } = require('@open-keystone/server-side-graphql-client');
+const { createItem } = require('@open-keystone/server-side-graphql-client');
 
 function setupKeystone(adapterName) {
   return setupServer({
