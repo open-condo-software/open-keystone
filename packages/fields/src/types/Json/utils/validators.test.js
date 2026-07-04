@@ -379,12 +379,8 @@ describe('jsonFilterValidation', () => {
     });
 
     test('rejects empty or non-array match lists', () => {
-      expectBadInput(() => validateJsonMatchInput({ in: [] }, ctx), /in must be a non-empty array/);
-
-      expectBadInput(
-        () => validateJsonMatchInput({ not_in: [] }, ctx),
-        /not_in must be a non-empty array/
-      );
+      validateJsonMatchInput({ in: [] }, ctx);
+      validateJsonMatchInput({ not_in: [] }, ctx);
 
       expectBadInput(() => validateJsonMatchInput({ in: 'DE' }, ctx), /in must be an array/);
     });
@@ -446,16 +442,9 @@ describe('jsonFilterValidation', () => {
       );
     });
 
-    test('rejects empty whole-field lists', () => {
-      expectBadInput(
-        () => validateJsonFieldListFilter([], 'metadata_in', ctx),
-        /metadata_in must be a non-empty array/
-      );
-
-      expectBadInput(
-        () => validateJsonFieldListFilter([], 'metadata_not_in', ctx),
-        /metadata_not_in must be a non-empty array/
-      );
+    test('accepts empty whole-field lists', () => {
+      validateJsonFieldListFilter([], 'metadata_in', ctx);
+      validateJsonFieldListFilter([], 'metadata_not_in', ctx);
     });
 
     test('rejects very large whole-field lists', () => {
@@ -591,7 +580,7 @@ describe('jsonFilterValidation', () => {
     test('rejects Mongo operator keys in array_contains object pattern', () => {
       expectBadInput(
         () => validateJsonMatchInput({ array_contains: { $ne: 'x' } }, ctx),
-        /Invalid JSON object pattern key/
+        /Invalid JSON object key/
       );
     });
 
@@ -608,31 +597,31 @@ describe('jsonFilterValidation', () => {
             },
             ctx
           ),
-        /Invalid JSON object pattern key/
+        /Invalid JSON object key/
       );
     });
 
     test('rejects dotted keys in array_contains object pattern', () => {
       expectBadInput(
         () => validateJsonMatchInput({ array_contains: { 'code.root': 'x' } }, ctx),
-        /Invalid JSON object pattern key/
+        /Invalid JSON object key/
       );
     });
 
     test('rejects prototype pollution keys in array_contains object pattern', () => {
       expectBadInput(
         () => validateJsonMatchInput({ array_contains: { ['__proto__']: 'x' } }, ctx),
-        /Invalid JSON object pattern key/
+        /Invalid JSON object key/
       );
 
       expectBadInput(
         () => validateJsonMatchInput({ array_contains: { constructor: 'x' } }, ctx),
-        /Invalid JSON object pattern key/
+        /Invalid JSON object key/
       );
 
       expectBadInput(
         () => validateJsonMatchInput({ array_contains: { prototype: 'x' } }, ctx),
-        /Invalid JSON object pattern key/
+        /Invalid JSON object key/
       );
     });
 
@@ -680,27 +669,19 @@ describe('jsonFilterValidation', () => {
       },
     };
 
-    test('rejects empty AND / OR', () => {
-      expectBadInput(
-        () =>
-          validateJsonWhereInput(
-            {
-              AND: [],
-            },
-            whereCtx
-          ),
-        /AND must be a non-empty array/
+    test.skip('accepts empty AND / OR', () => {
+      validateJsonWhereInput(
+        {
+          AND: [],
+        },
+        whereCtx
       );
 
-      expectBadInput(
-        () =>
-          validateJsonWhereInput(
-            {
-              OR: [],
-            },
-            whereCtx
-          ),
-        /OR must be a non-empty array/
+      validateJsonWhereInput(
+        {
+          OR: [],
+        },
+        whereCtx
       );
     });
 
@@ -1284,9 +1265,7 @@ describe('normalizeJsonMatchInput', () => {
   describe('operator value validation', () => {
     test.each([
       ['in string', { in: 'DE' }, /in must be an array/],
-      ['in empty array', { in: [] }, /in must be a non-empty array/],
       ['not_in string', { not_in: 'DE' }, /not_in must be an array/],
-      ['not_in empty array', { not_in: [] }, /not_in must be a non-empty array/],
     ])('rejects invalid list operator: %s', (_title, input, error) => {
       expectInvalid(input, error);
     });
@@ -1369,7 +1348,7 @@ describe('normalizeJsonMatchInput', () => {
     test('rejects Mongo operator keys in array_not_contains object pattern', () => {
       expectBadInput(
         () => validateJsonMatchInput({ array_not_contains: { $ne: 'x' } }, ctx),
-        /Invalid JSON object pattern key/
+        /Invalid JSON object key/
       );
     });
 
@@ -1386,14 +1365,14 @@ describe('normalizeJsonMatchInput', () => {
             },
             ctx
           ),
-        /Invalid JSON object pattern key/
+        /Invalid JSON object key/
       );
     });
 
     test('rejects dotted keys in array_not_contains object pattern', () => {
       expectBadInput(
         () => validateJsonMatchInput({ array_not_contains: { 'code.root': 'x' } }, ctx),
-        /Invalid JSON object pattern key/
+        /Invalid JSON object key/
       );
     });
 

@@ -1047,40 +1047,6 @@ const jsonMatchInvalidInputTests = [
     },
   },
   {
-    id: 'json_match_invalid_014_empty_in',
-    title: 'in must be a non-empty array',
-    result: 'Fails because in must receive a non-empty array.',
-    where: { metadata_match: { path: ['profile', 'country'], in: [] } },
-    expect_error: { code: 'BAD_USER_INPUT', message_contains: 'in must be a non-empty array' },
-  },
-  {
-    id: 'json_match_invalid_015_empty_not_in',
-    title: 'not_in must be a non-empty array',
-    result: 'Fails because not_in must receive a non-empty array.',
-    where: { metadata_match: { path: ['profile', 'country'], not_in: [] } },
-    expect_error: { code: 'BAD_USER_INPUT', message_contains: 'not_in must be a non-empty array' },
-  },
-  {
-    id: 'json_match_invalid_016_empty_whole_field_in',
-    title: 'metadata_in must be a non-empty array',
-    result: 'Fails because metadata_in must receive a non-empty array.',
-    where: { metadata_in: [] },
-    expect_error: {
-      code: 'BAD_USER_INPUT',
-      message_contains: '_in must be a non-empty array',
-    },
-  },
-  {
-    id: 'json_match_invalid_017_empty_whole_field_not_in',
-    title: 'metadata_not_in must be a non-empty array',
-    result: 'Fails because metadata_not_in must receive a non-empty array.',
-    where: { metadata_not_in: [] },
-    expect_error: {
-      code: 'BAD_USER_INPUT',
-      message_contains: '_not_in must be a non-empty array',
-    },
-  },
-  {
     id: 'json_match_invalid_018_is_null_not_supported',
     title: 'is_null is not part of JsonMatchInput',
     result: 'Fails because is_null is not part of the JsonMatchInput schema.',

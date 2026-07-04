@@ -403,10 +403,6 @@ function validateJsonList(value, operatorName, ctx) {
     fail(`${operatorName} must be an array for ${ctx.listKey}.${ctx.fieldPath}`);
   }
 
-  if (value.length === 0) {
-    fail(`${operatorName} must be a non-empty array for ${ctx.listKey}.${ctx.fieldPath}`);
-  }
-
   if (value.length > ctx.limits.maxListLength) {
     fail(`${operatorName} has too many items for ${ctx.listKey}.${ctx.fieldPath}`);
   }

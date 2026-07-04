@@ -35,4 +35,4 @@ export const storedValues = () => [
   { name: 'g', testField: null },
 ];
 
-export const supportedFilters = () => ['null_equality', 'equality', 'in_value'];
+export const supportedFilters = () => ['null_equality', 'equality', 'in_empty_null', 'in_equal'];

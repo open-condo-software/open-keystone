@@ -226,16 +226,15 @@ function buildRootJsonMatchCondition(adapter, dbPath, match) {
     return adapter.notOp(dbPath, null);
   }
 
-  if (jsonPath.length !== 0) {
-    return undefined;
-  }
-
-  if (operator === JsonMatchOperator.EQUALS) {
+  if (operator === JsonMatchOperator.EQUALS && jsonPath.length === 0) {
     return negate ? adapter.notOp(dbPath, expectedValue) : adapter.equalsOp(dbPath, expectedValue);
   }
 
   if (operator === JsonMatchOperator.IN) {
-    return negate ? adapter.notInOp(dbPath, expectedValue) : adapter.inOp(dbPath, expectedValue);
+    const inEmptyArray = Array.isArray(expectedValue) && expectedValue.length === 0
+    if (jsonPath.length === 0 || inEmptyArray) {
+      return negate ? adapter.notInOp(dbPath, expectedValue) : adapter.inOp(dbPath, expectedValue);
+    }
   }
 
   return undefined;
@@ -319,8 +318,12 @@ function mongoRootApiNotEqualsQuery(dbPath, expectedValue) {
 }
 
 function mongoRootApiInQuery(dbPath, expectedValues) {
-  if (!Array.isArray(expectedValues) || expectedValues.length === 0) {
-    throw new Error(`_in must be a non-empty array`);
+  if (!Array.isArray(expectedValues)) {
+    throw new Error(`_in must be an array`);
+  }
+
+  if (expectedValues.length === 0) {
+    return { _id: { $exists: false } }; // Match nothing
   }
 
   const hasRootApiNull = expectedValues.some(item => item === null);
@@ -340,8 +343,12 @@ function mongoRootApiInQuery(dbPath, expectedValues) {
 }
 
 function mongoRootApiNotInQuery(dbPath, value) {
-  if (!Array.isArray(value) || value.length === 0) {
-    throw new Error(`_not_in must be a non-empty array`);
+  if (!Array.isArray(value)) {
+    throw new Error(`_not_in must be an array`);
+  }
+
+  if (value.length === 0) {
+    return {}; // Match everything
   }
 
   const hasRootApiNull = value.some(item => item === null);
@@ -755,7 +762,7 @@ function whereRootApiNotEqualsKnexOperator(queryBuilder, dbPath, expectedValue) 
 
 function whereRootApiInKnexOperator(queryBuilder, dbPath, expectedValues) {
   if (expectedValues.length === 0) {
-    throw new Error(`_in must be a non-empty array`);
+    return queryBuilder.whereRaw('1 = 0'); // Match nothing
   }
 
   if (expectedValues.includes(null)) {
@@ -771,7 +778,7 @@ function whereRootApiInKnexOperator(queryBuilder, dbPath, expectedValues) {
 
 function whereRootApiNotInKnexOperator(queryBuilder, dbPath, expectedValues) {
   if (expectedValues.length === 0) {
-    throw new Error(`_not_in must be a non-empty array`);
+    return queryBuilder; // Match everything
   }
 
   if (expectedValues.includes(null)) {
@@ -1031,7 +1038,7 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
   }
   inOp(dbPath, expectedValues) {
     if (expectedValues.length === 0) {
-      throw new Error(`${this.path}_in must be a non-empty array`);
+      return { OR: [] }; // Match nothing
     }
 
     const jsonNulls = getPrismaJsonNulls(this, `${this.field.listKey}.${this.path}`);
@@ -1065,7 +1072,7 @@ export class PrismaJsonInterface extends CommonFieldAdapterInterface(PrismaField
   }
   notInOp(dbPath, expectedValues) {
     if (expectedValues.length === 0) {
-      throw new Error(`${this.path}_not_in must be a non-empty array`);
+      return {}; // Match everything
     }
 
     const jsonNulls = getPrismaJsonNulls(this, `${this.field.listKey}.${this.path}`);
