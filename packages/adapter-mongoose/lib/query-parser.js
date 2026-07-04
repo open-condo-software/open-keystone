@@ -53,7 +53,7 @@ function queryParser({ listAdapter, getUID }, query, pathSoFar = [], include) {
         currentListAdapter = getRelatedListAdapterFromQueryPath(listAdapter, path);
       } catch (e) {
         // If we can't find the list adapter, it's definitely not a relationship
-        return { matchTerm: simpleTokenizer(listAdapter, query, key, path) };
+        return { matchTerm: simpleTokenizer(listAdapter, query, key, path, null) };
       }
 
       const fieldAdapter = currentListAdapter.fieldAdapters.find(
@@ -66,7 +66,8 @@ function queryParser({ listAdapter, getUID }, query, pathSoFar = [], include) {
           listAdapter,
           key,
           path,
-          getUID
+          getUID,
+          currentListAdapter
         );
 
         return {
@@ -78,7 +79,7 @@ function queryParser({ listAdapter, getUID }, query, pathSoFar = [], include) {
           ],
         };
       } else {
-        return { matchTerm: simpleTokenizer(listAdapter, query, key, path) };
+        return { matchTerm: simpleTokenizer(listAdapter, query, key, path, currentListAdapter) };
       }
     } else {
       // A simple field query component
