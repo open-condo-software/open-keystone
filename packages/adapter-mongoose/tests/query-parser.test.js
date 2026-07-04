@@ -539,13 +539,27 @@ describe('query parser', () => {
       );
 
       expect(queryTree).toMatchObject({
-        relationships: {},
+        relationships: [],
         matchTerm: {
           $and: [
             { $or: [{ name: { $eq: 'foobar' } }, { age: { $eq: 23 } }] },
             { $and: [{ age: { $eq: 30 } }, { email: { $eq: 'foo@bar.com' } }] },
           ],
         },
+      });
+    });
+
+    test('falls back to simpleTokenizer when path resolution fails in relationship query', () => {
+      const query = {
+        a: { b: 1 },
+      };
+
+      // We expect this NOT to throw, but to fall back to simpleTokenizer
+      // which returns undefined since 'a' is not a field in User list
+      const queryTree = queryParser({ listAdapter, getUID: k => k }, query, ['broken']);
+      expect(queryTree).toMatchObject({
+        relationships: [],
+        matchTerm: undefined,
       });
     });
   });

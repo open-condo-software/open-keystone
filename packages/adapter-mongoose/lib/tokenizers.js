@@ -56,8 +56,11 @@ const getRelatedListAdapterFromQueryPath = (listAdapter, queryPath) => {
   return foundListAdapter;
 };
 
-const relationshipTokenizer = (listAdapter, queryKey, path, getUID = cuid) => {
-  const refListAdapter = getRelatedListAdapterFromQueryPath(listAdapter, path);
+const relationshipTokenizer = (listAdapter, queryKey, path, getUID = cuid, refListAdapter) => {
+  if (refListAdapter === undefined) {
+    refListAdapter = getRelatedListAdapterFromQueryPath(listAdapter, path);
+  }
+  if (!refListAdapter) return {};
   const fieldAdapter = refListAdapter.fieldAdapters
     .filter(adapter => adapter.isRelationship)
     .find(({ path }) => [path, `${path}_every`, `${path}_some`, `${path}_none`].includes(queryKey));
@@ -100,8 +103,11 @@ const relationshipTokenizer = (listAdapter, queryKey, path, getUID = cuid) => {
   };
 };
 
-const simpleTokenizer = (listAdapter, query, queryKey, path) => {
-  const refListAdapter = getRelatedListAdapterFromQueryPath(listAdapter, path);
+const simpleTokenizer = (listAdapter, query, queryKey, path, refListAdapter) => {
+  if (refListAdapter === undefined) {
+    refListAdapter = getRelatedListAdapterFromQueryPath(listAdapter, path);
+  }
+  if (!refListAdapter) return;
   const simpleQueryConditions = objMerge(
     refListAdapter.fieldAdapters.map(a => a.getQueryConditions(a.dbPath))
   );
@@ -110,8 +116,11 @@ const simpleTokenizer = (listAdapter, query, queryKey, path) => {
   }
 };
 
-const modifierTokenizer = (listAdapter, query, queryKey, path) => {
-  const refListAdapter = getRelatedListAdapterFromQueryPath(listAdapter, path);
+const modifierTokenizer = (listAdapter, query, queryKey, path, refListAdapter) => {
+  if (refListAdapter === undefined) {
+    refListAdapter = getRelatedListAdapterFromQueryPath(listAdapter, path);
+  }
+  if (!refListAdapter) return;
   const searchFieldName = listAdapter.config.searchField || 'name';
   return {
     // TODO: Implement configurable search fields for lists

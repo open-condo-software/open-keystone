@@ -1,6 +1,11 @@
 const { getType, flatten } = require('@open-keystone/utils');
 
-const { simpleTokenizer, relationshipTokenizer, modifierTokenizer } = require('./tokenizers');
+const {
+  simpleTokenizer,
+  relationshipTokenizer,
+  modifierTokenizer,
+  getRelatedListAdapterFromQueryPath,
+} = require('./tokenizers');
 
 // If it's 0 or 1 items, we can use it as-is. Any more needs an $and/$or
 const joinTerms = (matchTerms, joinOp) =>
@@ -43,44 +48,39 @@ function queryParser({ listAdapter, getUID }, query, pathSoFar = [], include) {
       }
     } else if (getType(value) === 'Object') {
       // A relationship query component
-      const { matchTerm, relationshipInfo } = relationshipTokenizer(listAdapter, key, path, getUID);
+      let currentListAdapter;
+      try {
+        currentListAdapter = getRelatedListAdapterFromQueryPath(listAdapter, path);
+      } catch (e) {
+        // If we can't find the list adapter, it's definitely not a relationship
+        return { matchTerm: simpleTokenizer(listAdapter, query, key, path, null) };
+      }
 
-      // FIXME: This code introduced regressions. We need to add test coverage
-      // to unique exercise this code and verify its behaviour.
-      // // Greatly improve query using indexes
-      // if (
-      //   Object.keys(value).length === 1 &&
-      //   (value.id || value.id_not || value.id_in || value.id_not_in)
-      // ) {
-      //   const { ObjectId } = listAdapter.mongoose.Types;
-      //   const fieldParser = key.split(/(\_some|\_every|\_none)+$/gm);
-      //   const _path = fieldParser[0];
-      //   const filterType = fieldParser.length > 1 ? fieldParser[1] : '_only';
-      //   const queryCondition = {};
-      //   if (value.id) {
-      //     if (['_only', '_some', '_every'].includes(filterType)) {
-      //       queryCondition[_path] = { $eq: ObjectId(value.id) };
-      //     } else if (filterType === '_none') {
-      //       queryCondition[_path] = { $ne: ObjectId(value.id) };
-      //     }
-      //   } else if (value.id_not && ['_only', '_some', '_every', '_none'].includes(filterType)) {
-      //     queryCondition[_path] = { $ne: ObjectId(value.id_not) };
-      //   } else if (value.id_in && ['_only', '_some'].includes(filterType)) {
-      //     queryCondition[_path] = { $in: value.id_in.map(el => ObjectId(el)) };
-      //   } else if (value.id_not_in && ['_only', '_every'].includes(filterType)) {
-      //     queryCondition[_path] = { $not: { $in: value.id_not_in.map(el => ObjectId(el)) } };
-      //   }
-      //   if (Object.keys(queryCondition).length > 0) {
-      //     return { matchTerm: queryCondition };
-      //   }
-      // }
+      const fieldAdapter = currentListAdapter.fieldAdapters.find(
+        ({ path, isRelationship }) =>
+          isRelationship && [path, `${path}_every`, `${path}_some`, `${path}_none`].includes(key)
+      );
 
-      return {
-        // matchTerm is our filtering expression. This determines if the
-        // parent item is included in the final list
-        matchTerm,
-        relationships: [{ relationshipInfo, ...queryParser({ listAdapter, getUID }, value, path) }],
-      };
+      if (fieldAdapter) {
+        const { matchTerm, relationshipInfo } = relationshipTokenizer(
+          listAdapter,
+          key,
+          path,
+          getUID,
+          currentListAdapter
+        );
+
+        return {
+          // matchTerm is our filtering expression. This determines if the
+          // parent item is included in the final list
+          matchTerm,
+          relationships: [
+            { relationshipInfo, ...queryParser({ listAdapter, getUID }, value, path) },
+          ],
+        };
+      } else {
+        return { matchTerm: simpleTokenizer(listAdapter, query, key, path, currentListAdapter) };
+      }
     } else {
       // A simple field query component
       return { matchTerm: simpleTokenizer(listAdapter, query, key, path) };

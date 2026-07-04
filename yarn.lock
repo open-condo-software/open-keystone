@@ -7481,7 +7481,11 @@ __metadata:
     inflection: ^1.13.1
     intersection-observer: 0.12.2
     lodash.groupby: ^4.6.0
+    lodash.isarray: ^4.0.0
     lodash.isequal: ^4.5.0
+    lodash.isfunction: ^3.0.9
+    lodash.isobject: ^3.0.2
+    lodash.omit: ^4.18.0
     luxon: ^1.27.0
     mime: ^2.5.2
     mongoose: ^8.16.0
@@ -24035,10 +24039,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.isarray@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "lodash.isarray@npm:4.0.0"
+  checksum: 88aeb6b9af3e19ad9bfd38cf03b50991a0cd2862965214ef3047f55fd7df27aa731ff9c6aca0899e4a8a90180d5c0c4f936949adcc224f3929e95a1918362123
+  languageName: node
+  linkType: hard
+
 "lodash.isequal@npm:^4.5.0":
   version: 4.5.0
   resolution: "lodash.isequal@npm:4.5.0"
   checksum: da27515dc5230eb1140ba65ff8de3613649620e8656b19a6270afe4866b7bd461d9ba2ac8a48dcc57f7adac4ee80e1de9f965d89d4d81a0ad52bb3eec2609644
+  languageName: node
+  linkType: hard
+
+"lodash.isfunction@npm:^3.0.9":
+  version: 3.0.9
+  resolution: "lodash.isfunction@npm:3.0.9"
+  checksum: 99e54c34b1e8a9ba75c034deb39cedbd2aca7af685815e67a2a8ec4f73ec9748cda6ebee5a07d7de4b938e90d421fd280e9c385cc190f903ac217ac8aff30314
+  languageName: node
+  linkType: hard
+
+"lodash.isobject@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "lodash.isobject@npm:3.0.2"
+  checksum: 6c1667cbc4494d0a13a3617a4b23278d6d02dac520311f2bbb43f16f2cf71d2e6eb9dec8057315b77459df4890c756a256a087d3f4baa44a79ab5d6c968b060e
   languageName: node
   linkType: hard
 
@@ -24081,6 +24106,13 @@ __metadata:
   version: 4.6.2
   resolution: "lodash.merge@npm:4.6.2"
   checksum: ad580b4bdbb7ca1f7abf7e1bce63a9a0b98e370cf40194b03380a46b4ed799c9573029599caebc1b14e3f24b111aef72b96674a56cfa105e0f5ac70546cdc005
+  languageName: node
+  linkType: hard
+
+"lodash.omit@npm:^4.18.0":
+  version: 4.18.0
+  resolution: "lodash.omit@npm:4.18.0"
+  checksum: 4e95fd4af19bbdb6f8e85b29eb1fa0dae288b3e6c49768059ef030fa3bc7dab6970fa7da7eab03f67ffa3062b9416da994c740ef13b5e71a4113cf0a858cf9f0
   languageName: node
   linkType: hard
 

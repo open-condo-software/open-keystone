@@ -11,6 +11,8 @@ export const getType = (thing: any) =>
 export const escapeRegExp = (str: string) =>
   (str || '').replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
 
+export const escapeLike = (str: string) => (str || '').replace(/[\\%_]/g, '\\$&');
+
 // { key: value, ... } => { key: mapFn(value, key), ... }
 export const mapKeys = <T extends Record<string, unknown>, R>(
   obj: T,

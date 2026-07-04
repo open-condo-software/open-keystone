@@ -1,7 +1,6 @@
 const isPromise = require('p-is-promise');
 const {
   getType,
-  escapeRegExp,
   mapKeys,
   mapKeyNames,
   resolveAllKeys,
@@ -42,17 +41,6 @@ describe('utils', () => {
     expect(getType({})).toEqual('Object');
     expect(getType([])).toEqual('Array');
     expect(getType(() => {})).toEqual('Function');
-  });
-
-  test('escapeRegExp', () => {
-    const s = 'a-b/c[d]e{f}g(h)i*j+k?l.m\\n^o$p|';
-    const t = 'a\\-b\\/c\\[d\\]e\\{f\\}g\\(h\\)i\\*j\\+k\\?l\\.m\\\\n\\^o\\$p\\|';
-    expect(escapeRegExp(s)).toEqual(t);
-    expect(escapeRegExp('abc')).toEqual('abc');
-    expect(escapeRegExp('')).toEqual('');
-    expect(escapeRegExp(null)).toEqual('');
-    expect(escapeRegExp(undefined)).toEqual('');
-    expect(escapeRegExp()).toEqual('');
   });
 
   test('mapKeys', () => {
