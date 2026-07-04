@@ -69,6 +69,9 @@ export class Json extends Implementation {
     this.graphQLReturnType = graphQLReturnType;
     this.extendGraphQLTypes = extendGraphQLTypes;
     this.graphQLAdminFragment = graphQLAdminFragment;
+    this.enableMatchFilter = enableMatchFilter;
+    this.allowedMatchFilterPaths = allowedMatchFilterPaths;
+    this.strictWriteValidation = strictWriteValidation;
   }
 
   get _supportsUnique() {
@@ -96,7 +99,7 @@ export class Json extends Implementation {
       `${this.path}_in: [${this.graphQLInputType}]`,
       `${this.path}_not_in: [${this.graphQLInputType}]`,
     ];
-    if (this.config.enableMatchFilter) {
+    if (this.enableMatchFilter) {
       filters.push(`${this.path}_match: JsonMatchInput`);
     }
     return filters;
@@ -171,7 +174,7 @@ export class Json extends Implementation {
       return undefined;
     }
     const value = resolvedData[this.path];
-    if (this.config.strictWriteValidation) {
+    if (this.strictWriteValidation) {
       validateJsonFieldValue(value, {
         listKey: this.listKey,
         fieldPath: this.path,
@@ -185,7 +188,7 @@ export class Json extends Implementation {
     return normalizeJsonMatchInput(value, {
       listKey: this.listKey,
       fieldPath: this.path,
-      allowedPaths: this.config.allowedMatchFilterPaths,
+      allowedPaths: this.allowedMatchFilterPaths,
       allowUnsafeLiteralObjectKeys: false,
       allowNullInLists: false, // JsonMatchInput.in is [JSON!]
     });
@@ -295,7 +298,7 @@ const CommonFieldAdapterInterface = superclass =>
         },
       };
 
-      if (this.field.config.enableMatchFilter) {
+      if (this.field.enableMatchFilter) {
         conditions[`${this.path}_match`] = value => {
           const normalized = this.field.validateMatchCondition(value);
           const rootMatchCondition = buildRootJsonMatchCondition(this, dbPath, normalized);
