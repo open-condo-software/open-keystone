@@ -231,7 +231,7 @@ function buildRootJsonMatchCondition(adapter, dbPath, match) {
   }
 
   if (operator === JsonMatchOperator.IN) {
-    const inEmptyArray = Array.isArray(expectedValue) && expectedValue.length === 0
+    const inEmptyArray = Array.isArray(expectedValue) && expectedValue.length === 0;
     if (jsonPath.length === 0 || inEmptyArray) {
       return negate ? adapter.notInOp(dbPath, expectedValue) : adapter.inOp(dbPath, expectedValue);
     }
