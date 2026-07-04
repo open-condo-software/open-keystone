@@ -669,22 +669,6 @@ describe('jsonFilterValidation', () => {
       },
     };
 
-    test.skip('accepts empty AND / OR', () => {
-      validateJsonWhereInput(
-        {
-          AND: [],
-        },
-        whereCtx
-      );
-
-      validateJsonWhereInput(
-        {
-          OR: [],
-        },
-        whereCtx
-      );
-    });
-
     test('rejects too deep where input', () => {
       expectBadInput(
         () =>
