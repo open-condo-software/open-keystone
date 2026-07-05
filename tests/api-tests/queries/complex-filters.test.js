@@ -1143,6 +1143,426 @@ const invalidFilterTests = [
   },
 ];
 
+const quantifierAndOrDivergenceTests = [
+  {
+    id: 'and_every_hello_none_world',
+    case: 'AND with posts_every Hello and posts_none World',
+    where: {
+      AND: [
+        { posts_every: { content: 'Hello' } },
+        { posts_none: { content: 'World' } },
+      ],
+    },
+    expect_ids: ['Bob', 'David'],
+  },
+
+  {
+    id: 'and_every_hello_every_world',
+    case: 'AND with two contradictory posts_every filters should match only empty relationship',
+    where: {
+      AND: [
+        { posts_every: { content: 'Hello' } },
+        { posts_every: { content: 'World' } },
+      ],
+    },
+    expect_ids: ['David'],
+  },
+
+  {
+    id: 'or_every_hello_every_world',
+    case: 'OR with two posts_every filters should preserve vacuous empty relationship',
+    where: {
+      OR: [
+        { posts_every: { content: 'Hello' } },
+        { posts_every: { content: 'World' } },
+      ],
+    },
+    expect_ids: ['Bob', 'David'],
+  },
+
+  {
+    id: 'and_none_hello_none_world',
+    case: 'AND with two posts_none filters',
+    where: {
+      AND: [
+        { posts_none: { content: 'Hello' } },
+        { posts_none: { content: 'World' } },
+      ],
+    },
+    expect_ids: ['Charlie', 'David'],
+  },
+
+  {
+    id: 'or_none_hello_none_world',
+    case: 'OR with two posts_none filters',
+    where: {
+      OR: [
+        { posts_none: { content: 'Hello' } },
+        { posts_none: { content: 'World' } },
+      ],
+    },
+    expect_ids: ['Bob', 'Charlie', 'David'],
+  },
+
+  {
+    id: 'and_every_hello_or_world_none_hello',
+    case: 'posts_every OR group combined with posts_none Hello',
+    where: {
+      AND: [
+        {
+          posts_every: {
+            OR: [{ content: 'Hello' }, { content: 'World' }],
+          },
+        },
+        { posts_none: { content: 'Hello' } },
+      ],
+    },
+    expect_ids: ['David'],
+  },
+
+  {
+    id: 'and_every_hello_or_world_none_world',
+    case: 'posts_every OR group combined with posts_none World',
+    where: {
+      AND: [
+        {
+          posts_every: {
+            OR: [{ content: 'Hello' }, { content: 'World' }],
+          },
+        },
+        { posts_none: { content: 'World' } },
+      ],
+    },
+    expect_ids: ['Bob', 'David'],
+  },
+
+  {
+    id: 'and_every_hello_or_world_some_world',
+    case: 'posts_every OR group combined with posts_some World should require non-empty matching item',
+    where: {
+      AND: [
+        {
+          posts_every: {
+            OR: [{ content: 'Hello' }, { content: 'World' }],
+          },
+        },
+        { posts_some: { content: 'World' } },
+      ],
+    },
+    expect_ids: ['Alice'],
+  },
+
+  {
+    id: 'and_every_hello_or_world_some_hello',
+    case: 'posts_every OR group combined with posts_some Hello',
+    where: {
+      AND: [
+        {
+          posts_every: {
+            OR: [{ content: 'Hello' }, { content: 'World' }],
+          },
+        },
+        { posts_some: { content: 'Hello' } },
+      ],
+    },
+    expect_ids: ['Alice', 'Bob'],
+  },
+
+  {
+    id: 'and_every_or_group_none_same_or_group',
+    case: 'All posts are Hello/World AND no posts are Hello/World should match only empty relationship',
+    where: {
+      AND: [
+        {
+          posts_every: {
+            OR: [{ content: 'Hello' }, { content: 'World' }],
+          },
+        },
+        {
+          posts_none: {
+            OR: [{ content: 'Hello' }, { content: 'World' }],
+          },
+        },
+      ],
+    },
+    expect_ids: ['David'],
+  },
+
+  {
+    id: 'or_every_or_group_none_same_or_group',
+    case: 'All posts are Hello/World OR no posts are Hello/World should cover all fixture users',
+    where: {
+      OR: [
+        {
+          posts_every: {
+            OR: [{ content: 'Hello' }, { content: 'World' }],
+          },
+        },
+        {
+          posts_none: {
+            OR: [{ content: 'Hello' }, { content: 'World' }],
+          },
+        },
+      ],
+    },
+    expect_ids: ['Alice', 'Bob', 'Charlie', 'David'],
+  },
+
+  {
+    id: 'and_some_hello_none_world',
+    case: 'posts_some Hello combined with posts_none World',
+    where: {
+      AND: [
+        { posts_some: { content: 'Hello' } },
+        { posts_none: { content: 'World' } },
+      ],
+    },
+    expect_ids: ['Bob'],
+  },
+
+  {
+    id: 'and_some_world_none_hello',
+    case: 'posts_some World combined with posts_none Hello should not match Alice because she has Hello',
+    where: {
+      AND: [
+        { posts_some: { content: 'World' } },
+        { posts_none: { content: 'Hello' } },
+      ],
+    },
+    expect_ids: [],
+  },
+
+  {
+    id: 'and_some_world_every_hello_or_world',
+    case: 'posts_some World plus posts_every Hello/World',
+    where: {
+      AND: [
+        { posts_some: { content: 'World' } },
+        {
+          posts_every: {
+            OR: [{ content: 'Hello' }, { content: 'World' }],
+          },
+        },
+      ],
+    },
+    expect_ids: ['Alice'],
+  },
+
+  {
+    id: 'and_some_bye_every_hello_or_bye',
+    case: 'posts_some Bye plus posts_every Hello/Bye',
+    where: {
+      AND: [
+        { posts_some: { content: 'Bye' } },
+        {
+          posts_every: {
+            OR: [{ content: 'Hello' }, { content: 'Bye' }],
+          },
+        },
+      ],
+    },
+    expect_ids: ['Charlie'],
+  },
+
+  {
+    id: 'or_some_world_every_hello',
+    case: 'OR with posts_some World and posts_every Hello',
+    where: {
+      OR: [
+        { posts_some: { content: 'World' } },
+        { posts_every: { content: 'Hello' } },
+      ],
+    },
+    expect_ids: ['Alice', 'Bob', 'David'],
+  },
+
+  {
+    id: 'and_or_every_none_hello_with_some_hello',
+    case: 'OR every/none Hello group combined with posts_some Hello should exclude empty relationship',
+    where: {
+      AND: [
+        {
+          OR: [
+            { posts_every: { content: 'Hello' } },
+            { posts_none: { content: 'Hello' } },
+          ],
+        },
+        { posts_some: { content: 'Hello' } },
+      ],
+    },
+    expect_ids: ['Bob'],
+  },
+
+  {
+    id: 'and_or_every_none_hello_with_some_world',
+    case: 'OR every/none Hello group combined with posts_some World should not leak Alice',
+    where: {
+      AND: [
+        {
+          OR: [
+            { posts_every: { content: 'Hello' } },
+            { posts_none: { content: 'Hello' } },
+          ],
+        },
+        { posts_some: { content: 'World' } },
+      ],
+    },
+    expect_ids: [],
+  },
+
+  {
+    id: 'and_or_every_none_hello_with_none_bye',
+    case: 'OR every/none Hello group combined with posts_none Bye',
+    where: {
+      AND: [
+        {
+          OR: [
+            { posts_every: { content: 'Hello' } },
+            { posts_none: { content: 'Hello' } },
+          ],
+        },
+        { posts_none: { content: 'Bye' } },
+      ],
+    },
+    expect_ids: ['Bob', 'David'],
+  },
+
+  {
+    id: 'or_of_and_every_none_different_predicates',
+    case: 'OR of AND groups with every/none on different predicates',
+    where: {
+      OR: [
+        {
+          AND: [
+            { posts_every: { content: 'Hello' } },
+            { posts_none: { content: 'World' } },
+          ],
+        },
+        {
+          AND: [
+            { posts_every: { content: 'Bye' } },
+            { posts_none: { content: 'Hello' } },
+          ],
+        },
+      ],
+    },
+    expect_ids: ['Bob', 'Charlie', 'David'],
+  },
+
+  {
+    id: 'and_of_or_every_none_groups',
+    case: 'AND of OR groups mixing posts_every and posts_none',
+    where: {
+      AND: [
+        {
+          OR: [
+            { posts_every: { content: 'Hello' } },
+            { posts_none: { content: 'World' } },
+          ],
+        },
+        {
+          OR: [
+            { posts_every: { content: 'Bye' } },
+            { posts_none: { content: 'Hello' } },
+          ],
+        },
+      ],
+    },
+    expect_ids: ['Charlie', 'David'],
+  },
+
+  {
+    id: 'or_of_every_none_contradictions',
+    case: 'OR of contradictory every+none pairs should still only match empty relationship',
+    where: {
+      OR: [
+        {
+          AND: [
+            { posts_every: { content: 'Hello' } },
+            { posts_none: { content: 'Hello' } },
+          ],
+        },
+        {
+          AND: [
+            { posts_every: { content: 'World' } },
+            { posts_none: { content: 'World' } },
+          ],
+        },
+      ],
+    },
+    expect_ids: ['David'],
+  },
+
+  {
+    id: 'and_some_every_none_triplet',
+    case: 'Triplet: some + every + none on same relationship',
+    where: {
+      AND: [
+        {
+          posts_some: {
+            OR: [{ content: 'Hello' }, { content: 'World' }, { content: 'Bye' }],
+          },
+        },
+        {
+          posts_every: {
+            OR: [{ content: 'Hello' }, { content: 'World' }],
+          },
+        },
+        { posts_none: { content: 'World' } },
+      ],
+    },
+    expect_ids: ['Bob'],
+  },
+
+  {
+    id: 'or_every_none_with_scalar_guards',
+    case: 'Scalar guards should stay branch-local around every/none relationship filters',
+    where: {
+      OR: [
+        {
+          AND: [
+            { name: 'Alice' },
+            { posts_every: { content: 'Hello' } },
+          ],
+        },
+        {
+          AND: [
+            { name: 'Charlie' },
+            { posts_none: { content: 'Hello' } },
+          ],
+        },
+        {
+          AND: [
+            { name: 'David' },
+            { posts_every: { content: 'Hello' } },
+            { posts_none: { content: 'Hello' } },
+          ],
+        },
+      ],
+    },
+    expect_ids: ['Charlie', 'David'],
+  },
+
+  {
+    id: 'and_nested_or_every_none_with_name_guard',
+    case: 'Nested OR every/none group combined with scalar name guard',
+    where: {
+      AND: [
+        {
+          OR: [
+            { posts_every: { content: 'Hello' } },
+            { posts_none: { content: 'World' } },
+          ],
+        },
+        {
+          OR: [{ name: 'Alice' }, { name: 'Bob' }],
+        },
+      ],
+    },
+    expect_ids: ['Bob'],
+  },
+];
+
 const setupKeystone = adapterName =>
   setupServer({
     adapterName,
@@ -1178,6 +1598,7 @@ multiAdapterRunners().map(({ runner, adapterName }) =>
         ...moreAndOrFilterTests,
         ...deepAndOrFilterTests,
         ...divergenceAndOrFilterTests,
+        ...quantifierAndOrDivergenceTests,
       ];
       cases.forEach(({ id, case: title, where, expect_ids, ...expected }) => {
         test(
