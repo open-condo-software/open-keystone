@@ -360,10 +360,7 @@ const moreAndOrFilterTests = [
     id: 'and_nested_inside_and',
     case: 'Nested AND inside AND should be equivalent to flattened AND',
     where: {
-      AND: [
-        { name_contains: 'i' },
-        { AND: [{ age_gt: 25 }, { age_lt: 50 }] },
-      ],
+      AND: [{ name_contains: 'i' }, { AND: [{ age_gt: 25 }, { age_lt: 50 }] }],
     },
     expect_ids: ['Charlie'],
   },
@@ -509,6 +506,16 @@ const moreAndOrFilterTests = [
       },
     },
     expect_ids: [],
+  },
+  {
+    id: 'posts_none_with_empty_and',
+    case: 'posts_none with empty AND should match users having no posts',
+    where: {
+      posts_none: {
+        AND: [],
+      },
+    },
+    expect_ids: ['David'],
   },
 ];
 

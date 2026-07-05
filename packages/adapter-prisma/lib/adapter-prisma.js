@@ -511,15 +511,23 @@ class PrismaListAdapter extends BaseListAdapter {
     const wheres = Object.entries(where)
       .map(([condition, value]) => {
         if (condition === 'AND' || condition === 'OR') {
-          const processed = value.map(w => this.processWheres(w)).filter(w => w !== undefined);
-          if (processed.length > 0) {
-            return { [condition]: processed };
-          }
+          const processed = value.map(w => this.processWheres(w));
           if (condition === 'OR') {
-            const idField = this.fieldAdapters.find(a => a.field.isPrimaryKey);
-            return { [idField ? idField.path : 'id']: { in: [] } };
+            if (processed.length === 0) {
+              const idField = this.fieldAdapters.find(a => a.field.isPrimaryKey);
+              return { [idField ? idField.path : 'id']: { in: [] } };
+            }
+            if (processed.some(w => w === undefined)) {
+              return undefined;
+            }
+            return { OR: processed };
+          } else {
+            const filtered = processed.filter(w => w !== undefined);
+            if (filtered.length === 0) {
+              return undefined;
+            }
+            return filtered.length === 1 ? filtered[0] : { AND: filtered };
           }
-          return undefined;
         } else if (
           this.fieldAdaptersByPath[condition] &&
           this.fieldAdaptersByPath[condition].isRelationship
@@ -545,9 +553,13 @@ class PrismaListAdapter extends BaseListAdapter {
             // Many relationship
             const [fieldPath, constraintType] = condition.split('_');
             const processed = processRelClause(fieldPath, value);
-            return processed !== undefined
-              ? { [fieldPath]: { [constraintType]: processed } }
-              : undefined;
+            if (processed !== undefined) {
+              return { [fieldPath]: { [constraintType]: processed } };
+            }
+            if (constraintType === 'some' || constraintType === 'none') {
+              return { [fieldPath]: { [constraintType]: {} } };
+            }
+            return undefined;
           }
         }
       })
