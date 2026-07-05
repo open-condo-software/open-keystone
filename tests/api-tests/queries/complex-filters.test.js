@@ -519,6 +519,578 @@ const moreAndOrFilterTests = [
   },
 ];
 
+const deepAndOrFilterTests = [
+  {
+    id: 'deep_and_of_or_groups',
+    case: 'Deep AND of OR groups should preserve grouping',
+    where: {
+      AND: [
+        {
+          OR: [{ name: 'Alice' }, { name: 'Bob' }, { name: 'Charlie' }],
+        },
+        {
+          OR: [
+            { AND: [{ age: 20 }, { email_contains: 'example' }] },
+            { AND: [{ age: 40 }, { email_contains: 'other' }] },
+          ],
+        },
+      ],
+    },
+    expect_ids: ['Alice', 'Charlie'],
+  },
+
+  {
+    id: 'deep_or_of_and_groups_with_nested_or_guards',
+    case: 'Deep OR of AND groups with nested OR guards',
+    where: {
+      OR: [
+        {
+          AND: [
+            { OR: [{ name: 'Alice' }, { name: 'Bob' }] },
+            { OR: [{ age: 40 }, { company: { name: 'Cete' } }] },
+          ],
+        },
+        {
+          AND: [
+            { OR: [{ name: 'Charlie' }, { name: 'David' }] },
+            { OR: [{ age: 50 }, { email_contains: 'other' }] },
+          ],
+        },
+      ],
+    },
+    expect_ids: ['Charlie', 'David'],
+  },
+
+  {
+    id: 'deep_alternating_and_or_four_levels',
+    case: 'Alternating AND/OR across four levels',
+    where: {
+      AND: [
+        {
+          OR: [
+            { name: 'Alice' },
+            {
+              AND: [
+                { OR: [{ name: 'Bob' }, { name: 'Charlie' }] },
+                {
+                  AND: [
+                    { age_gt: 35 },
+                    { OR: [{ email_contains: 'other' }, { company_is_null: true }] },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          OR: [{ age_lt: 25 }, { age_gt: 35 }],
+        },
+      ],
+    },
+    expect_ids: ['Alice', 'Charlie'],
+  },
+
+  {
+    id: 'deep_or_branch_must_not_leak_partial_matches',
+    case: 'Deep OR branches should not leak partial matches across branches',
+    where: {
+      OR: [
+        {
+          AND: [
+            { name: 'Alice' },
+            {
+              OR: [
+                { AND: [{ age: 30 }, { email_contains: 'example' }] },
+                { AND: [{ age: 40 }, { email_contains: 'other' }] },
+              ],
+            },
+          ],
+        },
+        {
+          AND: [
+            { name: 'Bob' },
+            {
+              OR: [
+                { AND: [{ age: 20 }, { email_contains: 'example' }] },
+                { AND: [{ age: 30 }, { email_contains: 'example' }] },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    expect_ids: ['Bob'],
+  },
+
+  {
+    id: 'deep_root_scalar_and_or_same_level',
+    case: 'Root scalar, AND and OR with deep nested branches should all be combined as implicit AND',
+    where: {
+      name_contains: 'i',
+      AND: [
+        {
+          OR: [
+            {
+              AND: [
+                { age: 20 },
+                { OR: [{ company: { name: 'Thinkmill' } }, { company_is_null: true }] },
+              ],
+            },
+            {
+              AND: [
+                { age: 40 },
+                { OR: [{ company: { name: 'Cete' } }, { company_is_null: true }] },
+              ],
+            },
+            {
+              AND: [
+                { age: 50 },
+                { OR: [{ company: { name: 'Thinkmill' } }, { company_is_null: true }] },
+              ],
+            },
+          ],
+        },
+      ],
+      OR: [{ email_contains: 'other' }, { company_is_null: true }],
+    },
+    expect_ids: ['Charlie', 'David'],
+  },
+
+  {
+    id: 'company_deep_nested_and_or',
+    case: 'Deep nested AND/OR inside to-one relationship filter',
+    where: {
+      company: {
+        AND: [
+          { OR: [{ name: 'Thinkmill' }, { name: 'Cete' }] },
+          {
+            OR: [
+              {
+                AND: [
+                  { name_contains: 'T' },
+                  { OR: [{ name_contains: 'i' }, { name_contains: 'x' }] },
+                ],
+              },
+              {
+                AND: [
+                  { name_contains: 'C' },
+                  { OR: [{ name_contains: 'z' }] },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    },
+    expect_ids: ['Alice', 'Bob'],
+  },
+
+  {
+    id: 'posts_some_deep_and_or_same_related_item',
+    case: 'Deep AND/OR inside posts_some should be evaluated against the same related item',
+    where: {
+      posts_some: {
+        AND: [
+          { OR: [{ content: 'Hello' }, { content: 'Bye' }] },
+          { OR: [{ content: 'World' }, { content: 'Bye' }] },
+        ],
+      },
+    },
+    expect_ids: ['Charlie'],
+  },
+
+  {
+    id: 'posts_every_deep_or_of_and',
+    case: 'Deep OR of AND groups inside posts_every',
+    where: {
+      posts_every: {
+        OR: [
+          {
+            AND: [{ content_contains: 'l' }, { content_contains: 'o' }],
+          },
+          {
+            AND: [{ content: 'Missing' }, { content_contains: 'x' }],
+          },
+        ],
+      },
+    },
+    expect_ids: ['Alice', 'Bob', 'David'],
+  },
+
+  {
+    id: 'deep_empty_or_in_dead_or_branch',
+    case: 'Deep empty OR inside one OR branch should not poison other OR branches',
+    where: {
+      OR: [
+        {
+          AND: [{ name: 'Alice' }, { OR: [] }],
+        },
+        {
+          AND: [
+            { name: 'Bob' },
+            {
+              AND: [
+                {
+                  OR: [{ age: 30 }, { age: 40 }],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    expect_ids: ['Bob'],
+  },
+
+  {
+    id: 'deep_empty_and_as_true_branch',
+    case: 'Deep empty AND branch should behave as true inside OR',
+    where: {
+      AND: [
+        {
+          OR: [
+            { AND: [] },
+            { AND: [{ name: 'Nobody' }] },
+          ],
+        },
+        {
+          OR: [{ name: 'Alice' }, { name: 'David' }],
+        },
+      ],
+    },
+    expect_ids: ['Alice', 'David'],
+  },
+];
+
+const divergenceAndOrFilterTests = [
+  {
+    id: 'or_of_cross_relation_and_groups',
+    case: 'OR of AND groups with different relationships should not leak conditions between branches',
+    where: {
+      OR: [
+        {
+          AND: [
+            { company: { name: 'Thinkmill' } },
+            { posts_some: { content: 'World' } },
+          ],
+        },
+        {
+          AND: [
+            { company: { name: 'Cete' } },
+            { posts_some: { content: 'Hello' } },
+          ],
+        },
+      ],
+    },
+    expect_ids: ['Alice'],
+  },
+
+  {
+    id: 'or_impossible_posts_some_branch_plus_valid_scalar',
+    case: 'Impossible posts_some branch inside OR should not leak a match from different posts',
+    where: {
+      OR: [
+        { posts_some: { AND: [{ content: 'Hello' }, { content: 'World' }] } },
+        { name: 'David' },
+      ],
+    },
+    expect_ids: ['David'],
+  },
+
+  {
+    id: 'and_impossible_posts_some_or_valid_scalar_under_null_guard',
+    case: 'Impossible posts_some branch inside OR combined with root AND guard',
+    where: {
+      AND: [
+        {
+          OR: [
+            { posts_some: { AND: [{ content: 'Hello' }, { content: 'World' }] } },
+            { name: 'David' },
+          ],
+        },
+        { company_is_null: true },
+      ],
+    },
+    expect_ids: ['David'],
+  },
+  {
+    id: 'and_impossible_posts_some_or_valid_scalar_under_null_guard2',
+    case: 'Impossible posts_some branch inside OR combined with root AND guard',
+    where: {
+      AND: [
+        {
+          OR: [
+            { posts_some: { AND: [{ content: 'Hello' }, { content: 'World' }] } },
+            { name: 'David' },
+          ],
+        },
+        { company_is_null: false },
+      ],
+    },
+    expect_ids: [],
+  },
+
+  {
+    id: 'and_repeated_same_relationship_some_none',
+    case: 'AND with posts_some and posts_none on same relationship should use independent aliases correctly',
+    where: {
+      AND: [
+        { posts_some: { OR: [{ content: 'Hello' }, { content: 'World' }] } },
+        { posts_none: { content: 'Bye' } },
+      ],
+    },
+    expect_ids: ['Alice', 'Bob'],
+  },
+
+  {
+    id: 'or_every_or_none_same_relationship',
+    case: 'OR with posts_every and posts_none on same relationship',
+    where: {
+      OR: [
+        { posts_every: { content: 'Hello' } },
+        { posts_none: { content: 'Hello' } },
+      ],
+    },
+    expect_ids: ['Bob', 'Charlie', 'David'],
+  },
+  {
+    id: 'or_every_and_none_same_relationship',
+    case: 'OR with posts_every and posts_none on same relationship',
+    where: {
+      AND: [
+        { posts_every: { content: 'Hello' } },
+        { posts_none: { content: 'Hello' } },
+      ],
+    },
+    expect_ids: ['David'],
+  },
+  {
+    id: 'and_some_every_or_restricts_mixed_posts',
+    case: 'posts_some + posts_every should exclude users with an extra non-matching related item',
+    where: {
+      AND: [
+        { posts_some: { OR: [{ content: 'Hello' }, { content: 'Bye' }] } },
+        { posts_every: { OR: [{ content: 'Hello' }, { content: 'Bye' }] } },
+      ],
+    },
+    expect_ids: ['Bob', 'Charlie'],
+  },
+
+  {
+    id: 'company_empty_and_non_null_relationship',
+    case: 'To-one relationship with empty AND should match users having a related company',
+    where: {
+      company: { AND: [] },
+    },
+    expect_ids: ['Alice', 'Bob', 'Charlie'],
+  },
+
+  {
+    id: 'company_empty_or_matches_no_non_null_company',
+    case: 'To-one relationship with empty OR should match nothing',
+    where: {
+      company: { OR: [] },
+    },
+    expect_ids: [],
+  },
+
+  {
+    id: 'or_company_empty_and_or_null_covers_all',
+    case: 'company empty AND plus company_is_null should cover all users',
+    where: {
+      OR: [
+        { company: { AND: [] } },
+        { company_is_null: true },
+      ],
+    },
+    expect_ids: ['Alice', 'Bob', 'Charlie', 'David'],
+  },
+
+  {
+    id: 'and_company_null_and_empty_and_contradiction',
+    case: 'company_is_null and company empty AND should be contradictory',
+    where: {
+      AND: [
+        { company_is_null: true },
+        { company: { AND: [] } },
+      ],
+    },
+    expect_ids: [],
+  },
+
+  {
+    id: 'or_branch_scalar_plus_or_same_level_false_branch',
+    case: 'Scalar and OR on same level inside OR branch should be implicit AND',
+    where: {
+      OR: [
+        {
+          name: 'Alice',
+          OR: [{ age: 30 }, { age: 40 }],
+        },
+        { name: 'Bob' },
+      ],
+    },
+    expect_ids: ['Bob'],
+  },
+
+  {
+    id: 'and_branch_scalar_plus_or_same_level',
+    case: 'Scalar and OR on same level inside AND branch should be implicit AND',
+    where: {
+      AND: [
+        {
+          OR: [{ name: 'Alice' }, { name: 'Bob' }, { name: 'Charlie' }],
+        },
+        {
+          age_gt: 25,
+          OR: [
+            { email_contains: 'other' },
+            { company: { name: 'Thinkmill' } },
+          ],
+        },
+      ],
+    },
+    expect_ids: ['Bob', 'Charlie'],
+  },
+
+  {
+    id: 'or_with_same_relationship_in_separate_and_branches',
+    case: 'Same relationship used in separate OR branches should keep branch-local conditions',
+    where: {
+      OR: [
+        {
+          AND: [
+            { posts_some: { content: 'Hello' } },
+            { age: 20 },
+          ],
+        },
+        {
+          AND: [
+            { posts_some: { content: 'Bye' } },
+            { age: 40 },
+          ],
+        },
+      ],
+    },
+    expect_ids: ['Alice', 'Charlie'],
+  },
+
+  {
+    id: 'or_scalar_branch_with_multi_row_relationship_branch_no_duplicates',
+    case: 'OR with scalar branch and multi-row relationship branch should not duplicate users',
+    where: {
+      OR: [
+        { name: 'Alice' },
+        { posts_some: { content_contains: 'o' } },
+      ],
+    },
+    expect_ids: ['Alice', 'Bob'],
+  },
+
+  {
+    id: 'and_same_relationship_multiple_matching_rows_no_duplicates',
+    case: 'AND with relationship branch matching multiple related rows should not duplicate user',
+    where: {
+      AND: [
+        { name: 'Alice' },
+        {
+          posts_some: {
+            OR: [
+              { content_contains: 'o' },
+              { content_contains: 'l' },
+            ],
+          },
+        },
+      ],
+    },
+    expect_ids: ['Alice'],
+  },
+
+  {
+    id: 'posts_every_deep_and_of_or_groups',
+    case: 'posts_every with AND of OR groups should preserve every semantics',
+    where: {
+      posts_every: {
+        AND: [
+          { OR: [{ content: 'Hello' }, { content: 'World' }] },
+          { OR: [{ content_contains: 'o' }] },
+        ],
+      },
+    },
+    expect_ids: ['Alice', 'Bob', 'David'],
+  },
+
+  {
+    id: 'posts_none_deep_or_of_and_groups',
+    case: 'posts_none with OR of AND groups should apply anti-join correctly',
+    where: {
+      posts_none: {
+        OR: [
+          {
+            AND: [
+              { content_contains: 'H' },
+              { content_contains: 'e' },
+            ],
+          },
+          {
+            AND: [
+              { content: 'Bye' },
+              { OR: [{ content_contains: 'y' }] },
+            ],
+          },
+        ],
+      },
+    },
+    expect_ids: ['David'],
+  },
+
+  {
+    id: 'posts_some_or_impossible_and_plus_possible_and',
+    case: 'posts_some OR should ignore impossible AND branch and match possible branch on same item',
+    where: {
+      posts_some: {
+        OR: [
+          {
+            AND: [
+              { content: 'Hello' },
+              { content: 'World' },
+            ],
+          },
+          {
+            AND: [
+              { content: 'Bye' },
+              { content_contains: 'y' },
+            ],
+          },
+        ],
+      },
+    },
+    expect_ids: ['Charlie'],
+  },
+
+  {
+    id: 'or_repeated_to_one_relationship_contradiction_plus_live_branch',
+    case: 'Repeated to-one relationship filters in one AND branch should refer to the same related item',
+    where: {
+      OR: [
+        {
+          AND: [
+            { company: { name: 'Thinkmill' } },
+            { company: { name: 'Cete' } },
+          ],
+        },
+        {
+          AND: [
+            { posts_some: { content: 'Bye' } },
+            { name_contains: 'a' },
+          ],
+        },
+      ],
+    },
+    expect_ids: ['Charlie'],
+  },
+];
+
 const invalidFilterTests = [
   {
     id: 'unknown_filter_field',
@@ -600,7 +1172,13 @@ const setupKeystone = adapterName =>
 multiAdapterRunners().map(({ runner, adapterName }) =>
   describe(`Adapter: ${adapterName}`, () => {
     describe('Complex AND/OR filters', () => {
-      const cases = [...complexFilterTests, ...extraComplexFilterTests, ...moreAndOrFilterTests];
+      const cases = [
+        ...complexFilterTests,
+        ...extraComplexFilterTests,
+        ...moreAndOrFilterTests,
+        ...deepAndOrFilterTests,
+        ...divergenceAndOrFilterTests,
+      ];
       cases.forEach(({ id, case: title, where, expect_ids, ...expected }) => {
         test(
           `Valid: ${id} : ${title}`,
