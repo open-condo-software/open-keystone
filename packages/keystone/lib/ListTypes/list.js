@@ -995,10 +995,11 @@ module.exports = class List {
         }`,
 
         // https://github.com/opencrud/opencrud/blob/master/spec/2-relational/2-2-queries/2-2-3-filters.md#boolean-expressions
+        // https://github.com/opencrud/opencrud/pull/47
         `
         input ${this.gqlNames.whereInputName} {
-          AND: [${this.gqlNames.whereInputName}]
-          OR: [${this.gqlNames.whereInputName}]
+          AND: [${this.gqlNames.whereInputName}!]
+          OR: [${this.gqlNames.whereInputName}!]
 
           ${flatten(readFields.map(field => field.gqlQueryInputFields({ schemaName }))).join('\n')}
         }`,
