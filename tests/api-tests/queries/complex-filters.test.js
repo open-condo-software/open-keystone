@@ -56,6 +56,17 @@ const createFixture = async keystone => {
       posts: { connect: [] },
     },
   });
+  await createItem({
+    keystone,
+    listKey: 'User',
+    item: {
+      name: 'Eve60',
+      age: 60,
+      email: 'eve@example.com',
+      company: { connect: { id: companies.c2.id } },
+      posts: { connect: [{ id: posts.p2.id }] },
+    },
+  });
 };
 
 const complexFilterTests = [
@@ -97,13 +108,13 @@ const complexFilterTests = [
   },
   {
     id: 'empty_and',
-    case: 'Empty AND array',
+    case: 'Empty AND array means There are no conditions that need to be violated',
     where: { AND: [] },
-    expect_ids: ['Alice', 'Bob', 'Charlie', 'David'],
+    expect_ids: ['Alice', 'Bob', 'Charlie', 'David', 'Eve60'],
   },
   {
     id: 'empty_or',
-    case: 'Empty OR array',
+    case: 'Empty OR array meands None of the alternatives can be applied here',
     where: { OR: [] },
     expect_ids: [],
   },
@@ -123,13 +134,13 @@ const complexFilterTests = [
     id: 'posts_every_with_or',
     case: 'Relationship posts_every with OR',
     where: { posts_every: { OR: [{ content: 'Hello' }, { content: 'World' }] } },
-    expect_ids: ['Alice', 'Bob', 'David'],
+    expect_ids: ['Alice', 'Bob', 'David', 'Eve60'],
   },
   {
     id: 'or_with_same_field_repeated',
     case: 'OR with same field repeated with different conditions',
     where: { OR: [{ age_lt: 25 }, { age_gt: 45 }] },
-    expect_ids: ['Alice', 'David'],
+    expect_ids: ['Alice', 'David', 'Eve60'],
   },
   {
     id: 'deeply_nested_and_or',
@@ -183,13 +194,13 @@ const complexFilterTests = [
     id: 'and_with_empty_object',
     case: 'AND with empty object',
     where: { AND: [{}] },
-    expect_ids: ['Alice', 'Bob', 'Charlie', 'David'],
+    expect_ids: ['Alice', 'Bob', 'Charlie', 'David', 'Eve60'],
   },
   {
     id: 'or_with_empty_object',
     case: 'OR with empty object',
     where: { OR: [{}] },
-    expect_ids: ['Alice', 'Bob', 'Charlie', 'David'],
+    expect_ids: ['Alice', 'Bob', 'Charlie', 'David', 'Eve60'],
   },
   {
     id: 'or_with_null_relationship',
@@ -242,7 +253,7 @@ const extraComplexFilterTests = [
     id: 'or_with_nested_empty_and',
     case: 'OR containing empty AND should match everything',
     where: { OR: [{ AND: [] }] },
-    expect_ids: ['Alice', 'Bob', 'Charlie', 'David'],
+    expect_ids: ['Alice', 'Bob', 'Charlie', 'David', 'Eve60'],
   },
   {
     id: 'implicit_and_same_field_multiple_number_ops',
@@ -260,13 +271,13 @@ const extraComplexFilterTests = [
     id: 'or_with_company_null_or_company_name',
     case: 'OR with null relationship branch and nested relationship branch',
     where: { OR: [{ company_is_null: true }, { company: { name: 'Cete' } }] },
-    expect_ids: ['Charlie', 'David'],
+    expect_ids: ['Charlie', 'David', 'Eve60'],
   },
   {
     id: 'company_nested_or',
     case: 'Nested OR inside to-one relationship filter',
     where: { company: { OR: [{ name: 'Thinkmill' }, { name: 'Cete' }] } },
-    expect_ids: ['Alice', 'Bob', 'Charlie'],
+    expect_ids: ['Alice', 'Bob', 'Charlie', 'Eve60'],
   },
   {
     id: 'company_scalar_and_or_same_level',
@@ -292,13 +303,13 @@ const extraComplexFilterTests = [
     id: 'posts_some_or_same_related_item',
     case: 'posts_some with OR should match one related post satisfying any branch',
     where: { posts_some: { OR: [{ content: 'World' }, { content: 'Bye' }] } },
-    expect_ids: ['Alice', 'Charlie'],
+    expect_ids: ['Alice', 'Charlie', 'Eve60'],
   },
   {
     id: 'posts_none_hello',
     case: 'posts_none should match users with no matching posts, including users with no posts',
     where: { posts_none: { content: 'Hello' } },
-    expect_ids: ['Charlie', 'David'],
+    expect_ids: ['Charlie', 'David', 'Eve60'],
   },
   {
     id: 'posts_every_hello_vacuous_empty',
@@ -320,7 +331,7 @@ const extraComplexFilterTests = [
     where: {
       OR: [{ posts_some: { content: 'Hello' } }, { posts_some: { content: 'World' } }],
     },
-    expect_ids: ['Alice', 'Bob'],
+    expect_ids: ['Alice', 'Bob', 'Eve60'],
   },
   {
     id: 'or_branch_scalar_and_relationship_implicit_and',
@@ -405,7 +416,7 @@ const moreAndOrFilterTests = [
     where: {
       OR: [{}, { name: 'Alice' }],
     },
-    expect_ids: ['Alice', 'Bob', 'Charlie', 'David'],
+    expect_ids: ['Alice', 'Bob', 'Charlie', 'David', 'Eve60'],
   },
   {
     id: 'and_with_empty_or_and_scalar',
@@ -421,7 +432,7 @@ const moreAndOrFilterTests = [
     where: {
       OR: [{ AND: [] }, { name: 'Nobody' }],
     },
-    expect_ids: ['Alice', 'Bob', 'Charlie', 'David'],
+    expect_ids: ['Alice', 'Bob', 'Charlie', 'David', 'Eve60'],
   },
   {
     id: 'posts_some_scalar_and_or_same_level_impossible',
@@ -463,7 +474,7 @@ const moreAndOrFilterTests = [
         AND: [{ content: 'Hello' }, { content: 'World' }],
       },
     },
-    expect_ids: ['Alice', 'Bob', 'Charlie', 'David'],
+    expect_ids: ['Alice', 'Bob', 'Charlie', 'David', 'Eve60'],
   },
   {
     id: 'posts_every_with_and',
@@ -473,7 +484,7 @@ const moreAndOrFilterTests = [
         AND: [{ content_contains: 'l' }, { content_contains: 'o' }],
       },
     },
-    expect_ids: ['Alice', 'Bob', 'David'],
+    expect_ids: ['Alice', 'Bob', 'David', 'Eve60'],
   },
   {
     id: 'posts_every_with_empty_or',
@@ -494,7 +505,7 @@ const moreAndOrFilterTests = [
         AND: [],
       },
     },
-    expect_ids: ['Alice', 'Bob', 'Charlie'],
+    expect_ids: ['Alice', 'Bob', 'Charlie', 'Eve60'],
   },
 
   {
@@ -714,7 +725,7 @@ const deepAndOrFilterTests = [
         ],
       },
     },
-    expect_ids: ['Alice', 'Bob', 'David'],
+    expect_ids: ['Alice', 'Bob', 'David', 'Eve60'],
   },
 
   {
@@ -839,7 +850,7 @@ const divergenceAndOrFilterTests = [
         { posts_none: { content: 'Bye' } },
       ],
     },
-    expect_ids: ['Alice', 'Bob'],
+    expect_ids: ['Alice', 'Bob', 'Eve60'],
   },
 
   {
@@ -851,7 +862,7 @@ const divergenceAndOrFilterTests = [
         { posts_none: { content: 'Hello' } },
       ],
     },
-    expect_ids: ['Bob', 'Charlie', 'David'],
+    expect_ids: ['Bob', 'Charlie', 'David', 'Eve60'],
   },
   {
     id: 'or_every_and_none_same_relationship',
@@ -882,7 +893,7 @@ const divergenceAndOrFilterTests = [
     where: {
       company: { AND: [] },
     },
-    expect_ids: ['Alice', 'Bob', 'Charlie'],
+    expect_ids: ['Alice', 'Bob', 'Charlie', 'Eve60'],
   },
 
   {
@@ -903,7 +914,7 @@ const divergenceAndOrFilterTests = [
         { company_is_null: true },
       ],
     },
-    expect_ids: ['Alice', 'Bob', 'Charlie', 'David'],
+    expect_ids: ['Alice', 'Bob', 'Charlie', 'David', 'Eve60'],
   },
 
   {
@@ -984,7 +995,7 @@ const divergenceAndOrFilterTests = [
         { posts_some: { content_contains: 'o' } },
       ],
     },
-    expect_ids: ['Alice', 'Bob'],
+    expect_ids: ['Alice', 'Bob', 'Eve60'],
   },
 
   {
@@ -1017,12 +1028,25 @@ const divergenceAndOrFilterTests = [
         ],
       },
     },
-    expect_ids: ['Alice', 'Bob', 'David'],
+    expect_ids: ['Alice', 'Bob', 'David', 'Eve60'],
+  },
+  {
+    id: 'posts_every_deep_and_of_or_groups2',
+    case: 'posts_every with AND of OR groups should match only World post',
+    where: {
+      posts_every: {
+        AND: [
+          { OR: [{ content: 'Hello' }, { content: 'World' }] },
+          { OR: [{ content_contains: 'W' }] },
+        ],
+      },
+    },
+    expect_ids: ['David', 'Eve60'],
   },
 
   {
     id: 'posts_none_deep_or_of_and_groups',
-    case: 'posts_none with OR of AND groups should apply anti-join correctly',
+    case: 'There are no posts matching either the Hello-like or Bye-like criteria',
     where: {
       posts_none: {
         OR: [
@@ -1041,7 +1065,7 @@ const divergenceAndOrFilterTests = [
         ],
       },
     },
-    expect_ids: ['David'],
+    expect_ids: ['David', 'Eve60'],
   },
 
   {
@@ -1148,10 +1172,7 @@ const quantifierAndOrDivergenceTests = [
     id: 'and_every_hello_none_world',
     case: 'AND with posts_every Hello and posts_none World',
     where: {
-      AND: [
-        { posts_every: { content: 'Hello' } },
-        { posts_none: { content: 'World' } },
-      ],
+      AND: [{ posts_every: { content: 'Hello' } }, { posts_none: { content: 'World' } }],
     },
     expect_ids: ['Bob', 'David'],
   },
@@ -1160,10 +1181,7 @@ const quantifierAndOrDivergenceTests = [
     id: 'and_every_hello_every_world',
     case: 'AND with two contradictory posts_every filters should match only empty relationship',
     where: {
-      AND: [
-        { posts_every: { content: 'Hello' } },
-        { posts_every: { content: 'World' } },
-      ],
+      AND: [{ posts_every: { content: 'Hello' } }, { posts_every: { content: 'World' } }],
     },
     expect_ids: ['David'],
   },
@@ -1172,36 +1190,27 @@ const quantifierAndOrDivergenceTests = [
     id: 'or_every_hello_every_world',
     case: 'OR with two posts_every filters should preserve vacuous empty relationship',
     where: {
-      OR: [
-        { posts_every: { content: 'Hello' } },
-        { posts_every: { content: 'World' } },
-      ],
+      OR: [{ posts_every: { content: 'Hello' } }, { posts_every: { content: 'World' } }],
     },
-    expect_ids: ['Bob', 'David'],
+    expect_ids: ['Bob', 'David', 'Eve60'],
   },
 
   {
     id: 'and_none_hello_none_world',
     case: 'AND with two posts_none filters',
     where: {
-      AND: [
-        { posts_none: { content: 'Hello' } },
-        { posts_none: { content: 'World' } },
-      ],
+      AND: [{ posts_none: { content: 'Hello' } }, { posts_none: { content: 'World' } }],
     },
     expect_ids: ['Charlie', 'David'],
   },
 
   {
-    id: 'or_none_hello_none_world',
-    case: 'OR with two posts_none filters',
+    id: 'none_hello_or_none_world',
+    case: 'The user is missing either a Hello post or a World post',
     where: {
-      OR: [
-        { posts_none: { content: 'Hello' } },
-        { posts_none: { content: 'World' } },
-      ],
+      OR: [{ posts_none: { content: 'Hello' } }, { posts_none: { content: 'World' } }],
     },
-    expect_ids: ['Bob', 'Charlie', 'David'],
+    expect_ids: ['Bob', 'Charlie', 'David', 'Eve60'],
   },
 
   {
@@ -1217,7 +1226,7 @@ const quantifierAndOrDivergenceTests = [
         { posts_none: { content: 'Hello' } },
       ],
     },
-    expect_ids: ['David'],
+    expect_ids: ['David', 'Eve60'],
   },
 
   {
@@ -1249,7 +1258,7 @@ const quantifierAndOrDivergenceTests = [
         { posts_some: { content: 'World' } },
       ],
     },
-    expect_ids: ['Alice'],
+    expect_ids: ['Alice', 'Eve60'],
   },
 
   {
@@ -1305,17 +1314,14 @@ const quantifierAndOrDivergenceTests = [
         },
       ],
     },
-    expect_ids: ['Alice', 'Bob', 'Charlie', 'David'],
+    expect_ids: ['Alice', 'Bob', 'Charlie', 'David', 'Eve60'],
   },
 
   {
     id: 'and_some_hello_none_world',
     case: 'posts_some Hello combined with posts_none World',
     where: {
-      AND: [
-        { posts_some: { content: 'Hello' } },
-        { posts_none: { content: 'World' } },
-      ],
+      AND: [{ posts_some: { content: 'Hello' } }, { posts_none: { content: 'World' } }],
     },
     expect_ids: ['Bob'],
   },
@@ -1324,12 +1330,9 @@ const quantifierAndOrDivergenceTests = [
     id: 'and_some_world_none_hello',
     case: 'posts_some World combined with posts_none Hello should not match Alice because she has Hello',
     where: {
-      AND: [
-        { posts_some: { content: 'World' } },
-        { posts_none: { content: 'Hello' } },
-      ],
+      AND: [{ posts_some: { content: 'World' } }, { posts_none: { content: 'Hello' } }],
     },
-    expect_ids: [],
+    expect_ids: ['Eve60'],
   },
 
   {
@@ -1345,7 +1348,7 @@ const quantifierAndOrDivergenceTests = [
         },
       ],
     },
-    expect_ids: ['Alice'],
+    expect_ids: ['Alice', 'Eve60'],
   },
 
   {
@@ -1368,12 +1371,9 @@ const quantifierAndOrDivergenceTests = [
     id: 'or_some_world_every_hello',
     case: 'OR with posts_some World and posts_every Hello',
     where: {
-      OR: [
-        { posts_some: { content: 'World' } },
-        { posts_every: { content: 'Hello' } },
-      ],
+      OR: [{ posts_some: { content: 'World' } }, { posts_every: { content: 'Hello' } }],
     },
-    expect_ids: ['Alice', 'Bob', 'David'],
+    expect_ids: ['Alice', 'Bob', 'David', 'Eve60'],
   },
 
   {
@@ -1382,10 +1382,7 @@ const quantifierAndOrDivergenceTests = [
     where: {
       AND: [
         {
-          OR: [
-            { posts_every: { content: 'Hello' } },
-            { posts_none: { content: 'Hello' } },
-          ],
+          OR: [{ posts_every: { content: 'Hello' } }, { posts_none: { content: 'Hello' } }],
         },
         { posts_some: { content: 'Hello' } },
       ],
@@ -1399,15 +1396,25 @@ const quantifierAndOrDivergenceTests = [
     where: {
       AND: [
         {
-          OR: [
-            { posts_every: { content: 'Hello' } },
-            { posts_none: { content: 'Hello' } },
-          ],
+          OR: [{ posts_every: { content: 'Hello' } }, { posts_none: { content: 'Hello' } }],
         },
         { posts_some: { content: 'World' } },
       ],
     },
-    expect_ids: [],
+    expect_ids: ['Eve60'],
+  },
+  {
+    id: 'and_or_every_none_hello_with_every_world',
+    case: 'OR every/none Hello combined with posts_every World should only match empty relationship',
+    where: {
+      AND: [
+        {
+          OR: [{ posts_every: { content: 'Hello' } }, { posts_none: { content: 'Hello' } }],
+        },
+        { posts_every: { content: 'World' } },
+      ],
+    },
+    expect_ids: ['David', 'Eve60'],
   },
 
   {
@@ -1416,15 +1423,12 @@ const quantifierAndOrDivergenceTests = [
     where: {
       AND: [
         {
-          OR: [
-            { posts_every: { content: 'Hello' } },
-            { posts_none: { content: 'Hello' } },
-          ],
+          OR: [{ posts_every: { content: 'Hello' } }, { posts_none: { content: 'Hello' } }],
         },
         { posts_none: { content: 'Bye' } },
       ],
     },
-    expect_ids: ['Bob', 'David'],
+    expect_ids: ['Bob', 'David', 'Eve60'],
   },
 
   {
@@ -1433,16 +1437,10 @@ const quantifierAndOrDivergenceTests = [
     where: {
       OR: [
         {
-          AND: [
-            { posts_every: { content: 'Hello' } },
-            { posts_none: { content: 'World' } },
-          ],
+          AND: [{ posts_every: { content: 'Hello' } }, { posts_none: { content: 'World' } }],
         },
         {
-          AND: [
-            { posts_every: { content: 'Bye' } },
-            { posts_none: { content: 'Hello' } },
-          ],
+          AND: [{ posts_every: { content: 'Bye' } }, { posts_none: { content: 'Hello' } }],
         },
       ],
     },
@@ -1455,16 +1453,10 @@ const quantifierAndOrDivergenceTests = [
     where: {
       AND: [
         {
-          OR: [
-            { posts_every: { content: 'Hello' } },
-            { posts_none: { content: 'World' } },
-          ],
+          OR: [{ posts_every: { content: 'Hello' } }, { posts_none: { content: 'World' } }],
         },
         {
-          OR: [
-            { posts_every: { content: 'Bye' } },
-            { posts_none: { content: 'Hello' } },
-          ],
+          OR: [{ posts_every: { content: 'Bye' } }, { posts_none: { content: 'Hello' } }],
         },
       ],
     },
@@ -1477,16 +1469,10 @@ const quantifierAndOrDivergenceTests = [
     where: {
       OR: [
         {
-          AND: [
-            { posts_every: { content: 'Hello' } },
-            { posts_none: { content: 'Hello' } },
-          ],
+          AND: [{ posts_every: { content: 'Hello' } }, { posts_none: { content: 'Hello' } }],
         },
         {
-          AND: [
-            { posts_every: { content: 'World' } },
-            { posts_none: { content: 'World' } },
-          ],
+          AND: [{ posts_every: { content: 'World' } }, { posts_none: { content: 'World' } }],
         },
       ],
     },
@@ -1520,16 +1506,10 @@ const quantifierAndOrDivergenceTests = [
     where: {
       OR: [
         {
-          AND: [
-            { name: 'Alice' },
-            { posts_every: { content: 'Hello' } },
-          ],
+          AND: [{ name: 'Alice' }, { posts_every: { content: 'Hello' } }],
         },
         {
-          AND: [
-            { name: 'Charlie' },
-            { posts_none: { content: 'Hello' } },
-          ],
+          AND: [{ name: 'Charlie' }, { posts_none: { content: 'Hello' } }],
         },
         {
           AND: [
@@ -1549,10 +1529,7 @@ const quantifierAndOrDivergenceTests = [
     where: {
       AND: [
         {
-          OR: [
-            { posts_every: { content: 'Hello' } },
-            { posts_none: { content: 'World' } },
-          ],
+          OR: [{ posts_every: { content: 'Hello' } }, { posts_none: { content: 'World' } }],
         },
         {
           OR: [{ name: 'Alice' }, { name: 'Bob' }],
