@@ -834,6 +834,9 @@ class QueryBuilder {
           }
           where[path].forEach(subWhere => {
             subJoiner(q => {
+              // Each element in the AND/OR array must be wrapped in its own subquery.
+              // This ensures that multiple conditions within a single element (implicit AND)
+              // are correctly scoped and combined with AND, regardless of the outer operator.
               q.whereRaw('true');
               this._addWheres(w => q.andWhere(w), listAdapter, subWhere, tableAlias);
             });
@@ -845,7 +848,20 @@ class QueryBuilder {
         if (fieldAdapter) {
           // Non-many relationship. Traverse the sub-query, using the referenced list as a root.
           const otherListAdapter = listAdapter.getListAdapterByKey(fieldAdapter.refListKey);
-          this._addWheres(whereJoiner, otherListAdapter, where[path], `${tableAlias}__${path}`);
+          whereJoiner(q => {
+            // For to-one relationships, if a filter is provided (even an empty object),
+            // we must ensure that the relationship exists (i.e., the foreign key is not null).
+            // This behavior is consistent with Mongoose and Prisma adapters.
+            if (
+              fieldAdapter.rel.cardinality === '1:1' &&
+              fieldAdapter.rel.right === fieldAdapter.field
+            ) {
+              q.whereNotNull(`${tableAlias}__${fieldAdapter.path}.id`);
+            } else {
+              q.whereNotNull(`${tableAlias}.${fieldAdapter.dbPath}`);
+            }
+            this._addWheres(w => q.andWhere(w), otherListAdapter, where[path], `${tableAlias}__${path}`);
+          });
         } else {
           // Many relationship
           const [p, constraintType] = path.split('_');
