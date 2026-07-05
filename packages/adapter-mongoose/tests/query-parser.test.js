@@ -145,7 +145,7 @@ describe('query parser', () => {
       expect(queryTree).toMatchObject({
         relationships: [
           {
-            matchTerm: undefined,
+            matchTerm: {},
             relationshipInfo: {
               from: 'posts',
               uniqueField: 'posts_posts',
@@ -559,7 +559,7 @@ describe('query parser', () => {
       const queryTree = queryParser({ listAdapter, getUID: k => k }, query, ['broken']);
       expect(queryTree).toMatchObject({
         relationships: [],
-        matchTerm: undefined,
+        matchTerm: {},
       });
     });
   });
