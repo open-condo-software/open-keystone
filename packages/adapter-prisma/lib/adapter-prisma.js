@@ -512,7 +512,14 @@ class PrismaListAdapter extends BaseListAdapter {
       .map(([condition, value]) => {
         if (condition === 'AND' || condition === 'OR') {
           const processed = value.map(w => this.processWheres(w)).filter(w => w !== undefined);
-          return processed.length > 0 ? { [condition]: processed } : undefined;
+          if (processed.length > 0) {
+            return { [condition]: processed };
+          }
+          if (condition === 'OR') {
+            const idField = this.fieldAdapters.find(a => a.field.isPrimaryKey);
+            return { [idField ? idField.path : 'id']: { in: [] } };
+          }
+          return undefined;
         } else if (
           this.fieldAdaptersByPath[condition] &&
           this.fieldAdaptersByPath[condition].isRelationship
