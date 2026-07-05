@@ -534,7 +534,12 @@ class PrismaListAdapter extends BaseListAdapter {
         ) {
           // Non-many relationship. Traverse the sub-query, using the referenced list as a root.
           const processed = processRelClause(condition, value);
-          return processed !== undefined ? { [condition]: processed } : undefined;
+          if (processed !== undefined) {
+            return { [condition]: processed };
+          }
+          // If we have an empty filter on a to-one relationship, we still want to
+          // enforce that the relationship exists (is not null).
+          return { [condition]: { isNot: null } };
         } else {
           // See if any of our fields know what to do with this condition
           let dbPath = condition;
