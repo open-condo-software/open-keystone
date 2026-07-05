@@ -832,9 +832,12 @@ class QueryBuilder {
               'Unknown add wheres condition. If you are trying to implement NOT, you are in the right place'
             );
           }
-          where[path].forEach(subWhere =>
-            this._addWheres(subJoiner, listAdapter, subWhere, tableAlias)
-          );
+          where[path].forEach(subWhere => {
+            subJoiner(q => {
+              q.whereRaw('true');
+              this._addWheres(w => q.andWhere(w), listAdapter, subWhere, tableAlias);
+            });
+          });
         });
       } else {
         // We have a relationship field
