@@ -472,7 +472,7 @@ AND company is null
 
 `AND` accepts a list of `where` objects.
 
-```js
+```text
 { AND: [A, B, C] }
 ```
 
@@ -484,7 +484,7 @@ A AND B AND C AND true
 
 An empty `AND` is always true:
 
-```js
+```text
 { AND: [] }
 ```
 
@@ -496,7 +496,7 @@ This is the identity element of conjunction.
 
 `OR` accepts a list of `where` objects.
 
-```js
+```text
 { OR: [A, B, C] }
 ```
 
@@ -508,7 +508,7 @@ A OR B OR C OR false
 
 An empty `OR` is always false:
 
-```js
+```text
 { OR: [] }
 ```
 
@@ -520,7 +520,7 @@ This is the identity element of disjunction over an empty list.
 
 An empty `where` object is always true:
 
-```js
+```text
 {}
 ```
 
@@ -528,7 +528,7 @@ matches every item.
 
 Therefore:
 
-```js
+```text
 { AND: [{}] }
 ```
 
@@ -536,7 +536,7 @@ matches every item.
 
 And:
 
-```js
+```text
 { OR: [{}] }
 ```
 
@@ -548,7 +548,7 @@ For a to-one relationship, a nested relationship filter matches only if the rela
 
 Example:
 
-```js
+```text
 {
   company: { name: 'Thinkmill' }
 }
@@ -563,7 +563,7 @@ AND user.company.name = Thinkmill
 
 An empty nested predicate on a to-one relationship means “relationship exists”:
 
-```js
+```text
 {
   company: {}
 }
@@ -573,7 +573,7 @@ matches users with a non-null `company`.
 
 The same applies to:
 
-```js
+```text
 {
   company: { AND: [] }
 }
@@ -585,7 +585,7 @@ This does not match users where `company` is null.
 
 A nested empty `OR` is false:
 
-```js
+```text
 {
   company: { OR: [] }
 }
@@ -595,7 +595,7 @@ matches no users.
 
 To check nullability explicitly, use:
 
-```js
+```text
 { company_is_null: true }
 { company_is_null: false }
 ```
@@ -606,7 +606,7 @@ For a to-many relationship, the generated filters are interpreted as quantifiers
 
 Given:
 
-```js
+```text
 posts_some: P
 posts_none: P
 posts_every: P
@@ -616,7 +616,7 @@ where `P` is a nested `where` predicate over `Post`.
 
 #### `some`
 
-```js
+```text
 {
   posts_some: P
 }
@@ -636,7 +636,7 @@ EXISTS post WHERE P(post)
 
 Therefore:
 
-```js
+```text
 {
   posts_some: {}
 }
@@ -646,7 +646,7 @@ means “has at least one related post”.
 
 #### `none`
 
-```js
+```text
 {
   posts_none: P
 }
@@ -666,7 +666,7 @@ NOT EXISTS post WHERE P(post)
 
 Therefore:
 
-```js
+```text
 {
   posts_none: {}
 }
@@ -676,7 +676,7 @@ means “has no related posts”.
 
 #### `every`
 
-```js
+```text
 {
   posts_every: P
 }
@@ -700,7 +700,7 @@ This is intentional: if there are no related posts, there is no related post tha
 
 Therefore:
 
-```js
+```text
 {
   posts_every: { content: 'Hello' }
 }

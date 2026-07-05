@@ -683,10 +683,7 @@ const deepAndOrFilterTests = [
                 ],
               },
               {
-                AND: [
-                  { name_contains: 'C' },
-                  { OR: [{ name_contains: 'z' }] },
-                ],
+                AND: [{ name_contains: 'C' }, { OR: [{ name_contains: 'z' }] }],
               },
             ],
           },
@@ -759,10 +756,7 @@ const deepAndOrFilterTests = [
     where: {
       AND: [
         {
-          OR: [
-            { AND: [] },
-            { AND: [{ name: 'Nobody' }] },
-          ],
+          OR: [{ AND: [] }, { AND: [{ name: 'Nobody' }] }],
         },
         {
           OR: [{ name: 'Alice' }, { name: 'David' }],
@@ -780,16 +774,10 @@ const divergenceAndOrFilterTests = [
     where: {
       OR: [
         {
-          AND: [
-            { company: { name: 'Thinkmill' } },
-            { posts_some: { content: 'World' } },
-          ],
+          AND: [{ company: { name: 'Thinkmill' } }, { posts_some: { content: 'World' } }],
         },
         {
-          AND: [
-            { company: { name: 'Cete' } },
-            { posts_some: { content: 'Hello' } },
-          ],
+          AND: [{ company: { name: 'Cete' } }, { posts_some: { content: 'Hello' } }],
         },
       ],
     },
@@ -857,10 +845,7 @@ const divergenceAndOrFilterTests = [
     id: 'or_every_or_none_same_relationship',
     case: 'OR with posts_every and posts_none on same relationship',
     where: {
-      OR: [
-        { posts_every: { content: 'Hello' } },
-        { posts_none: { content: 'Hello' } },
-      ],
+      OR: [{ posts_every: { content: 'Hello' } }, { posts_none: { content: 'Hello' } }],
     },
     expect_ids: ['Bob', 'Charlie', 'David', 'Eve60'],
   },
@@ -868,10 +853,7 @@ const divergenceAndOrFilterTests = [
     id: 'or_every_and_none_same_relationship',
     case: 'OR with posts_every and posts_none on same relationship',
     where: {
-      AND: [
-        { posts_every: { content: 'Hello' } },
-        { posts_none: { content: 'Hello' } },
-      ],
+      AND: [{ posts_every: { content: 'Hello' } }, { posts_none: { content: 'Hello' } }],
     },
     expect_ids: ['David'],
   },
@@ -909,10 +891,7 @@ const divergenceAndOrFilterTests = [
     id: 'or_company_empty_and_or_null_covers_all',
     case: 'company empty AND plus company_is_null should cover all users',
     where: {
-      OR: [
-        { company: { AND: [] } },
-        { company_is_null: true },
-      ],
+      OR: [{ company: { AND: [] } }, { company_is_null: true }],
     },
     expect_ids: ['Alice', 'Bob', 'Charlie', 'David', 'Eve60'],
   },
@@ -921,10 +900,7 @@ const divergenceAndOrFilterTests = [
     id: 'and_company_null_and_empty_and_contradiction',
     case: 'company_is_null and company empty AND should be contradictory',
     where: {
-      AND: [
-        { company_is_null: true },
-        { company: { AND: [] } },
-      ],
+      AND: [{ company_is_null: true }, { company: { AND: [] } }],
     },
     expect_ids: [],
   },
@@ -954,10 +930,7 @@ const divergenceAndOrFilterTests = [
         },
         {
           age_gt: 25,
-          OR: [
-            { email_contains: 'other' },
-            { company: { name: 'Thinkmill' } },
-          ],
+          OR: [{ email_contains: 'other' }, { company: { name: 'Thinkmill' } }],
         },
       ],
     },
@@ -970,16 +943,10 @@ const divergenceAndOrFilterTests = [
     where: {
       OR: [
         {
-          AND: [
-            { posts_some: { content: 'Hello' } },
-            { age: 20 },
-          ],
+          AND: [{ posts_some: { content: 'Hello' } }, { age: 20 }],
         },
         {
-          AND: [
-            { posts_some: { content: 'Bye' } },
-            { age: 40 },
-          ],
+          AND: [{ posts_some: { content: 'Bye' } }, { age: 40 }],
         },
       ],
     },
@@ -990,10 +957,7 @@ const divergenceAndOrFilterTests = [
     id: 'or_scalar_branch_with_multi_row_relationship_branch_no_duplicates',
     case: 'OR with scalar branch and multi-row relationship branch should not duplicate users',
     where: {
-      OR: [
-        { name: 'Alice' },
-        { posts_some: { content_contains: 'o' } },
-      ],
+      OR: [{ name: 'Alice' }, { posts_some: { content_contains: 'o' } }],
     },
     expect_ids: ['Alice', 'Bob', 'Eve60'],
   },
@@ -1006,10 +970,7 @@ const divergenceAndOrFilterTests = [
         { name: 'Alice' },
         {
           posts_some: {
-            OR: [
-              { content_contains: 'o' },
-              { content_contains: 'l' },
-            ],
+            OR: [{ content_contains: 'o' }, { content_contains: 'l' }],
           },
         },
       ],
@@ -1051,16 +1012,10 @@ const divergenceAndOrFilterTests = [
       posts_none: {
         OR: [
           {
-            AND: [
-              { content_contains: 'H' },
-              { content_contains: 'e' },
-            ],
+            AND: [{ content_contains: 'H' }, { content_contains: 'e' }],
           },
           {
-            AND: [
-              { content: 'Bye' },
-              { OR: [{ content_contains: 'y' }] },
-            ],
+            AND: [{ content: 'Bye' }, { OR: [{ content_contains: 'y' }] }],
           },
         ],
       },
@@ -1075,16 +1030,10 @@ const divergenceAndOrFilterTests = [
       posts_some: {
         OR: [
           {
-            AND: [
-              { content: 'Hello' },
-              { content: 'World' },
-            ],
+            AND: [{ content: 'Hello' }, { content: 'World' }],
           },
           {
-            AND: [
-              { content: 'Bye' },
-              { content_contains: 'y' },
-            ],
+            AND: [{ content: 'Bye' }, { content_contains: 'y' }],
           },
         ],
       },
@@ -1098,16 +1047,10 @@ const divergenceAndOrFilterTests = [
     where: {
       OR: [
         {
-          AND: [
-            { company: { name: 'Thinkmill' } },
-            { company: { name: 'Cete' } },
-          ],
+          AND: [{ company: { name: 'Thinkmill' } }, { company: { name: 'Cete' } }],
         },
         {
-          AND: [
-            { posts_some: { content: 'Bye' } },
-            { name_contains: 'a' },
-          ],
+          AND: [{ posts_some: { content: 'Bye' } }, { name_contains: 'a' }],
         },
       ],
     },

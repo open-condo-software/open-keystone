@@ -860,7 +860,12 @@ class QueryBuilder {
             } else {
               q.whereNotNull(`${tableAlias}.${fieldAdapter.dbPath}`);
             }
-            this._addWheres(w => q.andWhere(w), otherListAdapter, where[path], `${tableAlias}__${path}`);
+            this._addWheres(
+              w => q.andWhere(w),
+              otherListAdapter,
+              where[path],
+              `${tableAlias}__${path}`
+            );
           });
         } else {
           // Many relationship
