@@ -851,7 +851,7 @@ const divergenceAndOrFilterTests = [
   },
   {
     id: 'or_every_and_none_same_relationship',
-    case: 'OR with posts_every and posts_none on same relationship',
+    case: 'AND with posts_every and posts_none on same relationship',
     where: {
       AND: [{ posts_every: { content: 'Hello' } }, { posts_none: { content: 'Hello' } }],
     },
