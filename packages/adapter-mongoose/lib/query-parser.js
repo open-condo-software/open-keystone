@@ -10,7 +10,7 @@ const {
 // If it's 0 or 1 items, we can use it as-is. Any more needs an $and/$or
 const joinTerms = (matchTerms, joinOp) => {
   if (matchTerms.length === 0) {
-    return joinOp === '$or' ? { _id: { $exists: false } } : undefined;
+    return joinOp === '$or' ? { _id: { $exists: false } } : {};
   }
   return matchTerms.length > 1 ? { [joinOp]: matchTerms } : matchTerms[0];
 };
