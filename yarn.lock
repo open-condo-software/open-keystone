@@ -15583,6 +15583,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dayjs@npm:^1.11.7":
+  version: 1.11.20
+  resolution: "dayjs@npm:1.11.20"
+  checksum: 26f4867c4ae1315885ac3e560906d3f8c49cb6a1303e6fdd5f87ace3b814b07a45f036facad70299cea36f3eb62ee2070dd239079c56d8f55e4e684afb752a67
+  languageName: node
+  linkType: hard
+
 "dayjs@npm:^1.8.19, dayjs@npm:^1.9.3":
   version: 1.11.13
   resolution: "dayjs@npm:1.11.13"
@@ -23729,6 +23736,15 @@ __metadata:
     picocolors: ^1.0.0
     shell-quote: ^1.8.1
   checksum: 0cd219f98a8be1cedc73119c1a18ff232eb1386dcc0f4e710b21234e62bf55513342a3e0939cd67c3d920fc7d714457876bc782a5b17e03f59acbbafd23c5f50
+  languageName: node
+  linkType: hard
+
+"launder@npm:^1.7.1":
+  version: 1.7.1
+  resolution: "launder@npm:1.7.1"
+  dependencies:
+    dayjs: ^1.11.7
+  checksum: d9b9f33b12a69b95523e48f0541f0ab2179d8af8bfa386dd9fa91dd95db46b21f430d0000a82e94505473fabc05fd55802a90ea006c50e3b0ef9773a1b0d6dc6
   languageName: node
   linkType: hard
 
@@ -32222,16 +32238,17 @@ __metadata:
   linkType: hard
 
 "sanitize-html@npm:^2.11.0":
-  version: 2.17.3
-  resolution: "sanitize-html@npm:2.17.3"
+  version: 2.17.4
+  resolution: "sanitize-html@npm:2.17.4"
   dependencies:
     deepmerge: ^4.2.2
     escape-string-regexp: ^4.0.0
     htmlparser2: ^10.1.0
     is-plain-object: ^5.0.0
+    launder: ^1.7.1
     parse-srcset: ^1.0.2
     postcss: ^8.3.11
-  checksum: a086c772f68751556097c87f4d15ea24a9c0f2cc046c57f5bf4dc4e025e641469ba1d68f6a7f2da10a81a40817e2d5247e4a973fb2d5b21ffdbcd05cb3f39c7d
+  checksum: f4dff95bb57d57d37b2aa5b2419aadc6a4f8e98ed6d9ca45bf6a1be1c2aa411b8196e7b764fd2f572bd086021720573939c7ce20d1d70903c3b025c039681cc4
   languageName: node
   linkType: hard
 
