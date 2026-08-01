@@ -511,15 +511,35 @@ class PrismaListAdapter extends BaseListAdapter {
     const wheres = Object.entries(where)
       .map(([condition, value]) => {
         if (condition === 'AND' || condition === 'OR') {
-          const processed = value.map(w => this.processWheres(w)).filter(w => w !== undefined);
-          return processed.length > 0 ? { [condition]: processed } : undefined;
+          const processed = value.map(w => this.processWheres(w));
+          if (condition === 'OR') {
+            if (processed.length === 0) {
+              const idField = this.fieldAdapters.find(a => a.field.isPrimaryKey);
+              return { [idField ? idField.path : 'id']: { in: [] } };
+            }
+            if (processed.some(w => w === undefined)) {
+              return undefined;
+            }
+            return { OR: processed };
+          } else {
+            const filtered = processed.filter(w => w !== undefined);
+            if (filtered.length === 0) {
+              return undefined;
+            }
+            return filtered.length === 1 ? filtered[0] : { AND: filtered };
+          }
         } else if (
           this.fieldAdaptersByPath[condition] &&
           this.fieldAdaptersByPath[condition].isRelationship
         ) {
           // Non-many relationship. Traverse the sub-query, using the referenced list as a root.
           const processed = processRelClause(condition, value);
-          return processed !== undefined ? { [condition]: processed } : undefined;
+          if (processed !== undefined) {
+            return { [condition]: processed };
+          }
+          // If we have an empty filter on a to-one relationship, we still want to
+          // enforce that the relationship exists (is not null).
+          return { [condition]: { isNot: null } };
         } else {
           // See if any of our fields know what to do with this condition
           let dbPath = condition;
@@ -538,9 +558,13 @@ class PrismaListAdapter extends BaseListAdapter {
             // Many relationship
             const [fieldPath, constraintType] = condition.split('_');
             const processed = processRelClause(fieldPath, value);
-            return processed !== undefined
-              ? { [fieldPath]: { [constraintType]: processed } }
-              : undefined;
+            if (processed !== undefined) {
+              return { [fieldPath]: { [constraintType]: processed } };
+            }
+            if (constraintType === 'some' || constraintType === 'none') {
+              return { [fieldPath]: { [constraintType]: {} } };
+            }
+            return undefined;
           }
         }
       })

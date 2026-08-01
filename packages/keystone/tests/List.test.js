@@ -490,8 +490,8 @@ describe(`getGqlTypes()`, () => {
         writeOnce: String
       }`;
   const whereInput = `input TestWhereInput {
-        AND: [TestWhereInput]
-        OR: [TestWhereInput]
+        AND: [TestWhereInput!]
+        OR: [TestWhereInput!]
         id: ID
         name: String
         name_not: String

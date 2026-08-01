@@ -428,3 +428,399 @@ keystone.extendGraphQLSchema({
   ],
 });
 ```
+
+## Filter semantics
+
+This section defines the expected semantics of generated `where` filters.
+
+### Boolean composition
+
+A `where` object is evaluated as an implicit `AND` of all fields inside that object.
+
+Example:
+
+```json
+{
+  "name": "Alice",
+  "age": 20
+}
+```
+
+means: `name = Alice AND age = 20`
+
+Logical operators are also combined with sibling fields using implicit `AND`.
+
+Example:
+
+```js
+{
+  name_contains: 'i',
+  AND: [{ age_gt: 25 }],
+  OR: [{ company_is_null: true }],
+}
+```
+
+means:
+
+```txt
+name contains "i"
+AND age > 25
+AND company is null
+```
+
+### `AND` semantics
+
+`AND` accepts a list of `where` objects.
+
+```text
+{ AND: [A, B, C] }
+```
+
+means:
+
+```txt
+A AND B AND C AND true
+```
+
+An empty `AND` is always true:
+
+```text
+{ AND: [] }
+```
+
+matches every item.
+
+This is the identity element of conjunction.
+
+### `OR` semantics
+
+`OR` accepts a list of `where` objects.
+
+```text
+{ OR: [A, B, C] }
+```
+
+means:
+
+```txt
+A OR B OR C OR false
+```
+
+An empty `OR` is always false:
+
+```text
+{ OR: [] }
+```
+
+matches no items.
+
+This is the identity element of disjunction over an empty list.
+
+### Empty `where` object
+
+An empty `where` object is always true:
+
+```text
+{}
+```
+
+matches every item.
+
+Therefore:
+
+```text
+{ AND: [{}] }
+```
+
+matches every item.
+
+And:
+
+```text
+{ OR: [{}] }
+```
+
+also matches every item.
+
+### To-one relationship filters
+
+For a to-one relationship, a nested relationship filter matches only if the related item exists and satisfies the nested predicate.
+
+Example:
+
+```text
+{
+  company: { name: 'Thinkmill' }
+}
+```
+
+means:
+
+```txt
+user.company exists
+AND user.company.name = Thinkmill
+```
+
+An empty nested predicate on a to-one relationship means “relationship exists”:
+
+```text
+{
+  company: {}
+}
+```
+
+matches users with a non-null `company`.
+
+The same applies to:
+
+```text
+{
+  company: { AND: [] }
+}
+```
+
+because `AND: []` is true, but the related item must still exist.
+
+This does not match users where `company` is null.
+
+A nested empty `OR` is false:
+
+```text
+{
+  company: { OR: [] }
+}
+```
+
+matches no users.
+
+To check nullability explicitly, use:
+
+```text
+{ company_is_null: true }
+{ company_is_null: false }
+```
+
+### To-many relationship filters
+
+For a to-many relationship, the generated filters are interpreted as quantifiers over related items.
+
+Given:
+
+```text
+posts_some: P
+posts_none: P
+posts_every: P
+```
+
+where `P` is a nested `where` predicate over `Post`.
+
+#### `some`
+
+```text
+{
+  posts_some: P
+}
+```
+
+means:
+
+```txt
+there exists at least one related post that satisfies P
+```
+
+Equivalent logical form:
+
+```txt
+EXISTS post WHERE P(post)
+```
+
+Therefore:
+
+```text
+{
+  posts_some: {}
+}
+```
+
+means “has at least one related post”.
+
+#### `none`
+
+```text
+{
+  posts_none: P
+}
+```
+
+means:
+
+```txt
+there is no related post that satisfies P
+```
+
+Equivalent logical form:
+
+```txt
+NOT EXISTS post WHERE P(post)
+```
+
+Therefore:
+
+```text
+{
+  posts_none: {}
+}
+```
+
+means “has no related posts”.
+
+#### `every`
+
+```text
+{
+  posts_every: P
+}
+```
+
+means:
+
+```txt
+every related post satisfies P
+```
+
+Equivalent logical form:
+
+```txt
+NOT EXISTS post WHERE NOT P(post)
+```
+
+`every` is true for an empty relationship.
+
+This is intentional: if there are no related posts, there is no related post that violates the predicate.
+
+Therefore:
+
+```text
+{
+  posts_every: { content: 'Hello' }
+}
+```
+
+matches users where either:
+
+```txt
+all related posts have content = Hello
+OR the user has no related posts
+```
+
+To require at least one related item, combine `every` with `some: {}`:
+
+```js
+{
+  AND: [
+    { posts_every: { content: 'Hello' } },
+    { posts_some: {} },
+  ],
+}
+```
+
+This means:
+
+```txt
+user has at least one post
+AND every post has content = Hello
+```
+
+### Scope of nested predicates inside relationship filters
+
+Inside a single relationship quantifier, all nested conditions apply to the same related item for `some`, and to each individual related item for `every` / `none`.
+
+Example:
+
+```js
+{
+  posts_some: {
+    AND: [
+      { content: 'Hello' },
+      { content: 'World' },
+    ],
+  },
+}
+```
+
+means:
+
+```txt
+there exists one same post where content = Hello AND content = World
+```
+
+This must not be interpreted as:
+
+```txt
+there exists one post with content = Hello
+AND there exists another post with content = World
+```
+
+To express conditions that may match different related items, use multiple relationship filters at the parent level:
+
+```js
+{
+  AND: [
+    { posts_some: { content: 'Hello' } },
+    { posts_some: { content: 'World' } },
+  ],
+}
+```
+
+This means:
+
+```txt
+there exists a related post with content = Hello
+AND there exists a related post with content = World
+```
+
+The two `posts_some` filters may match different related posts.
+
+### Multiple quantifiers on the same relationship
+
+Multiple filters on the same relationship MUST be evaluated as independent quantifiers over the same relationship.
+
+Example:
+
+```js
+{
+  AND: [
+    { posts_every: { content: 'Hello' } },
+    { posts_none: { content: 'Hello' } },
+  ],
+}
+```
+
+means:
+
+```txt
+every related post has content = Hello
+AND no related post has content = Hello
+```
+
+This matches only items with no related posts.
+
+Example:
+
+```js
+{
+  OR: [
+    { posts_every: { content: 'Hello' } },
+    { posts_none: { content: 'Hello' } },
+  ],
+}
+```
+
+means:
+
+```txt
+all related posts are Hello
+OR no related posts are Hello
+```
+
+This must preserve both branches independently. Conditions from one branch MUST NOT leak into another branch.
