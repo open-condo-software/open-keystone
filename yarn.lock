@@ -7515,7 +7515,7 @@ __metadata:
     express: ^4.17.1
     prop-types: ^15.7.2
     react: ^18.3.1
-    tinymce: ^5.8.1
+    tinymce: ^7.9.3
   peerDependencies:
     express: ^4.17.1
   languageName: unknown
@@ -7724,7 +7724,7 @@ __metadata:
     terminal-link: ^2.1.1
     terminal-link-cli: ^2.0.0
     testcheck: ^1.0.0-rc.2
-    tinymce: ^5.8.1
+    tinymce: ^7.9.3
     to-pascal-case: ^1.0.0
     typescript: ^4.1.5
     unist-util-visit: ^2.0.3
@@ -35021,10 +35021,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tinymce@npm:^5.5.1, tinymce@npm:^5.8.1":
+"tinymce@npm:^5.5.1":
   version: 5.10.9
   resolution: "tinymce@npm:5.10.9"
   checksum: 9927f3132820c183ca1a3ed19b4e650b16276385b4c253e51cf2a399a5981522d4197901b7abd8a7bf7000d783880eda9727b5eee9381b5c4c42c48c48a1d6f5
+  languageName: node
+  linkType: hard
+
+"tinymce@npm:^7.9.3":
+  version: 7.9.3
+  resolution: "tinymce@npm:7.9.3"
+  checksum: bf09cb4bfd4eae5588db39d976c81b735800bd04dd855f8e8bb6ecfa023f82fe08c0ba38a7727dce7588a9c4c24dfbf520f29d651bee041e75751c74db0a53e6
   languageName: node
   linkType: hard
 
