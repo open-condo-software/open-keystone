@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "nuxt": "^2.15.7"
+    "nuxt": "^3.21.7"
   },
   "repository": "https://github.com/open-condo-software/open-keystone/tree/main/packages/app-nuxt",
   "publishConfig": {
