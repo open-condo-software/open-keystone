@@ -24,7 +24,7 @@
     "apply-ref": "^1.0.0",
     "get-selection-range": "^0.1.0",
     "image-extensions": "^1.1.0",
-    "immutable": "^4.0.0-rc.12",
+    "immutable": "^4.3.9",
     "is-hotkey": "^0.2.0",
     "lodash.get": "^4.4.2",
     "memoize-one": "^5.2.1",
